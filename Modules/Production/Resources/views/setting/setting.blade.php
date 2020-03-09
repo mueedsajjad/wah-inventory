@@ -41,7 +41,9 @@
                                         <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Categories</a>
                                         <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Operations</a>
                                         <a class="nav-link " id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="true">Stores</a>
+                                        <a class="nav-link " id="vert-tabs-departments-tab" data-toggle="pill" href="#vert-tabs-departments" role="tab" aria-controls="vert-tabs-settings" aria-selected="true">Departments</a>
                                     </div>
+
                                 </div>
                                 <div class="col-7 col-sm-9">
                                     <div class="tab-content" id="vert-tabs-tabContent">
@@ -111,6 +113,23 @@
                                             <a href="#" data-toggle="modal" data-target="#modal-store" ><i class="fa fa-plus fa-1x mr-1"></i> Add new Store</a>
 
                                         </div>
+                                        <div class="tab-pane fade" id="vert-tabs-departments" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
+                                            <h4>Departments</h4>
+                                            <table class="table table-bordered col-md-3">
+                                                <tbody>
+                                                @foreach($departments as $department)
+                                                    <tr>
+                                                        <td>{{$department->name}}</td>
+                                                        <td><a class="text-danger" href="{{url('production/departmentDelete/'.$department->id)}}"><i class="fa fa-trash"></i></a></td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+
+                                            <a href="#" data-toggle="modal" data-target="#modal-departments" ><i class="fa fa-plus fa-1x mr-1"></i> Add new Department</a>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -236,6 +255,38 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    {{--  Department modal --}}
+    <div class="modal fade" id="modal-departments">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Store</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{{url('production/departmentStore')}}">
+                    @csrf
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Department Name</label>
+                            <input type="text" name="name" class="form-control" id="exampleInputPassword1" placeholder="Enter ..." required>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+
                 </form>
             </div>
             <!-- /.modal-content -->

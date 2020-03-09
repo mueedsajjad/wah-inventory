@@ -15,8 +15,9 @@ class SettingController extends Controller
         $categories=DB::table('category')->get();
         $stores=DB::table('store')->get();
         $operations=DB::table('operation')->get();
+        $departments=DB::table('departments')->get();
 
-        return view('production::setting/setting',compact('units','categories','stores','operations'));
+        return view('production::setting/setting',compact('units','categories','stores','operations','departments'));
     }
 
 //   ----------------------- Unit  ---------------------------------- //
@@ -124,6 +125,31 @@ class SettingController extends Controller
         }
     }
 
+    // -------------------------  Department ---------------------------------- //
+    public function departmentStore(Request $request)
+    {
+        $data= $request->validate(['name' => 'required|string']);
+        $count=DB::table('departments')->where('name',$data['name'])->count();
+
+        if($count>0)
+        {
+            return redirect()->back()->with('exists','this record exist already');
+        }
+        else
+        {
+            DB::table('departments')->insert(['name'=> $data['name'] ]);
+            return redirect()->back()->with('save','Saved Successfully');
+        }
+    }
+
+    public function departmentDelete($id)
+    {
+        if($id)
+        {
+            DB::table('departments')->where('id', $id)->delete();
+            return redirect()->back()->with('delete','Deleted SuccessFully');
+        }
+    }
 
     /**
      * Display a listing of the resource.

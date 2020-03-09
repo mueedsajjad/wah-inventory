@@ -15,6 +15,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/', 'AdminController@index');
 
     Route::get('employee', 'AdminController@employee');
+    Route::post('employeeStore', 'AdminController@employeeStore');
 
     Route::get('leave', 'AdminController@leave');
 

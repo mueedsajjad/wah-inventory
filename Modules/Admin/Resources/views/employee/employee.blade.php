@@ -4,8 +4,20 @@
 
     <section class="content pt-3">
         <div class="container-fluid">
-            <div class="row">
 
+            @if(session()->has('save'))
+                <div class="alert alert-success" role="alert">
+                    <strong>Success</strong>{{session()->get('save')}}
+                </div>
+            @endif
+
+                @if(session()->has('exists'))
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Fail</strong> {{session()->get('exists')}}
+                    </div>
+                @endif
+
+            <div class="row">
 
                 <div class="col-md-12">
                     <div class="card">
@@ -17,44 +29,40 @@
                             <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#modal-lg2">
                                 Add Departments
                             </button>
-                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg">
+                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-employee">
                                 Add Employee
                             </button>
                         </div>
 
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered table-striped" id="pageTable">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Image</th>
+                                    <th>#No</th>
                                     <th>Name</th>
-                                    <th>Date</th>
                                     <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                @php $n=0; @endphp
+                           @foreach($alluser as $user)
+                              @php $n++; @endphp
                                 <tr>
-                                    <td>0001</td>
-                                    <td><img src="dist/img/user1-128x128.jpg" class="w-25" alt=""></td>
-                                    <td>Mohib</td>
-                                    <td>21-Feb-2019</td>
-                                    <td>Store</td>
-                                    <td>Manager</td>
+                                    <td>{{$n}}</td>
+                                    <td>{{$user->username}}</td>
+                                    <td>{{$user->department_name}}</td>
+{{--                                    <td></td>--}}
+{{--                                    <td>--}}
+{{--                                        <a href="#" class="btn btn-success ml-3">Active</a>--}}
+{{--                                    </td>--}}
                                     <td>
-                                        <a href="#" class="btn btn-success ml-3">Active</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-primary ml-1">Edit</a>
-                                        <a href="#" class="btn btn-danger ml-1">Delete</a>
+                                        <a href="{{url('admin/employeeDetail/'.$user->id)}}" class="btn btn-primary ml-1">Detail</a>
+{{--                                    <a href="#" class="btn btn-danger ml-1">Delete</a>--}}
                                     </td>
                                 </tr>
-
+                         @endforeach
                                 </tbody>
                                 <!-- <tfoot>
                                  <tr>
@@ -72,7 +80,7 @@
                 </div>
 
             </div>
-            <div class="modal fade" id="modal-lg">
+            <div class="modal fade" id="modal-employee">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -81,77 +89,131 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card-body">
-                                        <form action="#">
-
-
+                                        <form action="{{url('admin/employeeStore')}}" method="post" enctype="multipart/form-data">
+                                        @csrf
                                             <div class="row justify-content-around">
 
                                                 <div class="col-md-12">
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Employee Name</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control select2">
-                                                                <option selected="selected">Nabeel Rana</option>
-                                                                <option>Mohib Yaseen</option>
-                                                                <option>Taha Zafar</option>
-                                                                <option>Mehdi Rizvi</option>
-                                                                <option>Sajid Niazi</option>
-                                                            </select>
+                                                            <input type="text" name="name" class="form-control"  placeholder="Employee Name">
                                                         </div>
                                                     </div>
+
+
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Department</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control select2">
-                                                                <option selected="selected">Store</option>
-                                                                <option>Production</option>
-                                                                <option>Officer</option>
+                                                            <select class="form-control " name="department_id">
+                                                                <option selected="selected" disabled>Select Department</option>
+                                                                @foreach($department as $departments)
+                                                                   <option value="{{$departments->id}}">{{$departments->name}} </option>
+                                                                @endforeach
+{{--                                                                <option>Production</option>--}}
+{{--                                                                <option>Officer</option>--}}
                                                             </select>
                                                         </div>
                                                     </div>
+
+
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Designation</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control select2">
-                                                                <option selected="selected">Worker</option>
-                                                                <option>Incharge</option>
-                                                                <option>Manager</option>
+                                                            <select class="form-control " name="designation_id">
+                                                                <option selected="selected" disabled >Select Designation</option>
+                                                                @foreach($role as $roles)
+                                                                <option value="{{$roles->id}}">{{$roles->name}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Gender</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control select2">
-                                                                <option selected="selected">Male</option>
-                                                                <option>Female</option>
+                                                            <select class="form-control " name="gender_id">
+                                                                <option selected="selected" disabled >Select Gender</option>
+                                                                <option value="1">Male</option>
+                                                                <option value="2">Female</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Mobile</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control"  placeholder="0333 1234567">
+                                                            <input type="text" name="mobile" class="form-control"  placeholder="0333 1234567">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Email</label>
                                                         <div class="col-sm-8">
-                                                            <input type="email" class="form-control" placeholder="info@mmlogix.com">
+                                                            <input type="email" name="email" class="form-control" placeholder="info@mmlogix.com">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-4 col-form-label">Address</label>
+                                                        <label class="col-sm-4 col-form-label">Password</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="password" name="password" class="form-control" >
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">State</label>
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
-                                                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                                            </div>                              </div>
+
+                                                                <select class="form-control " name="state_id">
+                                                                    <option selected="selected" disabled>Select State</option>
+                                                                    @foreach($state as $states)
+                                                                    <option value="{{$states->id}}">{{$states->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+
+{{--                                                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>--}}
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">City</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                <select class="form-control " name="city_id">
+                                                                    <option selected="selected" disabled>Select City</option>
+                                                                    @foreach($city as $cities)
+                                                                    <option value="{{$cities->id}}">{{$cities->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Address line</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                <input type="text" name="address" class="form-control" placeholder="Enter ...">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Image</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                <input type="file" name="upload" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label"></label>
 

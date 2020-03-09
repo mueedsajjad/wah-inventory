@@ -131,7 +131,7 @@
                     </ul>
                 </li>
                 @endif
-                @if(auth()->user()->can(' Quality'))
+                @if(auth()->user()->can('Store'))
                 <li class="nav-item dropdown">
                     <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                         Store
@@ -150,7 +150,7 @@
                 </li>
                 @endif
 
-                @if(auth()->user()->can(' Quality'))
+                @if(auth()->user()->can('Quality'))
                 <li class="nav-item dropdown">
                     <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                         Quality
@@ -181,7 +181,6 @@
                         <a class="dropdown-item" href="{{url('admin/report')}}"> Reports </a>
                     </div>
                 </li>
-
                 @endif
 
 

@@ -44,7 +44,7 @@ class PurchaseController extends Controller
         DB::table('purchase_order')->insert(['po_number'=>$data['po_number'],'po_date'=>$data['date'],'credit_term'=>$data['credit_term'],'upload'=> $name,'user_id'=>$user_id,'status'=>0]);
 
         $last_id= DB::table('purchase_order')->orderBy('id', 'desc')->first();
-//        $last_id=DB::table('purchase_order')->latest('id');
+
 
         $purchase_id=$last_id->id;
 

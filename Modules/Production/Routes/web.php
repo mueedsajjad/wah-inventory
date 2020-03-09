@@ -36,6 +36,9 @@ Route::prefix('production')->group(function() {
     Route::post('operationStore','SettingController@operationStore');
     Route::get('operationDelete/{id}','SettingController@operationDelete');
 
+    Route::post('departmentStore','SettingController@departmentStore');
+    Route::get('departmentDelete/{id}','SettingController@departmentDelete');
+
 
 });
 
