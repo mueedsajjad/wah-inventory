@@ -1,0 +1,13 @@
+{
+    "name": "QA",
+    "alias": "qa",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\QA\\Providers\\QAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

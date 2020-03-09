@@ -1,0 +1,16 @@
+{
+    "Production": true,
+    "Purchase": true,
+    "Store": true,
+    "Gate": true,
+    "QA": true,
+    "QC": true,
+    "GMSGA": true,
+    "Manager": true,
+    "Assitan": true,
+    "Admin": true,
+    "AssistantManager": true,
+    "Sale": true,
+    "Supplier": true,
+    "RoleManagement": true
+}

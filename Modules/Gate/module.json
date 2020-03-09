@@ -1,0 +1,13 @@
+{
+    "name": "Gate",
+    "alias": "gate",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Gate\\Providers\\GateServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

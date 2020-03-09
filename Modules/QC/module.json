@@ -1,0 +1,13 @@
+{
+    "name": "QC",
+    "alias": "qc",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\QC\\Providers\\QCServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,13 @@
+{
+    "name": "GMSGA",
+    "alias": "gmsga",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\GMSGA\\Providers\\GMSGAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

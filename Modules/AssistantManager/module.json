@@ -1,0 +1,13 @@
+{
+    "name": "AssistantManager",
+    "alias": "assistantmanager",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\AssistantManager\\Providers\\AssistantManagerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

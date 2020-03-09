@@ -1,0 +1,228 @@
+li a.btn-app{
+  height: 80px;
+  /*min-width: 140px;*/
+  background-color: transparent;
+  color: #FFFFFF;
+  /*color: rgba(255, 255, 255, 0.89);*/
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+
+  line-height: 2.5;
+  border-radius: 0;
+  border: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  /*border-left: #77737b 1px solid;*/
+}
+li a.btn-app:hover {
+  background: #29166F;
+  border-color: #aaa;
+  color: #FFF;
+}
+.btn-danger {
+  color:
+          #ffffff;
+  background-color:
+          #DA231A;
+  border-color:
+          #DA231A;
+  box-shadow: none;
+}
+.btn-danger:hover {
+  color:
+          #ffffff;
+  background-color:
+          #1C0866;
+  border-color:
+          #1C0866;
+  box-shadow: none;
+}
+a:not([href]):not([tabindex]) {
+  color: #FFFFFF;
+  /*color: rgba(255, 255, 255, 0.89);*/
+}
+a:not([href]):not([tabindex]):hover {
+  color: #FFF;
+}
+label:not(.form-check-label):not(.custom-file-label) {
+
+  font-weight: 400;
+
+}
+.table th, .table td {
+  vertical-align: middle;
+}
+.linedUp > li{
+  display: inline;
+  float: left;
+}
+.navbar-dark {
+
+  background: #DA231A;
+  /*background: linear-gradient(154deg,#9a1c1f 0,#BE1D23 100%);*/
+
+}
+.dropdown-menu {
+
+  /*position: absolute;*/
+  top: 98%;
+  left: 0;
+  z-index: 1000;
+  /*display: none;*/
+  /*float: left;*/
+  min-width: 10rem;
+  padding: 0;
+  margin: .125rem 0 0;
+  font-size: 1rem;
+  color:    #212529;
+  text-align: left;
+  list-style: none;
+  background-color:    #fff;
+  background-clip: padding-box;
+  /*border: 1px solid rgba(0,0,0,.15);*/
+  border-radius: 0;
+  /*box-shadow: 0 .5rem 1rem rgba(0,0,0,.175);*/
+
+}
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 1rem 1rem;
+  clear: both;
+  font-weight: 400;
+  color:
+          #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color:
+          transparent;
+  border: 0;
+}
+.dropdown-item:hover {
+  color:
+          #FFFFFF;
+  text-decoration: none;
+  background-color:
+          #DA231A;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: .255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid
+  transparent;
+  border-bottom: 0;
+  border-left: .3em solid
+  transparent;
+  display: none;
+}
+.card-header{
+  border-radius: 0;
+  padding: .55rem 1.25rem;
+  letter-spacing: 0.075rem;
+}
+.card-header a {
+  border-radius: 0;
+}
+.dash-menu .btn-app {
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  height: auto;
+  margin: 0 0 10px 10px;
+  min-width: 250px;
+  padding: 0;
+  position: relative;
+  text-align: left;
+  padding-right: 1rem;
+  line-height: 3;
+  letter-spacing: .05rem;
+}
+.dash-menu .btn-app > .fas {
+
+  display: inline-block;
+  font-size: 24px;
+  padding: 1rem;
+
+}
+.custom-file-label, .form-control, .select2-container--default .select2-selection--single {
+  border-radius: 0;
+}
+
+.login-page{
+  background-image: url("../../img/login-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.water-mark{
+  background-image: url("../../img/body-mark.png");
+  background-position: right bottom;
+  background-repeat: no-repeat;
+}
+.my-login-bg{
+  background-color: transparent;
+}
+.login-card-body{
+  background-color: rgba(0,0,0,.5);
+  color: #ffffff;
+}
+
+.login-box-msg{
+  letter-spacing: 0.1rem;
+}
+.dashboard-big-btn .btn-app {
+  background: #bf2119;
+  border-radius: 3px;
+  border: 1px solid  #ddd;
+  color: #6c757d;
+  font-size: 22px;
+  height: 130px;
+  margin: 0 0 10px 10px;
+  min-width: 245px;
+  padding: 35px 5px;
+  position: relative;
+  text-align: center;
+}
+.dashboard-big-btn .btn-app i{
+
+  font-size: 22px;
+  margin: 0 0 10px 10px;
+  position: relative;
+  text-align: center;
+}
+.card-no-border .card{
+  border-radius: 0;
+  box-shadow: none;
+}
+.card-no-border .nav-tabs .nav-item {
+  margin-bottom: 0;
+}
+.card.card-outline-tabs .card-header a:hover {
+  border-top: 3px solid
+  #dc3545;
+}
+.production1 .nav-tabs{
+  border-bottom: #dc3545 4px solid;
+}
+
+
+.production1 a .nav-tabs .nav-link:active{
+  border: 0;
+}
+
+.production1 .nav-link.active{
+  background-color: #dc3545;
+  color: #FFF;
+}
+.production1 .nav-link{
+  border: #dc3545;
+}
+
+
+.table td {
+  padding: .25rem 0.4rem;
+
+}

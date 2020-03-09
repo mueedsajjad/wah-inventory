@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/gmsga",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\GMSGA\\Providers\\GMSGAServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\GMSGA\\": ""
+        }
+    }
+}
