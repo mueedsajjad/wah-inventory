@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aecce051-be26-43a6-ac09-59e51d5a83ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/employee/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/employee/employee.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Http/Controllers/SettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Production/Http/Controllers/SettingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Resources/views/setting/setting.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Production/Resources/views/setting/setting.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Production/Routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Purchase/Database/Migrations/2020_03_02_133552_create_department_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Purchase/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Purchase/Http/Controllers/PurchaseController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +146,9 @@
       <workItem from="1583469187540" duration="27636000" />
       <workItem from="1583727548609" duration="9865000" />
       <workItem from="1583747670481" duration="15127000" />
-      <workItem from="1583762914193" duration="350000" />
+      <workItem from="1583762914193" duration="953000" />
+      <workItem from="1583814235074" duration="17717000" />
+      <workItem from="1583836916191" duration="12354000" />
     </task>
     <servers />
   </component>
@@ -164,18 +160,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="717" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1583061776511" />
-    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1583756626200">
+    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1583848031325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583756626200" />
+    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583848031325" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1583062148113">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583062148113" />
-    <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1583762918443">
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1583836927019">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583762918443" />
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583836927019" />
     <state x="532" y="237" key="run.anything.popup" timestamp="1583497756346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -11,74 +11,79 @@
                 </div>
             @endif
 
-                @if(session()->has('exists'))
+            @if(session()->has('exists'))
+                <div class="alert alert-danger" role="alert">
+                    <strong>Fail</strong> {{session()->get('exists')}}
+                </div>
+            @endif
+
+                @if(session()->has('delete'))
                     <div class="alert alert-danger" role="alert">
-                        <strong>Fail</strong> {{session()->get('exists')}}
+                        <strong>Fail</strong> {{session()->get('delete')}}
                     </div>
                 @endif
 
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Employees</h3>
-                            <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#modal-lg3">
-                                Add Leave types
-                            </button>
-                            <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#modal-lg2">
-                                Add Departments
-                            </button>
-                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-employee">
-                                Add Employee
-                            </button>
+                <div class="container-fluid">
+                    <div class="row mt-5">
+                        <div class="col-12 text-right">
+                            <a class="btn btn-primary btn-md" href="{{url('admin/employee')}}">
+                                Back
+                            </a>
                         </div>
-
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped" id="pageTable">
-                                <thead>
-                                <tr>
-                                    <th>#No</th>
-                                    <th>Name</th>
-                                    <th>Department</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                @php $n=0; @endphp
-                           @foreach($alluser as $user)
-                              @php $n++; @endphp
-                                <tr>
-                                    <td>{{$n}}</td>
-                                    <td>{{$user->username}}</td>
-                                    <td>{{$user->department_name}}</td>
-{{--                                    <td> </td>--}}
-{{--                                    <td>--}}
-{{--                                        <a href="#" class="btn btn-success ml-3">Active</a>--}}
-{{--                                    </td>--}}
-                                    <td>
-                                        <a href="{{url('admin/employeeDetail/'.$user->user_id)}}" class="btn btn-primary ml-1">Detail</a>
-{{--                                    <a href="#" class="btn btn-danger ml-1">Delete</a>--}}
-                                    </td>
-                                </tr>
-                         @endforeach
-                                </tbody>
-
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                        @foreach($user as $users)
+                            <!-- Profile Image -->
+                            <div class="card card-primary card-outline">
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        <img class="profile-user-img img-fluid img-circle"
+                                             src="{{asset('public/upload/'.$users->upload)}}"
+                                             alt="User profile picture">
+                                    </div>
+
+                                    <h3 class="profile-username text-center">{{$users->username}}</h3>
+
+                                    <p class="text-muted text-center">{{$users->role}}</p>
+
+                                    <ul class="list-group list-group-unbordered mb-3">
+                                        <li class="list-group-item">
+                                            <b>Department</b> <a href="#" class="float-right">{{$users->department_name}}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Mobile</b> <a href="#" class="float-right">{{$users->mobile}}</a>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <b>Address</b> <a href="#" class="float-right">{{$users->address}},{{$users->city}},{{$users->state}}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Operations</b>
+
+                                            <a class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#modal-employee" href="#">Edit</a>
+                                            <a class="btn btn-danger btn-sm float-right mr-1" href="{{url('admin/employeeDelete/'.$users->id)}}">Delete</a>
+                                        </li>
+
+                                    </ul>
+
+
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            @endforeach
+                            </div>
+
+                            </div>
                 </div>
 
-            </div>
 
             <div class="modal fade" id="modal-employee">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Add Employee</h4>
+                            <h4 class="modal-title">Edit Employee</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -88,15 +93,19 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card-body">
-                                        <form action="{{url('admin/employeeStore')}}" method="post" enctype="multipart/form-data">
-                                        @csrf
+                                        <form action="{{url('admin/employeeEdit')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="id" class="form-control" value="{{$users->id}}">
+                                            <input type="hidden" name="user_id" class="form-control" value="{{$users->user_id}}">
                                             <div class="row justify-content-around">
 
                                                 <div class="col-md-12">
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Employee Name</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" name="name" class="form-control"  placeholder="Employee Name">
+                                                            @foreach($user as $users)
+                                                            <input type="text" name="name" class="form-control" value="{{$users->username}}"  >
+                                                            @endforeach
                                                         </div>
                                                     </div>
 
@@ -105,12 +114,16 @@
                                                         <label class="col-sm-4 col-form-label">Department</label>
                                                         <div class="col-sm-8">
                                                             <select class="form-control " name="department_id">
-                                                                <option selected="selected" disabled>Select Department</option>
-                                                                @foreach($department as $departments)
-                                                                   <option value="{{$departments->id}}">{{$departments->name}} </option>
+
+                                                                @foreach($user as $users)
+                                                                    <option value="{{$users->department_id}}">{{$users->department_name}}</option>
                                                                 @endforeach
-{{--                                                                <option>Production</option>--}}
-{{--                                                                <option>Officer</option>--}}
+
+                                                                @foreach($department as $departments)
+                                                                    <option value="{{$departments->id}}">{{$departments->name}} </option>
+                                                                @endforeach
+                                                                {{--                                                                <option>Production</option>--}}
+                                                                {{--                                                                <option>Officer</option>--}}
                                                             </select>
                                                         </div>
                                                     </div>
@@ -120,9 +133,12 @@
                                                         <label class="col-sm-4 col-form-label">Designation</label>
                                                         <div class="col-sm-8">
                                                             <select class="form-control " name="designation_id">
-                                                                <option selected="selected" disabled >Select Designation</option>
+                                                                @foreach($user as $users)
+                                                                    <option value="{{$users->role_id}}">{{$users->role}}</option>
+                                                                @endforeach
+
                                                                 @foreach($role as $roles)
-                                                                <option value="{{$roles->id}}">{{$roles->name}}</option>
+                                                                    <option value="{{$roles->id}}">{{$roles->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -131,7 +147,14 @@
                                                         <label class="col-sm-4 col-form-label">Gender</label>
                                                         <div class="col-sm-8">
                                                             <select class="form-control " name="gender_id">
-                                                                <option selected="selected" disabled >Select Gender</option>
+                                                                @foreach($user as $users)
+                                                                    @if($users->gender_id==1)
+                                                                    <option value="{{$users->gender_id}}">Male</option>
+                                                                        @else
+                                                                        <option value="{{$users->gender_id}}">Female</option>
+                                                                       @endif
+                                                                @endforeach
+
                                                                 <option value="1">Male</option>
                                                                 <option value="2">Female</option>
                                                             </select>
@@ -140,16 +163,21 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Mobile</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" name="mobile" class="form-control"  placeholder="0333 1234567">
+                                                            @foreach($user as $users)
+                                                            <input type="text" name="mobile" class="form-control"  value="{{$users->mobile}}">
+                                                                @endforeach
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Email</label>
                                                         <div class="col-sm-8">
-                                                            <input type="email" name="email" class="form-control" placeholder="info@mmlogix.com">
+                                                            @foreach($user as $users)
+                                                            <input type="email" name="email" class="form-control"  value="{{$users->email}}">
+                                                            @endforeach
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Password</label>
                                                         <div class="col-sm-8">
@@ -163,13 +191,16 @@
                                                             <div class="form-group">
 
                                                                 <select class="form-control " name="state_id">
-                                                                    <option selected="selected" disabled>Select State</option>
+                                                                    @foreach($user as $users)
+                                                                        <option value="{{$users->state_id}}">{{$users->state}}</option>
+                                                                    @endforeach
+
                                                                     @foreach($state as $states)
-                                                                    <option value="{{$states->id}}">{{$states->name}}</option>
+                                                                        <option value="{{$states->id}}">{{$states->name}}</option>
                                                                     @endforeach
                                                                 </select>
 
-{{--                                                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>--}}
+                                                                {{--                                                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>--}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -179,9 +210,12 @@
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
                                                                 <select class="form-control " name="city_id">
-                                                                    <option selected="selected" disabled>Select City</option>
+                                                                    @foreach($user as $users)
+                                                                        <option value="{{$users->city_id}}">{{$users->city}}</option>
+                                                                    @endforeach
+
                                                                     @foreach($city as $cities)
-                                                                    <option value="{{$cities->id}}">{{$cities->name}}</option>
+                                                                        <option value="{{$cities->id}}">{{$cities->name}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -194,13 +228,15 @@
                                                         <label class="col-sm-4 col-form-label">Address line</label>
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
-                                                                <input type="text" name="address" class="form-control" placeholder="Enter ...">
+                                                                @foreach($user as $users)
+                                                                <input type="text" name="address" class="form-control" value="{{$users->address}}">
+                                                                @endforeach
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label class="col-sm-4 col-form-label">Image</label>
+                                                        <label class="col-sm-4 col-form-label">Update Image</label>
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
                                                                 <input type="file" name="upload" class="form-control">
@@ -246,7 +282,6 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-
             <div class="modal fade" id="modal-lg2">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -260,8 +295,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card-body">
-                                        <form action="{{url('admin/departmentStore')}}" method="post">
-                                            @csrf
+                                        <form action="#">
+
+
                                             <div class="row justify-content-around">
 
                                                 <div class="col-md-12">
@@ -269,7 +305,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Department Name</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" name="name" class="form-control"  placeholder="Store">
+                                                            <input type="text" class="form-control"  placeholder="Store">
                                                         </div>
                                                     </div>
 
@@ -277,7 +313,7 @@
                                                         <label class="col-sm-4 col-form-label"></label>
 
                                                         <div class="col-sm-8">
-                                                            <button type="submit" class="btn btn-dark">Save</button>
+                                                            <button type="submit" class="btn btn-dark">Submit</button>
                                                         </div>
 
                                                     </div>
@@ -311,6 +347,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+
             <div class="modal fade" id="modal-lg3">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -378,97 +415,5 @@
             </div>
         </div>
     </section>
-{{--   Nav for Roles   --}}
-{{--    <nav class="main-header navbar navbar-expand-md navbar-dark  py-0">--}}
-{{--        <div class="container-fluid">--}}
-{{--            <a href="dashboard.html" class="navbar-brand">--}}
-{{--                <!-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"--}}
-{{--                      style="opacity: .8">-->--}}
-{{--                <span class="brand-text font-weight-normal"><img class=" pr-3" src="./logo.png" alt="logo" > SGA - WAH Industries</span>--}}
-{{--            </a>--}}
 
-{{--            <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">--}}
-{{--                <span class="navbar-toggler-icon"></span>--}}
-{{--            </button>--}}
-
-{{--            <div class="collapse navbar-collapse order-3" id="navbarCollapse">--}}
-{{--                <!-- Left navbar links -->--}}
-{{--                <ul class="navbar-nav">--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="btn m-0 btn-app" href="dashboard.html">--}}
-{{--                            <i class="fas fa-chart-line"></i>Dashboard--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-
-
-{{--                    <li class="nav-item dropdown">--}}
-{{--                        <a id="dropdownSubMenu1" href="list-employees.html"  class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-edit"></i>--}}
-{{--                            Employees</a>--}}
-{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
-{{--                            <li><a href="#" class="dropdown-item">Some action </a></li>--}}
-{{--                            <li><a href="#" class="dropdown-item">Some other action</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="nav-item dropdown">--}}
-{{--                        <a id="dropdownSubMenu48" href="attendance.html"  class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-edit"></i>--}}
-{{--                            Attendance</a>--}}
-{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
-{{--                            <li><a href="#" class="dropdown-item">Some action </a></li>--}}
-{{--                            <li><a href="#" class="dropdown-item">Some other action</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="nav-item dropdown">--}}
-{{--                        <a id="dropdownSubMenu2" href="leaves.html"  class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-edit"></i>--}}
-{{--                            Leaves</a>--}}
-{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
-{{--                            <li><a href="#" class="dropdown-item">Some action </a></li>--}}
-{{--                            <li><a href="#" class="dropdown-item">Some other action</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="nav-item dropdown">--}}
-{{--                        <a id="dropdownSubMenu11" href="salaries.html" class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-edit"></i>--}}
-{{--                            Salaries</a>--}}
-{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
-{{--                            <li><a href="#" class="dropdown-item">Add New Product </a></li>--}}
-{{--                            <li><a href="#" class="dropdown-item">Product List</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="nav-item dropdown">--}}
-{{--                        <a id="dropdownSubMenu3" href="advance.html"  class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-edit"></i>--}}
-{{--                            Advance</a>--}}
-{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
-{{--                            <li><a href="#" class="dropdown-item">Some action </a></li>--}}
-{{--                            <li><a href="#" class="dropdown-item">Some other action</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="nav-item dropdown">--}}
-{{--                        <a id="dropdownSubMenu9" href="hr-reports.html" class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-edit"></i>--}}
-{{--                            Reports</a>--}}
-{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
-{{--                            <li><a href="#" class="dropdown-item">Add New Product </a></li>--}}
-{{--                            <li><a href="#" class="dropdown-item">Product List</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-
-
-{{--                    <li class="nav-item dropdown ml-auto text-right">--}}
-{{--                        <a id="dropdownSubMenu13" href="index.html" class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-sign-out-alt"></i>--}}
-{{--                            Logout</a>--}}
-{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
-{{--                            <li><a href="#" class="dropdown-item">Add New Product </a></li>--}}
-{{--                            <li><a href="#" class="dropdown-item">Product List</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-
-{{--            <!-- Right navbar links -->--}}
-{{--        </div>--}}
-{{--    </nav>--}}
 @endsection

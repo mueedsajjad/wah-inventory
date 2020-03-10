@@ -130,6 +130,7 @@
                         <li><a href="#" class="dropdown-item">Some other action</a></li>
                     </ul>
                 </li>
+
                 @endif
                 @if(auth()->user()->can('Store'))
                 <li class="nav-item dropdown">
@@ -174,7 +175,7 @@
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('qa/dashboard')}}">Dashboard</a>
                         <a class="dropdown-item" href="{{url('admin/employee')}}">Employees</a>
-                        <a class="dropdown-item" href="{{url('gate/attendance')}}"> Attendance</a>
+                        <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
                         <a class="dropdown-item" href="{{url('admin/leave')}}"> Leaves</a>
                         <a class="dropdown-item" href="{{url('admin/salary')}}">Salaries</a>
                         <a class="dropdown-item" href="{{url('admin/advance')}}"> Advance</a>

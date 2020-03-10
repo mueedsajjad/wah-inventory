@@ -16,6 +16,14 @@ Route::prefix('admin')->group(function() {
 
     Route::get('employee', 'AdminController@employee');
     Route::post('employeeStore', 'AdminController@employeeStore');
+    Route::get('employeeDetail/{id}', 'AdminController@employeeDetail');
+    Route::get('employeeDelete/{id}', 'AdminController@employeeDelete');
+    Route::post('employeeEdit', 'AdminController@employeeEdit');
+
+    Route::post('departmentStore', 'AdminController@departmentStore');
+
+
+
 
     Route::get('leave', 'AdminController@leave');
 
@@ -24,4 +32,12 @@ Route::prefix('admin')->group(function() {
     Route::get('advance', 'AdminController@advance');
 
     Route::get('report', 'AdminController@report');
+
+// ----------------------- Attendance Controller ----------------------- //
+    Route::get('attendance', 'AttendanceController@attendance');
+
+    Route::get('attendanceMark', 'AttendanceController@attendanceMark');
+    Route::post('checkInAttendanceStore', 'AttendanceController@checkInAttendanceStore');
+    Route::post('checkOutAttendanceStore', 'AttendanceController@checkOutAttendanceStore');
+
 });

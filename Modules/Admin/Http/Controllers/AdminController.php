@@ -24,7 +24,6 @@ class AdminController extends Controller
             ->join('city', 'city.id', '=', 'employees.city_id')
 
             ->select('employees.*', 'departments.name as department_name', 'users.name as username')
-
             ->get();
 
 
@@ -44,7 +43,7 @@ class AdminController extends Controller
     public function employeeStore(Request $request)
     {
 
-       //dd($request);
+
         $data= $request->validate([
             'name' => 'required|string',
             'department_id'=>'required|integer',
@@ -109,65 +108,133 @@ class AdminController extends Controller
 
             return redirect()->back()->with('save', 'Submit Successfully!');
 
-//             $data= $request->validate([
-//                 'po_number' => 'required|string',
-//                 'date'=>'required|date',
-//                 'credit_term' => 'required|integer',
-//             ]);
-
-
-//        if ($request->hasFile('upload'))
-//        {
-//            $image = $request->file('upload');
-//            $name = time() . '.' . $image->getClientOriginalName();
-//            $destinationPath = public_path('upload');
-//            // dd($name);
-//            $image->move($destinationPath, $name);
-//        }
-//        else
-//        {
-//            $name=null;
-//        }
-
-//        $user_id= Auth::id();
-//       // dd($user_id);
-//
-//        DB::table('purchase_order')->insert(['po_number'=>$data['po_number'],'po_date'=>$data['date'],
-//'credit_term'=>$data['credit_term'],'upload'=> $name,'user_id'=>$user_id,'status'=>0]);
-//
-//        $last_id= DB::table('purchase_order')->orderBy('id', 'desc')->first();
-////        $last_id=DB::table('purchase_order')->latest('id');
-//
-//        $purchase_id=$last_id->id;
-//
-//        //dd($purchase_id);
-//        //dd($request->p_name0);
-//        $count=$request->countConditions;
-//        //dd($request->p_number1);
-//
-//        for($i=0;$i<=$count;$i++)
-//        {
-//            $po_number="p_number".$i;
-//            $p_name="p_name".$i;
-//            $p_d="p_description".$i;
-//            $quantity="p_quantity".$i;
-//            $unit_price="p_price".$i;
-//            $total_price="p_total_price".$i;
-//
-//            $data=[
-//                'purchase_id'=>$purchase_id,
-//                'po_number'=>$request->$po_number,
-//                'p_name'=>$request->$p_name,
-//                'p_d'=>$request->$p_d,
-//                'unit_id'=>1,
-//                'quantity'=>$request->$quantity,
-//                'unit_price'=>$request->$unit_price,
-//                'total_price'=>$request->$total_price,
-//            ];
-//
-//            $insert=DB::table('purchase_order_item')->insert($data);
         }
     }
+
+    public function employeeDetail($id)
+    {
+        $user=User::all();
+        $role=Role::all();
+        $city=DB::table('city')->get();
+        $state=DB::table('state')->get();
+        $department=DB::table('departments')->get();
+
+        $user=DB::table('employees')
+            ->join('users', 'users.id', '=', 'employees.user_id')
+            ->join('departments', 'departments.id', '=', 'employees.department_id')
+            ->join('state', 'state.id', '=', 'employees.state_id')
+            ->join('city', 'city.id', '=', 'employees.city_id')
+            ->join('roles', 'roles.id','=','employees.designation_id')
+            ->where('users.id',$id)
+            ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
+            ->get();
+
+       //dd($user);
+        return view('admin::employee/employeeDetail',compact('user'
+        ,'role','city','state', 'department'));
+    }
+
+    public function employeeDelete($id)
+    {
+        $user=DB::table('employees')->where('id',$id)->first();
+        DB::table('employees')->where('id',$user->id)->delete();
+        DB::table('users')->where('id',$user->user_id)->delete();
+
+        return redirect()->back()->with('delete','Has been Deleted successfully');
+    }
+
+    public function employeeEdit(Request $request)
+    {
+        $data= $request->validate([
+            'name' => 'required|string',
+            'department_id'=>'required|integer',
+            'designation_id'=>'required|integer',
+            'email'=>'required|email',
+            'mobile'=>'required|string',
+            'gender_id'=>'required|integer',
+            'state_id'=>'required|integer',
+            'city_id'=>'required|integer',
+            'password'=>'required',
+            'address'=>'required',
+        ]);
+
+
+            $oldRecord= DB::table('employees')->where('id',$request->id)->first();
+            //dd($oldRecord);
+            $role = Role::find($data['designation_id']);
+            $roleRomove = Role::find($oldRecord->designation_id);
+            // dd( $role);
+            $user = New User;
+
+           // $user->assignRole($role->name);
+            $user->removeRole($roleRomove->name);
+            $user->assignRole($role->name);
+
+
+            DB::table('users')->where('id',$request->user_id)
+                ->update(
+                    [
+                    'name'=>$request->name,
+                    'email'=>$request->email,
+                    'password'=>Hash::make($request->password)
+                ]);
+
+
+// ------------------- files ------------------------- //
+
+            if ($request->hasFile('upload')) {
+                $image = $request->file('upload');
+                $name = time() . '.' . $image->getClientOriginalName();
+                $destinationPath = public_path('upload');
+                //dd($name);
+                $image->move($destinationPath, $name);
+            } else {
+                if($oldRecord->upload !=null)
+                {
+                    $name = $oldRecord->upload;
+                }
+                else
+                {
+                    $name = null;
+                }
+
+            }
+
+            DB::table('employees')->where('id',$request->id)->update(
+                [
+                    'department_id' => $data['department_id'],
+                    'designation_id' => $data['designation_id'],
+                    'mobile' => $data['mobile'],
+                    'gender_id' => $data['gender_id'],
+                    'city_id' => $data['city_id'],
+                    'state_id' => $data['state_id'],
+                    'address' => $data['address'],
+                    'upload' => $name
+                ]);
+
+            return redirect()->back()->with('save', 'Edited Successfully!');
+
+    }
+
+    public function departmentStore(Request $request)
+    {
+        $data= $request->validate(['name' => 'required|string']);
+
+        $count=DB::table('departments')->where('name',$data['name'])->count();
+
+        if($count>0)
+        {
+            return redirect()->back()->with('exists','this record exist already');
+        }
+        else
+        {
+            DB::table('departments')->insert(['name'=> $data['name'] ]);
+            return redirect()->back()->with('save','Saved Successfully');
+        }
+
+    }
+
+
 
     public function leave()
     {
