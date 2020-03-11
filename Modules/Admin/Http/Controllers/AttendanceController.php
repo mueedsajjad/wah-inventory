@@ -16,12 +16,15 @@ class AttendanceController extends Controller
 
     public function attendance()
     {
+        $user=DB::table('users')->get();
         $attendance=DB::table('attendance')
             ->join('users','users.id','attendance.userId')
             ->where('date',Carbon::today())
+            ->select('attendance.*','users.*','attendance.id as attendance_id')
             ->get();
 
-        return view('admin::Attendance/attandance',compact('attendance'));
+        //dd($attendance);
+        return view('admin::Attendance/attandance',compact('attendance','user'));
     }
 
     public function attendanceMark()
@@ -78,14 +81,11 @@ class AttendanceController extends Controller
             'departureTime' => 'required'
         ]);
 
-
-
         $attendance=DB::table('attendance')->where('userId',$data['user_id'])
             ->where('date',$request->date)
             ->where('outTime',null)
             ->first();
 
-        //dd($attendance);
         if($attendance)
         {
             DB::table('attendance')->where('userId',$request->user_id)->update([
@@ -99,6 +99,27 @@ class AttendanceController extends Controller
             return redirect()->back()->with('exists','already marked checkOut Attendance');
         }
 
+    }
+
+    public function deleteAttendance(Request $request)
+    {
+        DB::table('attendance')->where('id',$request->id)->delete();
+        return redirect()->back()->with('save','Deleted Successfully');
+    }
+
+    public function editAttendance(Request $request)
+    {
+        DB::table('attendance')
+            ->where('id',$request->id)
+            ->update([
+                'date'=>$request->date,
+                'inTime'=>$request->inTime,
+                ' '=>$request->departureTime,
+                'late'=>$request->late,
+                'status'=>$request->status
+            ]);
+
+        return redirect()->back()->with('save','Updated Successfully');
     }
 
 

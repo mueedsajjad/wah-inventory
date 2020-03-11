@@ -3,9 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="aecce051-be26-43a6-ac09-59e51d5a83ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/employee/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/employee/employee.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AttendanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AttendanceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/Attendance/attandance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/Attendance/attandance.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/Attendance/markAttendance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/Attendance/markAttendance.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Production/Http/Controllers/SettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Production/Http/Controllers/SettingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Production/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Production/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Supplier/Http/Controllers/SettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Supplier/Http/Controllers/SettingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Supplier/Resources/views/setting/setting.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Supplier/Resources/views/setting/settingGeneral.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Supplier/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Supplier/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules_statuses.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules_statuses.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -148,7 +156,9 @@
       <workItem from="1583747670481" duration="15127000" />
       <workItem from="1583762914193" duration="953000" />
       <workItem from="1583814235074" duration="17717000" />
-      <workItem from="1583836916191" duration="12354000" />
+      <workItem from="1583836916191" duration="12592000" />
+      <workItem from="1583901142623" duration="9670000" />
+      <workItem from="1583919044613" duration="10280000" />
     </task>
     <servers />
   </component>
@@ -160,18 +170,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="717" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1583061776511" />
-    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1583848031325">
+    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1583926194946">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583848031325" />
+    <state x="572" y="343" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583926194946" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1583062148113">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583062148113" />
-    <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1583836927019">
+    <state x="712" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1583919055014">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583836927019" />
+    <state x="712" y="239" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583919055014" />
     <state x="532" y="237" key="run.anything.popup" timestamp="1583497756346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

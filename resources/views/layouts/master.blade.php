@@ -25,6 +25,8 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+    <script src="{{asset('public/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('public/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
@@ -46,6 +48,7 @@
     <link rel="stylesheet" href="{{asset('public/dist/css/adminlte.css')}}">
     <link rel="stylesheet" href="{{asset('public/dist/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('/public/plugins/datatables/datatables.min.css')}}">
+
 
 
 
@@ -159,7 +162,7 @@
 
 </div>
 
-<script src="{{asset('public/plugins/jquery/jquery.min.js')}}"></script>
+
 <!-- Bootstrap 4 -->
 <script src="{{asset('public/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Select2 -->

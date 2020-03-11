@@ -225,22 +225,46 @@
 
 {{--                </li>--}}
 
+                    <li class="nav-item dropdown">
+                        <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                            Settings
+                        </a>
 
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{url('setting/setting')}}">Settings</a>
+                            <a class="dropdown-item" href="{{url('setting/settingGeneral')}}">General Settings</a>
+                        </div>
 
-                <li class="nav-item ">
-                    <a class=" dropdown-toggle btn m-0 btn-app" href="{{url('production/setting')}}"><i class="fas fa-edit"></i>
-                        Settings
-                    </a>
-                </li>
+                    </li>
 
-            </ul>
-        </div>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="dropdown-toggle btn m-0 btn-app" href="{{url('setting/setting')}}"><i class="fas fa-edit"></i>--}}
+{{--                        Settings--}}
+{{--                    </a>--}}
+{{--                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">--}}
+{{--                        <a class="dropdown-item" href="{{url('qa/dashboard')}}">Dashboard</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('gmsga/production')}}">Production</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('gmsga/gate')}}">Gate</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('gmsga/store')}}"> Store</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('admin/leave')}}"> HR / Admin</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('admin/salary')}}">Supplier</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('admin/advance')}}"> Purchase</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('admin/report')}}"> Production </a>--}}
+{{--                        <a class="dropdown-item" href="{{url('admin/report')}}"> Sales </a>--}}
+{{--                        <a class="dropdown-item" href="{{url('admin/report')}}"> Quality </a>--}}
+{{--                        <a class="dropdown-item" href="{{url('admin/report')}}"> Settings </a>--}}
+{{--                    </div>--}}
 
-        <!-- Right navbar links -->
-        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-            <li class="nav-item dropdown ml-auto text-right">
+{{--                                        </li>--}}
 
-{{--                <a id="dropdownSubMenu13" href="index.html" class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-sign-out-alt"></i>--}}
+                                    </ul>
+                                </div>
+
+                                <!-- Right navbar links -->
+                                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                                    <li class="nav-item dropdown ml-auto text-right">
+
+                        {{--                <a id="dropdownSubMenu13" href="index.html" class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-sign-out-alt"></i>--}}
 {{--                    Logout</a>--}}
 
                 <a class="dropdown-toggle btn m-0 btn-app" href="{{ route('logout') }}"

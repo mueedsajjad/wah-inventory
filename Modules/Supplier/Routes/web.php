@@ -18,18 +18,18 @@ Route::prefix('supplier')->group(function() {
 
 //    ------------------------- Setting Controller    ------------------------------ //
 
-    Route::get('setting', 'SettingController@setting');
-
-    Route::post('creditStore', 'SettingController@creditStore');
-    Route::get('creditDelete/{id}', 'SettingController@creditDelete');
-
-    Route::post('stateStore', 'SettingController@stateStore');
-    Route::get('stateDelete/{id}', 'SettingController@stateDelete');
-
-    Route::post('cityStore', 'SettingController@cityStore');
-    Route::get('cityDelete/{id}', 'SettingController@cityDelete');
-
-    Route::post('paymentStore', 'SettingController@paymentStore');
-    Route::get('paymentDelete/{id}', 'SettingController@paymentDelete');
+//    Route::get('setting', 'SettingController@setting');
+//
+//    Route::post('creditStore', 'SettingController@creditStore');
+//    Route::get('creditDelete/{id}', 'SettingController@creditDelete');
+//
+//    Route::post('stateStore', 'SettingController@stateStore');
+//    Route::get('stateDelete/{id}', 'SettingController@stateDelete');
+//
+//    Route::post('cityStore', 'SettingController@cityStore');
+//    Route::get('cityDelete/{id}', 'SettingController@cityDelete');
+//
+//    Route::post('paymentStore', 'SettingController@paymentStore');
+//    Route::get('paymentDelete/{id}', 'SettingController@paymentDelete');
 
 });

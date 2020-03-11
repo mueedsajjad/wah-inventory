@@ -77,8 +77,8 @@
 {{--                                </div>--}}
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Date<span class="text-red"></span></label>
-                                    <input type="Date" name="date" class="form-control" id="inputEmail3">
+                                    <label for="exampleInputEmail1">Date<span class="text-red">*</span></label>
+                                    <input type="Date" name="date" class="form-control" id="inputEmail3" required>
                                 </div>
 
                                 <div class="form-group">
@@ -109,9 +109,8 @@
                 <div class="card p-3">
                     <div class="d-flex justify-content-between">
                         <div class=""><span class="display-4">Departure Time</span></div>
-                        <div><a href="{{url('/dashboard')}}" class="btn bg-gradient-blue my-3 mx-3">Back</a></div>
+                        <div><a href="{{url('admin/attendance')}}" class="btn bg-gradient-blue my-3 mx-3">Back</a></div>
                     </div>
-
 
                     {{------   Departure Time ------}}
                     <div class="row">
@@ -139,14 +138,13 @@
                                 </div>
 
                                 <div class="text-right">
-                                    <a href="{{url('/dashboard')}}" class="btn btn-default mr-1">Cancel</a>
+                                    <a href="{{url('admin/attendance')}}" class="btn btn-default mr-1">Cancel</a>
                                     <button class="btn btn-primary " type="submit"> <i class="fa fa-save pr-1" style="color: white;"></i>Save</button>
                                 </div>
                             </form>
                         </div>
 
                     </div>
-
 
                 </div>
             </div>

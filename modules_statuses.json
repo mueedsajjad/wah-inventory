@@ -12,5 +12,6 @@
     "AssistantManager": true,
     "Sale": true,
     "Supplier": true,
-    "RoleManagement": true
+    "RoleManagement": true,
+    "Setting": true
 }
