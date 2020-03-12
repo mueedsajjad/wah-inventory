@@ -412,7 +412,7 @@
 
 {{--                    <li class="nav-item dropdown">--}}
 {{--                        <a id="dropdownSubMenu48" href="attendance.html"  class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-edit"></i>--}}
-{{--                            Attendance</a>--}}
+{{--                            attendance</a>--}}
 {{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">--}}
 {{--                            <li><a href="#" class="dropdown-item">Some action </a></li>--}}
 {{--                            <li><a href="#" class="dropdown-item">Some other action</a></li>--}}

@@ -118,7 +118,7 @@ class SeedPermissionsTableSeeder extends Seeder
 //        ]);
 //
 //        DB::table('permissions')->insert([
-//            'name'=>'Attendance',
+//            'name'=>'attendance',
 //            'guard_name'=>'web',
 //            'created_at'=>NOW(),
 //            'updated_at'=>NOW()

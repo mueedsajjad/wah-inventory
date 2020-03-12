@@ -17,6 +17,7 @@ class CreateDutyScheduleTable extends Migration
             $table->bigIncrements('id');
             $table->time('in_time')->nullable();
             $table->time('out_time')->nullable();
+            $table->integer('day')->nullable();
             $table->timestamps();
         });
     }

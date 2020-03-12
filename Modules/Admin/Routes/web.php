@@ -31,7 +31,7 @@ Route::prefix('admin')->group(function() {
 
     Route::get('report', 'AdminController@report');
 
-// ----------------------- Attendance Controller ----------------------- //
+// ----------------------- attendance Controller ----------------------- //
     Route::get('attendance', 'AttendanceController@attendance');
 
     Route::get('attendanceMark', 'AttendanceController@attendanceMark');

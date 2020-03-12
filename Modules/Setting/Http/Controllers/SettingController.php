@@ -166,7 +166,7 @@ class SettingController extends Controller
             ->get();
 
         $payment=DB::table('payment_term')->get();
-        return view('setting::setting/setting',compact('credit','state','city','payment'));
+        return view('setting::setting/settingGeneral',compact('credit','state','city','payment'));
     }
 
 //    ------------------------------ Credit Terms -------------------------------- //
@@ -218,7 +218,6 @@ class SettingController extends Controller
 
     public function stateDelete($id)
     {
-        //dd($id);
         if($id)
         {
             DB::table('state')->where('id', $id)->delete();
@@ -279,6 +278,46 @@ class SettingController extends Controller
             return redirect()->back()->with('delete','Deleted SuccessFully');
         }
     }
+
+
+//    ------------------------------- Duty Schedule ------------------------------- //
+    public function dutySchedule()
+    {
+        $duty= DB::table('duty_Schedule')->get();
+        return view('setting::setting/DutySchedule',compact('duty'));
+    }
+
+    public function dutyScheduleStore(Request $request)
+    {
+        $data= $request->validate([
+            'startingTime' => 'required',
+            'closingTime'=>'required',
+            'days'=>'required|integer'
+        ]);
+        $duty= DB::table('duty_Schedule')->count();
+        if($duty>0)
+        {
+            return redirect()->back()->with('exists','already Exists');
+        }else
+            {
+                DB::table('duty_Schedule')->insert([
+                    'in_time'=>$data['startingTime'],
+                    'out_time'=>$data['closingTime'],
+                    'day'=>$data['days']
+                ]);
+
+                return redirect()->back()->with('save','Saved Successfully');
+            }
+
+       }
+
+       public function deletedutySchedule(Request $request)
+       {
+          DB::table('duty_Schedule')->where('id',$request->id)->delete();
+          return redirect()->back()->with('save','Deleted Successfully');
+       }
+
+
 
 
     /**

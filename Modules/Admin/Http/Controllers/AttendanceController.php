@@ -16,21 +16,97 @@ class AttendanceController extends Controller
 
     public function attendance()
     {
+        $duty=DB::table('duty_schedule')->first();
+
+      $outt=Carbon::parse($duty->out_time);
+      $inn=Carbon::parse($duty->in_time);
+
+      $totalMinutes = $outt->diffInMinutes($inn);
+      $totalHours = $outt->diffInHours($inn);
+
+      //dd($totalHours);
+      //dd($totalMinutes);
+
+      $totalCalculatedHours = $totalHours*60;
+      $totalCalculatedMinutes= $totalMinutes- $totalCalculatedHours;
+
+
+
+        if($totalCalculatedMinutes<0)
+        {
+            $totalCalculatedMinutes=$totalCalculatedMinutes * -1;
+        }
+
+     // dd($totalCalculatedMinutes);
+//      dd($totalMinutes);
+
+
         $user=DB::table('users')->get();
-        $attendance=DB::table('attendance')
+        $attendances=DB::table('attendance')
             ->join('users','users.id','attendance.userId')
-            ->where('date',Carbon::today())
+            ->where('date',Carbon::today()->toDateString())
             ->select('attendance.*','users.*','attendance.id as attendance_id')
             ->get();
+        $i=0;
 
-        //dd($attendance);
-        return view('admin::Attendance/attandance',compact('attendance','user'));
+
+        foreach ($attendances as $attendance)
+        {
+            $totalCalculatedMinutesSencond[$attendance->userId]=0;
+
+            $totalCalculatedMinutesSencond[$attendance->userId]=$totalCalculatedMinutes;
+            //dd($totalCalculatedMinutesSencond);
+
+            $out=Carbon::parse($attendance->outTime);
+            $in=Carbon::parse($attendance->inTime);
+            $totalPerformedMinutes = $out->diffInMinutes($in);
+            $totalPerformedHour = $out->diffInHours($in);
+
+            $totalPerforminingHour[$attendance->userId]=$totalPerformedHour;
+
+            //dd($totalPerformedHour);
+            $HoursMin=60*$totalPerformedHour;
+            //dd($HoursMin);
+
+            $RemainMin= $totalPerformedMinutes- $HoursMin;
+
+            //dd($RemainMin);
+
+             $nettime = $totalPerformedMinutes-$totalMinutes;
+
+            // dd($nettime);
+
+            if($nettime<0)
+            {
+                $nettime=$nettime * -1;
+            }
+
+            $nettimes[$attendance->userId]=  $RemainMin;
+
+            $remainingHour[$attendance->userId]=$nettime/60;
+            $remainingHour[$attendance->userId]=intval( $remainingHour[$attendance->userId]);
+
+            //dd($remainingHour[$attendance->userId]);
+            //$netminutes[$attendance->userId]=0;
+
+
+            $remainingMinutes[$attendance->userId]= $remainingHour[$attendance->userId]*60;
+          // dd($remainingMinutes[$attendance->userId]);
+            $netminutes[$attendance->userId]=$nettime-$remainingMinutes[$attendance->userId];
+
+
+    }
+
+        return view('admin::attendance.attandance',compact('attendances','user'
+            ,'totalMinutes','totalHours','netminutes','remainingHour','totalCalculatedMinutesSencond'
+        ,'nettimes','totalPerforminingHour'));
+
     }
 
     public function attendanceMark()
     {
         $user=DB::table('users')->get();
-        return view('admin::Attendance/markAttendance',compact('user'));
+        return view('admin::attendance/markAttendance',compact('user'));
     }
 
     public function checkInAttendanceStore(Request $request)
@@ -41,35 +117,21 @@ class AttendanceController extends Controller
         ]);
 
         $attendance=DB::table('attendance')->where('userId',$data['user_id'])
-            ->where('date',$request->date)
+            ->where('date',Carbon::today()->toDateString())
             ->first();
 
         if($attendance)
         {
-            return redirect()->back()->with('exists','already marked checkIn Attendance');
+            return redirect()->back()->with('exists','already marked checkIn attendance');
         }
         else
         {
-            if( $request->has('late') )
-            {
-                $checked=1;
-            }
-            else
-                {
-                    $checked=0;
-                }
-            $id=Auth::user();
-
             DB::table('attendance')->insert([
-
                 'userId'=> $data['user_id'],
-                'date'=> $request->date,
-                'inTime'=> $request->inTime,
-                'status'=> $data['status'],
-                'late' =>  $checked,
-                'markedEmployeeId'=> $id->id
+                'date'=> Carbon::today()->toDateString(),
+                'inTime'=>Carbon::now(),
+                'status'=> $data['status']
             ]);
-
             return redirect()->back()->with('save','Saved Successfully');
         }
     }
@@ -77,26 +139,25 @@ class AttendanceController extends Controller
     public function checkOutAttendanceStore(Request $request)
     {
         $data= $request->validate([
-            'user_id' => 'required|string',
-            'departureTime' => 'required'
+            'user_id' => 'required|string'
         ]);
 
         $attendance=DB::table('attendance')->where('userId',$data['user_id'])
-            ->where('date',$request->date)
+            ->where('date',Carbon::today()->toDateString())
             ->where('outTime',null)
             ->first();
 
         if($attendance)
         {
             DB::table('attendance')->where('userId',$request->user_id)->update([
-                'outTime'=> $request->departureTime
+                'outTime'=> Carbon::now()
             ]);
 
             return redirect()->back()->with('save','Marked CheckOut Successfully');
         }
         else
         {
-            return redirect()->back()->with('exists','already marked checkOut Attendance');
+            return redirect()->back()->with('exists','already marked checkOut attendance');
         }
 
     }
@@ -114,8 +175,7 @@ class AttendanceController extends Controller
             ->update([
                 'date'=>$request->date,
                 'inTime'=>$request->inTime,
-                ' '=>$request->departureTime,
-                'late'=>$request->late,
+                'outTime'=>$request->departureTime,
                 'status'=>$request->status
             ]);
 

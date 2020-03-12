@@ -51,4 +51,10 @@ Route::prefix('setting')->group(function() {
     Route::post('paymentStore', 'SettingController@paymentStore');
     Route::get('paymentDelete/{id}', 'SettingController@paymentDelete');
 
+    // ------------------------------- Duty Setting ----------------------------- //
+    Route::get('dutySchedule', 'SettingController@dutySchedule');
+    Route::post('dutyScheduleStore', 'SettingController@dutyScheduleStore');
+    Route::post('deletedutySchedule', 'SettingController@deletedutySchedule');
+
+
 });

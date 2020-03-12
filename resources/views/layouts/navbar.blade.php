@@ -233,6 +233,7 @@
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{url('setting/setting')}}">Settings</a>
                             <a class="dropdown-item" href="{{url('setting/settingGeneral')}}">General Settings</a>
+                            <a class="dropdown-item" href="{{url('setting/dutySchedule')}}">Duty hours settings</a>
                         </div>
 
                     </li>

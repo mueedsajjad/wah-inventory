@@ -50,10 +50,10 @@
                                     {{--                                    <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Master" required>--}}
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Check In</label>
-                                    <input type="time" name="inTime" class="form-control" id="inputEmail3" >
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="exampleInputEmail1">Check In</label>--}}
+{{--                                    <input type="time" name="inTime" class="form-control" id="inputEmail3" >--}}
+{{--                                </div>--}}
 
 {{--                                <div class="form-group">--}}
 {{--                                    <label for="exampleInputEmail1">Entrance Time<span class="text-red">*</span></label>--}}
@@ -77,21 +77,21 @@
 {{--                                </div>--}}
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Date<span class="text-red">*</span></label>
-                                    <input type="Date" name="date" class="form-control" id="inputEmail3" required>
+                                    <label for="exampleInputEmail1">Automatically,  Date And Time is Saved</label>
+{{--                                    <input type="Date" name="date" class="form-control" id="inputEmail3" required>--}}
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="checkboxSuccess1" class="col-form-label">
-                                        Late
-                                    </label>
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="checkboxSuccess1" class="col-form-label">--}}
+{{--                                        Late--}}
+{{--                                    </label>--}}
 
-                                    <div class="icheck-danger">
-                                        <input type="checkbox" id="checkboxSuccess3" name="late">
-                                        <label for="checkboxSuccess3">
-                                        </label>
-                                    </div>
-                                </div>
+{{--                                    <div class="icheck-danger">--}}
+{{--                                        <input type="checkbox" id="checkboxSuccess3" name="late">--}}
+{{--                                        <label for="checkboxSuccess3">--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
                                 <div class="text-right">
@@ -127,14 +127,14 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Check Out<span class="text-red">*</span></label>
-                                    <input type="time" name="departureTime" class="form-control" id="inputEmail3"  required>
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="exampleInputEmail1">Check Out<span class="text-red">*</span></label>--}}
+{{--                                    <input type="time" name="departureTime" class="form-control" id="inputEmail3"  required>--}}
+{{--                                </div>--}}
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Date<span class="text-red"></span></label>
-                                    <input type="Date" name="date" class="form-control" id="inputEmail3" required>
+                                    <label for="exampleInputEmail1">Automatically,  Date And Departure Time is Saved </label>
+{{--                                    <input type="Date" name="date" class="form-control" id="inputEmail3" required>--}}
                                 </div>
 
                                 <div class="text-right">

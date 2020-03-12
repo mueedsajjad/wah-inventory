@@ -18,11 +18,9 @@ class CreateAttendanceTable extends Migration
             $table->bigIncrements('id');
 
             $table->integer('userId')->nullable();
-            $table->integer('markedEmployeeId')->nullable();
             $table->date('date')->nullable();
             $table->time('inTime')->nullable();
             $table->time('outTime')->nullable();
-            $table->integer('late')->nullable();
             $table->integer('status')->nullable();
 
             $table->timestamps();
