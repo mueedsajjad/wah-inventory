@@ -14,11 +14,30 @@
 Route::prefix('store')->group(function() {
     Route::get('/', 'StoreController@index');
     Route::get('dashboard', 'StoreController@dashboard');
+
+//   ------------------Material----------------------------
     Route::get('rawMaterial', 'StoreController@rawMaterial');
     Route::get('addMaterial', 'StoreController@addMaterial');
+    Route::post('submitNewMaterial', 'StoreController@submitNewMaterial');
+    Route::post('submitEditedMaterial', 'StoreController@submitEditedMaterial');
+    Route::post('deleteMaterial', 'StoreController@deleteMaterial');
 
 //    -------------------- Product ---------------------- //
     Route::get('product', 'StoreController@product');
+
+    Route::get('newBuiltyArrival', 'StoreController@newBuiltyArrival');
+    Route::get('storewiseNewBuiltyArrival/{storeLocation}', 'StoreController@storewiseNewBuiltyArrival');
+    Route::get('viewBuiltyDetails/{gatePassId}', 'StoreController@viewBuiltyDetails');
+    Route::post('sendForInspection', 'StoreController@sendForInspection');
+
+
+
+
+
+
+
+
+
     Route::get('addProduct', 'StoreController@addProduct');
     Route::get('goodsReceipt', 'StoreController@goodsReceipt');
     Route::get('inspection', 'StoreController@inspection');

@@ -14,6 +14,10 @@
 Route::prefix('supplier')->group(function() {
     Route::get('/', 'SupplierController@index');
     Route::get('supplier', 'SupplierController@supplier');
+    Route::post('addNewSupplier', 'SupplierController@addNewSupplier');
+    Route::get('viewSuppliers', 'SupplierController@viewSuppliers');
+    Route::post('submitEditedSupplier', 'SupplierController@submitEditedSupplier');
+    Route::post('deleteSupplier', 'SupplierController@deleteSupplier');
 
 
 //    ------------------------- Setting Controller    ------------------------------ //

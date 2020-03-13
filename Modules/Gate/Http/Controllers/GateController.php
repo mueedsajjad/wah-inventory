@@ -5,12 +5,64 @@ namespace Modules\Gate\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class GateController extends Controller
 {
-    public function gate()
+    public function addInwardGatePass(Request $request){
+        //dd($request);
+        $data=[
+            'gatePassId' => $request->gatePassId,
+            'transporter' => $request->transporter,
+            'supplierId' => $request->supplierId,
+            'vehicalNo' => $request->vehicalNo,
+            'driver' => $request->driver,
+            'driverPh' => $request->driverPh,
+            'storeLocation' => $request->storeLocation,
+            'date' => date('Y-m-d'),
+            'status' => 0
+        ];
+        $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
+
+        for($i=0 ; $i<$request->countMaterial ; $i++){
+            $data=[
+                'materialName' => $request['materialName'][$i],
+                'uom' => $request['uom'][$i],
+                'qty' => $request['qty'][$i],
+                'description' => $request['description'][$i],
+                'supplierId' => $request->supplierId,
+                'gatePassId' => $request->gatePassId,
+                'date' => date('Y-m-d')
+            ];
+            $insertInwardRawMaterial=DB::table('inward_raw_material')->insert($data);
+        }
+
+        if ($insertInwardGatePass && $insertInwardRawMaterial){
+            return redirect()->back()->with('message', 'Submitted Successfuly.');
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+
+    }
+
+
+
+    public function inwardGatePass()
     {
-        return view('gate::gate/gate');
+        $supplier=DB::table('supplier')->get();
+        $units=DB::table('unit')->get();
+        $stores=DB::table('store')->get();
+        $countInwardGatePass=DB::table('inward_gate_pass')->select('gatePassId')->orderByDesc('id')->first();
+
+        if(empty($countInwardGatePass)){
+            $countInwardGatePass=1;
+        }
+        else{
+            $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
+            ++$countInwardGatePass;
+        }
+        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
     }
 
     public function dashboard()

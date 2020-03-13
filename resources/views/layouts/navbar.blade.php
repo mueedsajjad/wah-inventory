@@ -50,7 +50,7 @@
 
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('gate/dashboard')}}">Dashboard</a>
-                        <a class="dropdown-item" href="{{url('gate/gate')}}">Gate Pass</a>
+                        <a class="dropdown-item" href="{{url('gate/inwardGatePass')}}">Inward Gate Pass</a>
                         <a class="dropdown-item" href="{{url('gate/attendance')}}"> Attendance</a>
                         <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>
                         <a class="dropdown-item" href="{{url('gate/vehicle')}}">Vehicle Management</a>
@@ -67,7 +67,8 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{url('supplier/supplier')}}">Supplier</a>
+                                <a class="dropdown-item" href="{{url('supplier/supplier')}}">Add Supplier</a>
+                                <a class="dropdown-item" href="{{url('supplier/viewSuppliers')}}">View Suppliers</a>
                                 <a class="dropdown-item" href="{{url('supplier/setting')}}">Setting</a>
                             </div>
                         </li>
@@ -131,7 +132,7 @@
                     </ul>
                 </li>
                 @endif
-                @if(auth()->user()->can(' Quality'))
+                @if(auth()->user()->can('Store'))
                 <li class="nav-item dropdown">
                     <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                         Store
@@ -139,8 +140,10 @@
 
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('store/dashboard')}}">Dashboard</a>
-                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Raw Material</a>
-                        <a class="dropdown-item" href="{{url('store/product')}}"> Product</a>
+                        <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>
+                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>
+                        <a class="dropdown-item" href="{{url('store/product')}}">Products</a>
+                        <a class="dropdown-item" href="{{url('store/newBuiltyArrival')}}">New Builty Arrivals</a>
                         <a class="dropdown-item" href="{{url('store/goodsReceipt')}}"> Goods Receipt</a>
                         <a class="dropdown-item" href="{{url('store/inspection')}}"> I-Note</a>
                         <a class="dropdown-item" href="{{url('store/deliveryOrder')}}">Delivery Order</a>
@@ -150,7 +153,7 @@
                 </li>
                 @endif
 
-                @if(auth()->user()->can(' Quality'))
+                @if(auth()->user()->can('Quality'))
                 <li class="nav-item dropdown">
                     <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                         Quality

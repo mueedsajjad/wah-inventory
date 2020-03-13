@@ -187,70 +187,27 @@
             <div class="col-md-12">
                 <div class="card card-secondary">
                     <div class="card-header">
-                        <h3 class="card-title">Gate Pass</h3>
+                        <h3 class="card-title">Inward Gate Pass</h3>
                     </div>
                     <div class="card-body">
-                        <form action="products.html">
+                        @if(!empty($errors->first()))
+                            <div class="alert alert-danger"  style="text-align: center">
+                                <span>{{ $errors->first() }}</span>
+                            </div>
+                        @endif
+                        @if(session()->has('message'))
+                            <div class="alert alert-success">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
+                        <form action="{{url('gate/addInwardGatePass')}}" method="post" enctype="multipart/form-data">
+                            @csrf
                             <div class="row justify-content-around">
                                 <div class="col-md-4">
-
                                     <div class="form-group row">
                                         <label for="sga_13" class="col-sm-4 col-form-label">Gate Pass ID</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="sga_13" placeholder="GP001">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="sga_19" placeholder="08-02-2020">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="row justify-content-around">
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Type</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control select2">
-                                                <option selected="selected">Supplier</option>
-                                                <option selected="selected">Customer</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Gate Pass Type</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control select2">
-                                                <option selected="selected">Inward</option>
-                                                <option selected="selected">Outward</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row justify-content-around">
-
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Supplier ID</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control select2">
-                                                <option selected="selected">MML001</option>
-                                                <option>MML003</option>
-                                            </select>
+                                            <input type="text" required name="gatePassId" readonly class="form-control" value="GP00{{$countInwardGatePass}}" id="sga_13" placeholder="GP001">
                                         </div>
                                     </div>
                                 </div>
@@ -258,11 +215,38 @@
                                     <div class="form-group row">
                                         <label for="sga_21" class="col-sm-4 col-form-label">Transporter</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="sga_21" placeholder="">
+                                            <input type="text" required name="transporter" class="form-control" id="sga_21" placeholder="">
                                         </div>
                                     </div>
-
                                 </div>
+                            </div>
+
+
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly required value="{{date('d-m-Y')}}" class="form-control" id="sga_19" placeholder="08-02-2020">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Vehicle No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" required name="vehicalNo" class="form-control" id="sga_22" placeholder="LHR-8828">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row justify-content-around">
+
+
+
+
                             </div>
 
 
@@ -271,135 +255,112 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label for="sga_20" class="col-sm-4 col-form-label">Supplier Name</label>
+                                        <label for="sga_20" class="col-sm-4 col-form-label">Select Supplier</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="sga_20" placeholder="MMLOGIX (PVT) LTD.">
+                                            <select name="supplierId" class="form-control select2" required>
+                                                @if(!$supplier->isempty())
+                                                    @foreach($supplier as $item)
+                                                        <option value="{{$item->supplier_id}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="sga_20" class="col-sm-4 col-form-label">Address</label>
+                                        <label for="sga_21" class="col-sm-4 col-form-label">Select Store Location</label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                            <select name="storeLocation" class="form-control select2" required>
+                                                @if(!$stores->isempty())
+                                                    @foreach($stores as $store)
+                                                        <option value="{{$store->id}}">{{$store->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label for="sga_21" class="col-sm-4 col-form-label">Vehicle No</label>
+                                        <label for="sga_21" class="col-sm-4 col-form-label">Driver Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="sga_22" placeholder="">
+                                            <input type="text" name="driver" required class="form-control" id="sga_23" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="sga_21" class="col-sm-4 col-form-label">Driver</label>
+                                        <label for="sga_21" class="col-sm-4 col-form-label">Driver Phone #</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="sga_23" placeholder="">
+                                            <input type="text" name="driverPh" required class="form-control" id="sga_24" placeholder="0335-1234567">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="sga_21" class="col-sm-4 col-form-label">Driver Ph</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="sga_24" placeholder="">
-                                        </div>
-                                    </div>
-
-
-
                                 </div>
                             </div>
-
-
-
-                            <div class="row justify-content-around">
-
-                                <div class="col-md-4">
-
-
-                                </div>
-                                <div class="col-md-4">
-
-
-                                </div>
-                            </div>
-
-
-
-                            <div class="row justify-content-around">
-
-                                <div class="col-md-4">
-
-
-                                </div>
-                                <div class="col-md-4">
-
-
-                                </div>
-                            </div>
-
-
-
-                            <div class="row justify-content-around">
-
-                                <div class="col-md-4">
-
-
-                                </div>
-                                <div class="col-md-4">
-
-
-                                </div>
-                            </div>
-
-
-
 
                             <div class="row justify-content-around">
                                 <div class="col-md-12">
                                     <div class="card card-secondary">
                                         <div class="card-header">
-                                            <h3 class="card-title">Products</h3>
+                                            <h3 class="card-title">Raw Material</h3>
                                         </div>
                                         <!-- /.card-header -->
-                                        <div class="card-body">
+                                        <div class="card-body table-responsive">
                                             <table class="table table-bordered">
                                                 <thead class="bg-light">
                                                 <tr>
-                                                    <th>Sr#</th>
-                                                    <th>Product Name</th>
-                                                    <th>Product Description</th>
-                                                    <th>UOM</th>
-                                                    <th>Qty</th>
-                                                    <th>Remarks</th>
-                                                    <th></th>
+                                                    <th style="width: 10%;">Sr#</th>
+                                                    <th style="width: 15%;">Material Name</th>
+                                                    <th style="width: 15%;">UOM</th>
+                                                    <th style="width: 15%;">Qty</th>
+                                                    <th >Material Description</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="appendMaterial">
                                                 <tr>
+                                                    <input name="countMaterial" type="hidden" value="1" id="countMaterial">
                                                     <td>1</td>
-                                                    <td>PR001</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="project-actions">
-                                                        <a class="btn btn-danger btn-sm" href="#">
-                                                            <i class="fas fa-trash">
-                                                            </i>
-                                                        </a>
+                                                    <td>
+                                                        <input type="text" name="materialName[]" class="form-control" placeholder="">
+{{--                                                        <select name="materialName[]" class="form-control select2">--}}
+{{--                                                            <option value="brassHead">Brass Head</option>--}}
+{{--                                                            <option value="primer">Primer</option>--}}
+{{--                                                            <option value="baseWad">Base Wad</option>--}}
+{{--                                                            <option value="opWad">OP Wad</option>--}}
+{{--                                                            <option value="leadShot">Lead Shot</option>--}}
+{{--                                                            <option value="closingDisc">Closing Disc</option>--}}
+{{--                                                            <option value="tube">Tube</option>--}}
+{{--                                                            <option value="propellant">Propellant</option>--}}
+{{--                                                        </select>--}}
+                                                    </td>
+                                                    <td>
+                                                        <select name="uom[]" class="form-control select2">
+                                                            @if(!$units->isempty())
+                                                                @foreach($units as $unit)
+                                                                    <option value="{{$unit->name}}">{{$unit->name}}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="qty[]" class="form-control" id="" placeholder="">
+                                                    </td>
+                                                    <td>
+                                                        <textarea rows="1" type="text" name="description[]" class="form-control"></textarea>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <a class="btn btn-secondary btn-sm mt-3  " href="#">
+                                            <button class="btn btn-secondary btn-sm mt-3" type="button" id="addRow">
                                                 <i class="fas mr-2 fa-plus">
                                                     Add Row</i>
-                                            </a>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm mt-3" type="button" id="deleteRow">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <a href="#" class="btn btn-danger ml-3 float-right">Cancel</a>
                                     <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a>
                                     <input type="submit" value="Save" class="btn btn-success float-right">
                                 </div>
@@ -414,4 +375,57 @@
         </div>
     </div>
 </section>
+
+<script>
+    $('#addRow').click(function () {
+        var count=$('#countMaterial').val();
+        ++count;
+        var html='<tr id="deleteMaterial'+count+'">'+
+                    '<td>'+count+'</td>'+
+                    '<td>'+
+                        '<input type="text" name="materialName[]" class="form-control" placeholder="">'+
+                        // '<select name="materialName[]" class="form-control select2">'+
+                        //     '<option value="brassHead">Brass Head</option>'+
+                        //     '<option value="primer">Primer</option>'+
+                        //     '<option value="baseWad">Base Wad</option>'+
+                        //     '<option value="opWad">OP Wad</option>'+
+                        //     '<option value="leadShot">Lead Shot</option>'+
+                        //     '<option value="closingDisc">Closing Disc</option>'+
+                        //     '<option value="tube">Tube</option>'+
+                        //     '<option value="propellant">Propellant</option>'+
+                        // '</select>'+
+                    '</td>'+
+                    '<td>'+
+                        '<select name="uom[]" class="form-control select2">'+
+                           '<?php if(!$units->isempty()){
+                             foreach($units as $unit){ ?>'+
+                            '<option value="{{$unit->name}}">{{$unit->name}}</option>'+
+                           '<?php }
+                                } ?>'+
+                        '</select>'+
+                    '</td>'+
+                '<td>'+
+                    '<input type="text" name="qty[]" class="form-control" id="" placeholder="">'+
+                '</td>'+
+                '<td>'+
+                    '<textarea rows="1" type="text" name="description[]" class="form-control"></textarea>'+
+                '</td>'+
+            '</tr>';
+
+        $('#countMaterial').val(count);
+        $('#appendMaterial').append(html);
+    });
+
+    $('#deleteRow').click(function () {
+        var count = $('#countMaterial').val();
+        if(count<2){
+            return false;
+        }
+        else{
+            $('#deleteMaterial'+count).remove();
+            --count;
+            $('#countMaterial').val(count);
+        }
+    });
+</script>
 @endsection

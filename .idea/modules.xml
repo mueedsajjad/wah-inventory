@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/wah.iml" filepath="$PROJECT_DIR$/.idea/wah.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/wah-inventory.iml" filepath="$PROJECT_DIR$/.idea/wah-inventory.iml" />
     </modules>
   </component>
 </project>

@@ -53,7 +53,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="{{asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700')}}" rel="stylesheet">
 
-
+    <script src="{{asset('public/plugins/jquery/jquery.min.js')}}"></script>
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -159,7 +159,7 @@
 
 </div>
 
-<script src="{{asset('public/plugins/jquery/jquery.min.js')}}"></script>
+
 <!-- Bootstrap 4 -->
 <script src="{{asset('public/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Select2 -->

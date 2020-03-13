@@ -152,6 +152,11 @@ label:not(.form-check-label):not(.custom-file-label) {
   border-radius: 0;
 }
 
+.select2{
+    max-width: 100%;
+}
+
+
 .login-page{
   background-image: url("../../img/login-bg.jpg");
   background-position: center;

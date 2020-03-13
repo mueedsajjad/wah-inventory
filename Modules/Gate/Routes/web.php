@@ -12,8 +12,16 @@
 */
 
 Route::prefix('gate')->group(function() {
+    Route::get('inwardGatePass','GateController@inwardGatePass');
+    Route::post('addInwardGatePass','GateController@addInwardGatePass');
+
+
+
+
+
+
     Route::get('/', 'GateController@index');
-    Route::get('gate','GateController@gate');
+
     Route::get('dashboard','GateController@dashboard');
     Route::get('attendance','GateController@attendance');
     Route::get('security','GateController@security');
