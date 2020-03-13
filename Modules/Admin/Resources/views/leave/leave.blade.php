@@ -5,8 +5,20 @@
 
 <section class="content pt-3">
     <div class="container-fluid">
-        <div class="row">
 
+        @if(session()->has('save'))
+            <div class="alert alert-success" role="alert">
+                <strong>Success</strong> {{session()->get('save')}}
+            </div>
+        @endif
+
+        @if(session()->has('exists'))
+            <div class="alert alert-danger" role="alert">
+                <strong>Warning</strong> {{session()->get('exists')}}
+            </div>
+        @endif
+
+        <div class="row">
 
             <div class="col-md-12">
                 <div class="card">
@@ -21,10 +33,11 @@
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
+
                             <tr>
-                                <th>ID</th>
+                                <th>#No</th>
                                 <th>Name</th>
-                                <th>Dates</th>
+                                <th>Department</th>
                                 <th>Days</th>
                                 <th>Leave Types</th>
                                 <th>Reason</th>
@@ -34,45 +47,59 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            @php $count=0; @endphp
+                        @foreach($allLeaves as $leave)
+                               @php $count++; @endphp
                             <tr>
-                                <td>0001</td>
-                                <td>Mohib</td>
-                                <td>21-Feb-2020 to 27-Feb-2020</td>
-                                <td>7</td>
-                                <td>Sick</td>
-                                <td>Injured</td>
-                                <td>21-Feb-2020</td>
+                                <td>{{$count}}</td>
+                                <td>{{$leave->userName}}</td>
+                                <td>{{$leave->name}}</td>
+                                <td>{{$leave->days}}</td>
+                                <td>{{$leave->leave_name}}</td>
+                                <td>{{$leave->reason}}</td>
+                                <td>{{$leave->leave_date}}</td>
 
                                 <td>
+                                    @if($leave->status==0)
                                     <a href="#" class="btn btn-secondary ml-3">Pending</a>
+                                        @elseif($leave->status==1)
+                                        <a href="#" class="btn btn-success ml-3">Approved</a>
+                                      @elseif($leave->status==2)
+                                        <a href="#" class="btn btn-danger ml-3">Rejected</a>
+                                    @endif
                                 </td>
+
                                 <td>
-                                    <a href="#" class="btn btn-primary ml-1">Approved</a>
-                                    <a href="#" class="btn btn-danger ml-1">Reject</a>
-                                    <button type="button" class="btn btn-dark ml-1" data-toggle="modal" data-target="#modal-lg1">
-                                        View
-                                    </button>                      <a href="#" class="btn btn-danger ml-1">Delete</a>
+                                    @if(auth()->user()->can('Accept Leave Request'))
+                                        @if($leave->status==0)
+                                    <a href="{{url('admin/acceptLeaveRequest/'.$leave->leaveId)}}" class="btn btn-primary ml-1">Accept</a>
+                                    <a href="{{url('admin/rejectLeaveRequest/'.$leave->leaveId)}}" class="btn btn-danger ml-1">Reject</a>
+                                        @endif
+                                    @endif
+
+                                    @if(auth()->user()->can('Accept Leave Request'))
+                                            @if($leave->status==0)
+                                               <a href="#" class="btn btn-danger  ml-1 deleteMaterial" data-id="{{$leave->leaveId}}" type="button"  data-toggle="modal" data-target="#modal-delete">Delete</a>
+                                            @endif
+                                                @if($leave->status==1 || $leave->status==2)
+                                                    <label>No Action To Perform</label>
+                                                @endif
+                                    @endif
                                 </td>
+
                             </tr>
 
+                            @endforeach
+
                             </tbody>
-                            <!-- <tfoot>
-                             <tr>
-                               <th>Rendering engine</th>
-                               <th>Browser</th>
-                               <th>Platform(s)</th>
-                               <th>Engine version</th>
-                               <th>CSS grade</th>
-                             </tr>
-                             </tfoot>-->
+
                         </table>
                     </div>
-                    <!-- /.card-body -->
+
                 </div>
             </div>
-
         </div>
+
         <div class="modal fade" id="modal-lg">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -86,88 +113,75 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card-body">
-                                    <form action="#">
-
+                                    <form action="{{url('admin/leaveStore')}}" method="post">
+                                        @csrf
 
                                         <div class="row justify-content-around">
-
                                             <div class="col-md-12">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">Employee Name</label>
-                                                    <div class="col-sm-8">
-                                                        <select class="form-control select2">
-                                                            <option selected="selected">Nabeel Rana</option>
-                                                            <option>Mohib Yaseen</option>
-                                                            <option>Taha Zafar</option>
-                                                            <option>Mehdi Rizvi</option>
-                                                            <option>Sajid Niazi</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">Department</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" disabled placeholder="Store">
-                                                    </div>
-                                                </div>
+{{--                                                <div class="form-group row">--}}
+{{--                                                    <label class="col-sm-4 col-form-label">Employee Name</label>--}}
+{{--                                                    <div class="col-sm-8">--}}
+{{--                                                        <select class="form-control " name="user_id" required>--}}
+{{--                                                            <option selected="selected" disabled>Select</option>--}}
+{{--                                                            @foreach($employees as $employee)--}}
+{{--                                                            <option value="{{$employee->user_id}}">{{$employee->name}}</option>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        </select>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+
 
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">Leave Date</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" placeholder="20-02-2020">
+                                                        <input name="leave_date" type="date" class="form-control" required placeholder="20-02-2020">
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">Leave Days</label>
+                                                    <div class="col-sm-8">
+                                                        <input name="days" type="number" class="form-control" required>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">Type of Leave</label>
                                                     <div class="col-sm-8">
-                                                        <select class="form-control select2">
-                                                            <option selected="selected">Sick</option>
-                                                            <option>Casual</option>
-                                                            <option>Annual</option>
-                                                            <option>Unpaid</option>
-                                                            <option>Others</option>
+                                                        <select class="form-control" name="leave_type_id" required>
+                                                            <option selected="selected" disabled>Select</option>
+                                                            @foreach($leaves as $leave)
+                                                            <option value="{{$leave->id}}">{{$leave->leave_name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">Reason</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" placeholder="Emergency">
+                                                        <input name="reason" type="text" class="form-control" placeholder="Emergency" required>
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label"></label>
-
                                                     <div class="col-sm-8">
                                                         <button type="submit" class="btn btn-dark">Submit</button>
                                                     </div>
-
                                                 </div>
-
-
-
-
 
                                             </div>
                                         </div>
 
-
-
                                     </form>
                                 </div>
-
-
 
                             </div>
 
                         </div>
                     </div>
-                    <!--
-                                <div class="modal-footer justify-content-between">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                    -->
+
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -229,6 +243,64 @@
             <!-- /.modal-dialog -->
         </div>
     </div>
+
+{{---------------------------------------------  Delete Model    -----------------------------------------}}
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Record</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                <form action="{{url('admin/deleteLeaveRequest')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="id" value="" id="materialId">
+                                    <label> Do you want to delete Record?</label>
+                                    <div class="row justify-content-around">
+
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <button  type="button" class="btn btn-default float-right"  data-dismiss="modal" >No</button>
+                                                    <button type="submit" class="btn btn-danger float-right mr-1">Yes</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 </section>
 
+<script>
+    $('.deleteMaterial').click(function () {
+        var id=$(this).data("id");
+        //console.log(id);
+        $('#materialId').val(id);
+    });
+</script>
 @endsection

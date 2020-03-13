@@ -15,12 +15,43 @@ Route::prefix('admin')->group(function() {
     Route::get('/', 'AdminController@index');
 
     Route::get('employee', 'AdminController@employee');
+    Route::post('employeeStore', 'AdminController@employeeStore');
+    Route::get('employeeDetail/{id}', 'AdminController@employeeDetail');
+    Route::get('employeeDelete/{id}', 'AdminController@employeeDelete');
+    Route::post('employeeEdit', 'AdminController@employeeEdit');
 
-    Route::get('leave', 'AdminController@leave');
+    Route::post('departmentStore', 'AdminController@departmentStore');
+
+    // ----------------------- Reports --------------------------------- //
+    Route::get('employeeReport', 'AdminController@employeeReport');
+
 
     Route::get('salary', 'AdminController@salary');
 
     Route::get('advance', 'AdminController@advance');
 
     Route::get('report', 'AdminController@report');
+
+// ----------------------- attendance Controller ----------------------- //
+    Route::get('attendance', 'AttendanceController@attendance');
+
+    Route::get('attendanceMark', 'AttendanceController@attendanceMark');
+    Route::post('checkInAttendanceStore', 'AttendanceController@checkInAttendanceStore');
+    Route::post('checkOutAttendanceStore', 'AttendanceController@checkOutAttendanceStore');
+
+    Route::post('deleteAttendance', 'AttendanceController@deleteAttendance');
+    Route::post('editAttendance', 'AttendanceController@editAttendance');
+
+    // ----------------------- Leave Controller ----------------------- //
+    Route::get('leave', 'LeaveController@leave');
+
+    Route::get('leaveOfficer', 'LeaveController@leaveOfficer');
+    Route::post('leaveStore', 'LeaveController@leaveStore');
+
+    Route::get('acceptLeaveRequest/{id}', 'LeaveController@acceptLeaveRequest');
+    Route::get('rejectLeaveRequest/{id}', 'LeaveController@rejectLeaveRequest');
+
+
+
+
 });
