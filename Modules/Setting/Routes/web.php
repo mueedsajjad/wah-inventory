@@ -56,5 +56,9 @@ Route::prefix('setting')->group(function() {
     Route::post('dutyScheduleStore', 'SettingController@dutyScheduleStore');
     Route::post('deletedutySchedule', 'SettingController@deletedutySchedule');
 
+    // ------------------------------- Leave Setting ----------------------------- //
+    Route::get('leave', 'SettingController@leave');
+    Route::post('leaveStore', 'SettingController@leaveStore');
+    Route::post('deleteLeave', 'SettingController@deleteLeave');
 
 });

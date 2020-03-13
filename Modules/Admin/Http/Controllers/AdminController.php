@@ -13,6 +13,7 @@ use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
+
     public function employee()
     {
         // --- join query to see inforamtion of All Employees -- //
@@ -25,7 +26,6 @@ class AdminController extends Controller
 
             ->select('employees.*', 'departments.name as department_name', 'users.name as username')
             ->get();
-
 
         //dd($alluser);
 
@@ -234,12 +234,36 @@ class AdminController extends Controller
 
     }
 
-
-
-    public function leave()
+   // ----------------------------------- Employee List Report  ---------------------------------- //
+    public function employeeReport()
     {
-        return view('admin::leave/leave');
+
+        $user=User::all();
+        $role=Role::all();
+        $city=DB::table('city')->get();
+        $state=DB::table('state')->get();
+        $department=DB::table('departments')->get();
+
+        $users=DB::table('employees')
+            ->join('users', 'users.id', '=', 'employees.user_id')
+            ->join('departments', 'departments.id', '=', 'employees.department_id')
+            ->join('state', 'state.id', '=', 'employees.state_id')
+            ->join('city', 'city.id', '=', 'employees.city_id')
+            ->join('roles', 'roles.id','=','employees.designation_id')
+            ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
+            ->get();
+
+        //dd($user);
+      return view('admin::report/employeeReport',compact('users'
+            ,'role','city','state', 'department'));
+
+        //return view('admin::report/employeeReport');
     }
+
+
+
+
+
 
     public function salary()
     {

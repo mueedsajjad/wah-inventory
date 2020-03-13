@@ -176,7 +176,16 @@
                         <a class="dropdown-item" href="{{url('qa/dashboard')}}">Dashboard</a>
                         <a class="dropdown-item" href="{{url('admin/employee')}}">Employees</a>
                         <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
+
+                        @if(auth()->user()->can('Accept Leave Request'))
                         <a class="dropdown-item" href="{{url('admin/leave')}}"> Leaves</a>
+                        @endif
+
+                        @if(auth()->user()->can('Apply for Attendance'))
+                            <a class="dropdown-item" href="{{url('admin/leaveOfficer')}}"> Leaves</a>
+                        @endif
+
+
                         <a class="dropdown-item" href="{{url('admin/salary')}}">Salaries</a>
                         <a class="dropdown-item" href="{{url('admin/advance')}}"> Advance</a>
                         <a class="dropdown-item" href="{{url('admin/report')}}"> Reports </a>
@@ -234,6 +243,7 @@
                             <a class="dropdown-item" href="{{url('setting/setting')}}">Settings</a>
                             <a class="dropdown-item" href="{{url('setting/settingGeneral')}}">General Settings</a>
                             <a class="dropdown-item" href="{{url('setting/dutySchedule')}}">Duty hours settings</a>
+                            <a class="dropdown-item" href="{{url('setting/leave')}}">Leave settings</a>
                         </div>
 
                     </li>

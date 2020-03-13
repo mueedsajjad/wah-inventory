@@ -48,7 +48,7 @@
                                 <tbody>
 
                                 @php $n=0; @endphp
-                           @foreach($alluser as $user)
+                                @foreach($alluser as $user)
                               @php $n++; @endphp
                                 <tr>
                                     <td>{{$n}}</td>
@@ -324,9 +324,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card-body">
-                                        <form action="#">
-
-
+                                        <form action="{{url('setting/leaveStore')}}" method="post">
+                                        @csrf
                                             <div class="row justify-content-around">
 
                                                 <div class="col-md-12">
@@ -334,7 +333,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Leave Name</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control"  placeholder="Sick">
+                                                            <input name="name" type="text" class="form-control"  placeholder="Sick">
                                                         </div>
                                                     </div>
 
@@ -346,10 +345,6 @@
                                                         </div>
 
                                                     </div>
-
-
-
-
 
                                                 </div>
                                             </div>

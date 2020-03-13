@@ -2,28 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aecce051-be26-43a6-ac09-59e51d5a83ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/attendance/attandance.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_03_10_095347_create_attendance_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_03_10_095347_create_attendance_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AttendanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AttendanceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/Attendance/attandance.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/Attendance/markAttendance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/attendance/markAttendance.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/attendance/attandance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/attendance/attandance.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/employee/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/employee/employee.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/leave/leave.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/leave/leave.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/report/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/report/report.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Gate/Resources/views/gate/gate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Gate/Resources/views/gate/gate.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Database/Migrations/2020_03_03_045745_create_store_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Database/Migrations/2020_03_03_045819_create_operation_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Database/Migrations/2020_03_03_045838_create_category_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Database/Migrations/2020_03_03_045856_create_unit_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Production/Database/Migrations/2020_03_09_110300_create_departments_table.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/RoleManagement/Database/Seeders/SeedPermissionsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/RoleManagement/Database/Seeders/SeedPermissionsTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Setting/Database/Migrations/2020_03_11_112459_create_duty_Schedule_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Setting/Database/Migrations/2020_03_11_112459_create_duty_Schedule_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/RoleManagement/Database/Seeders/SeedRolesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/RoleManagement/Database/Seeders/SeedRolesTableSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Setting/Http/Controllers/SettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Setting/Http/Controllers/SettingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Setting/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Setting/Routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Supplier/Database/Migrations/2020_03_05_100309_create_credit_term_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Supplier/Database/Migrations/2020_03_05_100501_create_state_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Supplier/Database/Migrations/2020_03_05_100513_create_city_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Supplier/Database/Migrations/2020_03_05_100658_create_payment_term_table.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,6 +160,7 @@
       <workItem from="1583901142623" duration="9670000" />
       <workItem from="1583919044613" duration="10449000" />
       <workItem from="1583986637630" duration="29561000" />
+      <workItem from="1584078088494" duration="27190000" />
     </task>
     <servers />
   </component>
@@ -189,10 +180,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583062148113" />
-    <state x="712" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1583986639886">
+    <state x="712" y="239" key="com.intellij.ide.util.TipDialog" timestamp="1584078098273">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="712" y="239" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583986639886" />
+    <state x="712" y="239" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584078098273" />
     <state x="532" y="237" key="run.anything.popup" timestamp="1583497756346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

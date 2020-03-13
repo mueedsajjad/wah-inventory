@@ -54,13 +54,6 @@ class SeedRolesTableSeeder extends Seeder
 
         ]);
 
-        DB::table('roles')->insert([
-            'name'=>'Manager',
-            'guard_name'=>'web',
-            'created_at'=>NOW(),
-            'updated_at'=>NOW()
-
-        ]);
 
         DB::table('roles')->insert([
             'name'=>'writer',

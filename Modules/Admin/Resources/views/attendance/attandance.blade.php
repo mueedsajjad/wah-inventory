@@ -32,11 +32,12 @@
                                     <th>Check-In Time</th>
                                     <th>Check-Out Time</th>
                                     <th>Duty Hours</th>
-                                    <th>Remaining Hours</th>
+{{--                                    <th>Remaining Hours</th>--}}
                                     <th>Performed Hours</th>
                                     <th>OverTime</th>
                                     <th>Date</th>
-                                    <th></th>
+                                    <th> </th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,25 +59,7 @@
                                         </td>
 
                                         <td>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="bootstrap-timepicker">
-                                                        <div class="form-group">
-                                                            <label>Check In</label>
-
-                                                            <div class="input-group date" id="timepicker" data-target-input="nearest">
-                                                                <input type="text" value="{{$attendance->inTime}}" class="form-control datetimepicker-input" data-target="#timepicker" disabled>
-                                                                <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
-                                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /.input group -->
-                                                        </div>
-                                                        <!-- /.form group -->
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            {{$attendance->inTime}}
 {{--                                            <div class="form-group row">--}}
 {{--                                                <label for="checkboxSuccess1" class="col-sm-2 col-form-label">--}}
 {{--                                                    Late--}}
@@ -99,24 +82,7 @@
 {{--                                            </div>--}}
                                         </td>
                                         <td>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="bootstrap-timepicker">
-                                                        <div class="form-group">
-                                                            <label>Check Out</label>
-
-                                                            <div class="input-group date" id="timepicker" data-target-input="nearest">
-                                                                <input type="text" value="{{$attendance->outTime}}" class="form-control datetimepicker-input" data-target="#timepicker" disabled>
-                                                                <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
-                                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /.input group -->
-                                                        </div>
-                                                        <!-- /.form group -->
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                                {{$attendance->outTime}}
 
                                             {{--                                            <div class="form-group row">--}}
                                             {{--                                                <label for="checkboxSuccess1" class="col-sm-2 col-form-label">--}}
@@ -142,14 +108,21 @@
 
                                         </td>
                                         @php $overtime=$totalPerforminingHour[$attendance->userId]-$totalHours; @endphp
-                                        @php $overmiutes=60-$nettimes[$attendance->userId]; @endphp
+                                        @php $hours=$totalHours-$totalPerforminingHour[$attendance->userId]; @endphp
 
                                         <td>{{$totalHours}}</td>
-                                        <td>{{$remainingHour[$attendance->userId]}}</td>
+{{--                                        @if($hours<0)--}}
+{{--                                        <td>0</td>--}}
+{{--                                        @else--}}
+{{--                                        <td>{{$hours}}</td>--}}
+{{--                                        @endif--}}
                                         <td>{{$totalPerforminingHour[$attendance->userId]}}:{{$nettimes[$attendance->userId]}}</td>
 
-
-                                        <td>{{$overtime}}:{{$overmiutes}}</td>
+                                        @if($overtime<0 || $nettimes[$attendance->userId]<0)
+                                            <td>00</td>
+                                        @else
+                                        <td>{{$overtime}}:{{$nettimes[$attendance->userId]}}</td>
+                                        @endif
                                         <td>{{$attendance->date}}</td>
                                         <td>
 {{--                                            <a href="#" class="btn btn-success btn-sm ml-1 editAttendance" type="button" data-toggle="modal" data-target="#modal-edit"--}}
@@ -177,7 +150,7 @@
         </div>
 
         <div class="modal fade" id="modal-delete">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Delete Record</h4>
@@ -213,12 +186,7 @@
 
                         </div>
                     </div>
-                    <!--
-                                <div class="modal-footer justify-content-between">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                    -->
+
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -329,6 +297,8 @@
             //console.log(id);
             $('#materialId').val(id);
         });
+
+
         $('.editAttendance').click(function () {
             // ----- get values into variables --------- //
             var id=$(this).data("id");

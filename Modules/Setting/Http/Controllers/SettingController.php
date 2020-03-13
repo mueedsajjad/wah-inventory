@@ -317,6 +317,35 @@ class SettingController extends Controller
           return redirect()->back()->with('save','Deleted Successfully');
        }
 
+//        --------------------------------- Leave Type ----------------------------------- //
+
+      public function leave()
+      {
+          $leaves=DB::table('leave_type')->get();
+          return view('setting::setting/leaveType',compact('leaves'));
+      }
+
+      public function leaveStore(Request $request)
+      {
+          $data= $request->validate(['name' => 'required|string']);
+
+          $count=DB::table('leave_type')->where('leave_name',$data['name'])->count();
+          if($count>0)
+          {
+              return redirect()->back()->with('exists','this record exist already');
+          }
+          else
+          {
+              DB::table('leave_type')->insert(['leave_name' => $data['name']]);
+              return redirect()->back()->with('save', 'Saved Successfully');
+          }
+      }
+
+      public function deleteLeave(Request $request)
+      {
+          DB::table('leave_type')->Where('id',$request->id)->delete();
+          return redirect()->back()->with('save','Deleted Successfully');
+      }
 
 
 

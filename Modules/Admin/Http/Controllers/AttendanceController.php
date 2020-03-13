@@ -16,6 +16,13 @@ class AttendanceController extends Controller
 
     public function attendance()
     {
+        $netminutes=[];
+        $remainingHour=[];
+        $nettimes=[];
+        $totalCalculatedMinutesSencond=[];
+        $totalPerforminingHour=[];
+
+
         $duty=DB::table('duty_schedule')->first();
 
       $outt=Carbon::parse($duty->out_time);
@@ -93,7 +100,6 @@ class AttendanceController extends Controller
             $remainingMinutes[$attendance->userId]= $remainingHour[$attendance->userId]*60;
           // dd($remainingMinutes[$attendance->userId]);
             $netminutes[$attendance->userId]=$nettime-$remainingMinutes[$attendance->userId];
-
 
     }
 

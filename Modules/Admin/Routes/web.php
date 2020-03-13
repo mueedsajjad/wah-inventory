@@ -22,8 +22,9 @@ Route::prefix('admin')->group(function() {
 
     Route::post('departmentStore', 'AdminController@departmentStore');
 
+    // ----------------------- Reports --------------------------------- //
+    Route::get('employeeReport', 'AdminController@employeeReport');
 
-    Route::get('leave', 'AdminController@leave');
 
     Route::get('salary', 'AdminController@salary');
 
@@ -40,5 +41,17 @@ Route::prefix('admin')->group(function() {
 
     Route::post('deleteAttendance', 'AttendanceController@deleteAttendance');
     Route::post('editAttendance', 'AttendanceController@editAttendance');
+
+    // ----------------------- Leave Controller ----------------------- //
+    Route::get('leave', 'LeaveController@leave');
+
+    Route::get('leaveOfficer', 'LeaveController@leaveOfficer');
+    Route::post('leaveStore', 'LeaveController@leaveStore');
+
+    Route::get('acceptLeaveRequest/{id}', 'LeaveController@acceptLeaveRequest');
+    Route::get('rejectLeaveRequest/{id}', 'LeaveController@rejectLeaveRequest');
+
+
+
 
 });
