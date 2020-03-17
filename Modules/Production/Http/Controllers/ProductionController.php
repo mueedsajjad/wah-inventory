@@ -90,7 +90,8 @@ class ProductionController extends Controller
 
     public function orderComponentStore(Request $request)
     {
-       // dd('abc');
+        //dd('abc');
+
         $data= $request->validate(
             [
                 'manufacturing_order' => 'required|string',

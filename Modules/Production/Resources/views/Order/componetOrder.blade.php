@@ -14,7 +14,6 @@
                     @endif
 
 
-
                     <div class="card card-dark">
                         <div class="card-header">
                             <h3 class="card-title">New Component Manufacturing Order</h3>
@@ -28,7 +27,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Manufacturing Order #</label>
-                                            <input type="text" name="manufacturing_order" class="form-control" placeholder="MO-1" required>
+                                            <input type="text" name="manufacturing_order" class="form-control" placeholder="CO-1" required>
                                         </div>
                                     </div>
 

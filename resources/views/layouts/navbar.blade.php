@@ -60,7 +60,6 @@
                 @endif
 
                 @if(auth()->user()->can('Supplier'))
-
                         <li class="nav-item dropdown">
                             <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-truck"></i></i>
                                 Supplier
