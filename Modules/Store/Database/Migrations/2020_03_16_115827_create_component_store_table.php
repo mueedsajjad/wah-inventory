@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDepartmentTable extends Migration
+class CreateComponentStoreTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,15 @@ class CreateDepartmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('department', function (Blueprint $table) {
+        Schema::create('component_store', function (Blueprint $table) {
+
             $table->bigIncrements('id');
-            $table->string('name');
+
+            $table->string('bach_id');
+            $table->string('component_name');
+            $table->integer('quantity');
+            $table->string('QC');
+            $table->string('QA');
 
             $table->timestamps();
         });
@@ -28,6 +34,6 @@ class CreateDepartmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department');
+        Schema::dropIfExists('component_store');
     }
 }

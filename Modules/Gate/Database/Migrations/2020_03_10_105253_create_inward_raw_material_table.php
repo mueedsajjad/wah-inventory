@@ -22,13 +22,13 @@ class CreateInwardRawMaterialTable extends Migration
             $table->string('gatePassId');
 
             $table->date('date');
-            $table->string('storeLocation');
+            $table->string('storeLocation')->nullable();
             $table->integer('status')->length(11);
 
-            $table->date('inspectionDate');
-            $table->string('inspectionStatus')->length(25);
-            $table->longText('rejectionReason');
-            $table->integer('rejectedQty')->length(11);
+            $table->date('inspectionDate')->nullable();
+            $table->string('inspectionStatus')->length(25)->nullable();
+            $table->longText('rejectionReason')->nullable();
+            $table->integer('rejectedQty')->length(11)->nullable();
         });
     }
 
