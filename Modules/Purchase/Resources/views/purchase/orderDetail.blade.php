@@ -9,9 +9,10 @@
                 <a class="btn btn-primary btn-sm" href="{{url('purchase/orderForApprove')}}">
                   Back
                 </a>
-
             </div>
         </div>
+
+         
 
         <div class="row mt-5">
 

@@ -14,6 +14,7 @@
 Route::prefix('store')->group(function() {
     Route::get('/', 'StoreController@index');
     Route::get('dashboard', 'StoreController@dashboard');
+    Route::get('assignStore', 'StoreController@assignStore');
 
 //   ------------------Material----------------------------
     Route::get('rawMaterial', 'StoreController@rawMaterial');
@@ -56,7 +57,8 @@ Route::prefix('store')->group(function() {
 
     Route::get('report', 'StoreController@report');
 
-
+ // ------------------------------- Production Product -------------------- //
+    Route::get('productionProduct', 'StoreController@productionProduct');
 
 
 });

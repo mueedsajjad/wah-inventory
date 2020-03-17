@@ -27,9 +27,9 @@
                         Production
                     </a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{url('production/dashboard')}}">Dashboard</a>
+                        <a class="dropdown-item" href="{{url('production/dashboard')}}">Production Dashboard</a>
                         <a class="dropdown-item" href="{{url('production/newOrder')}}">New Production Order</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="{{url('production/orderComponent')}}">New Component Order</a>
                     </div>
                 </li>
                 @endif
@@ -51,7 +51,7 @@
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('gate/dashboard')}}">Dashboard</a>
                         <a class="dropdown-item" href="{{url('gate/inwardGatePass')}}">Inward Gate Pass</a>
-                        <a class="dropdown-item" href="{{url('gate/attendance')}}"> Attendance</a>
+                        <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
                         <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>
                         <a class="dropdown-item" href="{{url('gate/vehicle')}}">Vehicle Management</a>
                         <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>
@@ -141,6 +141,7 @@
 
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('store/dashboard')}}">Dashboard</a>
+                        <a class="dropdown-item" href="{{url('store/assignStore')}}">Assign Stores</a>
                         <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>
                         <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>
                         <a class="dropdown-item" href="{{url('store/product')}}">Products</a>

@@ -16,6 +16,18 @@ Route::prefix('production')->group(function() {
     Route::get('dashboard','ProductionController@dashboard');
     Route::get('newOrder','ProductionController@newOrder');
 
-    
+    Route::post('orderStore','ProductionController@orderStore');
+
+    Route::post('processStatus','ProductionController@processStatus');
+
+    Route::post('transferProduct','ProductionController@transferProduct');
+
+
+    // ---------------------------- Component Order -------------------------- //
+    Route::get('orderComponent','ProductionController@orderComponent');
+    Route::post('orderComponentStore','ProductionController@orderComponentStore');
+
+
+
 });
 

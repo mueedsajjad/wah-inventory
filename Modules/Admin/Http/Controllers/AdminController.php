@@ -18,6 +18,7 @@ class AdminController extends Controller
     {
         // --- join query to see inforamtion of All Employees -- //
 
+
         $alluser=DB::table('employees')
             ->join('users', 'users.id', '=', 'employees.user_id')
             ->join('departments', 'departments.id', '=', 'employees.department_id')
@@ -35,8 +36,30 @@ class AdminController extends Controller
         $state=DB::table('state')->get();
         $department=DB::table('departments')->get();
 
+        $managers=DB::table('employees')
+
+            ->join('roles', 'roles.id','=','employees.designation_id')
+            ->join('users','users.id','=','employees.user_id')
+            ->where('roles.name','Manager')
+            ->select('employees.*','users.*', 'users.name as userName','roles.*','roles.name as roleName')
+            ->get();
+
+
+//        $manager=DB::table('employees')
+//            ->join('users', 'users.id', '=', 'employees.user_id')
+//            ->join('departments', 'departments.id', '=', 'employees.department_id')
+//            ->join('state', 'state.id', '=', 'employees.state_id')
+//            ->join('city', 'city.id', '=', 'employees.city_id')
+//            ->join('roles', 'roles.id','=','employees.designation_id')
+//            ->where('roles','Manager')
+//            ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
+//            ->get();
+
+
+        //dd($managers);
+
         return view('admin::employee/employee',compact('user','role','city','state',
-            'department','alluser'));
+            'department','alluser','managers'));
     }
 
 
@@ -111,8 +134,80 @@ class AdminController extends Controller
         }
     }
 
+    public function employeeUnderManagerStore(Request $request)
+    {
+
+        $data= $request->validate([
+            'name' => 'required|string',
+            'department_id'=>'required|integer',
+            'designation_id'=>'required|integer',
+            'manager_id'=>'required|integer',
+            'email'=>'required|email',
+            'mobile'=>'required|string',
+            'gender_id'=>'required|integer',
+            'state_id'=>'required|integer',
+            'city_id'=>'required|integer',
+            'password'=>'required',
+            'address'=>'required',
+        ]);
+        //dd($data);
+        $exist=DB::table('users')->where('email',$data['email'])->first();
+
+        if ($exist)
+        {
+            return redirect()->back()->with('exists','This username already exists');
+        }
+        else
+        {
+            $role = Role::find($data['designation_id']);
+            // dd( $role);
+            $user = New User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->manager_id=$request->manager_id;
+            $user->assignRole($role->name);
+            $user->save();
+
+// ------------------- files ------------------------- //
+
+            if ($request->hasFile('upload'))
+            {
+                $image = $request->file('upload');
+                $name = time() . '.' . $image->getClientOriginalName();
+                $destinationPath = public_path('upload');
+                //dd($name);
+                $image->move($destinationPath, $name);
+            }
+            else
+            {
+                $name=null;
+            }
+            $user= DB::table('users')->orderBy('id', 'desc')->first();
+            $user_id=$user->id;
+
+
+            DB::table('employees')->insert(
+                [
+                    'user_id'=> $user_id,
+                    'department_id'=>$data['department_id'],
+                    'designation_id'=>$data['designation_id'],
+                    'mobile' =>$data['mobile'],
+                    'gender_id' =>$data['gender_id'],
+                    'city_id' =>$data['city_id'],
+                    'state_id' =>$data['state_id'],
+                    'address' =>$data['address'],
+                    'upload'=>$name
+                ]);
+
+            return redirect()->back()->with('save', 'Submit Successfully!');
+
+        }
+    }
+
     public function employeeDetail($id)
     {
+
         $user=User::all();
         $role=Role::all();
         $city=DB::table('city')->get();

@@ -122,7 +122,8 @@ class StoreController extends Controller
     }
 
 
-    public function viewBuiltyDetails($gatePassId){
+    public function viewBuiltyDetails($gatePassId)
+    {
         if ($gatePassId!=0 || $gatePassId!=null || $gatePassId!=''){
             $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatePassId)->get();
 
@@ -153,7 +154,24 @@ class StoreController extends Controller
         }
     }
 
+    public  function assignStore()
+    {
+        return view('store::dashboard/assignStore');
+    }
 
+//    ------------------------------ Products Came Form Production ----------------------------- //
+      public function productionProduct()
+      {
+          $stores=DB::table('store')->get();
+          $products=DB::table('production_order')
+              ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
+              ->where('status',4)
+              ->get();
+
+          return view('store::dashboard/product', compact('products','stores'));
+      }
+
+//    ------------------------------ ending Products Came Form Production ----------------------------- //
 
 
 

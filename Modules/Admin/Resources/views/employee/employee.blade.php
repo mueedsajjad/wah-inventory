@@ -29,8 +29,11 @@
                             <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#modal-lg2">
                                 Add Departments
                             </button>
-                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-employee">
+                            <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#modal-employeeUnderManager">
                                 Add Employee
+                            </button>
+                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-employee">
+                                Add Manager
                             </button>
                         </div>
 
@@ -115,18 +118,18 @@
                                                         </div>
                                                     </div>
 
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Designation</label>
                                                         <div class="col-sm-8">
                                                             <select class="form-control " name="designation_id">
-                                                                <option selected="selected" disabled >Select Designation</option>
+                                                                <option selected="selected" disabled>Select Designation</option>
                                                                 @foreach($role as $roles)
-                                                                <option value="{{$roles->id}}">{{$roles->name}}</option>
+                                                                    <option value="{{$roles->id}}">{{$roles->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Gender</label>
                                                         <div class="col-sm-8">
@@ -246,6 +249,194 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+
+                <div class="modal fade" id="modal-employeeUnderManager">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Employee</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <form action="{{url('admin/employeeUnderManagerStore')}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row justify-content-around">
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Employee Name</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" name="name" class="form-control"  placeholder="Employee Name">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Department</label>
+                                                            <div class="col-sm-8">
+                                                                <select class="form-control " name="department_id">
+                                                                    <option selected="selected" disabled>Select Department</option>
+                                                                    @foreach($department as $departments)
+                                                                        <option value="{{$departments->id}}">{{$departments->name}} </option>
+                                                                    @endforeach
+                                                                    {{--                                                                <option>Production</option>--}}
+                                                                    {{--                                                                <option>Officer</option>--}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Designation</label>
+                                                            <div class="col-sm-8">
+                                                                <select class="form-control " name="designation_id">
+                                                                    <option selected="selected" disabled>Select Designation</option>
+                                                                    @foreach($role as $roles)
+                                                                        @if($roles->name=='Officers')
+                                                                        <option value="{{$roles->id}}">{{$roles->name}}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Under Manager</label>
+                                                            <div class="col-sm-8">
+                                                                <select class="form-control " name="manager_id">
+                                                                    <option selected="selected" disabled>Select Manager</option>
+                                                                    @foreach($managers as $manager)
+                                                                        <option value="{{$manager->user_id}}">{{$manager->userName}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Gender</label>
+                                                            <div class="col-sm-8">
+                                                                <select class="form-control " name="gender_id">
+                                                                    <option selected="selected" disabled >Select Gender</option>
+                                                                    <option value="1">Male</option>
+                                                                    <option value="2">Female</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Mobile</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" name="mobile" class="form-control"  placeholder="0333 1234567">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Email</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="email" name="email" class="form-control" placeholder="info@mmlogix.com">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Password</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="password" name="password" class="form-control" >
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">State</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+
+                                                                    <select class="form-control " name="state_id">
+                                                                        <option selected="selected" disabled>Select State</option>
+                                                                        @foreach($state as $states)
+                                                                            <option value="{{$states->id}}">{{$states->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+
+                                                                    {{--                                                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>--}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">City</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <select class="form-control " name="city_id">
+                                                                        <option selected="selected" disabled>Select City</option>
+                                                                        @foreach($city as $cities)
+                                                                            <option value="{{$cities->id}}">{{$cities->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Address line</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="text" name="address" class="form-control" placeholder="Enter ...">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Image</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="file" name="upload" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label"></label>
+
+                                                            <div class="col-sm-8">
+                                                                <button type="submit" class="btn btn-dark">Submit</button>
+                                                            </div>
+
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+                                                </div>
+
+
+
+                                            </form>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--
+                                        <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                            -->
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
 
             <div class="modal fade" id="modal-lg2">
                 <div class="modal-dialog modal-lg">
