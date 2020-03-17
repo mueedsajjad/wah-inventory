@@ -144,11 +144,12 @@
                         <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>
                         <a class="dropdown-item" href="{{url('store/product')}}">Products</a>
                         <a class="dropdown-item" href="{{url('store/newBuiltyArrival')}}">New Builty Arrivals</a>
-                        <a class="dropdown-item" href="{{url('store/goodsReceipt')}}"> Goods Receipt</a>
-                        <a class="dropdown-item" href="{{url('store/inspection')}}"> I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/approveForInspectionNote')}}">Approve for I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/inwardInspectionNote')}}">Inward I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/inwardGoodsReceipt')}}">Inward Goods Receipt</a>
                         <a class="dropdown-item" href="{{url('store/deliveryOrder')}}">Delivery Order</a>
-                        <a class="dropdown-item" href="{{url('store/IssueRequisition')}}"> Issue / Requisition</a>
-                        <a class="dropdown-item" href="{{url('store/report')}}"> Reports</a>
+                        <a class="dropdown-item" href="{{url('store/IssueRequisition')}}">Issue / Requisition</a>
+                        <a class="dropdown-item" href="{{url('store/report')}}">Reports</a>
                     </div>
                 </li>
                 @endif

@@ -14,11 +14,11 @@ class GateController extends Controller
         $data=[
             'gatePassId' => $request->gatePassId,
             'transporter' => $request->transporter,
-            'supplierId' => $request->supplierId,
+            'type' => $request->type,
+            'name' => $request->name,
             'vehicalNo' => $request->vehicalNo,
             'driver' => $request->driver,
             'driverPh' => $request->driverPh,
-            'storeLocation' => $request->storeLocation,
             'date' => date('Y-m-d'),
             'status' => 0
         ];
@@ -30,9 +30,9 @@ class GateController extends Controller
                 'uom' => $request['uom'][$i],
                 'qty' => $request['qty'][$i],
                 'description' => $request['description'][$i],
-                'supplierId' => $request->supplierId,
                 'gatePassId' => $request->gatePassId,
-                'date' => date('Y-m-d')
+                'date' => date('Y-m-d'),
+                'status' => 0
             ];
             $insertInwardRawMaterial=DB::table('inward_raw_material')->insert($data);
         }

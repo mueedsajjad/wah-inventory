@@ -19,10 +19,16 @@ class CreateInwardRawMaterialTable extends Migration
             $table->string('uom');
             $table->string('qty');
             $table->string('description');
-            $table->string('supplierId');
             $table->string('gatePassId');
 
             $table->date('date');
+            $table->string('storeLocation');
+            $table->integer('status')->length(11);
+
+            $table->date('inspectionDate');
+            $table->string('inspectionStatus')->length(25);
+            $table->longText('rejectionReason');
+            $table->integer('rejectedQty')->length(11);
         });
     }
 

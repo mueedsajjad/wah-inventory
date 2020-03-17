@@ -43,7 +43,6 @@
                                 <tr>
                                     <th>Sr#</th>
                                     <th>Gate Pass ID</th>
-                                    <th>Supplier ID</th>
                                     <th>Transporter</th>
                                     <th>Vehicle #</th>
                                     <th>Driver Name</th>
@@ -60,7 +59,6 @@
                                         <tr>
                                             <td>{{$count}}</td>
                                             <td>{{$item->gatePassId}}</td>
-                                            <td>{{$item->supplierId}}</td>
                                             <td>{{$item->transporter}}</td>
                                             <td>{{$item->vehicalNo}}</td>
                                             <td>{{$item->driver}}</td>

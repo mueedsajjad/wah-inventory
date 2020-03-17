@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="247c2d00-12a7-42f5-a925-8807f611a28c" name="Default Changelist" comment="" />
+    <list default="true" id="247c2d00-12a7-42f5-a925-8807f611a28c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Modules/Store/Resources/views/approveForInspectionNote.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modules/Store/Resources/views/inwardGoodsReceipt.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modules/Store/Resources/views/inwardInspectionNote.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modules/Store/Resources/views/writeInwardGoodsReceipt.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Gate/Database/Migrations/2020_03_10_064311_create_inward_gate_pass_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Gate/Database/Migrations/2020_03_10_064311_create_inward_gate_pass_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Gate/Database/Migrations/2020_03_10_105253_create_inward_raw_material_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Gate/Database/Migrations/2020_03_10_105253_create_inward_raw_material_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Gate/Http/Controllers/GateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Gate/Http/Controllers/GateController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Gate/Resources/views/gate/inwardGatePass.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Gate/Resources/views/gate/inwardGatePass.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Store/Http/Controllers/StoreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Store/Http/Controllers/StoreController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Store/Resources/views/newBuiltyArrival.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Store/Resources/views/newBuiltyArrival.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Store/Resources/views/storewiseNewBuiltyArrival.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Store/Resources/views/storewiseNewBuiltyArrival.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Store/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Store/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,7 +156,10 @@
       <workItem from="1583919888442" duration="7363000" />
       <workItem from="1583988992887" duration="19465000" />
       <workItem from="1584072993966" duration="23662000" />
-      <workItem from="1584332764469" duration="172000" />
+      <workItem from="1584332764469" duration="767000" />
+      <workItem from="1584334873614" duration="22313000" />
+      <workItem from="1584419750084" duration="10633000" />
+      <workItem from="1584436830084" duration="8416000" />
     </task>
     <servers />
   </component>
@@ -157,14 +175,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="287" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1584013706318" />
-    <state x="378" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1584332939909">
+    <state x="462" y="106" key="FileChooserDialogImpl" timestamp="1584439654522">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="378" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584332939909" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1583990812327">
+    <state x="462" y="106" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1584439654522" />
+    <state x="378" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1584436830075">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1583990812327" />
+    <state x="378" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584436830075" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1584357926491">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1584357926491" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1583840409307">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
