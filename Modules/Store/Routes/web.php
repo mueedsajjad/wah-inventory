@@ -48,6 +48,17 @@ Route::prefix('store')->group(function() {
     Route::post('changeInwardReceiptApprovalStatus', 'StoreController@changeInwardReceiptApprovalStatus');
 
 
+    Route::get('assignStoreToFactoryInMadeProducts', 'StoreController@assignStoreToFactoryInMadeProducts');
+    Route::post('submitFactoryInMadeProductsToStore', 'StoreController@submitFactoryInMadeProductsToStore');
+
+    Route::get('assignStoreToFactoryInMadeComponents', 'StoreController@assignStoreToFactoryInMadeComponents');
+    Route::post('submitFactoryInMadeComponentsToStore', 'StoreController@submitFactoryInMadeComponentsToStore');
+
+    Route::get('assignStoreToFactoryInwardMaterial', 'StoreController@assignStoreToFactoryInwardMaterial');
+    Route::post('submitFactoryInwardMaterialToStore', 'StoreController@submitFactoryInwardMaterialToStore');
+
+
+
 
     Route::get('addProduct', 'StoreController@addProduct');
     //    -------------------- Delivery ---------------------- //
@@ -64,7 +75,6 @@ Route::prefix('store')->group(function() {
     Route::get('report', 'StoreController@report');
 
  // ------------------------------- Production Product -------------------- //
-    Route::get('productionProduct', 'StoreController@productionProduct');
 
 
 });
