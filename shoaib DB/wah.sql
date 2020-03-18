@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2020 at 01:18 PM
+-- Generation Time: Mar 18, 2020 at 01:08 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -108,9 +108,17 @@ CREATE TABLE `component_order` (
   `status` int(11) DEFAULT NULL,
   `production_deadline` date DEFAULT NULL,
   `created_date` date DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `component_order`
+--
+
+INSERT INTO `component_order` (`id`, `manufacturing_order`, `component_name`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'CO-2', 'Tube', 1000, 10000, 0, '2020-03-19', '2020-03-18', 'Component', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -247,7 +255,8 @@ INSERT INTO `employees` (`id`, `user_id`, `department_id`, `designation_id`, `mo
 (7, 12, 10, 10, '0324 43433343', 1, 1, 1, 'street 1, A Block Johir Town', '1584371575.admin_pic.png', NULL, NULL),
 (8, 13, 10, 5, '0324 43433343', 1, 1, 1, 'street 1, A Block Johir Town', '1584371754.admin_pic.png', NULL, NULL),
 (9, 14, 10, 4, '0324 43433343', 1, 1, 1, 'street 1, A Block Johir Town', '1584371821.admin_pic.png', NULL, NULL),
-(10, 15, 8, 11, '0324 43433343', 1, 1, 1, 'street 1, A Block Johir Town', '1584421773.admin_pic.png', NULL, NULL);
+(10, 15, 8, 11, '0324 43433343', 1, 1, 1, 'street 1, A Block Johir Town', '1584421773.admin_pic.png', NULL, NULL),
+(11, 16, 8, 11, '7709898098', 1, 1, 1, 'abc', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,12 +267,12 @@ INSERT INTO `employees` (`id`, `user_id`, `department_id`, `designation_id`, `mo
 CREATE TABLE `inward_gate_pass` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `gatePassId` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `supplierId` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `transporter` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vehicalNo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `driver` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `driverPh` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `storeLocation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -272,8 +281,38 @@ CREATE TABLE `inward_gate_pass` (
 -- Dumping data for table `inward_gate_pass`
 --
 
-INSERT INTO `inward_gate_pass` (`id`, `gatePassId`, `supplierId`, `transporter`, `vehicalNo`, `driver`, `driverPh`, `storeLocation`, `date`, `status`) VALUES
-(1, 'GP001', 'SP001', 'mueed', 'LHR-8877', 'mueed', '03351234567', '4', '2020-03-13', 1);
+INSERT INTO `inward_gate_pass` (`id`, `gatePassId`, `type`, `name`, `transporter`, `vehicalNo`, `driver`, `driverPh`, `date`, `status`) VALUES
+(1, 'GP002', 'supplier', 'CDOXS', 'Zeeshan Transporter', 'LHR-8828', 'waseem', '0335-12345678', '2020-03-17', 1),
+(5, 'GP003', 'supplier', 'MM Logix', 'Zeeshan Transporter', 'LHR-8567', 'Mueed', '033512345678', '2020-03-17', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inward_goods_receipt`
+--
+
+CREATE TABLE `inward_goods_receipt` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `grn` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `grnDate` date NOT NULL,
+  `document` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `purchasedFrom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gatePassId` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `totalCost` double(8,2) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `purchaseOrderNo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `materialName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `totalQuantity` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inward_goods_receipt`
+--
+
+INSERT INTO `inward_goods_receipt` (`id`, `grn`, `grnDate`, `document`, `purchasedFrom`, `gatePassId`, `totalCost`, `name`, `purchaseOrderNo`, `materialName`, `uom`, `description`, `totalQuantity`) VALUES
+(1, 'GRN001', '2020-03-17', NULL, 'ppra', 'GP002', 400000.00, 'CDOXS', 'PON001', 'Brass Head', 'PCS', 'Material Description', '44');
 
 -- --------------------------------------------------------
 
@@ -288,10 +327,23 @@ CREATE TABLE `inward_raw_material` (
   `qty` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gatePassId` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `storeLocation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `storeLocation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL,
-  `date` date NOT NULL
+  `inspectionDate` date DEFAULT NULL,
+  `inspectionStatus` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `rejectionReason` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `rejectedQty` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inward_raw_material`
+--
+
+INSERT INTO `inward_raw_material` (`id`, `materialName`, `uom`, `qty`, `description`, `gatePassId`, `date`, `storeLocation`, `status`, `inspectionDate`, `inspectionStatus`, `rejectionReason`, `rejectedQty`) VALUES
+(1, 'Brass Head', 'PCS', '44', 'Material Description', 'GP002', '2020-03-17', 'Magazine 2', 5, '2020-03-17', 'excellent', 'sfdsfsdfsd', NULL),
+(2, 'OP Wad', 'KG', '65', 'Material Description', 'GP003', '2020-03-17', 'Magazine 1', 3, '2020-03-17', 'bad', 'Low quality', 6),
+(3, 'Brass Head', 'KG', '56', 'Material Description', 'GP003', '2020-03-17', NULL, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -410,16 +462,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (31, '2020_03_10_095347_create_attendance_table', 18),
 (32, '2020_03_13_145249_create_leave_type_table', 19),
 (34, '2020_03_13_161852_create_leave_table', 20),
-(35, '2020_03_10_064311_create_inward_gate_pass_table', 21),
 (37, '2020_03_10_105704_create_material_table', 21),
 (38, '2020_03_05_093655_create_supplier_table', 22),
-(39, '2020_03_10_105253_create_inward_raw_material_table', 23),
 (41, '2020_03_16_161255_create_production_order_detail_table', 25),
 (42, '2020_03_16_161307_create_production_order_stage_table', 25),
 (45, '2020_03_16_115827_create_component_store_table', 26),
-(46, '2020_03_16_161212_create_production_order_table', 27),
 (49, '2020_03_17_070634_create_transfer_request_store_table', 28),
-(50, '2020_03_17_113049_create_component_order_table', 29);
+(51, '2020_03_17_094534_create_inward_goods_receipt_table', 30),
+(52, '2020_03_10_064311_create_inward_gate_pass_table', 31),
+(55, '2020_03_10_105253_create_inward_raw_material_table', 32),
+(56, '2020_03_16_161212_create_production_order_table', 33),
+(57, '2020_03_17_113049_create_component_order_table', 33),
+(59, '2020_03_18_104435_create_production_material_detail_table', 34),
+(60, '2020_03_18_104413_create_production_material_table', 35);
 
 -- --------------------------------------------------------
 
@@ -464,7 +519,8 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (5, 'App\\User', 9),
 (5, 'App\\User', 13),
 (10, 'App\\User', 12),
-(11, 'App\\User', 15);
+(11, 'App\\User', 15),
+(11, 'App\\User', 16);
 
 -- --------------------------------------------------------
 
@@ -557,6 +613,56 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `production_material`
+--
+
+CREATE TABLE `production_material` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `manufacturing_no` int(11) DEFAULT NULL,
+  `issue_date` date DEFAULT NULL,
+  `create_date` date DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `production_material`
+--
+
+INSERT INTO `production_material` (`id`, `manufacturing_no`, `issue_date`, `create_date`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, '2020-03-18', 0, NULL, NULL),
+(2, 1, '2020-03-18', '2020-03-18', 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `production_material_detail`
+--
+
+CREATE TABLE `production_material_detail` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `material_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `UOM` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `production_material_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `production_material_detail`
+--
+
+INSERT INTO `production_material_detail` (`id`, `material_name`, `UOM`, `quantity`, `description`, `production_material_id`, `created_at`, `updated_at`) VALUES
+(3, 'Plastic', 8, 20, 'Material Description Material Description', 4, NULL, NULL),
+(4, 'Plastic', 8, 20, 'Material Description Material Description', 1, NULL, NULL),
+(5, 'Plastic', 8, 20, 'ddd', 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `production_order`
 --
 
@@ -569,6 +675,7 @@ CREATE TABLE `production_order` (
   `status` int(11) DEFAULT NULL,
   `production_deadline` date DEFAULT NULL,
   `created_date` date DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -577,9 +684,8 @@ CREATE TABLE `production_order` (
 -- Dumping data for table `production_order`
 --
 
-INSERT INTO `production_order` (`id`, `manufacturing_order`, `product`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `created_at`, `updated_at`) VALUES
-(1, 'MO-1', '12 Gauge Bullet', 1000, 500000, 4, '2020-03-31', '2020-03-16', NULL, NULL),
-(2, 'MO-2', '12 Gauge Bullet', 500, 100000, 2, '2020-03-30', '2020-03-16', NULL, NULL);
+INSERT INTO `production_order` (`id`, `manufacturing_order`, `product`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'MO-1', 'Kartoos', 1000, 500000, 4, '2020-03-18', '2020-03-18', 'Product', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -751,7 +857,9 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (10, 1),
 (11, 5),
 (12, 4),
+(13, 1),
 (13, 11),
+(14, 1),
 (14, 11);
 
 -- --------------------------------------------------------
@@ -854,7 +962,9 @@ CREATE TABLE `transfer_request_store` (
 --
 
 INSERT INTO `transfer_request_store` (`id`, `store_id`, `order_id`, `created_at`, `updated_at`) VALUES
-(1, 0, 1, NULL, NULL);
+(1, 0, 1, NULL, NULL),
+(2, 1, 1, NULL, NULL),
+(3, 0, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -874,7 +984,8 @@ CREATE TABLE `unit` (
 --
 
 INSERT INTO `unit` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(5, 'PCS', NULL, NULL);
+(5, 'PCS', NULL, NULL),
+(8, 'KG', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -908,7 +1019,8 @@ INSERT INTO `users` (`id`, `name`, `manager_id`, `email`, `email_verified_at`, `
 (12, 'Faraz', NULL, 'faraz@gmail.com', NULL, '$2y$10$HakMFTjd/3nWpKBrDzR0v.YIT3pO3Qriept8cA7jpBoaaqrq4tIT.', NULL, '2020-03-16 10:12:55', '2020-03-16 10:12:55'),
 (13, 'Bilal', NULL, 'bilal@gmail.com', NULL, '$2y$10$LApLuz83eokbMj8dIxVKAuoOXJv7tfrmvTUHf2KyR/jdr5gqeWTUy', NULL, '2020-03-16 10:15:53', '2020-03-16 10:15:53'),
 (14, 'Muzamil', 13, 'muzamil@gmail.com', NULL, '$2y$10$xC0MVZg4Kjsiv2LKyRBeEOXk/hIUDeK6R/Mtt3MHH9/8pDntxTCjG', NULL, '2020-03-16 10:17:01', '2020-03-16 10:17:01'),
-(15, 'Numair Techincal', NULL, 'numair.work@gmail.com', NULL, '$2y$10$fSwvyqQ9ECMjCI4matVFPeAs.JQy54xUN/IGUTv47vV159GKwHXrq', NULL, '2020-03-17 00:09:33', '2020-03-17 00:09:33');
+(15, 'Numair Techincal', NULL, 'numair.work@gmail.com', NULL, '$2y$10$fSwvyqQ9ECMjCI4matVFPeAs.JQy54xUN/IGUTv47vV159GKwHXrq', NULL, '2020-03-17 00:09:33', '2020-03-17 00:09:33'),
+(16, 'kamran', NULL, 'kamran@gmail.com', NULL, '$2y$10$dgABbC6ekolw3amMo6NU8O9tB15AXozM4NmTDs38h2htnxyEsU6Hq', NULL, '2020-03-17 08:39:43', '2020-03-17 08:39:43');
 
 --
 -- Indexes for dumped tables
@@ -972,6 +1084,12 @@ ALTER TABLE `employees`
 -- Indexes for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inward_goods_receipt`
+--
+ALTER TABLE `inward_goods_receipt`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1040,6 +1158,18 @@ ALTER TABLE `payment_term`
 -- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `production_material`
+--
+ALTER TABLE `production_material`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `production_material_detail`
+--
+ALTER TABLE `production_material_detail`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1154,7 +1284,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `component_order`
 --
 ALTER TABLE `component_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `component_store`
@@ -1184,19 +1314,25 @@ ALTER TABLE `duty_schedule`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `inward_goods_receipt`
+--
+ALTER TABLE `inward_goods_receipt`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `inward_raw_material`
 --
 ALTER TABLE `inward_raw_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `leave`
@@ -1220,7 +1356,7 @@ ALTER TABLE `material`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `operation`
@@ -1241,10 +1377,22 @@ ALTER TABLE `permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `production_material`
+--
+ALTER TABLE `production_material`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `production_material_detail`
+--
+ALTER TABLE `production_material_detail`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `production_order`
 --
 ALTER TABLE `production_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `production_order_detail`
@@ -1304,19 +1452,19 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `transfer_request_store`
 --
 ALTER TABLE `transfer_request_store`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `unit`
 --
 ALTER TABLE `unit`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

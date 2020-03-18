@@ -14,6 +14,7 @@ class CreateComponentOrderTable extends Migration
     public function up()
     {
         Schema::create('component_order', function (Blueprint $table) {
+
             $table->bigIncrements('id');
             $table->string('manufacturing_order')->nullable();
             $table->string('component_name')->nullable();
@@ -22,6 +23,9 @@ class CreateComponentOrderTable extends Migration
             $table->integer('status')->nullable();
             $table->date('production_deadline')->nullable();
             $table->date('created_date')->nullable();
+
+            $table->string('type')->nullable();
+
             $table->timestamps();
         });
     }

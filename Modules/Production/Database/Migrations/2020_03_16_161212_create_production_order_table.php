@@ -23,6 +23,8 @@ class CreateProductionOrderTable extends Migration
             $table->date('production_deadline')->nullable();
             $table->date('created_date')->nullable();
 
+            $table->string('type')->nullable();
+
             $table->timestamps();
         });
     }

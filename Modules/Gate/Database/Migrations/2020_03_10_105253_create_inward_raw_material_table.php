@@ -15,15 +15,20 @@ class CreateInwardRawMaterialTable extends Migration
     {
         Schema::create('inward_raw_material', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('materialName');
+            $table->string('materialName')->nullable();
             $table->string('uom');
             $table->string('qty');
             $table->string('description');
             $table->string('gatePassId');
-            $table->string('storeLocation');
-            $table->integer('status');
+            $table->string('storeLocation')->nullable();
 
             $table->date('date');
+            $table->integer('status')->length(11);
+
+            $table->date('inspectionDate')->nullable();
+            $table->string('inspectionStatus')->length(25)->nullable();
+            $table->longText('rejectionReason')->nullable();
+            $table->integer('rejectedQty')->length(11)->nullable();
         });
     }
 

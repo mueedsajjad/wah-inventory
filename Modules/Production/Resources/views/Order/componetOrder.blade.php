@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
+
     <section class="content pt-3">
         <div class="container-fluid">
             <div class="row">
-
 
                 <div class="col-md-12">
                     @if(session()->has('save'))
@@ -48,7 +48,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Component</label>
-                                            <input type="text" name="component_product" class="form-control" placeholder="Kartoos" required>
+                                            <input type="text" name="component_name" class="form-control" placeholder="Kartoos" required>
                                         </div>
                                     </div>
 

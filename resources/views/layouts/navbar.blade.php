@@ -26,10 +26,15 @@
                     <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-spray-can"></i>
                         Production
                     </a>
+
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('production/dashboard')}}">Production Dashboard</a>
+                        <a class="dropdown-item" href="{{url('production/componentDashboard')}}">Component Dashboard</a>
                         <a class="dropdown-item" href="{{url('production/newOrder')}}">New Production Order</a>
                         <a class="dropdown-item" href="{{url('production/orderComponent')}}">New Component Order</a>
+
+                        <a class="dropdown-item" href="{{url('production/materialRequisition')}}">Request For Material</a>
+                        <a class="dropdown-item" href="{{url('production/orderComponent')}}">Request For Component</a>
                     </div>
                 </li>
                 @endif
@@ -145,11 +150,12 @@
                         <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>
                         <a class="dropdown-item" href="{{url('store/product')}}">Products</a>
                         <a class="dropdown-item" href="{{url('store/newBuiltyArrival')}}">New Builty Arrivals</a>
-                        <a class="dropdown-item" href="{{url('store/goodsReceipt')}}"> Goods Receipt</a>
-                        <a class="dropdown-item" href="{{url('store/inspection')}}"> I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/approveForInspectionNote')}}">Approve for I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/inwardInspectionNote')}}">Inward I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/inwardGoodsReceipt')}}">Inward Goods Receipt</a>
                         <a class="dropdown-item" href="{{url('store/deliveryOrder')}}">Delivery Order</a>
-                        <a class="dropdown-item" href="{{url('store/IssueRequisition')}}"> Issue / Requisition</a>
-                        <a class="dropdown-item" href="{{url('store/report')}}"> Reports</a>
+                        <a class="dropdown-item" href="{{url('store/IssueRequisition')}}">Issue / Requisition</a>
+                        <a class="dropdown-item" href="{{url('store/report')}}">Reports</a>
                     </div>
                 </li>
                 @endif

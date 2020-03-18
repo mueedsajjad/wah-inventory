@@ -255,28 +255,19 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label for="sga_20" class="col-sm-4 col-form-label">Select Supplier</label>
+                                        <label for="sga_20" class="col-sm-4 col-form-label">Type</label>
                                         <div class="col-sm-8">
-                                            <select name="supplierId" class="form-control select2" required>
-                                                @if(!$supplier->isempty())
-                                                    @foreach($supplier as $item)
-                                                        <option value="{{$item->supplier_id}}">{{$item->name}}</option>
-                                                    @endforeach
-                                                @endif
+                                            <select name="type" class="form-control select2" required>
+                                                <option value="supplier">Supplier</option>
+                                                <option value="customer">Customer</option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="sga_21" class="col-sm-4 col-form-label">Select Store Location</label>
+                                        <label class="col-sm-4 col-form-label">Name</label>
                                         <div class="col-sm-8">
-                                            <select name="storeLocation" class="form-control select2" required>
-                                                @if(!$stores->isempty())
-                                                    @foreach($stores as $store)
-                                                        <option value="{{$store->id}}">{{$store->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
+                                            <input type="text" name="name" required class="form-control" placeholder="CDOXS">
                                         </div>
                                     </div>
                                 </div>

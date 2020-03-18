@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransferRequestStoreTable extends Migration
+class CreateProductionMaterialTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateTransferRequestStoreTable extends Migration
      */
     public function up()
     {
-        Schema::create('transfer_request_store', function (Blueprint $table) {
+        Schema::create('production_material', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('store_id')->nullable();
-            $table->integer('order_id')->nullable();;
+            $table->integer('manufacturing_no')->nullable();
+            $table->date('issue_date')->nullable();
+            $table->date('create_date')->nullable();
+            $table->integer('status')->nullable();
 
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ class CreateTransferRequestStoreTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transfer_request_store');
+        Schema::dropIfExists('production_material');
     }
 }
