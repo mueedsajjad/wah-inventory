@@ -61,7 +61,7 @@
                                                                                 <!-- /.card-header -->
 
                                                                                 <div class="card-body">
-                                                                                    <table id="example1" class="table table-bordered">
+                                                                                    <table id="pageTable" class="table table-bordered">
                                                                                         <thead>
                                                                                         <tr>
                                                                                             <th>Sr</th>
@@ -192,7 +192,7 @@
                                                                                 <!--                                          </div>-->
                                                                                 <!-- /.card-header -->
                                                                                 <div class="card-body">
-                                                                                    <table id="example2" class="table table-bordered ">
+                                                                                    <table id="pageTable" class="table table-bordered ">
                                                                                         <thead>
                                                                                         <tr>
                                                                                             <th>Sr</th>
@@ -213,7 +213,7 @@
                                                                                         @php $n=0; @endphp
                                                                                         @foreach($orders as $order)
 
-                                                                                            @if($order->status==3 || $order->status==4)
+                                                                                            @if($order->status==3 || $order->status==4 || $order->status==5 )
                                                                                                 @php $n++; @endphp
                                                                                         <tr>
                                                                                             <td>{{$n}}</td>
@@ -233,7 +233,7 @@
                                                                                             <form action="{{url('production/transferProduct')}}" method="post">
                                                                                                 @csrf
                                                                                                 @if(auth()->user()->can('Product Transfer'))
-                                                                                                    @if($order->status==4)
+                                                                                                    @if($order->status==4 || $order->status==5)
                                                                                                         <td class="bg-light text-center">
                                                                                                             <div class="form-group m-0">
                                                                                                                 <input type="hidden" name="id" value="{{$order->id}}">
@@ -257,7 +257,7 @@
                                                                                                         </td>
                                                                                                     @endif
 
-                                                                                                    @if($order->status==4)
+                                                                                                    @if($order->status==4 || $order->status==5)
                                                                                                         <td class="bg-success">
                                                                                                             <button type="button" class="btn text-white" >
                                                                                                                Transfered To Store
@@ -307,16 +307,14 @@
                                                     <!--                                          </div>-->
                                                     <!-- /.card-header -->
                                                     <div class="card-body">
-                                                        <table id="example3" class="table table-bordered ">
+                                                        <table id="pageTable" class="table table-bordered ">
                                                             <thead>
-
                                                             <tr>
                                                                 <th>MO #</th>
                                                                 <th>MO Deadline</th>
                                                                 <th>Product</th>
                                                                 <th>Quantity</th>
                                                                 <th>Status</th>
-
                                                             </tr>
 
                                                             </thead>

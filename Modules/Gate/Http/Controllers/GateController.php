@@ -2,6 +2,7 @@
 
 namespace Modules\Gate\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -46,15 +47,12 @@ class GateController extends Controller
 
     }
 
-
-
     public function inwardGatePass()
     {
         $supplier=DB::table('supplier')->get();
         $units=DB::table('unit')->get();
         $stores=DB::table('store')->get();
         $countInwardGatePass=DB::table('inward_gate_pass')->select('gatePassId')->orderByDesc('id')->first();
-
         if(empty($countInwardGatePass)){
             $countInwardGatePass=1;
         }
@@ -64,6 +62,88 @@ class GateController extends Controller
         }
         return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
     }
+
+    public function outVehicle()
+    {
+        $countOutVehicle=DB::table('vehicle_management')->select('record_id')->orderByDesc('id')->first();
+        if(empty($countOutVehicle)){
+            $countOutVehicle=1;
+        }
+        else{
+            $countOutVehicle=substr($countOutVehicle->record_id,2);
+            ++$countOutVehicle;
+        }
+        return view('gate::vehicle/outVehicle', compact('countOutVehicle'));
+    }
+
+    public function submitVehicleOut(Request $request){
+        //dd($request);
+        date_default_timezone_set("Asia/Karachi");
+        $data=[
+            'record_id' => $request->record_id,
+            'vehicle_no' => $request->vehicle_no,
+            'from' => $request->from,
+            'to' => $request->to,
+            'out_time' => Carbon::now(),
+            'out_meter_reading' => $request->out_meter_reading,
+            'driver' => $request->driver,
+            'status' => 0
+        ];
+        $insert=DB::table('vehicle_management')->insert($data);
+
+        if ($insert){
+            return redirect()->back()->with('message', 'Submitted Successfuly.');
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+
+    }
+
+    public function inVehicle(){
+        $vehicles=DB::table('vehicle_management')->get();
+
+        return view('gate::vehicle/inVehicle', compact('vehicles'));
+    }
+
+    public function submitInVehicle(Request $request){
+        $id=$request->sendId;
+        if ($id!=0 || $id!='' || $id!=null){
+            $out_meter_reading=$request->out_meter_reading;
+            $in_meter_reading=$request->in_meter_reading;
+            if ($in_meter_reading > $out_meter_reading){
+                $distance=$in_meter_reading-$out_meter_reading;
+                $data=[
+                    'in_meter_reading' => $in_meter_reading,
+                    'in_time' => Carbon::now(),
+                    'distance' => $distance,
+                    'status' => 1
+                ];
+                $update=DB::table('vehicle_management')->where('id', $id)->update($data);
+
+
+                if ($update){
+                    return redirect()->back()->with('message', 'Submitted Successfuly.');
+                }
+                else {
+                    return back()->withErrors( 'Something went wrong.');
+                }
+            }
+            else {
+                return back()->withErrors( 'Meter Reading is Wrong.');
+            }
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+    }
+
+
+
+
+
+
+
 
     public function dashboard()
     {
@@ -79,10 +159,7 @@ class GateController extends Controller
     {
         return view('gate::security/security');
     }
-    public function vehicle()
-    {
-        return view('gate::vehicle/vehicle');
-    }
+
 //  ------------------- Rports ----------------------- //
     public function report()
     {

@@ -15,7 +15,7 @@ class CreateInwardRawMaterialTable extends Migration
     {
         Schema::create('inward_raw_material', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('materialName');
+            $table->string('materialName')->nullable();
             $table->string('uom');
             $table->string('qty');
             $table->string('description');

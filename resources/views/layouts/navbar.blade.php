@@ -26,10 +26,15 @@
                     <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-spray-can"></i>
                         Production
                     </a>
+
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('production/dashboard')}}">Production Dashboard</a>
+                        <a class="dropdown-item" href="{{url('production/componentDashboard')}}">Component Dashboard</a>
                         <a class="dropdown-item" href="{{url('production/newOrder')}}">New Production Order</a>
                         <a class="dropdown-item" href="{{url('production/orderComponent')}}">New Component Order</a>
+
+                        <a class="dropdown-item" href="{{url('production/materialRequisition')}}">Request For Material</a>
+                        <a class="dropdown-item" href="{{url('production/orderComponent')}}">Request For Component</a>
                     </div>
                 </li>
                 @endif
@@ -53,14 +58,14 @@
                         <a class="dropdown-item" href="{{url('gate/inwardGatePass')}}">Inward Gate Pass</a>
                         <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
                         <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>
-                        <a class="dropdown-item" href="{{url('gate/vehicle')}}">Vehicle Management</a>
+                        <a class="dropdown-item" href="{{url('gate/outVehicle')}}">Vehicle Out</a>
+                        <a class="dropdown-item" href="{{url('gate/inVehicle')}}">Vehicle In</a>
                         <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>
                     </div>
                 </li>
                 @endif
 
                 @if(auth()->user()->can('Supplier'))
-
                         <li class="nav-item dropdown">
                             <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-truck"></i></i>
                                 Supplier
@@ -144,9 +149,10 @@
                         @if(auth()->user()->can('Assign Stores'))
                         <a class="dropdown-item" href="{{url('store/assignStore')}}">Assign Stores</a>
                         @endif
-                        <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>
-                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>
-                        <a class="dropdown-item" href="{{url('store/product')}}">Products</a>
+                        <a class="dropdown-item" href="{{url('store/allStores')}}">Stores</a>
+{{--                        <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('store/product')}}">Products</a>--}}
                         <a class="dropdown-item" href="{{url('store/newBuiltyArrival')}}">New Builty Arrivals</a>
                         <a class="dropdown-item" href="{{url('store/approveForInspectionNote')}}">Approve for I-Note</a>
                         <a class="dropdown-item" href="{{url('store/inwardInspectionNote')}}">Inward I-Note</a>

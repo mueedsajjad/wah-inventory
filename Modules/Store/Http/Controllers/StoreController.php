@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function dashboard()
     {
         return view('store::dashboard/dashboard');
@@ -121,7 +126,8 @@ class StoreController extends Controller
         }
     }
 
-    public function changeUnloadStatus(Request $request){
+    public function changeUnloadStatus(Request $request)
+    {
         $gatepassid=$request->gatepassid;
         if ($gatepassid!=0 || $gatepassid!=null || $gatepassid!=''){
             $data=[
@@ -143,7 +149,19 @@ class StoreController extends Controller
         }
     }
 
-    public function approveForInspectionNote(){
+
+      public function productionProduct()
+      {
+          $stores=DB::table('store')->get();
+          $products=DB::table('production_order')
+              ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
+              ->where('status',4)
+              ->get();
+
+          return view('store::dashboard/product', compact('products','stores'));
+      }
+
+      public function approveForInspectionNote(){
         $stores=DB::table('store')->get();
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 1)
             ->orWhere('status', 2)->orWhere('status', 3)
@@ -159,7 +177,6 @@ class StoreController extends Controller
             ];
             $update=DB::table('inward_raw_material')->where('gatePassId', $gatePassId)
                 ->where('materialName', $request->materialName)->update($data);
-
 
             if ($update){
                 return redirect()->back()->with('message', 'Updated Store Successfuly.');
@@ -403,7 +420,7 @@ class StoreController extends Controller
             'status' => 5
         ];
         if ($request->store_location=="Finished Goods 1"){
-            $insert=DB::table('finished_goods_1')->insert($data);
+            $insert=DB::table('store_finished_goods_1')->insert($data);
             $ststusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
 
             if ($insert && $ststusChange){
@@ -414,7 +431,7 @@ class StoreController extends Controller
             }
         }
         if ($request->store_location=="Finished Goods 2"){
-            $insert=DB::table('finished_goods_2')->insert($data);
+            $insert=DB::table('store_finished_goods_2')->insert($data);
             $ststusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
 
             if ($insert && $ststusChange){
@@ -452,7 +469,7 @@ class StoreController extends Controller
         ];
 
         if ($request->store_location=="Components"){
-            $insert=DB::table('components')->insert($data);
+            $insert=DB::table('store_components')->insert($data);
             $ststusChange=DB::table('component_order')->where('id', $request->component_id)->update($dataStatus);
 
             if ($insert && $ststusChange){
@@ -463,7 +480,7 @@ class StoreController extends Controller
             }
         }
         else {
-            return back()->withErrors( 'Select the Product Relevant Store.');
+            return back()->withErrors( 'Select the Component Relevant Store.');
         }
     }
 
@@ -488,7 +505,18 @@ class StoreController extends Controller
         ];
 
         if ($request->storeLocation=="Magazine 1"){
-            $insert=DB::table('magazine_1')->insert($data);
+            $insert=DB::table('store_magazine_1')->insert($data);
+            $ststusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
+
+            if ($insert && $ststusChange){
+                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+        }
+        if ($request->storeLocation=="Magazine 2"){
+            $insert=DB::table('store_magazine_2')->insert($data);
             $ststusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
 
             if ($insert && $ststusChange){
@@ -499,10 +527,157 @@ class StoreController extends Controller
             }
         }
         else {
-            return back()->withErrors( 'Store Not Found.');
+            return back()->withErrors( 'Select the Material Relevant Store.');
         }
     }
 
+    public function allStores(){
+        return view('store::allStores');
+    }
+
+    public function storeMagazine1(){
+        $magazine1=DB::table('store_magazine_1')->select('materialName','uom')->where('status', 0)->distinct()->get();
+        if (count($magazine1)){
+            $index=0;
+            foreach ($magazine1 as $item){
+                $totalQuantity=0;
+
+                $magazine1check=DB::table('store_magazine_1')->where('status', 0)->get();
+                foreach ($magazine1check as $data){
+                    if ($item->materialName==$data->materialName && $item->uom==$data->uom){
+                        $totalQuantity=$totalQuantity+$data->quantity;
+                    }
+                }
+
+                $materialName=$item->materialName;
+                $uom=$item->uom;
+
+                $storeMagazine1[$index]['materialName']=$materialName;
+                $storeMagazine1[$index]['uom']=$uom;
+                $storeMagazine1[$index]['totalQuantity']=$totalQuantity;
+                ++$index;
+            }
+        }
+        else{
+            $storeMagazine1=array();
+        }
+
+        return view('store::storeMagazine1' , compact('storeMagazine1'));
+    }
+
+    public function storeMagazine2(){
+        $magazine2=DB::table('store_magazine_2')->select('materialName','uom')->where('status', 0)->distinct()->get();
+        if (count($magazine2)){
+            $index=0;
+            foreach ($magazine2 as $item){
+                $totalQuantity=0;
+
+                $magazine2check=DB::table('store_magazine_2')->where('status', 0)->get();
+                foreach ($magazine2check as $data){
+                    if ($item->materialName==$data->materialName && $item->uom==$data->uom){
+                        $totalQuantity=$totalQuantity+$data->quantity;
+                    }
+                }
+
+                $materialName=$item->materialName;
+                $uom=$item->uom;
+
+                $storeMagazine2[$index]['materialName']=$materialName;
+                $storeMagazine2[$index]['uom']=$uom;
+                $storeMagazine2[$index]['totalQuantity']=$totalQuantity;
+                ++$index;
+            }
+        }
+        else{
+            $storeMagazine2=array();
+        }
+
+        return view('store::storeMagazine2' , compact('storeMagazine2'));
+    }
+
+    public function storeFinishedGoods1(){
+        $finishGoods1=DB::table('store_finished_goods_1')->select('name')->where('status', 0)->distinct()->get();
+        //dd($finishGoods1);
+        if (count($finishGoods1)){
+            $index=0;
+            foreach ($finishGoods1 as $item){
+                $totalQuantity=0;
+
+                $finishGoods1check=DB::table('store_finished_goods_1')->where('status', 0)->get();
+                foreach ($finishGoods1check as $data){
+                    if ($item->name==$data->name){
+                        $totalQuantity=$totalQuantity+$data->quantity;
+                    }
+                }
+
+                $name=$item->name;
+                $storeFinishedGoods1[$index]['name']=$name;
+                $storeFinishedGoods1[$index]['totalQuantity']=$totalQuantity;
+                ++$index;
+            }
+        }
+        else{
+            $storeFinishedGoods1=array();
+        }
+
+        return view('store::storeFinishedGoods1' , compact('storeFinishedGoods1'));
+    }
+
+    public function storeFinishedGoods2(){
+        $finishGoods2=DB::table('store_finished_goods_2')->select('name')->where('status', 0)->distinct()->get();
+        //dd($finishGoods2);
+        if (count($finishGoods2)){
+            $index=0;
+            foreach ($finishGoods2 as $item){
+                $totalQuantity=0;
+
+                $finishGoods2check=DB::table('store_finished_goods_2')->where('status', 0)->get();
+                foreach($finishGoods2check as $data){
+                    if ($item->name==$data->name){
+                        $totalQuantity=$totalQuantity+$data->quantity;
+                    }
+                }
+
+                $name=$item->name;
+                $storeFinishedGoods2[$index]['name']=$name;
+                $storeFinishedGoods2[$index]['totalQuantity']=$totalQuantity;
+                ++$index;
+            }
+        }
+        else{
+            $storeFinishedGoods2=array();
+        }
+
+        return view('store::storeFinishedGoods2' , compact('storeFinishedGoods2'));
+    }
+
+    public function storeComponents(){
+        $components=DB::table('store_components')->select('name')->where('status', 0)->distinct()->get();
+        //dd($finishGoods2);
+        if (count($components)){
+            $index=0;
+            foreach ($components as $item){
+                $totalQuantity=0;
+
+                $componentscheck=DB::table('store_components')->where('status', 0)->get();
+                foreach($componentscheck as $data){
+                    if ($item->name==$data->name){
+                        $totalQuantity=$totalQuantity+$data->quantity;
+                    }
+                }
+
+                $name=$item->name;
+                $storeComponents[$index]['name']=$name;
+                $storeComponents[$index]['totalQuantity']=$totalQuantity;
+                ++$index;
+            }
+        }
+        else{
+            $storeComponents=array();
+        }
+
+        return view('store::storeComponents' , compact('storeComponents'));
+    }
 
 
 

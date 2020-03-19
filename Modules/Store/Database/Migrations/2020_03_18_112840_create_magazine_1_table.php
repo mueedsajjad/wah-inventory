@@ -13,7 +13,7 @@ class CreateMagazine1Table extends Migration
      */
     public function up()
     {
-        Schema::create('magazine_1', function (Blueprint $table) {
+        Schema::create('store_magazine_1', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('materialName');
             $table->string('uom');

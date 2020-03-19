@@ -13,7 +13,7 @@ class CreateComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('components', function (Blueprint $table) {
+        Schema::create('store_components', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('manufacturing_order');
             $table->string('name');
