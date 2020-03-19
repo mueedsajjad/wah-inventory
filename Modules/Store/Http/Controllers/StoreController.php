@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function dashboard()
     {
         return view('store::dashboard/dashboard');
@@ -144,10 +151,6 @@ class StoreController extends Controller
         }
     }
 
-    public function assignStore()
-    {
-        return view('store::dashboard/assignStore');
-    }
 
       public function productionProduct()
       {
@@ -160,11 +163,12 @@ class StoreController extends Controller
           return view('store::dashboard/product', compact('products','stores'));
       }
 
-    public function approveForInspectionNote(){
+      public function approveForInspectionNote(){
         $stores=DB::table('store')->get();
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 1)
             ->orWhere('status', 2)->orWhere('status', 3)
-            ->orWhere('status', 4)->orWhere('status', 5)->get();
+            ->orWhere('status', 4)->orWhere('status', 5)
+            ->orWhere('status', 6)->get();
         return view('store::approveForInspectionNote', compact('stores', 'inward_raw_material'));
     }
 
@@ -187,6 +191,11 @@ class StoreController extends Controller
             return back()->withErrors( 'Something went wrong.');
         }
     }
+    public  function assignStore()
+    {
+        return view('store::dashboard/assignStore');
+    }
+
 
     public function sendForInspection(Request $request){
         $gatepassid=$request->gatepassid;
@@ -223,7 +232,7 @@ class StoreController extends Controller
     {
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 2)
             ->orWhere('status', 3)->orWhere('status', 4)
-            ->orWhere('status', 5)->get();
+            ->orWhere('status', 5)->orWhere('status', 6)->get();
 
         return view('store::inwardInspectionNote', compact( 'inward_raw_material'));
     }
@@ -284,7 +293,8 @@ class StoreController extends Controller
     public function inwardGoodsReceipt()
     {
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 3)
-            ->orWhere('status', 4)->orWhere('status', 5)->get();
+            ->orWhere('status', 4)->orWhere('status', 5)
+            ->orWhere('status', 6)->get();
         return view('store::inwardGoodsReceipt', compact('inward_raw_material'));
     }
 
@@ -385,6 +395,130 @@ class StoreController extends Controller
         }
         else {
             return back()->withErrors( 'Something went wrong.');
+        }
+    }
+
+    //    ------------------------------ Products Came Form Production ----------------------------- //
+    public function assignStoreToFactoryInMadeProducts()
+    {
+        $stores=DB::table('store')->get();
+        $products=DB::table('production_order')->where('status',4)
+            ->orWhere('status',5)
+            ->get();
+        return view('store::dashboard/assignStoreToFactoryInMadeProducts', compact('products','stores'));
+    }
+
+    public function submitFactoryInMadeProductsToStore(Request $request){
+        //dd($request);
+        $data=[
+            'manufacturing_order' => $request->manufacturing_order,
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'total_cost' => $request->total_cost,
+            'stored_date' => date('Y-m-d'),
+            'status' => 0
+        ];
+        $dataStatus=[
+            'status' => 5
+        ];
+        if ($request->store_location=="Finished Goods 1"){
+            $insert=DB::table('finished_goods_1')->insert($data);
+            $ststusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
+
+            if ($insert && $ststusChange){
+                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+        }
+        if ($request->store_location=="Finished Goods 2"){
+            $insert=DB::table('finished_goods_2')->insert($data);
+            $ststusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
+
+            if ($insert && $ststusChange){
+                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+        }
+        else {
+            return back()->withErrors( 'Select the Product Relevant Store.');
+        }
+    }
+
+    public function assignStoreToFactoryInMadeComponents(){
+        $stores=DB::table('store')->get();
+        $components=DB::table('component_order')->where('status',4)
+            ->orWhere('status',5)
+            ->get();
+        return view('store::dashboard/assignStoreToFactoryInMadeComponents', compact('components','stores'));
+
+    }
+
+    public function submitFactoryInMadeComponentsToStore(Request $request){
+        $data=[
+            'manufacturing_order' => $request->manufacturing_order,
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'total_cost' => $request->total_cost,
+            'stored_date' => date('Y-m-d'),
+            'status' => 0
+        ];
+        $dataStatus=[
+            'status' => 5
+        ];
+
+        if ($request->store_location=="Components"){
+            $insert=DB::table('components')->insert($data);
+            $ststusChange=DB::table('component_order')->where('id', $request->component_id)->update($dataStatus);
+
+            if ($insert && $ststusChange){
+                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+        }
+        else {
+            return back()->withErrors( 'Select the Product Relevant Store.');
+        }
+    }
+
+    public function assignStoreToFactoryInwardMaterial(){
+        $inward_raw_material=DB::table('inward_raw_material')->where('status',5)
+            ->orWhere('status',6)
+            ->get();
+        return view('store::dashboard/assignStoreToFactoryInwardMaterial', compact('inward_raw_material'));
+    }
+
+    public function submitFactoryInwardMaterialToStore(Request $request){
+        //dd($request);
+        $data=[
+            'materialName' => $request->materialName,
+            'quantity' => $request->quantity,
+            'uom' => $request->uom,
+            'stored_date' => date('Y-m-d'),
+            'status' => 0
+        ];
+        $dataStatus=[
+            'status' => 6
+        ];
+
+        if ($request->storeLocation=="Magazine 1"){
+            $insert=DB::table('magazine_1')->insert($data);
+            $ststusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
+
+            if ($insert && $ststusChange){
+                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+        }
+        else {
+            return back()->withErrors( 'Store Not Found.');
         }
     }
 

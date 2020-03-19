@@ -17,7 +17,7 @@ class CreateInwardGoodsReceiptTable extends Migration
             $table->bigIncrements('id');
             $table->string('grn');
             $table->date('grnDate');
-            $table->string('document');
+            $table->string('document')->nullable();
             $table->string('purchasedFrom');
             $table->string('gatePassId');
             $table->float('totalCost');

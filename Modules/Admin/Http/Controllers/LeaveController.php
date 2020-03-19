@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class LeaveController extends Controller
 {
-
-    public function leave()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }    public function leave()
     {
         $employees=DB::table('users')
             ->join('employees', 'users.id', '=', 'employees.user_id')

@@ -42,6 +42,10 @@ Route::prefix('production')->group(function() {
 
     Route::post('materialRequisitionStore','ProductionController@materialRequisitionStore');
 
+    Route::get('componentRequisition','ProductionController@componentRequisition');
+    Route::post('componentRequisitionStore','ProductionController@componentRequisitionStore');
+
+
 
 });
 

@@ -34,7 +34,7 @@
                         <a class="dropdown-item" href="{{url('production/orderComponent')}}">New Component Order</a>
 
                         <a class="dropdown-item" href="{{url('production/materialRequisition')}}">Request For Material</a>
-                        <a class="dropdown-item" href="{{url('production/orderComponent')}}">Request For Component</a>
+                        <a class="dropdown-item" href="{{url('production/componentRequisition')}}">Request For Component</a>
                     </div>
                 </li>
                 @endif
@@ -145,7 +145,9 @@
 
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('store/dashboard')}}">Dashboard</a>
+                        @if(auth()->user()->can('Assign Stores'))
                         <a class="dropdown-item" href="{{url('store/assignStore')}}">Assign Stores</a>
+                        @endif
                         <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>
                         <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>
                         <a class="dropdown-item" href="{{url('store/product')}}">Products</a>

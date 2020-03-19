@@ -11,6 +11,11 @@ use mysql_xdevapi\Table;
 
 class ProductionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function dashboard()
     {
         $stores=DB::table('store')->get();
@@ -26,8 +31,6 @@ class ProductionController extends Controller
 
     public function orderStore(Request $request)
     {
-       // dd('abc');
-
         $data= $request->validate(
             [
                 'manufacturing_order' => 'required|string',
@@ -166,12 +169,12 @@ class ProductionController extends Controller
         $orders=DB::table('component_order')
             ->where('status',0)
             ->get();
+
         return view('production::requisition/material_requisition',compact('orders','units'));
     }
 
     public function materialRequisitionStore(Request $request)
     {
-       // dd($request);
 
         $data=[
             'manufacturing_no' => $request->manufacturing_no,
@@ -197,6 +200,60 @@ class ProductionController extends Controller
 
             ];
             $insertProductionMaterialDetail=DB::table('production_material_detail')->insert($data);
+        }
+
+        if ($insertProductionMaterial && $insertProductionMaterialDetail){
+            return redirect()->back()->with('message', 'Submitted Successfuly.');
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+
+
+    }
+
+    public function componentRequisition()
+    {
+        $components=DB::table('component')->get();
+        $orders=DB::table('production_order')
+            ->where('status',0)
+            ->get();
+
+        return view('production::requisition/component_requisition',compact('orders'
+        ,'components'));
+
+    }
+
+    public function componentRequisitionStore(Request $request)
+    {
+
+        $data=[
+            'manufacturing_no' => $request->manufacturing_no,
+            'issue_date' => $request->issue_date,
+            'create_date' => Carbon::today(),
+            'status' => 0
+        ];
+
+
+        
+
+        $insertProductionMaterial=DB::table('production_component')->insert($data);
+
+        $productionMaterial= DB::table('production_component')->orderBy('id', 'desc')->first();
+
+
+        $productionComponent_id=$productionMaterial->id;
+
+        for($i=0 ; $i<$request->countMaterial ; $i++){
+
+            $data=[
+                'component_name' => $request['materialName'][$i],
+                'quantity' => $request['qty'][$i],
+                'description' => $request['description'][$i],
+                'production_component_id' =>$productionComponent_id,
+            ];
+
+            $insertProductionMaterialDetail=DB::table('production_component_detail')->insert($data);
         }
 
         if ($insertProductionMaterial && $insertProductionMaterialDetail){

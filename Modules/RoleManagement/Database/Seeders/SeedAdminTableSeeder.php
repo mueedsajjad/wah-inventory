@@ -32,7 +32,6 @@ class SeedAdminTableSeeder extends Seeder
         ]);
 
 
-
         // $this->call("OthersTableSeeder");
     }
 }
