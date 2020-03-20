@@ -27,7 +27,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Manufacturing Order #</label>
-                                            <input type="text" name="manufacturing_order" class="form-control" placeholder="CO-1" required>
+                                            <input type="text" name="manufacturing_order" readonly class="form-control" value="CO-{{$id}}" required>
                                         </div>
                                     </div>
 

@@ -14,6 +14,7 @@
                         </div>
                     @endif
 
+
                     <div class="card-no-border">
                         <div class="card bg-transparent card-danger card-outline card-outline-tabs">
                             <div class="card-header p-0 border-bottom-0">
@@ -21,16 +22,15 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Schedule</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Tasks</a>
-                                    </li>
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Tasks</a>--}}
+{{--                                    </li>--}}
                                 </ul>
                             </div>
 
                             <div class="card-body p-0 bg-transparent">
                                 <div class="tab-content" id="custom-tabs-three-tabContent">
                                     <div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
-
 
                                         <div class="row mt-3">
                                             <div class="col-12">
@@ -78,6 +78,7 @@
                                                                                         </tr>
                                                                                         </thead>
                                                                                         <tbody>
+
 {{--                                                                                        <tr>--}}
 {{--                                                                                            <td>1</td>--}}
 {{--                                                                                            <td><a href="new-prodution-order.html">MO-1</a></td>--}}
@@ -99,7 +100,6 @@
 {{--                                                                                                    </select>--}}
 {{--                                                                                                </div>--}}
 
-
 {{--                                                                                            </td>--}}
 {{--                                                                                        </tr>--}}
 
@@ -110,52 +110,83 @@
                                                                                             @php $n++; @endphp
                                                                                         <tr>
                                                                                             <td>{{$n}}</td>
-                                                                                            <td><a href="{{url('production/processStatus')}}">{{$order->manufacturing_order}}</a></td>
+                                                                                            <td><a href="{{url('production/allProductionDetail/'.$order->id)}}">{{$order->manufacturing_order}}</a></td>
                                                                                             <td>{{$order->product}}</td>
                                                                                             <td>{{$order->quantity}}</td>
                                                                                             <td>{{$order->production_deadline}}</td>
 
+                                                                                            @php $i=0; @endphp
+                                                                                            @foreach($stocks as $stock)
+                                                                                                  @php $i++; @endphp
+                                                                                            @endforeach
+                                                                                            @php
+                                                                                            $b=0;
+                                                                                                $a=0;
+                                                                                           @endphp
+                                                                                            @foreach($stocks as $stock)
+                                                                                                @if($stock->quantity >= $order->quantity)
+                                                                                                    @php
+                                                                                                       $b=0;
+                                                                                                        @endphp
+                                                                                                    @else
+                                                                                                    @php
+                                                                                                        $a=1;
+                                                                                                    @endphp
+                                                                                                    @endif
+                                                                                                @endforeach
 
+                                                                                            @if($a==0 && $b==0)
                                                                                             <td class="bg-success">
-                                                                                                <button type="button" class="btn text-white" data-toggle="modal" data-target="#modal-default">
-                                                                                                    In Stock
-                                                                                                </button>
-
+                                                                                                  Available in Stock
                                                                                             </td>
+                                                                                                @else
+                                                                                                <td class="bg-danger">
+                                                                                                   Not Available
+                                                                                                </td>
+                                                                                                @endif
                                                                                             <!--
                                                                                                                                            <td class="bg-success text-center"><a href="#">Available</a></td>-->
-
-
+                                                                                            @if($a==0 && $b==0)
                                                                                             <form action="{{url('production/processStatus')}}" method="post">
                                                                                                 @csrf
                                                                                             <td class="bg-light text-center">
                                                                                                 <div class="form-group m-0">
-
                                                                                                         <input type="hidden" name="id" value="{{$order->id}}">
-                                                                                                    <select class="custom-select" name="status">
-
-                                                                                                        @if($order->status==0)
-                                                                                                            <option value="{{$order->status}}">Not Started</option>
+                                                                                                    <select class="custom-select" name="status" required>
+                                                                                                        @if($order->stage_status==0)
+                                                                                                            <option value="{{$order->status}}">Ignition</option>
                                                                                                         @endif
-                                                                                                            @if($order->status==1)
-                                                                                                                <option value="{{$order->status}}">Work In Progress</option>
-                                                                                                            @endif
+                                                                                                        @if($order->stage_status==1)
+                                                                                                            <option value="{{$order->status}}">Parts Assembly</option>
+                                                                                                        @endif
+                                                                                                        @if($order->stage_status==2)
+                                                                                                            <option value="{{$order->status}}">Closing Disk</option>
+                                                                                                        @endif
 
-                                                                                                            @if($order->status==2)
-                                                                                                                <option value="{{$order->status}}">Blocked</option>
-                                                                                                            @endif
+                                                                                                        @if($order->stage_status==3)
+                                                                                                            <option value="{{$order->status}}">Done</option>
+                                                                                                        @endif
+{{--                                                                                                        @if($order->status==0)--}}
+{{--                                                                                                            <option value="{{$order->status}}">Not Started</option>--}}
+{{--                                                                                                        @endif--}}
+{{--                                                                                                            @if($order->status==1)--}}
+{{--                                                                                                                <option value="{{$order->status}}">Work In Progress</option>--}}
+{{--                                                                                                            @endif--}}
 
-                                                                                                            @if($order->status==3)
-                                                                                                                <option value="{{$order->status}}">Done</option>
-                                                                                                            @endif
+{{--                                                                                                            @if($order->status==2)--}}
+{{--                                                                                                                <option value="{{$order->status}}">Blocked</option>--}}
+{{--                                                                                                            @endif--}}
 
-                                                                                                        <option value="3">Done</option>
-                                                                                                        <option value="0">Not Started</option>
-                                                                                                        <option value="2">Blocked</option>
-                                                                                                        <option value="1">Work In Progress</option>
+{{--                                                                                                            @if($order->status==3)--}}
+{{--                                                                                                                <option value="{{$order->status}}">Done</option>--}}
+{{--                                                                                                            @endif--}}
+
+                                                                                                        <option value="0">Ignition</option>
+                                                                                                        <option value="1">Parts Assembly</option>
+                                                                                                            <option value="2">Closing Disk</option>
+                                                                                                            <option value="3">Done</option>
 
                                                                                                     </select>
-
 
                                                                                                 </div>
 
@@ -165,6 +196,11 @@
                                                                                              <td><input type="submit" value="Chanage Process" class="btn bnt-md btn-primary ml-1"></td>
                                                                                                    @endif
                                                                                             </form>
+                                                                                            @else
+                                                                                                <td class="bg-danger">
+                                                                                                    No Action To Perform
+                                                                                                </td>
+                                                                                            @endif
                                                                                         </tr>
                                                                                         @endif
                                                                                       @endforeach
@@ -195,7 +231,6 @@
                                                                                     <table id="pageTable" class="table table-bordered ">
                                                                                         <thead>
                                                                                         <tr>
-
                                                                                             <th>Sr</th>
                                                                                             <th>Order #</th>
                                                                                             <th>Product</th>
@@ -218,7 +253,7 @@
                                                                                                 @php $n++; @endphp
                                                                                         <tr>
                                                                                             <td>{{$n}}</td>
-                                                                                            <td><a href="done-prodution.html">{{$order->manufacturing_order}}</a></td>
+                                                                                            <td><a href="{{url('production/allDoneProduct/'.$order->id)}}">{{$order->manufacturing_order}}</a></td>
                                                                                             <td>{{$order->product}}</td>
                                                                                             <td>{{$order->quantity}}</td>
                                                                                             <td>{{$order->total_cost}}</td>
@@ -254,7 +289,6 @@
                                                                                                                     <option value="1">Component</option>
                                                                                                                 </select>
                                                                                                             </div>
-
                                                                                                         </td>
                                                                                                     @endif
 
@@ -296,61 +330,61 @@
 
                                     </div>
 
-                                    <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+{{--                                    <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">--}}
 
-                                        <div class="row mt-3">
-                                            <div class="col-12">
-                                                <!-- /.card -->
+{{--                                        <div class="row mt-3">--}}
+{{--                                            <div class="col-12">--}}
+{{--                                                <!-- /.card -->--}}
 
-                                                <div class="card">
-                                                    <!--                                          <div class="card-header">-->
-                                                    <!--                                            <h3 class="card-title">DataTable with default features</h3>-->
-                                                    <!--                                          </div>-->
-                                                    <!-- /.card-header -->
-                                                    <div class="card-body">
-                                                        <table id="pageTable" class="table table-bordered ">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>MO #</th>
-                                                                <th>MO Deadline</th>
-                                                                <th>Product</th>
-                                                                <th>Quantity</th>
-                                                                <th>Status</th>
+{{--                                                <div class="card">--}}
+{{--                                                    <!--                                          <div class="card-header">-->--}}
+{{--                                                    <!--                                            <h3 class="card-title">DataTable with default features</h3>-->--}}
+{{--                                                    <!--                                          </div>-->--}}
+{{--                                                    <!-- /.card-header -->--}}
+{{--                                                    <div class="card-body">--}}
+{{--                                                        <table id="pageTable" class="table table-bordered ">--}}
+{{--                                                            <thead>--}}
+{{--                                                            <tr>--}}
+{{--                                                                <th>MO #</th>--}}
+{{--                                                                <th>MO Deadline</th>--}}
+{{--                                                                <th>Product</th>--}}
+{{--                                                                <th>Quantity</th>--}}
+{{--                                                                <th>Status</th>--}}
 
-                                                            </tr>
-                                                            </thead>
+{{--                                                            </tr>--}}
+{{--                                                            </thead>--}}
 
-                                                            <tbody>
-                                                            @foreach($orders as $order)
-                                                                @if($order->status==1 || $order->status==2 || $order->status==3)
-                                                            <tr>
-                                                                <td><a href="{{url('')}}">{{$order->manufacturing_order}}</a></td>
-                                                                <td>{{$order->production_deadline}}</td>
-                                                                <td>{{$order->product}}</td>
-                                                                <td>{{$order->quantity}}</td>
+{{--                                                            <tbody>--}}
+{{--                                                            @foreach($orders as $order)--}}
+{{--                                                                @if($order->status==1 || $order->status==2 || $order->status==3)--}}
+{{--                                                            <tr>--}}
+{{--                                                                <td><a href="{{url('production/allProductionDetail')}}">{{$order->manufacturing_order}}</a></td>--}}
+{{--                                                                <td>{{$order->production_deadline}}</td>--}}
+{{--                                                                <td>{{$order->product}}</td>--}}
+{{--                                                                <td>{{$order->quantity}}</td>--}}
 
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        @if($order->status==2)
-                                                                        <div class="p-2 px-3 bg-light">
-                                                                            <i class="fa fa-play"></i>
-                                                                        </div>
-                                                                        @endif
-                                                                            @if($order->status==1)
-                                                                           <div class="px-3 p-2 bg-yellow">
-                                                                            <i class="fa fa-hourglass-half"></i>
-                                                                           </div>
-                                                                            @endif
-                                                                            @if($order->status==3)
-                                                                            <div class="d-flex">
-                                                                                <div class="p-2 px-3 bg-success">
-                                                                                    <i class="fa fa-check"></i>
-                                                                                </div>
-                                                                            </div>
-                                                                            @endif
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+{{--                                                                <td>--}}
+{{--                                                                    <div class="d-flex">--}}
+{{--                                                                        @if($order->status==2)--}}
+{{--                                                                        <div class="p-2 px-3 bg-light">--}}
+{{--                                                                            <i class="fa fa-play"></i>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        @endif--}}
+{{--                                                                            @if($order->status==1)--}}
+{{--                                                                           <div class="px-3 p-2 bg-yellow">--}}
+{{--                                                                            <i class="fa fa-hourglass-half"></i>--}}
+{{--                                                                           </div>--}}
+{{--                                                                            @endif--}}
+{{--                                                                            @if($order->status==3)--}}
+{{--                                                                            <div class="d-flex">--}}
+{{--                                                                                <div class="p-2 px-3 bg-success">--}}
+{{--                                                                                    <i class="fa fa-check"></i>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                            @endif--}}
+{{--                                                                    </div>--}}
+{{--                                                                </td>--}}
+{{--                                                            </tr>--}}
 
 {{--                                                            <tr>--}}
 {{--                                                                <td><a href="done-prodution.html">{{$order->manufacturing_order}}</a></td>--}}
@@ -409,22 +443,23 @@
 {{--                                                                    </div>--}}
 {{--                                                                </td>--}}
 {{--                                                            </tr>--}}
-                                                             @endif
-                                                            @endforeach
+{{--                                                             @endif--}}
+{{--                                                            @endforeach--}}
 
-                                                            </tbody>
+{{--                                                            </tbody>--}}
 
-                                                        </table>
-                                                    </div>
-                                                    <!-- /.card-body -->
-                                                </div>
-                                                <!-- /.card -->
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
+{{--                                                        </table>--}}
+{{--                                                    </div>--}}
+{{--                                                    <!-- /.card-body -->--}}
+{{--                                                </div>--}}
+{{--                                                <!-- /.card -->--}}
+{{--                                            </div>--}}
+{{--                                            <!-- /.col -->--}}
+{{--                                        </div>--}}
 
 
-                                    </div>
+{{--                                    </div>--}}
+{{--                                --}}
                                 </div>
                             </div>
                             <!-- /.card -->

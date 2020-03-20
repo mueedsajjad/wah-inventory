@@ -37,6 +37,7 @@
                         <a class="dropdown-item" href="{{url('production/componentRequisition')}}">Request For Component</a>
 
                         <a class="dropdown-item" href="{{url('production/allComponentRequisition')}}">All Component Requisition</a>
+                        <a class="dropdown-item" href="{{url('production/allMaterialRequisition')}}">All Material Requisition</a>
 
                     </div>
                 </li>

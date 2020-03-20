@@ -22,6 +22,7 @@ class CreateProductionOrderTable extends Migration
             $table->integer('status')->nullable();
             $table->date('production_deadline')->nullable();
             $table->date('created_date')->nullable();
+            $table->integer('stage_status')->nullable();
 
             $table->string('type')->nullable();
 

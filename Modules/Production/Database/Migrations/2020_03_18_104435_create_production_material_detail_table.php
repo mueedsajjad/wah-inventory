@@ -11,6 +11,8 @@ class CreateProductionMaterialDetailTable extends Migration
      *
      * @return void
      */
+
+
     public function up()
     {
         Schema::create('production_material_detail', function (Blueprint $table) {
@@ -25,6 +27,7 @@ class CreateProductionMaterialDetailTable extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

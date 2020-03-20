@@ -36,7 +36,6 @@
                                                     <th>Quantity</th>
                                                     <th>Issue Date</th>
                                                     <th>Created Date</th>
-
                                                     <th>Status</th>
                                                     <th>Action</th>
 
@@ -59,11 +58,11 @@
                                                             <td>{{$order->create_date}}</td>
                                                             @if($order->status==0)
                                                             <td class="bg-default">
-                                                                    <span > Not approved yet </span>
+                                                                <span>Not approved yet </span>
                                                             </td>
                                                          @elseif($order->status==1)
                                                                 <td class="bg-success">
-                                                                        <span > Approved </span>
+                                                                    <span> Approved </span>
                                                                 </td>
                                                         @endif
                                                             <!--
