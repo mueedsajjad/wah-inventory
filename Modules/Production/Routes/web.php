@@ -14,6 +14,8 @@
 Route::prefix('production')->group(function() {
     Route::get('/', 'ProductionController@index');
     Route::get('dashboard','ProductionController@dashboard');
+    Route::get('allProductionDetail/{id}','ProductionController@allProductionDetail');
+    Route::get('allDoneProduct/{id}','ProductionController@allDoneProduct');
     Route::get('newOrder','ProductionController@newOrder');
 
     Route::post('orderStore','ProductionController@orderStore');
@@ -49,6 +51,10 @@ Route::prefix('production')->group(function() {
     // --------------------------------------- Send And Received Component ---------------------------- //
     Route::get('allComponentRequisition','ProductionController@allComponentRequisition');
     Route::post('receiveComponent','ProductionController@receiveComponent');
+
+    Route::get('allMaterialRequisition','ProductionController@allMaterialRequisition');
+
+    Route::post('receiveMaterial','ProductionController@receiveMaterial');
 
 
 });

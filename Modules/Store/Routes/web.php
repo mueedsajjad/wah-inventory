@@ -57,6 +57,15 @@ Route::prefix('store')->group(function() {
     Route::get('assignStoreToFactoryInwardMaterial', 'StoreController@assignStoreToFactoryInwardMaterial');
     Route::post('submitFactoryInwardMaterialToStore', 'StoreController@submitFactoryInwardMaterialToStore');
 
+    Route::get('allStores', 'StoreController@allStores');
+    Route::get('storeMagazine1', 'StoreController@storeMagazine1');
+    Route::get('storeMagazine2', 'StoreController@storeMagazine2');
+    Route::get('storeFinishedGoods1', 'StoreController@storeFinishedGoods1');
+    Route::get('storeFinishedGoods2', 'StoreController@storeFinishedGoods2');
+    Route::get('storeComponents', 'StoreController@storeComponents');
+
+
+
 
 
 

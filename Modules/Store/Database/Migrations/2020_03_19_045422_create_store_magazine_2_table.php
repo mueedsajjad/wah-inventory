@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComponentsTable extends Migration
+class CreateStoreMagazine2Table extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('store_components', function (Blueprint $table) {
+        Schema::create('store_magazine_2', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('manufacturing_order');
-            $table->string('name');
+            $table->string('materialName');
+            $table->string('uom');
             $table->integer('quantity');
-            $table->integer('total_cost');
             $table->date('stored_date');
             $table->integer('status');
         });
@@ -31,6 +30,6 @@ class CreateComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('components');
+        Schema::dropIfExists('store_magazine_2');
     }
 }

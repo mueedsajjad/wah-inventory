@@ -13,6 +13,12 @@
                         </div>
                     @endif
 
+                        @if(session()->has('exist'))
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Fail</strong> {{session()->get('exist')}}
+                            </div>
+                        @endif
+
                     <div class="card card-dark">
                         <div class="card-header">
                             <h3 class="card-title">New Manufacturing Order</h3>
@@ -22,11 +28,10 @@
                             <form action="{{url('production/orderStore')}}" method="post">
                             @csrf
                                 <div class="row">
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Manufacturing Order #</label>
-                                            <input type="text" name="manufacturing_order" class="form-control" placeholder="MO-1">
+                                            <input readonly type="text" name="manufacturing_order" class="form-control" value="MO-{{$id}}">
                                         </div>
                                     </div>
 

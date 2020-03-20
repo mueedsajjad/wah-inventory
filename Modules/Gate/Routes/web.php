@@ -15,6 +15,11 @@ Route::prefix('gate')->group(function() {
     Route::get('inwardGatePass','GateController@inwardGatePass');
     Route::post('addInwardGatePass','GateController@addInwardGatePass');
 
+    Route::get('outVehicle','GateController@outVehicle');
+    Route::post('submitVehicleOut','GateController@submitVehicleOut');
+
+    Route::get('inVehicle','GateController@inVehicle');
+    Route::post('submitInVehicle','GateController@submitInVehicle');
 
 
 
@@ -25,7 +30,7 @@ Route::prefix('gate')->group(function() {
     Route::get('dashboard','GateController@dashboard');
     Route::get('attendance','GateController@attendance');
     Route::get('security','GateController@security');
-    Route::get('vehicle','GateController@vehicle');
+
 
     // ------------ Reports --------------------//
     Route::get('report','GateController@report');

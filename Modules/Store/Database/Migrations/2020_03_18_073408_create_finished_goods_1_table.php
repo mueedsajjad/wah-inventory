@@ -13,7 +13,7 @@ class CreateFinishedGoods1Table extends Migration
      */
     public function up()
     {
-        Schema::create('finished_goods_1', function (Blueprint $table) {
+        Schema::create('store_finished_goods_1', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('manufacturing_order');
             $table->string('name');

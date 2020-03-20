@@ -11,6 +11,8 @@ class CreateProductionMaterialDetailTable extends Migration
      *
      * @return void
      */
+
+
     public function up()
     {
         Schema::create('production_material_detail', function (Blueprint $table) {
@@ -20,10 +22,12 @@ class CreateProductionMaterialDetailTable extends Migration
             $table->integer('quantity')->nullable();
             $table->string('description')->nullable();
             $table->integer('production_material_id')->nullable();
+            $table->integer('status')->nullable();
 
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

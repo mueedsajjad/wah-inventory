@@ -37,6 +37,7 @@
                         <a class="dropdown-item" href="{{url('production/componentRequisition')}}">Request For Component</a>
 
                         <a class="dropdown-item" href="{{url('production/allComponentRequisition')}}">All Component Requisition</a>
+                        <a class="dropdown-item" href="{{url('production/allMaterialRequisition')}}">All Material Requisition</a>
 
                     </div>
                 </li>
@@ -61,7 +62,8 @@
                         <a class="dropdown-item" href="{{url('gate/inwardGatePass')}}">Inward Gate Pass</a>
                         <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
                         <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>
-                        <a class="dropdown-item" href="{{url('gate/vehicle')}}">Vehicle Management</a>
+                        <a class="dropdown-item" href="{{url('gate/outVehicle')}}">Vehicle Out</a>
+                        <a class="dropdown-item" href="{{url('gate/inVehicle')}}">Vehicle In</a>
                         <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>
                     </div>
                 </li>
@@ -151,9 +153,10 @@
                         @if(auth()->user()->can('Assign Stores'))
                         <a class="dropdown-item" href="{{url('store/assignStore')}}">Assign Stores</a>
                         @endif
-                        <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>
-                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>
-                        <a class="dropdown-item" href="{{url('store/product')}}">Products</a>
+                        <a class="dropdown-item" href="{{url('store/allStores')}}">Stores</a>
+{{--                        <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>--}}
+{{--                        <a class="dropdown-item" href="{{url('store/product')}}">Products</a>--}}
                         <a class="dropdown-item" href="{{url('store/newBuiltyArrival')}}">New Builty Arrivals</a>
                         <a class="dropdown-item" href="{{url('store/approveForInspectionNote')}}">Approve for I-Note</a>
                         <a class="dropdown-item" href="{{url('store/inwardInspectionNote')}}">Inward I-Note</a>

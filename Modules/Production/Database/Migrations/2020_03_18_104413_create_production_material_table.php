@@ -19,7 +19,7 @@ class CreateProductionMaterialTable extends Migration
             $table->integer('manufacturing_no')->nullable();
             $table->date('issue_date')->nullable();
             $table->date('create_date')->nullable();
-            $table->integer('status')->nullable();
+
 
             $table->timestamps();
         });
