@@ -42,18 +42,21 @@ class ProductionController extends Controller
 
         $newProduct=DB::table('production_order')->orderBy('id', 'desc')->first();
         $id=$newProduct->id;
+        $id++;
 
         return view('production::Order/newOrder',compact('id'));
     }
 
     public function orderStore(Request $request)
     {
-        $new=DB::table('production_order')
-            ->where('status',0)
-            ->orwhere('status',1)
-            ->orwhere('status',2)
-            ->count();
-
+//        $new=DB::table('production_order')
+//            ->where('status',0)
+//            ->orwhere('status',1)
+//            ->orwhere('status',2)
+//            ->count();
+//
+//        dd($new);
+        $new=1;
         if($new>0)
         {
             $data= $request->validate(
