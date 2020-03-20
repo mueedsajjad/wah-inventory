@@ -20,9 +20,11 @@ class CreateProductionComponentDetailTable extends Migration
             $table->integer('quantity')->nullable();
             $table->string('description')->nullable();
             $table->integer('production_component_id')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

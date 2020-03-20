@@ -224,18 +224,16 @@ class ProductionController extends Controller
 
     }
 
+
     public function componentRequisitionStore(Request $request)
     {
-
+        //dd('abc');
         $data=[
             'manufacturing_no' => $request->manufacturing_no,
             'issue_date' => $request->issue_date,
             'create_date' => Carbon::today(),
-            'status' => 0
         ];
 
-
-        
 
         $insertProductionMaterial=DB::table('production_component')->insert($data);
 
@@ -251,9 +249,12 @@ class ProductionController extends Controller
                 'quantity' => $request['qty'][$i],
                 'description' => $request['description'][$i],
                 'production_component_id' =>$productionComponent_id,
+                'status' =>0,
             ];
 
+
             $insertProductionMaterialDetail=DB::table('production_component_detail')->insert($data);
+
         }
 
         if ($insertProductionMaterial && $insertProductionMaterialDetail){
@@ -263,8 +264,47 @@ class ProductionController extends Controller
             return back()->withErrors( 'Something went wrong.');
         }
 
-
     }
+
+    // ------------------------------------------------ Receive Component ------------------------------------ //
+    public function allComponentRequisition()
+    {
+        $components=DB::table('component')->get();
+
+        $orders=DB::table('production_component')
+            ->join('production_component_detail',
+                'production_component_detail.production_component_id','=','production_component.id')
+            ->get();
+
+       // dd($orders);
+        return view('production::Order/recieved_component',compact('orders'
+            ,'components'));
+    }
+
+    public function receiveComponent(Request $request)
+    {
+        //dd('reciece');
+        DB::table('production_component_detail')->where('id',$request->id)
+            ->update(['status'=>2]);
+
+        $count=DB::table('production_component_store')->where('component_name',$request->name)->count();
+
+        if($count>0)
+        {
+
+            //return redirect()->back()->with('exists','this record exist already');
+        }
+        else
+        {
+            DB::table('component')->insert(['component_name' => $data['name']]);
+            return redirect()->back()->with('save', 'Saved Successfully');
+        }
+
+        return redirect()->back()->with('save','Changed Status Successfully');
+    }
+
+
+
 
 //    public function setting()
 //    {

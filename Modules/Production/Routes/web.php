@@ -46,6 +46,10 @@ Route::prefix('production')->group(function() {
     Route::post('componentRequisitionStore','ProductionController@componentRequisitionStore');
 
 
+    // --------------------------------------- Send And Received Component ---------------------------- //
+    Route::get('allComponentRequisition','ProductionController@allComponentRequisition');
+    Route::post('receiveComponent','ProductionController@receiveComponent');
+
 
 });
 

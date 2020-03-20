@@ -13,6 +13,7 @@
                             <strong>Success</strong> {{session()->get('save')}}
                         </div>
                     @endif
+
                     <div class="card-no-border">
                         <div class="card bg-transparent card-danger card-outline card-outline-tabs">
                             <div class="card-header p-0 border-bottom-0">
@@ -185,7 +186,6 @@
                                                                     <div class="row">
                                                                         <div class="col-12">
                                                                             <!-- /.card -->
-
                                                                             <div class="card">
                                                                                 <!--                                          <div class="card-header">-->
                                                                                 <!--                                            <h3 class="card-title">DataTable with default features</h3>-->
@@ -195,6 +195,7 @@
                                                                                     <table id="pageTable" class="table table-bordered ">
                                                                                         <thead>
                                                                                         <tr>
+
                                                                                             <th>Sr</th>
                                                                                             <th>Order #</th>
                                                                                             <th>Product</th>
@@ -293,8 +294,8 @@
                                             </div>
                                         </div>
 
-
                                     </div>
+
                                     <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
 
                                         <div class="row mt-3">
@@ -315,17 +316,18 @@
                                                                 <th>Product</th>
                                                                 <th>Quantity</th>
                                                                 <th>Status</th>
-                                                            </tr>
 
+                                                            </tr>
                                                             </thead>
+
                                                             <tbody>
                                                             @foreach($orders as $order)
                                                                 @if($order->status==1 || $order->status==2 || $order->status==3)
                                                             <tr>
-                                                                <td><a href="done-prodution.html">{{$order->manufacturing_order}}</a></td>
+                                                                <td><a href="{{url('')}}">{{$order->manufacturing_order}}</a></td>
                                                                 <td>{{$order->production_deadline}}</td>
                                                                 <td>{{$order->product}}</td>
-                                                                <td>Tube Extortion Plant</td>
+                                                                <td>{{$order->quantity}}</td>
 
                                                                 <td>
                                                                     <div class="d-flex">
@@ -349,62 +351,64 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td><a href="done-prodution.html">{{$order->manufacturing_order}}</a></td>
-                                                                <td>{{$order->production_deadline}}</td>
-                                                                <td>{{$order->product}}</td>
-                                                                <td>Initial Assembly and Printing</td>
 
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        @if($order->status==2)
-                                                                            <div class="p-2 px-3 bg-light">
-                                                                                <i class="fa fa-play"></i>
-                                                                            </div>
-                                                                        @endif
-                                                                        @if($order->status==1)
-                                                                            <div class="px-3 p-2 bg-yellow">
-                                                                                <i class="fa fa-hourglass-half"></i>
-                                                                            </div>
-                                                                        @endif
-                                                                        @if($order->status==3)
-                                                                            <div class="d-flex">
-                                                                                <div class="p-2 px-3 bg-success">
-                                                                                    <i class="fa fa-check"></i>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endif
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="done-prodution.html">{{$order->manufacturing_order}}</a></td>
-                                                                <td>{{$order->production_deadline}}</td>
-                                                                <td>{{$order->product}}</td>
-                                                                <td>Loading and Closing</td>
+{{--                                                            <tr>--}}
+{{--                                                                <td><a href="done-prodution.html">{{$order->manufacturing_order}}</a></td>--}}
+{{--                                                                <td>{{$order->production_deadline}}</td>--}}
+{{--                                                                <td>{{$order->product}}</td>--}}
+{{--                                                                <td>Initial Assembly and Printing</td>--}}
 
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        @if($order->status==2)
-                                                                            <div class="p-2 px-3 bg-light">
-                                                                                <i class="fa fa-play"></i>
-                                                                            </div>
-                                                                        @endif
-                                                                        @if($order->status==1)
-                                                                            <div class="px-3 p-2 bg-yellow">
-                                                                                <i class="fa fa-hourglass-half"></i>
-                                                                            </div>
-                                                                        @endif
-                                                                        @if($order->status==3)
-                                                                            <div class="d-flex">
-                                                                                <div class="p-2 px-3 bg-success">
-                                                                                    <i class="fa fa-check"></i>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endif
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+{{--                                                                <td>--}}
+{{--                                                                    <div class="d-flex">--}}
+{{--                                                                        @if($order->status==2)--}}
+{{--                                                                            <div class="p-2 px-3 bg-light">--}}
+{{--                                                                                <i class="fa fa-play"></i>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        @endif--}}
+{{--                                                                        @if($order->status==1)--}}
+{{--                                                                            <div class="px-3 p-2 bg-yellow">--}}
+{{--                                                                                <i class="fa fa-hourglass-half"></i>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        @endif--}}
+{{--                                                                        @if($order->status==3)--}}
+{{--                                                                            <div class="d-flex">--}}
+{{--                                                                                <div class="p-2 px-3 bg-success">--}}
+{{--                                                                                    <i class="fa fa-check"></i>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        @endif--}}
+{{--                                                                    </div>--}}
+{{--                                                                </td>--}}
+{{--                                                            </tr>--}}
+
+{{--                                                            <tr>--}}
+{{--                                                                <td><a href="done-prodution.html">{{$order->manufacturing_order}}</a></td>--}}
+{{--                                                                <td>{{$order->production_deadline}}</td>--}}
+{{--                                                                <td>{{$order->product}}</td>--}}
+{{--                                                                <td>Loading and Closing</td>--}}
+
+{{--                                                                <td>--}}
+{{--                                                                    <div class="d-flex">--}}
+{{--                                                                        @if($order->status==2)--}}
+{{--                                                                            <div class="p-2 px-3 bg-light">--}}
+{{--                                                                                <i class="fa fa-play"></i>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        @endif--}}
+{{--                                                                        @if($order->status==1)--}}
+{{--                                                                            <div class="px-3 p-2 bg-yellow">--}}
+{{--                                                                                <i class="fa fa-hourglass-half"></i>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        @endif--}}
+{{--                                                                        @if($order->status==3)--}}
+{{--                                                                            <div class="d-flex">--}}
+{{--                                                                                <div class="p-2 px-3 bg-success">--}}
+{{--                                                                                    <i class="fa fa-check"></i>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        @endif--}}
+{{--                                                                    </div>--}}
+{{--                                                                </td>--}}
+{{--                                                            </tr>--}}
                                                              @endif
                                                             @endforeach
 
