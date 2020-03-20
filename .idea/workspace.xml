@@ -20,7 +20,11 @@
 <<<<<<< HEAD
 =======
 =======
+<<<<<<< HEAD
 >>>>>>> 69eac61a916a3d4960f8e05c0a49ec867b9c850f
+=======
+>>>>>>> fa40e0706d71db1b76746345ec4f1193b757678f
+>>>>>>> 1bc2219df1278e03d5cd5a9f19878562966a7145
       <change beforePath="$PROJECT_DIR$/Modules/Supplier/Database/Migrations/2020_03_05_093655_create_supplier_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Supplier/Database/Migrations/2020_03_05_093655_create_supplier_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Supplier/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Supplier/Http/Controllers/SupplierController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Supplier/Resources/views/supplier.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Supplier/Resources/views/supplier.blade.php" afterDir="false" />
@@ -44,11 +48,19 @@
       <change beforePath="$PROJECT_DIR$/Modules/Setting/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Setting/Routes/web.php" afterDir="false" />
 >>>>>>> 1c20c9a68146ca578ea17a21baeb4328c6c7b842
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0ca0f0d59504f04564ba2bae7f9a950f19488e0d
 =======
 =======
 >>>>>>> 96776e66fb07357841bd0f11949c717564e55daa
 >>>>>>> 69eac61a916a3d4960f8e05c0a49ec867b9c850f
+=======
+=======
+>>>>>>> 96776e66fb07357841bd0f11949c717564e55daa
+=======
+>>>>>>> 0ca0f0d59504f04564ba2bae7f9a950f19488e0d
+>>>>>>> fa40e0706d71db1b76746345ec4f1193b757678f
+>>>>>>> 1bc2219df1278e03d5cd5a9f19878562966a7145
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -193,13 +205,21 @@
       <workItem from="1584072993966" duration="23662000" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 1bc2219df1278e03d5cd5a9f19878562966a7145
       <workItem from="1584332764469" duration="767000" />
       <workItem from="1584334873614" duration="22313000" />
       <workItem from="1584419750084" duration="10633000" />
       <workItem from="1584436830084" duration="8416000" />
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> 69eac61a916a3d4960f8e05c0a49ec867b9c850f
+=======
+>>>>>>> fa40e0706d71db1b76746345ec4f1193b757678f
+>>>>>>> 1bc2219df1278e03d5cd5a9f19878562966a7145
 =======
       <updated>1583039275680</updated>
       <workItem from="1583039281990" duration="29708000" />
@@ -219,15 +239,24 @@
       <workItem from="1584078088494" duration="27190000" />
 >>>>>>> 1c20c9a68146ca578ea17a21baeb4328c6c7b842
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0ca0f0d59504f04564ba2bae7f9a950f19488e0d
 =======
+=======
+>>>>>>> 1bc2219df1278e03d5cd5a9f19878562966a7145
 =======
       <workItem from="1584332764469" duration="767000" />
       <workItem from="1584334873614" duration="22313000" />
       <workItem from="1584419750084" duration="10633000" />
       <workItem from="1584436830084" duration="8416000" />
 >>>>>>> 96776e66fb07357841bd0f11949c717564e55daa
+<<<<<<< HEAD
 >>>>>>> 69eac61a916a3d4960f8e05c0a49ec867b9c850f
+=======
+=======
+>>>>>>> 0ca0f0d59504f04564ba2bae7f9a950f19488e0d
+>>>>>>> fa40e0706d71db1b76746345ec4f1193b757678f
+>>>>>>> 1bc2219df1278e03d5cd5a9f19878562966a7145
     </task>
     <servers />
   </component>

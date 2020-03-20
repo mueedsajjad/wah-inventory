@@ -11,6 +11,11 @@ use mysql_xdevapi\Table;
 
 class ProductionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function dashboard()
     {
         $stores=DB::table('store')->get();
@@ -26,8 +31,6 @@ class ProductionController extends Controller
 
     public function orderStore(Request $request)
     {
-       // dd('abc');
-
         $data= $request->validate(
             [
                 'manufacturing_order' => 'required|string',
@@ -166,18 +169,18 @@ class ProductionController extends Controller
         $orders=DB::table('component_order')
             ->where('status',0)
             ->get();
+
         return view('production::requisition/material_requisition',compact('orders','units'));
     }
 
     public function materialRequisitionStore(Request $request)
     {
-       // dd($request);
 
         $data=[
             'manufacturing_no' => $request->manufacturing_no,
             'issue_date' => $request->issue_date,
             'create_date' => Carbon::today(),
-            'status' => 0
+
         ];
 
         $insertProductionMaterial=DB::table('production_material')->insert($data);
@@ -194,6 +197,7 @@ class ProductionController extends Controller
                 'quantity' => $request['qty'][$i],
                 'description' => $request['description'][$i],
                 'production_material_id' =>$productionMaterial_id,
+                'status' => 0
 
             ];
             $insertProductionMaterialDetail=DB::table('production_material_detail')->insert($data);
@@ -208,6 +212,100 @@ class ProductionController extends Controller
 
 
     }
+
+    public function componentRequisition()
+    {
+        $components=DB::table('component')->get();
+        $orders=DB::table('production_order')
+            ->where('status',0)
+            ->get();
+
+        return view('production::requisition/component_requisition',compact('orders'
+        ,'components'));
+
+    }
+
+
+    public function componentRequisitionStore(Request $request)
+    {
+        //dd('abc');
+        $data=[
+            'manufacturing_no' => $request->manufacturing_no,
+            'issue_date' => $request->issue_date,
+            'create_date' => Carbon::today(),
+        ];
+
+
+        $insertProductionMaterial=DB::table('production_component')->insert($data);
+
+        $productionMaterial= DB::table('production_component')->orderBy('id', 'desc')->first();
+
+
+        $productionComponent_id=$productionMaterial->id;
+
+        for($i=0 ; $i<$request->countMaterial ; $i++){
+
+            $data=[
+                'component_name' => $request['materialName'][$i],
+                'quantity' => $request['qty'][$i],
+                'description' => $request['description'][$i],
+                'production_component_id' =>$productionComponent_id,
+                'status' =>0,
+            ];
+
+
+            $insertProductionMaterialDetail=DB::table('production_component_detail')->insert($data);
+
+        }
+
+        if ($insertProductionMaterial && $insertProductionMaterialDetail){
+            return redirect()->back()->with('message', 'Submitted Successfuly.');
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+
+    }
+
+    // ------------------------------------------------ Receive Component ------------------------------------ //
+    public function allComponentRequisition()
+    {
+        $components=DB::table('component')->get();
+
+        $orders=DB::table('production_component')
+            ->join('production_component_detail',
+                'production_component_detail.production_component_id','=','production_component.id')
+            ->get();
+
+       // dd($orders);
+        return view('production::Order/recieved_component',compact('orders'
+            ,'components'));
+    }
+
+    public function receiveComponent(Request $request)
+    {
+        //dd('reciece');
+        DB::table('production_component_detail')->where('id',$request->id)
+            ->update(['status'=>2]);
+
+        $count=DB::table('production_component_store')->where('component_name',$request->name)->count();
+
+        if($count>0)
+        {
+
+            //return redirect()->back()->with('exists','this record exist already');
+        }
+        else
+        {
+            DB::table('component')->insert(['component_name' => $data['name']]);
+            return redirect()->back()->with('save', 'Saved Successfully');
+        }
+
+        return redirect()->back()->with('save','Changed Status Successfully');
+    }
+
+
+
 
 //    public function setting()
 //    {

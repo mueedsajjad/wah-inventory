@@ -92,7 +92,24 @@ class SeedPermissionsTableSeeder extends Seeder
             'created_at'=>NOW(),
             'updated_at'=>NOW()
         ]);
-
+        DB::table('permissions')->insert([
+            'name'=>'Production Process',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Product Transfer',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Assign Stores',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
         //____________________________ Previous Persmission For HRMS ----------------------- ///
 
 //        DB::table('permissions')->insert([

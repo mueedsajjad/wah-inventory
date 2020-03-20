@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductionMaterialDetailTable extends Migration
+class CreateProductionComponentDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateProductionMaterialDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('production_material_detail', function (Blueprint $table) {
+        Schema::create('production_component_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('material_name')->nullable();
-            $table->integer('UOM')->nullable();
+
+            $table->string('component_name')->nullable();
             $table->integer('quantity')->nullable();
             $table->string('description')->nullable();
-            $table->integer('production_material_id')->nullable();
+            $table->integer('production_component_id')->nullable();
             $table->integer('status')->nullable();
-
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -33,6 +33,6 @@ class CreateProductionMaterialDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('production_material_detail');
+        Schema::dropIfExists('production_component_detail');
     }
 }

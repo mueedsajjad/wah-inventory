@@ -17,8 +17,37 @@ class SettingController extends Controller
         $stores=DB::table('store')->get();
         $operations=DB::table('operation')->get();
         $departments=DB::table('departments')->get();
+        $components=DB::table('component')->get();
 
-        return view('setting::setting/setting',compact('units','categories','stores','operations','departments'));
+        return view('setting::setting/setting',compact('units','categories','stores',
+            'operations','departments','components'));
+    }
+
+    // -------------------------------- Component Create--------------------------- //
+
+    public function componentStore(Request $request)
+    {
+        $data= $request->validate(['name' => 'required|string']);
+
+        $count=DB::table('component')->where('component_name',$data['name'])->count();
+        if($count>0)
+        {
+            return redirect()->back()->with('exists','this record exist already');
+        }
+        else
+        {
+            DB::table('component')->insert(['component_name' => $data['name']]);
+            return redirect()->back()->with('save', 'Saved Successfully');
+        }
+    }
+
+    public function componentDelete($id)
+    {
+        if($id)
+        {
+            DB::table('component')->where('id', $id)->delete();
+            return redirect()->back()->with('delete','Deleted SuccessFully');
+        }
     }
 
 //   ----------------------- Unit  ---------------------------------- //
@@ -72,7 +101,7 @@ class SettingController extends Controller
         }
     }
 
-    // -------------------------  Store ---------------------------------- //
+    // ------------------------- Store ---------------------------------- //
 
     public function storeStore(Request $request)
     {
@@ -346,6 +375,7 @@ class SettingController extends Controller
           DB::table('leave_type')->Where('id',$request->id)->delete();
           return redirect()->back()->with('save','Deleted Successfully');
       }
+
 
 
 

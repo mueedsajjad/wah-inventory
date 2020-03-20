@@ -35,6 +35,11 @@ Route::prefix('setting')->group(function() {
     Route::post('departmentStore','SettingController@departmentStore');
     Route::get('departmentDelete/{id}','SettingController@departmentDelete');
 
+    Route::post('componentStore','SettingController@componentStore');
+    Route::get('componentDelete/{id}','SettingController@componentDelete');
+
+
+
     // ------------------------------- General Setting ----------------------------- //
 
     Route::get('settingGeneral', 'SettingController@settingGeneral');

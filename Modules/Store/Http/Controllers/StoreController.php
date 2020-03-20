@@ -2,6 +2,7 @@
 
 namespace Modules\Store\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -419,26 +420,85 @@ class StoreController extends Controller
         $dataStatus=[
             'status' => 5
         ];
+
         if ($request->store_location=="Finished Goods 1"){
             $insert=DB::table('store_finished_goods_1')->insert($data);
-            $ststusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
-
-            if ($insert && $ststusChange){
-                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
-            }
-            else {
-                return back()->withErrors( 'Something went wrong.');
+            $statusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
+            if ($insert && $statusChange){
+                $checkNameInStock=DB::table('store_stock')->where('name', $request->name)
+                    ->where('store_location', $request->store_location)->first();
+                if (!empty($checkNameInStock)){
+                    $oldquantity=$checkNameInStock->quantity;
+                    $newquantity=$request->quantity;
+                    $quantity=$oldquantity+$newquantity;
+                    $updateDataStock=[
+                        'quantity' => $quantity,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $updateInStoreStock=DB::table('store_stock')->where('name', $request->name)
+                        ->where('store_location', $request->store_location)->update($updateDataStock);
+                    if ($updateInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
+                else{
+                    $insertDataStock=[
+                        'name' => $request->name,
+                        'quantity' => $request->quantity,
+                        'store_location' => $request->store_location,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $insertInStoreStock=DB::table('store_stock')->insert($insertDataStock);
+                    if ($insertInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
             }
         }
-        if ($request->store_location=="Finished Goods 2"){
+        elseif ($request->store_location=="Finished Goods 2"){
             $insert=DB::table('store_finished_goods_2')->insert($data);
-            $ststusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
-
-            if ($insert && $ststusChange){
-                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
-            }
-            else {
-                return back()->withErrors( 'Something went wrong.');
+            $statusChange=DB::table('production_order')->where('id', $request->product_id)->update($dataStatus);
+            if ($insert && $statusChange){
+                $checkNameInStock=DB::table('store_stock')->where('name', $request->name)
+                    ->where('store_location', $request->store_location)->first();
+                if (!empty($checkNameInStock)){
+                    $oldquantity=$checkNameInStock->quantity;
+                    $newquantity=$request->quantity;
+                    $quantity=$oldquantity+$newquantity;
+                    $updateDataStock=[
+                        'quantity' => $quantity,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $updateInStoreStock=DB::table('store_stock')->where('name', $request->name)
+                        ->where('store_location', $request->store_location)->update($updateDataStock);
+                    if ($updateInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
+                else{
+                    $insertDataStock=[
+                        'name' => $request->name,
+                        'quantity' => $request->quantity,
+                        'store_location' => $request->store_location,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $insertInStoreStock=DB::table('store_stock')->insert($insertDataStock);
+                    if ($insertInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
             }
         }
         else {
@@ -470,17 +530,50 @@ class StoreController extends Controller
 
         if ($request->store_location=="Components"){
             $insert=DB::table('store_components')->insert($data);
-            $ststusChange=DB::table('component_order')->where('id', $request->component_id)->update($dataStatus);
-
-            if ($insert && $ststusChange){
-                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
-            }
-            else {
-                return back()->withErrors( 'Something went wrong.');
-            }
+            $statusChange=DB::table('component_order')->where('id', $request->component_id)->update($dataStatus);
         }
         else {
             return back()->withErrors( 'Select the Component Relevant Store.');
+        }
+
+        if ($insert && $statusChange){
+            $checkNameInStock=DB::table('store_stock')->where('name', $request->name)
+                ->where('store_location', $request->store_location)->first();
+            if (!empty($checkNameInStock)){
+                $oldquantity=$checkNameInStock->quantity;
+                $newquantity=$request->quantity;
+                $quantity=$oldquantity+$newquantity;
+                $updateDataStock=[
+                    'quantity' => $quantity,
+                    'date_updated' => Carbon::today()
+                ];
+                $updateInStoreStock=DB::table('store_stock')->where('name', $request->name)
+                    ->where('store_location', $request->store_location)->update($updateDataStock);
+                if ($updateInStoreStock){
+                    return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                }
+                else {
+                    return back()->withErrors( 'Something went wrong.');
+                }
+            }
+            else{
+                $insertDataStock=[
+                    'name' => $request->name,
+                    'quantity' => $request->quantity,
+                    'store_location' => $request->store_location,
+                    'date_updated' => Carbon::today()
+                ];
+                $insertInStoreStock=DB::table('store_stock')->insert($insertDataStock);
+                if ($insertInStoreStock){
+                    return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                }
+                else {
+                    return back()->withErrors( 'Something went wrong.');
+                }
+            }
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
         }
     }
 
@@ -506,24 +599,82 @@ class StoreController extends Controller
 
         if ($request->storeLocation=="Magazine 1"){
             $insert=DB::table('store_magazine_1')->insert($data);
-            $ststusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
-
-            if ($insert && $ststusChange){
-                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
-            }
-            else {
-                return back()->withErrors( 'Something went wrong.');
+            $statusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
+            if ($insert && $statusChange){
+                $checkNameInStock=DB::table('store_stock')->where('name', $request->materialName)
+                    ->where('store_location', $request->storeLocation)->first();
+                if (!empty($checkNameInStock)){
+                    $oldquantity=$checkNameInStock->quantity;
+                    $newquantity=$request->quantity;
+                    $quantity=$oldquantity+$newquantity;
+                    $updateDataStock=[
+                        'quantity' => $quantity,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $updateInStoreStock=DB::table('store_stock')->where('name', $request->materialName)
+                        ->where('store_location', $request->storeLocation)->update($updateDataStock);
+                    if ($updateInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
+                else{
+                    $insertDataStock=[
+                        'name' => $request->materialName,
+                        'quantity' => $request->quantity,
+                        'store_location' => $request->storeLocation,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $insertInStoreStock=DB::table('store_stock')->insert($insertDataStock);
+                    if ($insertInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
             }
         }
-        if ($request->storeLocation=="Magazine 2"){
+        elseif ($request->storeLocation=="Magazine 2"){
             $insert=DB::table('store_magazine_2')->insert($data);
-            $ststusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
-
-            if ($insert && $ststusChange){
-                return redirect()->back()->with('message', 'Store Assigned Successfuly.');
-            }
-            else {
-                return back()->withErrors( 'Something went wrong.');
+            $statusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
+            if ($insert && $statusChange){
+                $checkNameInStock=DB::table('store_stock')->where('name', $request->materialName)
+                    ->where('store_location', $request->storeLocation)->first();
+                if (!empty($checkNameInStock)){
+                    $oldquantity=$checkNameInStock->quantity;
+                    $newquantity=$request->quantity;
+                    $quantity=$oldquantity+$newquantity;
+                    $updateDataStock=[
+                        'quantity' => $quantity,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $updateInStoreStock=DB::table('store_stock')->where('name', $request->materialName)
+                        ->where('store_location', $request->storeLocation)->update($updateDataStock);
+                    if ($updateInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
+                else{
+                    $insertDataStock=[
+                        'name' => $request->materialName,
+                        'quantity' => $request->quantity,
+                        'store_location' => $request->storeLocation,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $insertInStoreStock=DB::table('store_stock')->insert($insertDataStock);
+                    if ($insertInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
             }
         }
         else {
@@ -536,147 +687,211 @@ class StoreController extends Controller
     }
 
     public function storeMagazine1(){
-        $magazine1=DB::table('store_magazine_1')->select('materialName','uom')->where('status', 0)->distinct()->get();
-        if (count($magazine1)){
-            $index=0;
-            foreach ($magazine1 as $item){
-                $totalQuantity=0;
-
-                $magazine1check=DB::table('store_magazine_1')->where('status', 0)->get();
-                foreach ($magazine1check as $data){
-                    if ($item->materialName==$data->materialName && $item->uom==$data->uom){
-                        $totalQuantity=$totalQuantity+$data->quantity;
-                    }
-                }
-
-                $materialName=$item->materialName;
-                $uom=$item->uom;
-
-                $storeMagazine1[$index]['materialName']=$materialName;
-                $storeMagazine1[$index]['uom']=$uom;
-                $storeMagazine1[$index]['totalQuantity']=$totalQuantity;
-                ++$index;
-            }
-        }
-        else{
-            $storeMagazine1=array();
-        }
-
-        return view('store::storeMagazine1' , compact('storeMagazine1'));
+//        $magazine1=DB::table('store_magazine_1')->select('materialName','uom')->where('status', 0)->distinct()->get();
+//        if (count($magazine1)){
+//            $index=0;
+//            foreach ($magazine1 as $item){
+//                $totalQuantity=0;
+//
+//                $magazine1check=DB::table('store_magazine_1')->where('status', 0)->get();
+//                foreach ($magazine1check as $data){
+//                    if ($item->materialName==$data->materialName && $item->uom==$data->uom){
+//                        $totalQuantity=$totalQuantity+$data->quantity;
+//                    }
+//                }
+//
+//                $materialName=$item->materialName;
+//                $uom=$item->uom;
+//
+//                $storeMagazine1[$index]['materialName']=$materialName;
+//                $storeMagazine1[$index]['uom']=$uom;
+//                $storeMagazine1[$index]['totalQuantity']=$totalQuantity;
+//                ++$index;
+//            }
+//        }
+//        else{
+//            $storeMagazine1=array();
+//        }
+        $storeStock=DB::table('store_stock')->where('store_location', "Magazine 1")->get();
+        $magazine1=DB::table('store_magazine_1')->where('status', 0)->get();
+        return view('store::storeMagazine1' , compact('magazine1', 'storeStock'));
     }
 
     public function storeMagazine2(){
-        $magazine2=DB::table('store_magazine_2')->select('materialName','uom')->where('status', 0)->distinct()->get();
-        if (count($magazine2)){
-            $index=0;
-            foreach ($magazine2 as $item){
-                $totalQuantity=0;
-
-                $magazine2check=DB::table('store_magazine_2')->where('status', 0)->get();
-                foreach ($magazine2check as $data){
-                    if ($item->materialName==$data->materialName && $item->uom==$data->uom){
-                        $totalQuantity=$totalQuantity+$data->quantity;
-                    }
-                }
-
-                $materialName=$item->materialName;
-                $uom=$item->uom;
-
-                $storeMagazine2[$index]['materialName']=$materialName;
-                $storeMagazine2[$index]['uom']=$uom;
-                $storeMagazine2[$index]['totalQuantity']=$totalQuantity;
-                ++$index;
-            }
-        }
-        else{
-            $storeMagazine2=array();
-        }
-
-        return view('store::storeMagazine2' , compact('storeMagazine2'));
+        $storeStock=DB::table('store_stock')->where('store_location', "Magazine 2")->get();
+        $magazine2=DB::table('store_magazine_2')->where('status', 0)->get();
+        return view('store::storeMagazine2' , compact('magazine2', 'storeStock'));
     }
 
     public function storeFinishedGoods1(){
-        $finishGoods1=DB::table('store_finished_goods_1')->select('name')->where('status', 0)->distinct()->get();
-        //dd($finishGoods1);
-        if (count($finishGoods1)){
-            $index=0;
-            foreach ($finishGoods1 as $item){
-                $totalQuantity=0;
-
-                $finishGoods1check=DB::table('store_finished_goods_1')->where('status', 0)->get();
-                foreach ($finishGoods1check as $data){
-                    if ($item->name==$data->name){
-                        $totalQuantity=$totalQuantity+$data->quantity;
-                    }
-                }
-
-                $name=$item->name;
-                $storeFinishedGoods1[$index]['name']=$name;
-                $storeFinishedGoods1[$index]['totalQuantity']=$totalQuantity;
-                ++$index;
-            }
-        }
-        else{
-            $storeFinishedGoods1=array();
-        }
-
-        return view('store::storeFinishedGoods1' , compact('storeFinishedGoods1'));
+        $storeStock=DB::table('store_stock')->where('store_location', "Finished Goods 1")->get();
+        $finishGoods1=DB::table('store_finished_goods_1')->where('status', 0)->get();
+        return view('store::storeFinishedGoods1' , compact('finishGoods1', 'storeStock'));
     }
 
     public function storeFinishedGoods2(){
-        $finishGoods2=DB::table('store_finished_goods_2')->select('name')->where('status', 0)->distinct()->get();
-        //dd($finishGoods2);
-        if (count($finishGoods2)){
-            $index=0;
-            foreach ($finishGoods2 as $item){
-                $totalQuantity=0;
-
-                $finishGoods2check=DB::table('store_finished_goods_2')->where('status', 0)->get();
-                foreach($finishGoods2check as $data){
-                    if ($item->name==$data->name){
-                        $totalQuantity=$totalQuantity+$data->quantity;
-                    }
-                }
-
-                $name=$item->name;
-                $storeFinishedGoods2[$index]['name']=$name;
-                $storeFinishedGoods2[$index]['totalQuantity']=$totalQuantity;
-                ++$index;
-            }
-        }
-        else{
-            $storeFinishedGoods2=array();
-        }
-
-        return view('store::storeFinishedGoods2' , compact('storeFinishedGoods2'));
+        $storeStock=DB::table('store_stock')->where('store_location', "Finished Goods 2")->get();
+        $finishGoods2=DB::table('store_finished_goods_2')->where('status', 0)->get();
+        return view('store::storeFinishedGoods2' , compact('finishGoods2', 'storeStock'));
     }
 
     public function storeComponents(){
-        $components=DB::table('store_components')->select('name')->where('status', 0)->distinct()->get();
-        //dd($finishGoods2);
-        if (count($components)){
-            $index=0;
-            foreach ($components as $item){
-                $totalQuantity=0;
+        $storeStock=DB::table('store_stock')->where('store_location', "Components")->get();
+        $components=DB::table('store_components')->where('status', 0)->get();
+        return view('store::storeComponents' , compact('components', 'storeStock'));
+    }
 
-                $componentscheck=DB::table('store_components')->where('status', 0)->get();
-                foreach($componentscheck as $data){
-                    if ($item->name==$data->name){
-                        $totalQuantity=$totalQuantity+$data->quantity;
+    public function totalStock(){
+        $storeStock=DB::table('store_stock')->get();
+        return view('store::totalStock', compact('storeStock'));
+    }
+
+    public function issueRequisition(){
+        return view('store::issueRequisition/issueRequisition');
+    }
+
+    public function componentRequisition(){
+        $production_component_detail=DB::table('production_component_detail')->where('status', 0)
+            ->orWhere('status', 1)->get();
+        return view('store::issueRequisition/componentRequisition', compact('production_component_detail'));
+    }
+
+    public function materialRequisition(){
+        $production_material_detail=DB::table('production_material_detail')->where('status', 0)
+            ->orWhere('status', 1)->get();
+        return view('store::issueRequisition/materialRequisition', compact('production_material_detail'));
+    }
+
+    public function proceedComponentRequisition($id, $name, $quantity){
+        $stores=DB::table('store')->get();
+
+        $count_store_requisition_issued=DB::table('store_requisition_issued')->select('transaction_id')->orderByDesc('id')->first();
+        if(empty($count_store_requisition_issued)){
+            $count_store_requisition_issued=1;
+        }
+        else{
+            $count_store_requisition_issued=substr($count_store_requisition_issued->transaction_id,4);
+            ++$count_store_requisition_issued;
+        }
+
+        return view('store::issueRequisition/proceedComponentRequisition', compact('stores', 'count_store_requisition_issued', 'id', 'name', 'quantity'));
+    }
+
+    public function proceedMaterialRequisition($id, $name, $quantity){
+        $stores=DB::table('store')->get();
+
+        $count_store_requisition_issued=DB::table('store_requisition_issued')->select('transaction_id')->orderByDesc('id')->first();
+        if(empty($count_store_requisition_issued)){
+            $count_store_requisition_issued=1;
+        }
+        else{
+            $count_store_requisition_issued=substr($count_store_requisition_issued->transaction_id,4);
+            ++$count_store_requisition_issued;
+        }
+
+        return view('store::issueRequisition/proceedMaterialRequisition', compact('stores', 'count_store_requisition_issued', 'id', 'name', 'quantity'));
+    }
+
+    public function submitIssuedComponentRequisition(Request $request){
+        $checkAvailableInStock=DB::table('store_stock')->where('name', $request->name)
+            ->where('store_location', $request->store_location)->first();
+
+        if (!empty($checkAvailableInStock)){
+            $stockQuantity=$checkAvailableInStock->quantity;
+            $requiredQuantity=$request->quantity;
+            if ($stockQuantity > $requiredQuantity){
+                $quantity=$stockQuantity-$requiredQuantity;
+                $quantityStockData=[
+                    'quantity' => $quantity
+                ];
+
+                $updateStock=DB::table('store_stock')->where('name', $request->name)
+                    ->where('store_location', $request->store_location)->update($quantityStockData);
+                if ($updateStock){
+                    $data=[
+                        'transaction_id' => $request->transaction_id,
+                        'store_location' => $request->store_location,
+                        'name' => $request->name,
+                        'quantity' => $request->quantity,
+                        'issued_date' => Carbon::today()
+                    ];
+                    $insert=DB::table('store_requisition_issued')->insert($data);
+
+                    $changeStatusData=[
+                        'status' => 1
+                    ];
+                    $updateStatus=DB::table('production_component_detail')
+                        ->where('id', $request->production_component_detail_id)->update($changeStatusData);
+
+                    if ($insert && $updateStatus){
+                        return redirect()->back()->with('message', 'Component Issued Successfuly.');
+                    }
+                    else{
+                        return back()->withErrors( 'Something went wrong.');
                     }
                 }
-
-                $name=$item->name;
-                $storeComponents[$index]['name']=$name;
-                $storeComponents[$index]['totalQuantity']=$totalQuantity;
-                ++$index;
+                else{
+                    return back()->withErrors( 'Something went wrong.');
+                }
+            }
+            else{
+                return back()->withErrors( 'Stock quantity is less than the required Quantity.');
             }
         }
         else{
-            $storeComponents=array();
+            return back()->withErrors( $request->name.' is not present in store '.$request->store_location);
         }
+    }
 
-        return view('store::storeComponents' , compact('storeComponents'));
+    public function submitIssuedMaterialRequisition(Request $request){
+        $checkAvailableInStock=DB::table('store_stock')->where('name', $request->name)
+            ->where('store_location', $request->store_location)->first();
+
+        if (!empty($checkAvailableInStock)){
+            $stockQuantity=$checkAvailableInStock->quantity;
+            $requiredQuantity=$request->quantity;
+            if ($stockQuantity > $requiredQuantity){
+                $quantity=$stockQuantity-$requiredQuantity;
+                $quantityStockData=[
+                    'quantity' => $quantity
+                ];
+
+                $updateStock=DB::table('store_stock')->where('name', $request->name)
+                    ->where('store_location', $request->store_location)->update($quantityStockData);
+                if ($updateStock){
+                    $data=[
+                        'transaction_id' => $request->transaction_id,
+                        'store_location' => $request->store_location,
+                        'name' => $request->name,
+                        'quantity' => $request->quantity,
+                        'issued_date' => Carbon::today()
+                    ];
+                    $insert=DB::table('store_requisition_issued')->insert($data);
+
+                    $changeStatusData=[
+                        'status' => 1
+                    ];
+                    $updateStatus=DB::table('production_material_detail')
+                        ->where('id', $request->production_material_detail_id)->update($changeStatusData);
+
+                    if ($insert && $updateStatus){
+                        return redirect()->back()->with('message', 'Component Issued Successfuly.');
+                    }
+                    else{
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
+                else{
+                    return back()->withErrors( 'Something went wrong.');
+                }
+            }
+            else{
+                return back()->withErrors( 'Stock quantity is less than the required Quantity.');
+            }
+        }
+        else{
+            return back()->withErrors( $request->name.' is not present in store '.$request->store_location);
+        }
     }
 
 
@@ -709,11 +924,6 @@ class StoreController extends Controller
     public function deliveryOrder()
     {
         return view('store::delivery/deliveryOrder');
-    }
-
-    public function IssueRequisition()
-    {
-        return view('store::IssueRequisition/IssueRequisition');
     }
 
     //  -------------------- Report --------------------- //

@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 class SettingController extends Controller
 {
 
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 //    public function setting()
 //    {
 //        $units=DB::table('unit')->get();

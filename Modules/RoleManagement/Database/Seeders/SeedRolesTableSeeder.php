@@ -76,6 +76,25 @@ class SeedRolesTableSeeder extends Seeder
             'updated_at'=>NOW()
         ]);
 
+        DB::table('roles')->insert([
+            'name'=>'Inspection Manager',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('roles')->insert([
+            'name'=>'Inspection Manager',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+
+        DB::table('roles')->insert([
+            'name'=>'Technical Officer',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
 
         // $this->call("OthersTableSeeder");
     }

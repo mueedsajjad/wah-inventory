@@ -9,6 +9,10 @@ use Illuminate\Routing\Controller;
 class GMSGAController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function production()
     {
         return view('gmsga::production/production');

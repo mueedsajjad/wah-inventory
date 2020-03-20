@@ -16,36 +16,68 @@
                         {{ session()->get('message') }}
                     </div>
                 @endif
-
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Finished Goods 2</h3>
+                        <h3 class="card-title">Finished Goods 2 Current Stock</h3>
                         <a href="{{url('store/allStores')}}" class="btn btn-secondary btn-sm float-right">Back</a>
                     </div>
                     <div class="card-body table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="storeTable" class="table table-bordered table-striped">
                             <thead>
                             <tr class="bg-dark">
                                 <th>Sr</th>
-                                <th>Material Name</th>
-                                <th>Total Quantity</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Last Updated</th>
                             </tr>
                             </thead>
                             <tbody>
                             @php $n=0; @endphp
-                            @if(count($storeFinishedGoods2))
-                                @foreach($storeFinishedGoods2 as $finishedGoods2 => $array)
+                            @foreach($storeStock as $item)
+                                @php $n++; @endphp
+                                <tr>
+                                    <td>{{$n}}</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->quantity}}</td>
+                                    <td>{{$item->date_updated}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Finished Goods 2 History</h3>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table id="storeTable" class="table table-bordered table-striped">
+                            <thead>
+                            <tr class="bg-dark">
+                                <th>Sr</th>
+                                <th>Manufacturing Order</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Stored Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(count($finishGoods2))
+                                @php $n=0; @endphp
+                                @foreach($finishGoods2 as $item)
                                     @php $n++; @endphp
                                     <tr>
                                         <td>{{$n}}</td>
-                                        @foreach ($array as $item => $val)
-                                            <td>{{$val}}</td>
-                                        @endforeach
+                                        <td>{{$item->manufacturing_order}}</td>
+                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->quantity}}</td>
+                                        <td>{{$item->stored_date}}</td>
                                     </tr>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="3" class="text-center">No Data.</td>
+                                    <td colspan="5" class="text-center">No Data</td>
                                 </tr>
                             @endif
                             </tbody>
@@ -58,4 +90,10 @@
         </div>
         <!-- /.col -->
     </section>
+
+    <script>
+        $( document ).ready(function() {
+            $('#storeTable').dataTable();
+        });
+    </script>
 @endsection

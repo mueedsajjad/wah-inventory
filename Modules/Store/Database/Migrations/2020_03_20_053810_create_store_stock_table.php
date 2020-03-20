@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductionMaterialTable extends Migration
+class CreateStoreStockTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateProductionMaterialTable extends Migration
      */
     public function up()
     {
-        Schema::create('production_material', function (Blueprint $table) {
+        Schema::create('store_stock', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('quantity');
+            $table->string('store_location');
 
-            $table->integer('manufacturing_no')->nullable();
-            $table->date('issue_date')->nullable();
-            $table->date('create_date')->nullable();
-
-
-            $table->timestamps();
+            $table->date('date_updated');
         });
     }
 
@@ -32,6 +30,6 @@ class CreateProductionMaterialTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('production_material');
+        Schema::dropIfExists('store_stock');
     }
 }

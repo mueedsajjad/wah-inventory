@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductionMaterialTable extends Migration
+class CreateProductionComponentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProductionMaterialTable extends Migration
      */
     public function up()
     {
-        Schema::create('production_material', function (Blueprint $table) {
+        Schema::create('production_component', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('manufacturing_no')->nullable();
@@ -32,6 +32,6 @@ class CreateProductionMaterialTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('production_material');
+        Schema::dropIfExists('production_component');
     }
 }

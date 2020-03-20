@@ -25,7 +25,7 @@
                     <div class="card-body table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
-                        <tr>
+                        <tr class="bg-dark">
                             <th>Sr</th>
                             <th>Order #</th>
                             <th>Product</th>

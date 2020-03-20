@@ -34,7 +34,10 @@
                         <a class="dropdown-item" href="{{url('production/orderComponent')}}">New Component Order</a>
 
                         <a class="dropdown-item" href="{{url('production/materialRequisition')}}">Request For Material</a>
-                        <a class="dropdown-item" href="{{url('production/orderComponent')}}">Request For Component</a>
+                        <a class="dropdown-item" href="{{url('production/componentRequisition')}}">Request For Component</a>
+
+                        <a class="dropdown-item" href="{{url('production/allComponentRequisition')}}">All Component Requisition</a>
+
                     </div>
                 </li>
                 @endif
@@ -74,7 +77,6 @@
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{{url('supplier/supplier')}}">Add Supplier</a>
                                 <a class="dropdown-item" href="{{url('supplier/viewSuppliers')}}">View Suppliers</a>
-                                <a class="dropdown-item" href="{{url('supplier/setting')}}">Setting</a>
                             </div>
                         </li>
 
@@ -150,6 +152,8 @@
                         <a class="dropdown-item" href="{{url('store/assignStore')}}">Assign Stores</a>
                         @endif
                         <a class="dropdown-item" href="{{url('store/allStores')}}">Stores</a>
+                        <a class="dropdown-item" href="{{url('store/totalStock')}}">Current Stock</a>
+                        <a class="dropdown-item" href="{{url('store/issueRequisition')}}">Issue / Requisition</a>
 {{--                        <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>--}}
 {{--                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>--}}
 {{--                        <a class="dropdown-item" href="{{url('store/product')}}">Products</a>--}}
@@ -158,7 +162,7 @@
                         <a class="dropdown-item" href="{{url('store/inwardInspectionNote')}}">Inward I-Note</a>
                         <a class="dropdown-item" href="{{url('store/inwardGoodsReceipt')}}">Inward Goods Receipt</a>
                         <a class="dropdown-item" href="{{url('store/deliveryOrder')}}">Delivery Order</a>
-                        <a class="dropdown-item" href="{{url('store/IssueRequisition')}}">Issue / Requisition</a>
+
                         <a class="dropdown-item" href="{{url('store/report')}}">Reports</a>
                     </div>
                 </li>
