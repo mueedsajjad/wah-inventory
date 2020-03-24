@@ -41,9 +41,17 @@ class ProductionController extends Controller
     {
 
         $newProduct=DB::table('production_order')->orderBy('id', 'desc')->first();
-        $id=$newProduct->id;
-        $id++;
 
+        if($newProduct)
+        {
+            $id=$newProduct->id;
+            $id++;
+        }
+        else
+        {
+            $id=1;
+        }
+       
         return view('production::Order/newOrder',compact('id'));
     }
 
@@ -277,7 +285,16 @@ class ProductionController extends Controller
     public function orderComponent()
     {
         $newProduct=DB::table('component_order')->orderBy('id', 'desc')->first();
-        $id=$newProduct->id;
+        if($newProduct)
+        {
+            $id=$newProduct->id;
+            $id++;
+        }
+        else
+        {
+            $id=1;
+        }
+        
         return view('production::Order/componetOrder',compact('id'));
     }
 
@@ -509,7 +526,6 @@ class ProductionController extends Controller
             return redirect()->back()->with('save', 'Saved Successfully');
         }
 
-
         return redirect()->back()->with('save','Changed Status Successfully');
     }
 
@@ -569,6 +585,10 @@ class ProductionController extends Controller
 
         return redirect()->back()->with('save','Changed Status Successfully');
     }
+
+
+
+
 
 //    public function setting()
 //    {
