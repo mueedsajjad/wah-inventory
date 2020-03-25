@@ -38,35 +38,35 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Production Deadline</label>
-                                            <input type="date" name="production_deadline" class="form-control" placeholder="27-Feb-2020">
+                                            <input type="date" name="production_deadline" class="form-control" required placeholder="27-Feb-2020">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Created Date</label>
-                                            <input type="date" name="create_date" class="form-control" placeholder="27-Feb-2020">
+                                            <input type="date" name="create_date" class="form-control" required placeholder="27-Feb-2020">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Products</label>
-                                            <input type="text" name="product" class="form-control" placeholder="Kartoos">
+                                            <input type="text" name="product" required class="form-control" placeholder="Kartoos">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Quantity</label>
-                                            <input type="number" name="quantity" class="form-control" >
+                                            <input type="number" name="quantity" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Total Cost</label>
-                                            <input type="number" name="total_cost" class="form-control" placeholder="50000">
+                                            <input type="number" name="total_cost" class="form-control" required placeholder="50000">
                                         </div>
                                     </div>
 

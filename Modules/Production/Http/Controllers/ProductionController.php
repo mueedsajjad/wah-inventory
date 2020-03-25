@@ -480,7 +480,7 @@ class ProductionController extends Controller
                 'production_component_detail.production_component_id','=','production_component.id')
             ->get();
 
-       // dd($orders);
+       //dd($orders);
         return view('production::Order/recieved_component',compact('orders'
             ,'components'));
     }

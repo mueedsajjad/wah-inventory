@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2020 at 01:32 PM
+-- Generation Time: Mar 25, 2020 at 09:58 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -91,40 +91,15 @@ CREATE TABLE `component` (
 --
 
 INSERT INTO `component` (`id`, `component_name`, `created_at`, `updated_at`) VALUES
-(2, 'Brass Head', NULL, NULL),
-(3, 'Primer', NULL, NULL),
-(4, 'Tube', NULL, NULL),
-(5, 'Base Wad', NULL, NULL),
-(6, 'OP Wad', NULL, NULL),
-(7, 'Closing Disk', NULL, NULL),
-(8, 'Lead Shots', NULL, NULL),
-(9, 'Obtrature', NULL, NULL),
-(10, 'Propellant', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `components`
---
-
-CREATE TABLE `components` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `manufacturing_order` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `total_cost` int(11) NOT NULL,
-  `stored_date` date NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `components`
---
-
-INSERT INTO `components` (`id`, `manufacturing_order`, `name`, `quantity`, `total_cost`, `stored_date`, `status`) VALUES
-(1, 'CO-1', 'Tube', 500, 500000, '2020-03-18', 0),
-(2, 'CO-2', 'Base Wade', 500, 500000, '2020-03-18', 0),
-(3, 'CO-3', 'Chamber', 500, 50000, '2020-03-18', 0);
+(1, 'Brass Head', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(2, 'Primer', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(3, 'Tube', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(4, 'Base Wad', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(5, 'OP Wad', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(6, 'Closing Disk', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(7, 'Lead Shots', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(8, 'Obtrature', '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(9, 'Propellant', '2020-03-24 05:30:04', '2020-03-24 05:30:04');
 
 -- --------------------------------------------------------
 
@@ -151,11 +126,8 @@ CREATE TABLE `component_order` (
 --
 
 INSERT INTO `component_order` (`id`, `manufacturing_order`, `component_name`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `type`, `created_at`, `updated_at`) VALUES
-(2, 'CO-1', 'Tube', 500, 500000, 5, '2020-03-18', '2020-03-18', 'Component', NULL, NULL),
-(3, 'CO-2', 'Base Wade', 500, 500000, 5, '2020-03-18', '2020-03-18', 'Component', NULL, NULL),
-(4, 'CO-3', 'Chamber', 500, 50000, 5, '2020-03-18', '2020-03-18', 'Component', NULL, NULL),
-(5, 'CO-4', 'Brass Head', 500, 50000, 1, '2020-03-18', '2020-03-18', 'Component', NULL, NULL),
-(6, 'CO-4', 'Tube', 100, 1000, 0, '2020-03-18', '2020-03-18', 'Component', NULL, NULL);
+(1, 'CO-1', 'Brass Head', 50, 10000, 4, '2020-03-24', '2020-03-24', 'Component', NULL, NULL),
+(2, 'CO-2', 'Brass Head', 100, 2000, 0, '2020-03-24', '2020-03-24', 'Component', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -187,13 +159,6 @@ CREATE TABLE `credit_term` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `credit_term`
---
-
-INSERT INTO `credit_term` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, '10 Days', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -212,8 +177,16 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Store', NULL, NULL),
-(2, 'Production', NULL, NULL);
+(1, 'Production', NULL, NULL),
+(2, 'Gate', NULL, NULL),
+(3, 'Store', NULL, NULL),
+(4, 'Purchase', NULL, NULL),
+(5, 'Quality', NULL, NULL),
+(6, 'Role Management', NULL, NULL),
+(7, 'Setting', NULL, NULL),
+(8, 'HR', NULL, NULL),
+(9, 'Manager', NULL, NULL),
+(10, 'Assistant Manager', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -256,39 +229,14 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `user_id`, `department_id`, `designation_id`, `mobile`, `gender_id`, `state_id`, `city_id`, `address`, `upload`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 3, '0324 43433343', 1, 1, 1, 'street 1, A Block Johir Town', '1584536232.Screenshot (1).png', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `finished_goods_1`
---
-
-CREATE TABLE `finished_goods_1` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `manufacturing_order` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `total_cost` int(11) NOT NULL,
-  `stored_date` date NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `finished_goods_2`
---
-
-CREATE TABLE `finished_goods_2` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `manufacturing_order` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `total_cost` int(11) NOT NULL,
-  `stored_date` date NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(1, 2, 2, 12, '08883833', 1, 1, 1, 'abbbd', '1585121994.Penguins.jpg', NULL, NULL),
+(2, 3, 1, 13, '999333222', 1, 1, 1, 'sss', '1585122131.Tulips.jpg', NULL, NULL),
+(3, 4, 3, 14, '08487733', 1, 1, 1, 'abbb', NULL, NULL, NULL),
+(4, 5, 4, 15, '124455333', 1, 1, 1, 'advfdd', NULL, NULL, NULL),
+(5, 6, 5, 16, '1344565444', 1, 1, 1, 'sss', NULL, NULL, NULL),
+(6, 7, 8, 8, '12333445', 1, 1, 1, 'City centre Sharjha', NULL, NULL, NULL),
+(7, 8, 9, 5, '677888822', 1, 1, 1, 'wsddff', NULL, NULL, NULL),
+(8, 9, 10, 3, '1243432', 1, 1, 1, 'dddd', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -308,13 +256,6 @@ CREATE TABLE `inward_gate_pass` (
   `date` date NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `inward_gate_pass`
---
-
-INSERT INTO `inward_gate_pass` (`id`, `gatePassId`, `type`, `name`, `transporter`, `vehicalNo`, `driver`, `driverPh`, `date`, `status`) VALUES
-(1, 'GP001', 'supplier', 'CDOXS', 'Fezan Tr', 'LHR-1234', 'Fezan', '0998844444', '2020-03-18', 1);
 
 -- --------------------------------------------------------
 
@@ -338,13 +279,6 @@ CREATE TABLE `inward_goods_receipt` (
   `totalQuantity` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `inward_goods_receipt`
---
-
-INSERT INTO `inward_goods_receipt` (`id`, `grn`, `grnDate`, `document`, `purchasedFrom`, `gatePassId`, `totalCost`, `name`, `purchaseOrderNo`, `materialName`, `uom`, `description`, `totalQuantity`) VALUES
-(1, 'GRN001', '2020-03-18', NULL, 'ppra', 'GP001', 5000.00, 'CDOXS', 'PN-001', 'Plastic', 'KG', 'Material Description Material Description', '12');
-
 -- --------------------------------------------------------
 
 --
@@ -366,14 +300,6 @@ CREATE TABLE `inward_raw_material` (
   `rejectionReason` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `rejectedQty` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `inward_raw_material`
---
-
-INSERT INTO `inward_raw_material` (`id`, `materialName`, `uom`, `qty`, `description`, `gatePassId`, `storeLocation`, `date`, `status`, `inspectionDate`, `inspectionStatus`, `rejectionReason`, `rejectedQty`) VALUES
-(1, 'Plastic', 'KG', '20', 'Material Description Material Description', 'GP001', 'Magazine 1', '2020-03-18', 6, '2020-03-18', 'bad', 'ijuluoi', 8),
-(2, 'Plastic Soft', 'KG', '20', 'Material Description Material Description', 'GP001', NULL, '2020-03-18', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -406,28 +332,6 @@ CREATE TABLE `leave_type` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `magazine_1`
---
-
-CREATE TABLE `magazine_1` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `materialName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `uom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `stored_date` date NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `magazine_1`
---
-
-INSERT INTO `magazine_1` (`id`, `materialName`, `uom`, `quantity`, `stored_date`, `status`) VALUES
-(1, 'Plastic', 'KG', 12, '2020-03-18', 0);
 
 -- --------------------------------------------------------
 
@@ -501,9 +405,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (34, '2020_03_18_104413_create_production_material_table', 1),
 (35, '2020_03_18_104435_create_production_material_detail_table', 1),
 (36, '2020_03_18_112840_create_magazine_1_table', 1),
-(37, '2020_03_19_103240_create_production_component_table', 2),
-(38, '2020_03_19_103316_create_production_component_detail_table', 2),
-(39, '2020_03_19_112924_create_component_table', 3);
+(37, '2020_03_19_045422_create_store_magazine_2_table', 1),
+(38, '2020_03_19_101312_create_vehicle_management_table', 1),
+(39, '2020_03_19_103240_create_production_component_table', 1),
+(40, '2020_03_19_103316_create_production_component_detail_table', 1),
+(41, '2020_03_19_112924_create_component_table', 1),
+(42, '2020_03_19_130558_create_production_component_store_table', 1),
+(43, '2020_03_20_053810_create_store_stock_table', 1),
+(44, '2020_03_20_124906_create_store_requisition_issued_table', 1);
 
 -- --------------------------------------------------------
 
@@ -535,7 +444,14 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 1),
-(3, 'App\\User', 2);
+(3, 'App\\User', 9),
+(5, 'App\\User', 2),
+(5, 'App\\User', 3),
+(5, 'App\\User', 4),
+(5, 'App\\User', 5),
+(5, 'App\\User', 6),
+(5, 'App\\User', 7),
+(5, 'App\\User', 8);
 
 -- --------------------------------------------------------
 
@@ -594,21 +510,21 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'Dashboard', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(2, 'Production', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(3, 'Gate', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(4, 'Supplier', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(5, 'Sale', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(6, 'Purchase', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(7, 'Store', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(8, 'Quality', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(9, 'HR', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(10, 'Setting', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(11, 'Accept Leave Request', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(12, 'Apply for Attendance', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(13, 'Production Process', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(14, 'Product Transfer', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(15, 'Assign Stores', 'web', '2020-03-18 07:51:14', '2020-03-18 07:51:14');
+(1, 'Dashboard', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(2, 'Production', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(3, 'Gate', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(4, 'Supplier', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(5, 'Sale', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(6, 'Purchase', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(7, 'Store', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(8, 'Quality', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(9, 'HR', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(10, 'Setting', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(11, 'Accept Leave Request', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(12, 'Apply for Attendance', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(13, 'Production Process', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(14, 'Product Transfer', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(15, 'Assign Stores', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02');
 
 -- --------------------------------------------------------
 
@@ -621,7 +537,6 @@ CREATE TABLE `production_component` (
   `manufacturing_no` int(11) DEFAULT NULL,
   `issue_date` date DEFAULT NULL,
   `create_date` date DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -630,9 +545,9 @@ CREATE TABLE `production_component` (
 -- Dumping data for table `production_component`
 --
 
-INSERT INTO `production_component` (`id`, `manufacturing_no`, `issue_date`, `create_date`, `status`, `created_at`, `updated_at`) VALUES
-(1, 4, '2020-03-19', '2020-03-19', 0, NULL, NULL),
-(2, 4, '2020-03-19', '2020-03-19', 0, NULL, NULL);
+INSERT INTO `production_component` (`id`, `manufacturing_no`, `issue_date`, `create_date`, `created_at`, `updated_at`) VALUES
+(1, 1, '2020-03-24', '2020-03-24', NULL, NULL),
+(2, 3, '2020-03-25', '2020-03-25', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -646,6 +561,7 @@ CREATE TABLE `production_component_detail` (
   `quantity` int(11) DEFAULT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `production_component_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -654,9 +570,55 @@ CREATE TABLE `production_component_detail` (
 -- Dumping data for table `production_component_detail`
 --
 
-INSERT INTO `production_component_detail` (`id`, `component_name`, `quantity`, `description`, `production_component_id`, `created_at`, `updated_at`) VALUES
-(1, 'Brass Head', 20, 'Component Description Component Description', 2, NULL, NULL),
-(2, 'Primer', 20, 'Component Description Component Description', 2, NULL, NULL);
+INSERT INTO `production_component_detail` (`id`, `component_name`, `quantity`, `description`, `production_component_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Brass Head', 100, 'Component Description', 1, 2, NULL, NULL),
+(2, 'Primer', 100, 'Component Description', 1, 2, NULL, NULL),
+(3, 'Tube', 100, 'Component Description', 1, 2, NULL, NULL),
+(4, 'Base Wad', 100, 'Component Description', 1, 2, NULL, NULL),
+(5, 'OP Wad', 100, 'Component Description', 1, 2, NULL, NULL),
+(6, 'Closing Disk', 100, 'Component Description', 1, 2, NULL, NULL),
+(7, 'Lead Shots', 100, 'Component Description', 1, 2, NULL, NULL),
+(8, 'Obtrature', 100, 'Component Description', 1, 2, NULL, NULL),
+(9, 'Propellant', 100, 'Component Description', 1, 2, NULL, NULL),
+(10, 'Brass Head', 100, 'Component Description', 2, 2, NULL, NULL),
+(11, 'Primer', 100, 'Component Description', 2, 2, NULL, NULL),
+(12, 'Tube', 100, 'Component Description', 2, 2, NULL, NULL),
+(13, 'Base Wad', 100, 'Component Description', 2, 2, NULL, NULL),
+(14, 'OP Wad', 100, 'Component Description', 2, 2, NULL, NULL),
+(15, 'Closing Disk', 100, 'Component Description', 2, 2, NULL, NULL),
+(16, 'Lead Shots', 100, 'Component Description', 2, 2, NULL, NULL),
+(17, 'Obtrature', 100, 'Component Description', 2, 2, NULL, NULL),
+(18, 'Propellant', 100, 'Component Description', 2, 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `production_component_store`
+--
+
+CREATE TABLE `production_component_store` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `production_component_store`
+--
+
+INSERT INTO `production_component_store` (`id`, `name`, `type`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 'Brass Head', 'Component', 100, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
+(2, 'Primer', 'Component', 100, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
+(3, 'Tube', 'Component', 100, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
+(4, 'Base Wad', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(5, 'OP Wad', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(6, 'Closing Disk', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(7, 'Lead Shots', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(8, 'Obtrature', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(10, 'Propellant', 'Component', 100, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -669,7 +631,6 @@ CREATE TABLE `production_material` (
   `manufacturing_no` int(11) DEFAULT NULL,
   `issue_date` date DEFAULT NULL,
   `create_date` date DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -678,9 +639,8 @@ CREATE TABLE `production_material` (
 -- Dumping data for table `production_material`
 --
 
-INSERT INTO `production_material` (`id`, `manufacturing_no`, `issue_date`, `create_date`, `status`, `created_at`, `updated_at`) VALUES
-(1, 6, '2020-03-18', '2020-03-18', 0, NULL, NULL),
-(2, 4, '2020-03-19', '2020-03-19', 0, NULL, NULL);
+INSERT INTO `production_material` (`id`, `manufacturing_no`, `issue_date`, `create_date`, `created_at`, `updated_at`) VALUES
+(1, 2, '2020-03-24', '2020-03-24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -695,6 +655,7 @@ CREATE TABLE `production_material_detail` (
   `quantity` int(11) DEFAULT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `production_material_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -703,9 +664,9 @@ CREATE TABLE `production_material_detail` (
 -- Dumping data for table `production_material_detail`
 --
 
-INSERT INTO `production_material_detail` (`id`, `material_name`, `UOM`, `quantity`, `description`, `production_material_id`, `created_at`, `updated_at`) VALUES
-(1, 'Plastic', 1, 20, 'Material Description Material Description', 1, NULL, NULL),
-(2, 'Plastic Soft', 1, 20, 'Material Description Material Description', 1, NULL, NULL);
+INSERT INTO `production_material_detail` (`id`, `material_name`, `UOM`, `quantity`, `description`, `production_material_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Plastic', 1, 100, 'Material Description', 1, 0, NULL, NULL),
+(2, 'Soft Plastic', 1, 100, 'Material Description', 1, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -722,6 +683,7 @@ CREATE TABLE `production_order` (
   `status` int(11) DEFAULT NULL,
   `production_deadline` date DEFAULT NULL,
   `created_date` date DEFAULT NULL,
+  `stage_status` int(11) DEFAULT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -731,9 +693,10 @@ CREATE TABLE `production_order` (
 -- Dumping data for table `production_order`
 --
 
-INSERT INTO `production_order` (`id`, `manufacturing_order`, `product`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `type`, `created_at`, `updated_at`) VALUES
-(3, 'MO-1', 'Kartoos', 500, 10000000, 1, '2020-03-18', '2020-03-18', 'Product', NULL, NULL),
-(4, 'MO-6', 'Kartoos', 100, 10000, 0, '2020-03-19', '2020-03-19', 'Product', NULL, NULL);
+INSERT INTO `production_order` (`id`, `manufacturing_order`, `product`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `stage_status`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'MO-1', 'Kartoos', 100, 10000, 4, '2020-03-24', '2020-03-24', 3, 'Product', NULL, NULL),
+(2, 'MO-2', 'Kartoos', 2000, 20000, 0, '2020-03-25', '2020-03-25', 0, 'Product', NULL, NULL),
+(3, 'MO-3', 'Kartoos', 100, 100000, 0, '2020-03-25', '2020-03-25', 0, 'Product', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -803,14 +766,6 @@ CREATE TABLE `purchase_order` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `purchase_order`
---
-
-INSERT INTO `purchase_order` (`id`, `po_number`, `po_date`, `upload`, `credit_term`, `supplier_id`, `supplier_name`, `status`, `purchase_by`, `user_id`, `approve_by`, `created_at`, `updated_at`) VALUES
-(1, 's-123', '2020-03-18', '1584540008.Screenshot (1).png', 1, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL),
-(2, 's-123', '2020-03-18', NULL, 1, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -831,14 +786,6 @@ CREATE TABLE `purchase_order_item` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `purchase_order_item`
---
-
-INSERT INTO `purchase_order_item` (`id`, `po_number`, `purchase_id`, `p_name`, `p_d`, `unit_id`, `quantity`, `unit_price`, `total_price`, `created_at`, `updated_at`) VALUES
-(1, 1233, 1, 'dd', 'ddd', 1, 22, 222, 222, NULL, NULL),
-(2, 1233, 2, 'Opi wade', 'ddd', 1, 22, 222, 222, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -858,17 +805,22 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'GM', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(2, 'Admin', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(3, 'Assistant Manager', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(4, 'Officers', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(5, 'Manager', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(6, 'writer', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(7, 'Accountant', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(8, 'HR', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(9, 'Inspection Manager', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(10, 'Inspection Manager', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13'),
-(11, 'Technical Officer', 'web', '2020-03-18 07:51:13', '2020-03-18 07:51:13');
+(1, 'GM', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(2, 'Admin', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(3, 'Assistant Manager', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(4, 'Officers', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(5, 'Manager', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(6, 'writer', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(7, 'Accountant', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(8, 'HR', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(9, 'Inspection Manager', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(10, 'Inspection Manager', 'web', '2020-03-24 05:30:01', '2020-03-24 05:30:01'),
+(11, 'Technical Officer', 'web', '2020-03-24 05:30:02', '2020-03-24 05:30:02'),
+(12, 'Gate Employee', 'web', '2020-03-25 02:59:14', '2020-03-25 02:59:14'),
+(13, 'Production Employee', 'web', '2020-03-25 02:59:31', '2020-03-25 02:59:31'),
+(14, 'Store Employee', 'web', '2020-03-25 03:01:00', '2020-03-25 03:01:00'),
+(15, 'Purchase Employee', 'web', '2020-03-25 03:01:27', '2020-03-25 03:01:27'),
+(16, 'Quality Employee', 'web', '2020-03-25 03:02:08', '2020-03-25 03:02:08');
 
 -- --------------------------------------------------------
 
@@ -887,20 +839,59 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
+(1, 3),
+(1, 5),
 (2, 1),
+(2, 3),
+(2, 5),
+(2, 13),
 (3, 1),
+(3, 3),
+(3, 5),
+(3, 12),
 (4, 1),
+(4, 3),
+(4, 5),
 (5, 1),
+(5, 3),
+(5, 5),
 (6, 1),
+(6, 3),
+(6, 5),
+(6, 15),
 (7, 1),
+(7, 3),
+(7, 5),
+(7, 14),
 (8, 1),
+(8, 3),
+(8, 5),
+(8, 16),
 (9, 1),
+(9, 3),
+(9, 5),
+(9, 8),
 (10, 1),
 (11, 1),
+(11, 3),
+(11, 5),
+(11, 8),
 (12, 1),
+(12, 3),
+(12, 5),
+(12, 8),
 (13, 1),
+(13, 3),
+(13, 5),
+(13, 13),
 (14, 1),
-(15, 1);
+(14, 3),
+(14, 5),
+(14, 13),
+(15, 1),
+(15, 3),
+(15, 5),
+(15, 14);
 
 -- --------------------------------------------------------
 
@@ -935,17 +926,112 @@ CREATE TABLE `store` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `store`
+-- Table structure for table `store_components`
 --
 
-INSERT INTO `store` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Magazine 1', NULL, NULL),
-(2, 'Magazine 2', NULL, NULL),
-(3, 'Finished Goods 1', NULL, NULL),
-(4, 'Finished Goods 2', NULL, NULL),
-(5, 'Components', NULL, NULL),
-(6, 'Tools', NULL, NULL);
+CREATE TABLE `store_components` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `manufacturing_order` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_cost` int(11) NOT NULL,
+  `stored_date` date NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_finished_goods_1`
+--
+
+CREATE TABLE `store_finished_goods_1` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `manufacturing_order` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_cost` int(11) NOT NULL,
+  `stored_date` date NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_finished_goods_2`
+--
+
+CREATE TABLE `store_finished_goods_2` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `manufacturing_order` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_cost` int(11) NOT NULL,
+  `stored_date` date NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_magazine_1`
+--
+
+CREATE TABLE `store_magazine_1` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `materialName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `stored_date` date NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_magazine_2`
+--
+
+CREATE TABLE `store_magazine_2` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `materialName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `stored_date` date NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_requisition_issued`
+--
+
+CREATE TABLE `store_requisition_issued` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `store_location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `issued_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_stock`
+--
+
+CREATE TABLE `store_stock` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `store_location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_updated` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -994,8 +1080,7 @@ CREATE TABLE `unit` (
 --
 
 INSERT INTO `unit` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'KG', NULL, NULL),
-(2, 'PCS', NULL, NULL);
+(1, 'KG', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1020,8 +1105,36 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `manager_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Shoaib Arshad', NULL, 'shoaibarshad@gmail.com', NULL, '$2y$10$QeTDNiCE3PG4KEjHpcGj9.zrDoN6EdiGjAV56ggd3OsLi2tX.drwO', NULL, '2020-03-18 07:51:14', '2020-03-18 07:51:14'),
-(2, 'Muzamil', NULL, 'muzamil@gmail.com', NULL, '$2y$10$UKGcnoaeNFkWiSvvRLDI5O.Sy3.u9hkVrrJ0z4d1Jl0sowHyjUV/G', NULL, '2020-03-18 07:57:12', '2020-03-18 07:57:12');
+(1, 'Shoaib Arshad', NULL, 'shoaibarshad@gmail.com', NULL, '$2y$10$CeV5XThutGNT4M0V.mcJhOSP/Fw8AjeNcIlkmMyeAeZqDsDkqd0fa', NULL, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
+(2, 'kaleem', NULL, 'kaleem@gmail.com', NULL, '$2y$10$j/gnvfYP4pNqzpRFwjH6v.Da9qYZx7gyAY2ubsITFAOcNyR9QxTw6', NULL, '2020-03-25 02:39:54', '2020-03-25 02:39:54'),
+(3, 'Moueed', NULL, 'moueed@gmail.com', NULL, '$2y$10$8XSrsi58.G3IBLLQp19bq.QADunlRZh7UyMmhC3qhknjIMKAQUy7C', NULL, '2020-03-25 02:42:11', '2020-03-25 02:42:11'),
+(4, 'fezan', NULL, 'fezan@gmail.com', NULL, '$2y$10$7iLkLVjzKKgqsccKeAiyc.4zc8xIj1234u0L3Nt/o7mlUbTsEyT0O', NULL, '2020-03-25 02:43:35', '2020-03-25 02:43:35'),
+(5, 'Tamoor', NULL, 'tamoor@gmail.com', NULL, '$2y$10$xIY/rTl1R91Qp4FyxX8AoeWTSlc/EBrzX1FdBGRPILy1Uu6lwr7Sa', NULL, '2020-03-25 02:46:21', '2020-03-25 02:46:21'),
+(6, 'muzamil', NULL, 'muzamil@gmail.com', NULL, '$2y$10$gBCTTMwWOB5ouWrprDkmkOkC//cDqd0h544onenvtX0vXLQ.NwRkS', NULL, '2020-03-25 02:50:10', '2020-03-25 02:50:10'),
+(7, 'Numair', NULL, 'numair@gmail.com', NULL, '$2y$10$WTh48iwR6d/eLPpIeoKM9utecmbC8uZuTZcXWyS1bTsjDxKVhs6x.', NULL, '2020-03-25 02:54:59', '2020-03-25 02:54:59'),
+(8, 'Feraz', NULL, 'feraz@gmail.com', NULL, '$2y$10$TIYNe5KU/HVLqiPSzwf6k.UOSpNLxYaNpEfA/YohSAqjgKySNuZbW', NULL, '2020-03-25 03:14:47', '2020-03-25 03:14:47'),
+(9, 'nabeel', NULL, 'nabeel@gmail.com', NULL, '$2y$10$QljwCmhieByHuWSq.9s5neBCf/BXnZl9fhRts/TKvgp743QI5ANoa', NULL, '2020-03-25 03:18:24', '2020-03-25 03:18:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicle_management`
+--
+
+CREATE TABLE `vehicle_management` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `record_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vehicle_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `driver` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `from` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `to` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `out_meter_reading` int(11) NOT NULL,
+  `in_meter_reading` int(11) DEFAULT NULL,
+  `out_time` datetime NOT NULL,
+  `in_time` datetime DEFAULT NULL,
+  `distance` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -1049,12 +1162,6 @@ ALTER TABLE `city`
 -- Indexes for table `component`
 --
 ALTER TABLE `component`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `components`
---
-ALTER TABLE `components`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1094,18 +1201,6 @@ ALTER TABLE `employees`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `finished_goods_1`
---
-ALTER TABLE `finished_goods_1`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `finished_goods_2`
---
-ALTER TABLE `finished_goods_2`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
@@ -1133,12 +1228,6 @@ ALTER TABLE `leave`
 -- Indexes for table `leave_type`
 --
 ALTER TABLE `leave_type`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `magazine_1`
---
-ALTER TABLE `magazine_1`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1201,6 +1290,12 @@ ALTER TABLE `production_component`
 -- Indexes for table `production_component_detail`
 --
 ALTER TABLE `production_component_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `production_component_store`
+--
+ALTER TABLE `production_component_store`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1277,6 +1372,48 @@ ALTER TABLE `store`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `store_components`
+--
+ALTER TABLE `store_components`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `store_finished_goods_1`
+--
+ALTER TABLE `store_finished_goods_1`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `store_finished_goods_2`
+--
+ALTER TABLE `store_finished_goods_2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `store_magazine_1`
+--
+ALTER TABLE `store_magazine_1`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `store_magazine_2`
+--
+ALTER TABLE `store_magazine_2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `store_requisition_issued`
+--
+ALTER TABLE `store_requisition_issued`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `store_stock`
+--
+ALTER TABLE `store_stock`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -1294,6 +1431,12 @@ ALTER TABLE `unit`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `vehicle_management`
+--
+ALTER TABLE `vehicle_management`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1321,19 +1464,13 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `component`
 --
 ALTER TABLE `component`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `components`
---
-ALTER TABLE `components`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `component_order`
 --
 ALTER TABLE `component_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `component_store`
@@ -1345,13 +1482,13 @@ ALTER TABLE `component_store`
 -- AUTO_INCREMENT for table `credit_term`
 --
 ALTER TABLE `credit_term`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `duty_schedule`
@@ -1363,37 +1500,25 @@ ALTER TABLE `duty_schedule`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `finished_goods_1`
---
-ALTER TABLE `finished_goods_1`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `finished_goods_2`
---
-ALTER TABLE `finished_goods_2`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `inward_goods_receipt`
 --
 ALTER TABLE `inward_goods_receipt`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `inward_raw_material`
 --
 ALTER TABLE `inward_raw_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `leave`
@@ -1408,12 +1533,6 @@ ALTER TABLE `leave_type`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `magazine_1`
---
-ALTER TABLE `magazine_1`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
@@ -1423,7 +1542,7 @@ ALTER TABLE `material`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `operation`
@@ -1453,13 +1572,19 @@ ALTER TABLE `production_component`
 -- AUTO_INCREMENT for table `production_component_detail`
 --
 ALTER TABLE `production_component_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `production_component_store`
+--
+ALTER TABLE `production_component_store`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `production_material`
 --
 ALTER TABLE `production_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `production_material_detail`
@@ -1471,7 +1596,7 @@ ALTER TABLE `production_material_detail`
 -- AUTO_INCREMENT for table `production_order`
 --
 ALTER TABLE `production_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `production_order_detail`
@@ -1495,19 +1620,19 @@ ALTER TABLE `purchasetype`
 -- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_item`
 --
 ALTER TABLE `purchase_order_item`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `state`
@@ -1519,7 +1644,49 @@ ALTER TABLE `state`
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `store_components`
+--
+ALTER TABLE `store_components`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `store_finished_goods_1`
+--
+ALTER TABLE `store_finished_goods_1`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `store_finished_goods_2`
+--
+ALTER TABLE `store_finished_goods_2`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `store_magazine_1`
+--
+ALTER TABLE `store_magazine_1`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `store_magazine_2`
+--
+ALTER TABLE `store_magazine_2`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `store_requisition_issued`
+--
+ALTER TABLE `store_requisition_issued`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `store_stock`
+--
+ALTER TABLE `store_stock`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -1531,13 +1698,19 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `unit`
 --
 ALTER TABLE `unit`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `vehicle_management`
+--
+ALTER TABLE `vehicle_management`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
