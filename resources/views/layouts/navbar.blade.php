@@ -251,7 +251,7 @@
 
 
 {{--                </li>--}}
-
+@if(auth()->user()->hasRole('Setting'))
                     <li class="nav-item dropdown">
                         <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                             Settings
@@ -265,7 +265,7 @@
                         </div>
 
                     </li>
-
+@endif
 {{--                <li class="nav-item">--}}
 {{--                    <a class="dropdown-toggle btn m-0 btn-app" href="{{url('setting/setting')}}"><i class="fas fa-edit"></i>--}}
 {{--                        Settings--}}
