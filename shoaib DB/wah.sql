@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2020 at 09:58 AM
+-- Generation Time: Mar 25, 2020 at 11:30 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -229,14 +229,14 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `user_id`, `department_id`, `designation_id`, `mobile`, `gender_id`, `state_id`, `city_id`, `address`, `upload`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, 12, '08883833', 1, 1, 1, 'abbbd', '1585121994.Penguins.jpg', NULL, NULL),
-(2, 3, 1, 13, '999333222', 1, 1, 1, 'sss', '1585122131.Tulips.jpg', NULL, NULL),
-(3, 4, 3, 14, '08487733', 1, 1, 1, 'abbb', NULL, NULL, NULL),
-(4, 5, 4, 15, '124455333', 1, 1, 1, 'advfdd', NULL, NULL, NULL),
-(5, 6, 5, 16, '1344565444', 1, 1, 1, 'sss', NULL, NULL, NULL),
-(6, 7, 8, 8, '12333445', 1, 1, 1, 'City centre Sharjha', NULL, NULL, NULL),
-(7, 8, 9, 5, '677888822', 1, 1, 1, 'wsddff', NULL, NULL, NULL),
-(8, 9, 10, 3, '1243432', 1, 1, 1, 'dddd', NULL, NULL, NULL);
+(9, 10, 2, 12, '67885433', 1, 1, 1, 'dd', NULL, NULL, NULL),
+(10, 11, 1, 13, '6754322', 1, 1, 1, 'ttttt', NULL, NULL, NULL),
+(11, 12, 3, 14, '45533', 1, 1, 1, 'sssss', NULL, NULL, NULL),
+(12, 13, 4, 15, '244433', 1, 1, 1, 'sssssss', NULL, NULL, NULL),
+(13, 14, 5, 16, '4553333', 1, 1, 1, 'jjkks', NULL, NULL, NULL),
+(14, 15, 8, 8, '4554333', 1, 1, 1, 'ddssss', NULL, NULL, NULL),
+(15, 16, 9, 5, '24443222', 1, 1, 1, 'sssdfd', NULL, NULL, NULL),
+(16, 17, 10, 3, '35673333', 1, 1, 1, 'sssssss', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -445,13 +445,21 @@ CREATE TABLE `model_has_roles` (
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 1),
 (3, 'App\\User', 9),
+(3, 'App\\User', 17),
 (5, 'App\\User', 2),
 (5, 'App\\User', 3),
 (5, 'App\\User', 4),
 (5, 'App\\User', 5),
 (5, 'App\\User', 6),
 (5, 'App\\User', 7),
-(5, 'App\\User', 8);
+(5, 'App\\User', 8),
+(5, 'App\\User', 16),
+(8, 'App\\User', 15),
+(12, 'App\\User', 10),
+(13, 'App\\User', 11),
+(14, 'App\\User', 12),
+(15, 'App\\User', 13),
+(16, 'App\\User', 14);
 
 -- --------------------------------------------------------
 
@@ -1106,14 +1114,14 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `manager_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Shoaib Arshad', NULL, 'shoaibarshad@gmail.com', NULL, '$2y$10$CeV5XThutGNT4M0V.mcJhOSP/Fw8AjeNcIlkmMyeAeZqDsDkqd0fa', NULL, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
-(2, 'kaleem', NULL, 'kaleem@gmail.com', NULL, '$2y$10$j/gnvfYP4pNqzpRFwjH6v.Da9qYZx7gyAY2ubsITFAOcNyR9QxTw6', NULL, '2020-03-25 02:39:54', '2020-03-25 02:39:54'),
-(3, 'Moueed', NULL, 'moueed@gmail.com', NULL, '$2y$10$8XSrsi58.G3IBLLQp19bq.QADunlRZh7UyMmhC3qhknjIMKAQUy7C', NULL, '2020-03-25 02:42:11', '2020-03-25 02:42:11'),
-(4, 'fezan', NULL, 'fezan@gmail.com', NULL, '$2y$10$7iLkLVjzKKgqsccKeAiyc.4zc8xIj1234u0L3Nt/o7mlUbTsEyT0O', NULL, '2020-03-25 02:43:35', '2020-03-25 02:43:35'),
-(5, 'Tamoor', NULL, 'tamoor@gmail.com', NULL, '$2y$10$xIY/rTl1R91Qp4FyxX8AoeWTSlc/EBrzX1FdBGRPILy1Uu6lwr7Sa', NULL, '2020-03-25 02:46:21', '2020-03-25 02:46:21'),
-(6, 'muzamil', NULL, 'muzamil@gmail.com', NULL, '$2y$10$gBCTTMwWOB5ouWrprDkmkOkC//cDqd0h544onenvtX0vXLQ.NwRkS', NULL, '2020-03-25 02:50:10', '2020-03-25 02:50:10'),
-(7, 'Numair', NULL, 'numair@gmail.com', NULL, '$2y$10$WTh48iwR6d/eLPpIeoKM9utecmbC8uZuTZcXWyS1bTsjDxKVhs6x.', NULL, '2020-03-25 02:54:59', '2020-03-25 02:54:59'),
-(8, 'Feraz', NULL, 'feraz@gmail.com', NULL, '$2y$10$TIYNe5KU/HVLqiPSzwf6k.UOSpNLxYaNpEfA/YohSAqjgKySNuZbW', NULL, '2020-03-25 03:14:47', '2020-03-25 03:14:47'),
-(9, 'nabeel', NULL, 'nabeel@gmail.com', NULL, '$2y$10$QljwCmhieByHuWSq.9s5neBCf/BXnZl9fhRts/TKvgp743QI5ANoa', NULL, '2020-03-25 03:18:24', '2020-03-25 03:18:24');
+(10, 'kaleem', NULL, 'kaleem@gmail.com', NULL, '$2y$10$K0RNVmBP3kUfRaoZbmWnH.t8cZZvDy5gJUefZNynnA/DHqOMsoikq', NULL, '2020-03-25 05:20:49', '2020-03-25 05:20:49'),
+(11, 'Moueed', NULL, 'moueed@gmail.com', NULL, '$2y$10$Fic2g6qGkRKewMGI96TBGesLtSsgX0lGlrsLX0b2kI44GNFnuqFea', NULL, '2020-03-25 05:22:46', '2020-03-25 05:22:46'),
+(12, 'fezan', NULL, 'fezan@gmail.com', NULL, '$2y$10$GhGMlQYKAe33S9v114JfpuNBau1/W1GhQuLvreGoI0iRNmc5NhnIC', NULL, '2020-03-25 05:23:45', '2020-03-25 05:23:45'),
+(13, 'Tamoor', NULL, 'tamoor@gmail.com', NULL, '$2y$10$LqPVlEGAzTvdFKQshxy2leldnp6xLIWS5lo2u.IEcKbpjDWcQvLX.', NULL, '2020-03-25 05:24:47', '2020-03-25 05:24:47'),
+(14, 'muzamil', NULL, 'muzamil@gmail.com', NULL, '$2y$10$dkz3JOANGn6jCoWXJFab0egHiXCr4Ozmcdt90eAgqMqbYTR/cYRdW', NULL, '2020-03-25 05:26:09', '2020-03-25 05:26:09'),
+(15, 'Numair', NULL, 'numair@gmail.com', NULL, '$2y$10$v2XJ2WATnaY7ePHilclRneOjnllZ9uSg./N6bbbcoxSRjag7M8WSe', NULL, '2020-03-25 05:27:04', '2020-03-25 05:27:04'),
+(16, 'Feraz', NULL, 'feraz@gmail.com', NULL, '$2y$10$n1xQCtIA3Lhr/ah9RsTjmeseO7rYp2NNLAkgpYu04CZsUFnNyhyiO', NULL, '2020-03-25 05:28:05', '2020-03-25 05:28:05'),
+(17, 'nabeel', NULL, 'nabeel@gmail.com', NULL, '$2y$10$9IWkX83AgcGo/2K5JgEyk.3/KauCUNAkURxPU8qb3IGeDulr7o/fC', NULL, '2020-03-25 05:28:54', '2020-03-25 05:28:54');
 
 -- --------------------------------------------------------
 
@@ -1500,7 +1508,7 @@ ALTER TABLE `duty_schedule`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `inward_gate_pass`
@@ -1704,7 +1712,7 @@ ALTER TABLE `unit`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `vehicle_management`
