@@ -265,7 +265,7 @@
                                                 </td>
                                                     @else
                                                 <td>
-                                                        <a class="btn" href="{{url('production/orderComponent')}}">
+                                                        <a class="btn" href="{{url('production/componentRequisition')}}">
                                                             <i class="fas fa-plus-square mr-2">
                                                             </i> Order
                                                         </a>

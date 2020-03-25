@@ -15,7 +15,7 @@ class SettingDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
+        $this->call(ComponentsTableSeederTableSeeder::class);
         // $this->call("OthersTableSeeder");
     }
 }

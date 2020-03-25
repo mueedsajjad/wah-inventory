@@ -27,9 +27,17 @@ class AttendanceController extends Controller
 
 
         $duty=DB::table('duty_schedule')->first();
-
-      $outt=Carbon::parse($duty->out_time);
-      $inn=Carbon::parse($duty->in_time);
+      if($duty)
+      {
+        $outt=Carbon::parse($duty->out_time);
+        $inn=Carbon::parse($duty->in_time);
+      }
+      else
+      {
+        $duty= DB::table('duty_Schedule')->get();
+        return view('setting::setting/DutySchedule',compact('duty'));
+      }
+      
 
       $totalMinutes = $outt->diffInMinutes($inn);
       $totalHours = $outt->diffInHours($inn);
