@@ -64,7 +64,7 @@
                                                         @csrf
                                                         <input type="hidden" value="{{$item->materialName}}" name="materialName">
                                                         <div class="row">
-                                                            <select name="storeLocation" style="width: 70%;" class="form-control select2">
+                                                            <select name="storeLocation" style="width: 70%;" class="form-control">
                                                                 @if(!$stores->isempty())
                                                                     @foreach($stores as $store)
                                                                         <option value="{{$store->name}}">{{$store->name}}</option>

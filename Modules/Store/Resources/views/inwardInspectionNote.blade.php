@@ -168,7 +168,7 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Inspection Status</label>
                             <div class="col-sm-8">
-                                <select name="inspectionStatus" class="form-control select2 inspectionStatus" disabled>
+                                <select name="inspectionStatus" class="form-control inspectionStatus" disabled>
                                     <option value="excellent">Excellent</option>
                                     <option value="good">Good</option>
                                     <option value="bad">Bad</option>

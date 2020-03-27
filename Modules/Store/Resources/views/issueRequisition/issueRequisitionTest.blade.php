@@ -27,7 +27,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Select Warehouse</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select2">
+                                                <select class="form-control">
                                                     <option selected="selected">Store 1</option>
                                                 </select>
                                             </div>
@@ -50,7 +50,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Select Section</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select2">
+                                                <select class="form-control">
                                                     <option selected="selected">Assembling</option>
                                                 </select>
                                             </div>

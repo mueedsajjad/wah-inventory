@@ -61,10 +61,10 @@
                         <a class="dropdown-item" href="{{url('gate/dashboard')}}">Dashboard</a>
                         <a class="dropdown-item" href="{{url('gate/inwardGatePass')}}">Inward Gate Pass</a>
                         <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
-                        <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>
+{{--                        <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>--}}
                         <a class="dropdown-item" href="{{url('gate/outVehicle')}}">Vehicle Out</a>
                         <a class="dropdown-item" href="{{url('gate/inVehicle')}}">Vehicle In</a>
-                        <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>
+{{--                        <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>--}}
                     </div>
                 </li>
                 @endif
@@ -149,6 +149,10 @@
 
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{url('store/dashboard')}}">Dashboard</a>
+                        <a class="dropdown-item" href="{{url('store/newBuiltyArrival')}}">New Builty Arrivals</a>
+                        <a class="dropdown-item" href="{{url('store/approveForInspectionNote')}}">Approve for I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/inwardInspectionNote')}}">Inward I-Note</a>
+                        <a class="dropdown-item" href="{{url('store/inwardGoodsReceipt')}}">Inward Goods Receipt</a>
                         @if(auth()->user()->can('Assign Stores'))
                         <a class="dropdown-item" href="{{url('store/assignStore')}}">Assign Stores</a>
                         @endif
@@ -158,13 +162,10 @@
 {{--                        <a class="dropdown-item" href="{{url('store/addMaterial')}}">Add New</a>--}}
 {{--                        <a class="dropdown-item" href="{{url('store/rawMaterial')}}">Material</a>--}}
 {{--                        <a class="dropdown-item" href="{{url('store/product')}}">Products</a>--}}
-                        <a class="dropdown-item" href="{{url('store/newBuiltyArrival')}}">New Builty Arrivals</a>
-                        <a class="dropdown-item" href="{{url('store/approveForInspectionNote')}}">Approve for I-Note</a>
-                        <a class="dropdown-item" href="{{url('store/inwardInspectionNote')}}">Inward I-Note</a>
-                        <a class="dropdown-item" href="{{url('store/inwardGoodsReceipt')}}">Inward Goods Receipt</a>
-                        <a class="dropdown-item" href="{{url('store/deliveryOrder')}}">Delivery Order</a>
 
-                        <a class="dropdown-item" href="{{url('store/report')}}">Reports</a>
+{{--                        <a class="dropdown-item" href="{{url('store/deliveryOrder')}}">Delivery Order</a>--}}
+
+{{--                        <a class="dropdown-item" href="{{url('store/report')}}">Reports</a>--}}
                     </div>
                 </li>
                 @endif

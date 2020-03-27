@@ -257,7 +257,7 @@
                                     <div class="form-group row">
                                         <label for="sga_20" class="col-sm-4 col-form-label">Type</label>
                                         <div class="col-sm-8">
-                                            <select name="type" class="form-control select2" required>
+                                            <select name="type" class="form-control" required>
                                                 <option value="supplier">Supplier</option>
                                                 <option value="customer">Customer</option>
                                             </select>
@@ -323,7 +323,7 @@
 {{--                                                        </select>--}}
                                                     </td>
                                                     <td>
-                                                        <select name="uom[]" class="form-control select2">
+                                                        <select name="uom[]" class="form-control">
                                                             @if(!$units->isempty())
                                                                 @foreach($units as $unit)
                                                                     <option value="{{$unit->name}}">{{$unit->name}}</option>
