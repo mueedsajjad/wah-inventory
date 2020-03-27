@@ -38,7 +38,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Select Store</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select2" name="store_location" required>
+                                                <select class="form-control" name="store_location" required>
                                                     @if(count($stores))
                                                         @foreach($stores as $store)
                                                         <option value="{{$store->name}}">{{$store->name}}</option>

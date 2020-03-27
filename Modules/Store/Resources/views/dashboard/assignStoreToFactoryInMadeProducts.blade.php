@@ -60,7 +60,7 @@
                                         <input type="hidden" name="total_cost" value="{{$product->total_cost}}">
 
                                         <div class="row">
-                                            <select class="form-control select2" style="width: 70%;"  name="store_location">
+                                            <select class="form-control" style="width: 70%;"  name="store_location">
                                                 <option disabled selected>Select</option>
                                                 @foreach($stores as $store)
                                                 <option value="{{$store->name}}">{{$store->name}}</option>

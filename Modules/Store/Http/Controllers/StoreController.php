@@ -362,7 +362,7 @@ class StoreController extends Controller
         $update=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($data);
 
         if ($insert && $update){
-            return redirect()->back()->with('message', 'Submitted Successfuly.');
+            return redirect('store/inwardGoodsReceipt')->with('message', 'Submitted Successfuly.');
         }
         else {
             return back()->withErrors( 'Something went wrong.');
@@ -824,7 +824,7 @@ class StoreController extends Controller
                         ->where('id', $request->production_component_detail_id)->update($changeStatusData);
 
                     if ($insert && $updateStatus){
-                        return redirect()->back()->with('message', 'Component Issued Successfuly.');
+                        return redirect('store/componentRequisition')->with('message', 'Component Issued Successfully.');
                     }
                     else{
                         return back()->withErrors( 'Something went wrong.');
@@ -875,7 +875,7 @@ class StoreController extends Controller
                         ->where('id', $request->production_material_detail_id)->update($changeStatusData);
 
                     if ($insert && $updateStatus){
-                        return redirect()->back()->with('message', 'Component Issued Successfuly.');
+                        return redirect('store/materialRequisition')->with('message', 'Material Issued Successfully.');
                     }
                     else{
                         return back()->withErrors( 'Something went wrong.');
