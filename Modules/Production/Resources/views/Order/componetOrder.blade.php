@@ -48,7 +48,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Component</label>
-                                            <input type="text" name="component_name" class="form-control" placeholder="Kartoos" required>
+                                            <input type="text" name="component_name" class="form-control" placeholder="Tube" required>
                                         </div>
                                     </div>
 

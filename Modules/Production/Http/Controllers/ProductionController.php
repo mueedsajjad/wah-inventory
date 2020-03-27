@@ -478,7 +478,8 @@ class ProductionController extends Controller
         $orders=DB::table('production_component')
             ->join('production_component_detail',
                 'production_component_detail.production_component_id','=','production_component.id')
-            ->get();
+                ->orderBy('production_component.id','desc')
+                ->get();
 
        //dd($orders);
         return view('production::Order/recieved_component',compact('orders'
@@ -536,6 +537,7 @@ class ProductionController extends Controller
         $orders=DB::table('production_material')
             ->join('production_material_detail',
                 'production_material_detail.production_material_id','=','production_material.id')
+            ->orderBy('production_material.id','desc')
             ->get();
 
         // dd($orders);

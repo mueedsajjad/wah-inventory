@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2020 at 01:44 PM
+-- Generation Time: Mar 27, 2020 at 02:59 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -128,7 +128,17 @@ CREATE TABLE `component_order` (
 INSERT INTO `component_order` (`id`, `manufacturing_order`, `component_name`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `type`, `created_at`, `updated_at`) VALUES
 (1, 'CO-1', 'Brass Head', 50, 10000, 5, '2020-03-24', '2020-03-24', 'Component', NULL, NULL),
 (2, 'CO-2', 'Brass Head', 100, 2000, 3, '2020-03-24', '2020-03-24', 'Component', NULL, NULL),
-(3, 'CO-3', 'Tube', 1000, 100000, 5, '2020-03-25', '2020-03-25', 'Component', NULL, NULL);
+(3, 'CO-3', 'Tube', 1000, 100000, 5, '2020-03-25', '2020-03-25', 'Component', NULL, NULL),
+(4, 'CO-4', 'Brass Head', 900000, 10000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(5, 'CO-5', 'Primer', 9000000, 100000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(6, 'CO-6', 'Tube', 9000000, 10000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(7, 'CO-7', 'Base Wad', 9000000, 10000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(8, 'CO-8', 'OP Wad', 9000000, 1000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(9, 'CO-9', 'Closing Disk', 900000, 10000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(10, 'CO-10', 'Lead Shots', 9000000, 1000000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(11, 'CO-11', 'Obtrature', 9000000, 10000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(12, 'CO-12', 'Propellant', 9000000, 1000000000, 5, '2020-03-27', '2020-03-27', 'Component', NULL, NULL),
+(13, 'CO-13', 'Brass Head', 100, 1000, 0, '2020-03-27', '2020-03-27', 'Component', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -204,6 +214,13 @@ CREATE TABLE `duty_schedule` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `duty_schedule`
+--
+
+INSERT INTO `duty_schedule` (`id`, `in_time`, `out_time`, `day`, `created_at`, `updated_at`) VALUES
+(1, '09:00:00', '18:00:00', 5, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -264,7 +281,8 @@ CREATE TABLE `inward_gate_pass` (
 
 INSERT INTO `inward_gate_pass` (`id`, `gatePassId`, `type`, `name`, `transporter`, `vehicalNo`, `driver`, `driverPh`, `date`, `status`) VALUES
 (1, 'GP001', 'supplier', 'CDOXS', 'ABC', 'LHR_123', 'Good', '09865333343', '2020-03-25', 1),
-(2, 'GP002', 'supplier', 'kaleem', 'abc', 'LHR-1234', 'Good', '0986-5333343', '2020-03-25', 0);
+(2, 'GP002', 'supplier', 'kaleem', 'abc', 'LHR-1234', 'Good', '0986-5333343', '2020-03-25', 0),
+(3, 'GP003', 'supplier', 'abc', 'Noor', 'LHR-1234', 'Jhon', '0986-5333343', '2020-03-27', 1);
 
 -- --------------------------------------------------------
 
@@ -287,6 +305,15 @@ CREATE TABLE `inward_goods_receipt` (
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `totalQuantity` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inward_goods_receipt`
+--
+
+INSERT INTO `inward_goods_receipt` (`id`, `grn`, `grnDate`, `document`, `purchasedFrom`, `gatePassId`, `totalCost`, `name`, `purchaseOrderNo`, `materialName`, `uom`, `description`, `totalQuantity`) VALUES
+(1, 'GRN001', '2020-03-26', NULL, 'ppra', 'GP001', 34433.00, 'CDOXS', 'dfdddd', 'Soft Plastic', 'KG', 'Material Description', '100000'),
+(2, 'GRN002', '2020-03-27', NULL, 'ppra', 'GP003', 34433.00, 'abc', 'PO_0322', 'Soft Plastic', 'KG', 'Material Description', '9000000'),
+(3, 'GRN003', '2020-03-27', NULL, 'ppra', 'GP003', 34433.00, 'abc', 'PO_0322', 'Plastic', 'KG', 'Material Description', '9000000');
 
 -- --------------------------------------------------------
 
@@ -315,9 +342,11 @@ CREATE TABLE `inward_raw_material` (
 --
 
 INSERT INTO `inward_raw_material` (`id`, `materialName`, `uom`, `qty`, `description`, `gatePassId`, `storeLocation`, `date`, `status`, `inspectionDate`, `inspectionStatus`, `rejectionReason`, `rejectedQty`) VALUES
-(1, 'Soft Plastic', 'KG', '100000', 'Material Description', 'GP001', 'Magazine 1', '2020-03-25', 3, '2020-03-25', 'excellent', NULL, NULL),
+(1, 'Soft Plastic', 'KG', '100000', 'Material Description', 'GP001', 'Magazine 1', '2020-03-25', 6, '2020-03-25', 'excellent', NULL, NULL),
 (2, 'Plastic', 'KG', '100000', 'Material Description', 'GP001', NULL, '2020-03-25', 1, NULL, NULL, NULL, NULL),
-(3, 'Soft Plastic', 'KG', '100000', 'Material Description', 'GP002', NULL, '2020-03-25', 0, NULL, NULL, NULL, NULL);
+(3, 'Soft Plastic', 'KG', '100000', 'Material Description', 'GP002', NULL, '2020-03-25', 0, NULL, NULL, NULL, NULL),
+(4, 'Soft Plastic', 'KG', '9000000', 'Material Description', 'GP003', 'Magazine 1', '2020-03-27', 6, '2020-03-27', 'excellent', NULL, NULL),
+(5, 'Plastic', 'KG', '9000000', 'Material Description', 'GP003', 'Magazine 1', '2020-03-27', 6, '2020-03-27', 'excellent', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -574,7 +603,8 @@ CREATE TABLE `production_component` (
 INSERT INTO `production_component` (`id`, `manufacturing_no`, `issue_date`, `create_date`, `created_at`, `updated_at`) VALUES
 (1, 1, '2020-03-24', '2020-03-24', NULL, NULL),
 (2, 3, '2020-03-25', '2020-03-25', NULL, NULL),
-(3, 2, '2020-03-25', '2020-03-25', NULL, NULL);
+(3, 2, '2020-03-25', '2020-03-25', NULL, NULL),
+(4, 2, '2020-03-27', '2020-03-27', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -619,7 +649,16 @@ INSERT INTO `production_component_detail` (`id`, `component_name`, `quantity`, `
 (19, 'Brass Head', 100, 'Component Description', 3, 0, NULL, NULL),
 (20, 'Primer', 100, 'Component Description', 3, 0, NULL, NULL),
 (21, 'Tube', 100, 'Component Description', 3, 2, NULL, NULL),
-(22, 'Base Wad', 100, 'Component Description', 3, 0, NULL, NULL);
+(22, 'Base Wad', 100, 'Component Description', 3, 0, NULL, NULL),
+(23, 'Brass Head', 10, 'Component Description', 4, 2, NULL, NULL),
+(24, 'Primer', 10, 'Component Description', 4, 2, NULL, NULL),
+(25, 'Tube', 10, 'Component Description', 4, 2, NULL, NULL),
+(26, 'Base Wad', 10, 'Component Description', 4, 2, NULL, NULL),
+(27, 'OP Wad', 10, 'Component Description', 4, 2, NULL, NULL),
+(28, 'Closing Disk', 10, 'Component Description', 4, 2, NULL, NULL),
+(29, 'Lead Shots', 10, 'Component Description', 4, 2, NULL, NULL),
+(30, 'Obtrature', 10, 'Component Description', 4, 2, NULL, NULL),
+(31, 'Propellant', 10, 'Component Description', 4, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -641,15 +680,15 @@ CREATE TABLE `production_component_store` (
 --
 
 INSERT INTO `production_component_store` (`id`, `name`, `type`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 'Brass Head', 'Component', 100, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
-(2, 'Primer', 'Component', 100, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
-(3, 'Tube', 'Component', 200, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
-(4, 'Base Wad', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
-(5, 'OP Wad', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
-(6, 'Closing Disk', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
-(7, 'Lead Shots', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
-(8, 'Obtrature', 'Component', 100, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
-(10, 'Propellant', 'Component', 100, NULL, NULL);
+(1, 'Brass Head', 'Component', 10, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
+(2, 'Primer', 'Component', 10, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
+(3, 'Tube', 'Component', 110, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
+(4, 'Base Wad', 'Component', 10, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(5, 'OP Wad', 'Component', 10, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(6, 'Closing Disk', 'Component', 10, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(7, 'Lead Shots', 'Component', 10, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(8, 'Obtrature', 'Component', 10, '2020-03-24 05:30:04', '2020-03-24 05:30:04'),
+(10, 'Propellant', 'Component', 10, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -732,7 +771,8 @@ CREATE TABLE `production_order` (
 INSERT INTO `production_order` (`id`, `manufacturing_order`, `product`, `quantity`, `total_cost`, `status`, `production_deadline`, `created_date`, `stage_status`, `type`, `created_at`, `updated_at`) VALUES
 (1, 'MO-1', 'Kartoos', 100, 10000, 4, '2020-03-24', '2020-03-24', 3, 'Product', NULL, NULL),
 (2, 'MO-2', 'Kartoos', 2000, 20000, 0, '2020-03-25', '2020-03-25', 0, 'Product', NULL, NULL),
-(3, 'MO-3', 'Kartoos', 100, 100000, 0, '2020-03-25', '2020-03-25', 0, 'Product', NULL, NULL);
+(3, 'MO-3', 'Kartoos', 100, 100000, 4, '2020-03-25', '2020-03-25', 3, 'Product', NULL, NULL),
+(4, 'MO-4', 'Kartoos', 10, 1000, 0, '2020-03-27', '2020-03-27', 0, 'Product', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -911,7 +951,6 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (11, 1),
 (11, 3),
 (11, 5),
-(11, 8),
 (12, 1),
 (12, 3),
 (12, 5),
@@ -996,7 +1035,16 @@ CREATE TABLE `store_components` (
 
 INSERT INTO `store_components` (`id`, `manufacturing_order`, `name`, `quantity`, `total_cost`, `stored_date`, `status`) VALUES
 (1, 'CO-1', 'Brass Head', 50, 10000, '2020-03-25', 0),
-(2, 'CO-3', 'Tube', 1000, 100000, '2020-03-25', 0);
+(2, 'CO-3', 'Tube', 1000, 100000, '2020-03-25', 0),
+(3, 'CO-4', 'Brass Head', 900000, 10000000, '2020-03-27', 0),
+(4, 'CO-5', 'Primer', 9000000, 100000000, '2020-03-27', 0),
+(5, 'CO-6', 'Tube', 9000000, 10000000, '2020-03-27', 0),
+(6, 'CO-7', 'Base Wad', 9000000, 10000000, '2020-03-27', 0),
+(7, 'CO-8', 'OP Wad', 9000000, 1000000, '2020-03-27', 0),
+(8, 'CO-9', 'Closing Disk', 900000, 10000000, '2020-03-27', 0),
+(9, 'CO-10', 'Lead Shots', 9000000, 1000000000, '2020-03-27', 0),
+(10, 'CO-11', 'Obtrature', 9000000, 10000000, '2020-03-27', 0),
+(11, 'CO-12', 'Propellant', 9000000, 1000000000, '2020-03-27', 0);
 
 -- --------------------------------------------------------
 
@@ -1045,6 +1093,15 @@ CREATE TABLE `store_magazine_1` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `store_magazine_1`
+--
+
+INSERT INTO `store_magazine_1` (`id`, `materialName`, `uom`, `quantity`, `stored_date`, `status`) VALUES
+(1, 'Soft Plastic', 'KG', 100000, '2020-03-26', 0),
+(2, 'Soft Plastic', 'KG', 9000000, '2020-03-27', 0),
+(3, 'Plastic', 'KG', 9000000, '2020-03-27', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1080,7 +1137,16 @@ CREATE TABLE `store_requisition_issued` (
 --
 
 INSERT INTO `store_requisition_issued` (`id`, `transaction_id`, `store_location`, `name`, `quantity`, `issued_date`) VALUES
-(1, 'TNC001', 'Components', 'Tube', 100, '2020-03-25');
+(1, 'TNC001', 'Components', 'Tube', 100, '2020-03-25'),
+(2, 'TNC002', 'Components', 'Propellant', 10, '2020-03-27'),
+(3, 'TNC003', 'Components', 'Obtrature', 10, '2020-03-27'),
+(4, 'TNC004', 'Components', 'Lead Shots', 10, '2020-03-27'),
+(5, 'TNC005', 'Components', 'Closing Disk', 10, '2020-03-27'),
+(6, 'TNC006', 'Components', 'OP Wad', 10, '2020-03-27'),
+(7, 'TNC007', 'Components', 'Base Wad', 10, '2020-03-27'),
+(8, 'TNC008', 'Components', 'Tube', 10, '2020-03-27'),
+(9, 'TNC009', 'Components', 'Primer', 10, '2020-03-27'),
+(10, 'TNC0010', 'Components', 'Brass Head', 10, '2020-03-27');
 
 -- --------------------------------------------------------
 
@@ -1101,8 +1167,17 @@ CREATE TABLE `store_stock` (
 --
 
 INSERT INTO `store_stock` (`id`, `name`, `quantity`, `store_location`, `date_updated`) VALUES
-(1, 'Brass Head', 50, 'Components', '2020-03-25'),
-(2, 'Tube', 900, 'Components', '2020-03-25');
+(1, 'Brass Head', 900040, 'Components', '2020-03-27'),
+(2, 'Tube', 9000890, 'Components', '2020-03-27'),
+(3, 'Soft Plastic', 9100000, 'Magazine 1', '2020-03-27'),
+(4, 'Plastic', 9000000, 'Magazine 1', '2020-03-27'),
+(5, 'Primer', 8999990, 'Components', '2020-03-27'),
+(6, 'Base Wad', 8999990, 'Components', '2020-03-27'),
+(7, 'OP Wad', 8999990, 'Components', '2020-03-27'),
+(8, 'Closing Disk', 899990, 'Components', '2020-03-27'),
+(9, 'Lead Shots', 8999990, 'Components', '2020-03-27'),
+(10, 'Obtrature', 8999990, 'Components', '2020-03-27'),
+(11, 'Propellant', 8999990, 'Components', '2020-03-27');
 
 -- --------------------------------------------------------
 
@@ -1541,7 +1616,7 @@ ALTER TABLE `component`
 -- AUTO_INCREMENT for table `component_order`
 --
 ALTER TABLE `component_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `component_store`
@@ -1565,7 +1640,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `duty_schedule`
 --
 ALTER TABLE `duty_schedule`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -1577,19 +1652,19 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inward_goods_receipt`
 --
 ALTER TABLE `inward_goods_receipt`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inward_raw_material`
 --
 ALTER TABLE `inward_raw_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `leave`
@@ -1637,13 +1712,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `production_component`
 --
 ALTER TABLE `production_component`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `production_component_detail`
 --
 ALTER TABLE `production_component_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `production_component_store`
@@ -1667,7 +1742,7 @@ ALTER TABLE `production_material_detail`
 -- AUTO_INCREMENT for table `production_order`
 --
 ALTER TABLE `production_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `production_order_detail`
@@ -1721,7 +1796,7 @@ ALTER TABLE `store`
 -- AUTO_INCREMENT for table `store_components`
 --
 ALTER TABLE `store_components`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `store_finished_goods_1`
@@ -1739,7 +1814,7 @@ ALTER TABLE `store_finished_goods_2`
 -- AUTO_INCREMENT for table `store_magazine_1`
 --
 ALTER TABLE `store_magazine_1`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `store_magazine_2`
@@ -1751,13 +1826,13 @@ ALTER TABLE `store_magazine_2`
 -- AUTO_INCREMENT for table `store_requisition_issued`
 --
 ALTER TABLE `store_requisition_issued`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `store_stock`
 --
 ALTER TABLE `store_stock`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `supplier`

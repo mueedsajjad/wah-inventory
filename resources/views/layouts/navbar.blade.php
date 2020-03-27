@@ -1,3 +1,4 @@
+
 <nav class="main-header navbar navbar-expand-md navbar-dark  py-0">
     <div class="container-fluid">
         <a href="#" class="navbar-brand">
@@ -23,7 +24,7 @@
 
                 @if(auth()->user()->can('Production'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-spray-can"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-spray-can"></i>
                         Production
                     </a>
 
@@ -53,7 +54,7 @@
 {{--                </li>--}}
                 @if(auth()->user()->can('Gate'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-check"></i>
                         Gate
                     </a>
 
@@ -71,7 +72,7 @@
 
                 @if(auth()->user()->can('Supplier'))
                         <li class="nav-item dropdown">
-                            <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-truck"></i></i>
+                            <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-truck"></i></i>
                                 Supplier
                             </a>
 
@@ -93,7 +94,7 @@
 
                 @if(auth()->user()->can('Sale'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-dollar-sign"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-dollar-sign"></i>
                         Sale
                     </a>
 
@@ -134,16 +135,16 @@
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu4" href="{{url('purchase/purchase')}}" class=" dropdown-toggle btn m-0 btn-app"><i class="fas fa-boxes"></i>
                         Purchase</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">
+                    <!-- <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ">
                         <li><a href="#" class="dropdown-item">Some action </a></li>
                         <li><a href="#" class="dropdown-item">Some other action</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
 
                 @endif
                 @if(auth()->user()->can('Store'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-store"></i>
                         Store
                     </a>
 
@@ -171,7 +172,7 @@
 
                 @if(auth()->user()->can('Quality'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                         Quality
                     </a>
 
@@ -186,7 +187,7 @@
 
                 @if(auth()->user()->can('HR'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0 m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                       HR
                     </a>
 
@@ -196,13 +197,13 @@
                         <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
 
                         @if(auth()->user()->can('Accept Leave Request'))
-                        <a class="dropdown-item" href="{{url('admin/leave')}}"> Leaves</a>
+                        <a class="dropdown-item" href="{{url('admin/leave')}}">Accept Leaves</a>
                         @endif
 
                         @if(auth()->user()->can('Apply for Attendance'))
-                            <a class="dropdown-item" href="{{url('admin/leaveOfficer')}}"> Leaves</a>
+                            <a class="dropdown-item" href="{{url('admin/leaveOfficer')}}">Apply for Leaves</a>
                         @endif
-
+                        
 
                         <a class="dropdown-item" href="{{url('admin/salary')}}">Salaries</a>
                         <a class="dropdown-item" href="{{url('admin/advance')}}"> Advance</a>
@@ -214,7 +215,7 @@
 
                 @if(auth()->user()->hasRole('GM'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users-cog nav-icon"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0 m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users-cog nav-icon"></i>
                         Role Management
                     </a>
 
@@ -251,9 +252,9 @@
 
 
 {{--                </li>--}}
-
+@if(auth()->user()->can('Setting'))
                     <li class="nav-item dropdown">
-                        <a class=" dropdown-toggle btn m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                        <a class=" dropdown-toggle btn pl-0 pr-0 m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
                             Settings
                         </a>
 
@@ -263,8 +264,8 @@
                             <a class="dropdown-item" href="{{url('setting/dutySchedule')}}">Duty hours settings</a>
                             <a class="dropdown-item" href="{{url('setting/leave')}}">Leave settings</a>
                         </div>
-
                     </li>
+                    @endif
 
 {{--                <li class="nav-item">--}}
 {{--                    <a class="dropdown-toggle btn m-0 btn-app" href="{{url('setting/setting')}}"><i class="fas fa-edit"></i>--}}
