@@ -26,7 +26,8 @@
                                 <tr>
                                     <th>Sr#</th>
                                     <th>Gate Pass ID</th>
-                                    <th>Material Name</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
                                     <th>UOM</th>
                                     <th>Quantity</th>
                                     <th>Description</th>
@@ -43,6 +44,7 @@
                                         <tr>
                                             <td>{{$count}}</td>
                                             <td>{{$item->gatePassId}}</td>
+                                            <td>{{$item->itemType}}</td>
                                             <td>{{$item->materialName}}</td>
                                             <td>{{$item->uom}}</td>
                                             <td>{{$item->qty}}</td>
@@ -60,9 +62,10 @@
                                             </td>
                                             <td>
                                                 @if(Empty($item->storeLocation))
-                                                    <form action="{{url('store/submitAssignedStore/'.$item->gatePassId)}}" method="post" enctype="multipart/form-data">
+                                                    <form action="{{url('store/submitAssignedStore/'.$item->id)}}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <input type="hidden" value="{{$item->materialName}}" name="materialName">
+                                                        <input type="hidden" value="{{$item->itemType}}" name="itemType">
                                                         <div class="row">
                                                             <select name="storeLocation" style="width: 70%;" class="form-control">
                                                                 @if(!$stores->isempty())

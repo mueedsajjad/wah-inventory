@@ -17,7 +17,9 @@ class CreateVehicleManagementTable extends Migration
             $table->bigIncrements('id');
             $table->string('record_id');
             $table->string('vehicle_no');
-            $table->string('driver');
+            $table->string('vehicle_name');
+            $table->string('staff_id');
+            $table->string('staff_name');
             $table->string('from');
             $table->string('to');
             $table->integer('out_meter_reading');

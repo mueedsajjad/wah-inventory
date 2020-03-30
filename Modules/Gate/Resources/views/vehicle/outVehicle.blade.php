@@ -16,7 +16,8 @@
                 <div class="col-md-12">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Vehicle Record</h3>
+                            <h3 class="card-title">Vehicle Out</h3>
+                            <a class="btn btn-primary btn-sm float-right" href="{{url('gate/vehicleManagement')}}">Back</a>
                         </div>
                         <div class="card-body">
                             <form action="{{url('gate/submitVehicleOut')}}" method="post" enctype="multipart/form-data">
@@ -32,13 +33,19 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">From</label>
                                             <div class="col-sm-8">
-                                                <input type="text" required name="from" class="form-control" placeholder="Factory">
+                                                <input type="text" required readonly value="Factory" name="from" class="form-control" placeholder="Factory">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">To</label>
+                                            <label class="col-sm-4 col-form-label">Destination</label>
                                             <div class="col-sm-8">
                                                 <input type="text" required name="to" class="form-control" placeholder="Customer">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Out Meter Reading</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" required name="out_meter_reading" class="form-control" placeholder="0001548">
                                             </div>
                                         </div>
                                     </div>
@@ -57,15 +64,21 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Out Meter Reading</label>
+                                            <label class="col-sm-4 col-form-label">Vehicle Name</label>
                                             <div class="col-sm-8">
-                                                <input type="number" required name="out_meter_reading" class="form-control" placeholder="0001548">
+                                                <input type="text" required name="vehicle_name" class="form-control" placeholder="Truck">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Driver</label>
+                                            <label class="col-sm-4 col-form-label">Staff ID</label>
                                             <div class="col-sm-8">
-                                                <input type="text" required name="driver" class="form-control" placeholder="Khalid Mehmood">
+                                                <input type="text" required name="staff_id" class="form-control" placeholder="SI001">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Staff Name</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" required name="staff_name" class="form-control" placeholder="Khalid Mehmood">
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +86,7 @@
 
                                 <div class="row justify-content-around">
                                     <div class="col-12">
-                                        <a href="#" class="btn btn-secondary ml-3 float-right">Print</a>
+                                        <a href="#" class="btn btn-secondary ml-1 float-right">Print</a>
                                         <button type="submit" class="btn btn-success float-right">Submit</button>
                                     </div>
                                 </div>

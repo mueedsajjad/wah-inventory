@@ -18,12 +18,17 @@ class GateController extends Controller
         //dd($request);
         $data=[
             'gatePassId' => $request->gatePassId,
-            'transporter' => $request->transporter,
-            'type' => $request->type,
-            'name' => $request->name,
-            'vehicalNo' => $request->vehicalNo,
-            'driver' => $request->driver,
+            'driverId' => $request->driverId,
+            'driverName' => $request->driverName,
             'driverPh' => $request->driverPh,
+            'vehicalNo' => $request->vehicalNo,
+
+            'vendorType' => $request->vendorType,
+            'vendorId' => $request->vendorId,
+            'vendorName' => $request->vendorName,
+            'vendorAddress' => $request->vendorAddress,
+            'vendorPh' => $request->vendorPh,
+
             'date' => date('Y-m-d'),
             'status' => 0
         ];
@@ -31,6 +36,7 @@ class GateController extends Controller
 
         for($i=0 ; $i<$request->countMaterial ; $i++){
             $data=[
+                'itemType' => $request['itemType'][$i],
                 'materialName' => $request['materialName'][$i],
                 'uom' => $request['uom'][$i],
                 'qty' => $request['qty'][$i],
@@ -67,6 +73,10 @@ class GateController extends Controller
         return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
     }
 
+    public function vehicleManagement(){
+        return view('gate::vehicle/vehicleManagement');
+    }
+
     public function outVehicle()
     {
         $countOutVehicle=DB::table('vehicle_management')->select('record_id')->orderByDesc('id')->first();
@@ -86,11 +96,13 @@ class GateController extends Controller
         $data=[
             'record_id' => $request->record_id,
             'vehicle_no' => $request->vehicle_no,
+            'vehicle_name' => $request->vehicle_name,
             'from' => $request->from,
             'to' => $request->to,
             'out_time' => Carbon::now(),
             'out_meter_reading' => $request->out_meter_reading,
-            'driver' => $request->driver,
+            'staff_id' => $request->staff_id,
+            'staff_name' => $request->staff_name,
             'status' => 0
         ];
         $insert=DB::table('vehicle_management')->insert($data);

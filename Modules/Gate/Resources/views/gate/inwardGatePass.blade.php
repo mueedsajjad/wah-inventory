@@ -210,28 +210,30 @@
                                             <input type="text" required name="gatePassId" readonly class="form-control" value="GP00{{$countInwardGatePass}}" id="sga_13" placeholder="GP001">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label for="sga_21" class="col-sm-4 col-form-label">Transporter</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" required name="transporter" class="form-control" id="sga_21" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row justify-content-around">
-                                <div class="col-md-4">
                                     <div class="form-group row">
                                         <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
                                         <div class="col-sm-8">
                                             <input type="text" readonly required value="{{date('d-m-Y')}}" class="form-control" id="sga_19" placeholder="08-02-2020">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Driver ID</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" required readonly name="driverId" class="form-control" value="DR00{{$countInwardGatePass}}" placeholder="DR001">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Driver Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="driverName" required class="form-control" placeholder="Waseem">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="sga_21" class="col-sm-4 col-form-label">Driver Phone #</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="driverPh" required class="form-control" id="sga_24" placeholder="03351234567">
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Vehicle No</label>
                                         <div class="col-sm-8">
@@ -239,49 +241,40 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="row justify-content-around">
-
-
-
-
-                            </div>
-
-
-
-                            <div class="row justify-content-around">
 
                                 <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label for="sga_20" class="col-sm-4 col-form-label">Type</label>
+                                        <label class="col-sm-4 col-form-label">Vendor Type</label>
                                         <div class="col-sm-8">
-                                            <select name="type" class="form-control" required>
-                                                <option value="supplier">Supplier</option>
-                                                <option value="customer">Customer</option>
+                                            <select name="vendorType" class="form-control" required>
+                                                <option value="Registered Vendor">Registered Vendor</option>
+                                                <option value="Non Registered Vendor">Non Registered Vendor</option>
+                                                <option value="WIL Collection">WIL Collection</option>
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Name</label>
+                                        <label class="col-sm-4 col-form-label">Vendor ID</label>
                                         <div class="col-sm-8">
-                                            <input type="text" name="name" required class="form-control" placeholder="CDOXS">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label for="sga_21" class="col-sm-4 col-form-label">Driver Name</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" name="driver" required class="form-control" id="sga_23" placeholder="">
+                                            <input type="text" name="vendorId" required readonly value="VND00{{$countInwardGatePass}}" class="form-control" placeholder="VND001">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="sga_21" class="col-sm-4 col-form-label">Driver Phone #</label>
+                                        <label class="col-sm-4 col-form-label">Vendor Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" name="driverPh" required class="form-control" id="sga_24" placeholder="0335-1234567">
+                                            <input type="text" name="vendorName" required class="form-control" placeholder="CDOXS">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Vendor Address</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="vendorAddress" required class="form-control" placeholder="Lahore Pak">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Vendor Phone #</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="vendorPh" required class="form-control" placeholder="03351234567">
                                         </div>
                                     </div>
                                 </div>
@@ -291,18 +284,19 @@
                                 <div class="col-md-12">
                                     <div class="card card-secondary">
                                         <div class="card-header">
-                                            <h3 class="card-title">Raw Material</h3>
+                                            <h3 class="card-title">Item Details</h3>
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body table-responsive">
                                             <table class="table table-bordered">
                                                 <thead class="bg-light">
                                                 <tr>
-                                                    <th style="width: 10%;">Sr#</th>
-                                                    <th style="width: 15%;">Material Name</th>
+                                                    <th style="width: 5%;">Sr#</th>
+                                                    <th style="width: 15%;">Type</th>
+                                                    <th style="width: 15%;">Name</th>
                                                     <th style="width: 15%;">UOM</th>
                                                     <th style="width: 15%;">Qty</th>
-                                                    <th >Material Description</th>
+                                                    <th >Description</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody id="appendMaterial">
@@ -310,8 +304,14 @@
                                                     <input name="countMaterial" type="hidden" value="1" id="countMaterial">
                                                     <td>1</td>
                                                     <td>
+                                                        <select name="itemType[]" class="form-control" required>
+                                                            <option value="Material">Material</option>
+                                                            <option value="Component">Component</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
                                                         <input type="text" name="materialName[]" class="form-control" placeholder="">
-{{--                                                        <select name="materialName[]" class="form-control select2">--}}
+{{--                                                        <select name="materialName[]" class="form-control">--}}
 {{--                                                            <option value="brassHead">Brass Head</option>--}}
 {{--                                                            <option value="primer">Primer</option>--}}
 {{--                                                            <option value="baseWad">Base Wad</option>--}}
@@ -352,7 +352,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a>
+                                    <a href="#" class="btn btn-secondary ml-1 float-right">Print</a>
                                     <input type="submit" value="Save" class="btn btn-success float-right">
                                 </div>
                             </div>
@@ -373,6 +373,12 @@
         ++count;
         var html='<tr id="deleteMaterial'+count+'">'+
                     '<td>'+count+'</td>'+
+                    '<td>'+
+                        '<select name="itemType[]" class="form-control" required>'+
+                            '<option value="Material">Material</option>'+
+                            '<option value="Component">Component</option>'+
+                        '</select>'+
+                    '</td>'+
                     '<td>'+
                         '<input type="text" name="materialName[]" class="form-control" placeholder="">'+
                         // '<select name="materialName[]" class="form-control select2">'+

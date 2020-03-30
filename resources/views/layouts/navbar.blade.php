@@ -63,8 +63,7 @@
                         <a class="dropdown-item" href="{{url('gate/inwardGatePass')}}">Inward Gate Pass</a>
                         <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
 {{--                        <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>--}}
-                        <a class="dropdown-item" href="{{url('gate/outVehicle')}}">Vehicle Out</a>
-                        <a class="dropdown-item" href="{{url('gate/inVehicle')}}">Vehicle In</a>
+                        <a class="dropdown-item" href="{{url('gate/vehicleManagement')}}">Vehicle Management</a>
 {{--                        <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>--}}
                     </div>
                 </li>
@@ -204,7 +203,7 @@
                         @if(auth()->user()->can('Apply for Attendance'))
                             <a class="dropdown-item" href="{{url('admin/leaveOfficer')}}">Apply for Leaves</a>
                         @endif
-                        
+
 
                         <a class="dropdown-item" href="{{url('admin/salary')}}">Salaries</a>
                         <a class="dropdown-item" href="{{url('admin/advance')}}"> Advance</a>

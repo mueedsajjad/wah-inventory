@@ -15,10 +15,10 @@ class CreateComponentsTable extends Migration
     {
         Schema::create('store_components', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('manufacturing_order');
+            $table->string('manufacturing_order')->nullable();
             $table->string('name');
             $table->integer('quantity');
-            $table->integer('total_cost');
+            $table->integer('total_cost')->nullable();
             $table->date('stored_date');
             $table->integer('status');
         });

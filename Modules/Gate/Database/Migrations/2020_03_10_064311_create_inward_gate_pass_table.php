@@ -16,14 +16,18 @@ class CreateInwardGatePassTable extends Migration
         Schema::create('inward_gate_pass', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('gatePassId');
-            $table->string('type')->length(25);
-            $table->string('name')->length(30);
-            $table->string('transporter');
-            $table->string('vehicalNo');
-            $table->string('driver');
-            $table->string('driverPh');
-
             $table->date('date');
+            $table->string('driverId');
+            $table->string('driverName');
+            $table->string('driverPh')->length(11);
+            $table->string('vehicalNo');
+
+            $table->string('vendorType');
+            $table->string('vendorId');
+            $table->string('vendorName');
+            $table->string('vendorAddress');
+            $table->string('vendorPh')->length(11);
+
             $table->integer('status')->length(11);
         });
     }

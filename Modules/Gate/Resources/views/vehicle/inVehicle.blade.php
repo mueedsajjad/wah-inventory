@@ -18,20 +18,24 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Vehicle In</h3>
+                        <a class="btn btn-primary btn-sm float-right" href="{{url('gate/vehicleManagement')}}">Back</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="builtyTable" class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
+                                <tr class="bg-secondary">
                                     <th>Sr#</th>
                                     <th>Record ID</th>
                                     <th>Vehicle No</th>
-                                    <th>Driver</th>
+                                    <th>Vehicle Name</th>
+                                    <th>Staff Name</th>
                                     <th>From</th>
-                                    <th>To</th>
+                                    <th>Destination</th>
                                     <th>Out Date Time</th>
                                     <th>Out Meter Reading</th>
+                                    <th>In Date Time</th>
+                                    <th>In Meter Reading</th>
                                     <th>Status</th>
                                 </tr>
                                 </thead>
@@ -44,11 +48,14 @@
                                             <td>{{$count}}</td>
                                             <td>{{$item->record_id}}</td>
                                             <td>{{$item->vehicle_no}}</td>
-                                            <td>{{$item->driver}}</td>
+                                            <td>{{$item->vehicle_name}}</td>
+                                            <td>{{$item->staff_name}}</td>
                                             <td>{{$item->from}}</td>
                                             <td>{{$item->to}}</td>
                                             <td>{{$item->out_time}}</td>
                                             <td>{{$item->out_meter_reading}}</td>
+                                            <td>{{$item->in_time}}</td>
+                                            <td>{{$item->in_meter_reading}}</td>
                                             <td>
                                                 @if($item->status==0)
                                                     <a class="btn btn-sm btn-secondary getVehicleData" data-toggle="modal" data-target="#enterInVehicleDetailsModal"

@@ -171,16 +171,28 @@ class StoreController extends Controller
         return view('store::approveForInspectionNote', compact('stores', 'inward_raw_material'));
     }
 
-    public function submitAssignedStore(Request $request,$gatePassId){
-        if ($gatePassId!=0 || $gatePassId!=null || $gatePassId!=''){
+    public function submitAssignedStore(Request $request,$id){
+        if ($id!=0 || $id!=null || $id!=''){
+            $itemType=$request->itemType;
+            $storeLocation=$request->storeLocation;
             $data=[
-                'storeLocation' => $request->storeLocation
+                'storeLocation' => $storeLocation
             ];
-            $update=DB::table('inward_raw_material')->where('gatePassId', $gatePassId)
-                ->where('materialName', $request->materialName)->update($data);
+
+            if ($itemType=="Material" && ($storeLocation=="Magazine 1" || $storeLocation=="Magazine 2")){
+                $update=DB::table('inward_raw_material')->where('id', $id)
+                    ->where('materialName', $request->materialName)->update($data);
+            }
+            elseif ($itemType=="Component" && ($storeLocation=="Components")){
+                $update=DB::table('inward_raw_material')->where('id', $id)
+                    ->where('materialName', $request->materialName)->update($data);
+            }
+            else{
+                return back()->withErrors( 'Please Select the Item Relevant Store.');
+            }
 
             if ($update){
-                return redirect()->back()->with('message', 'Updated Store Successfuly.');
+                return redirect()->back()->with('message', 'Updated Store Successfully.');
             }
             else {
                 return back()->withErrors( 'Something went wrong.');
@@ -578,10 +590,23 @@ class StoreController extends Controller
     }
 
     public function assignStoreToFactoryInwardMaterial(){
-        $inward_raw_material=DB::table('inward_raw_material')->where('status',5)
-            ->orWhere('status',6)
+        $inward_raw_material=DB::table('inward_raw_material')->where('itemType' , 'Material')
+            ->where(function($result) {
+                $result->where("status" , 5)
+                    ->orWhere('status' , 6);
+            })
             ->get();
         return view('store::dashboard/assignStoreToFactoryInwardMaterial', compact('inward_raw_material'));
+    }
+
+    public function assignStoreToFactoryInwardComponents(){
+        $inward_raw_material=DB::table('inward_raw_material')->where('itemType' , 'Component')
+                    ->where(function($result) {
+                        $result->where("status" , 5)
+                            ->orWhere('status' , 6);
+                    })
+                    ->get();
+        return view('store::dashboard/assignStoreToFactoryInwardComponents', compact('inward_raw_material'));
     }
 
     public function submitFactoryInwardMaterialToStore(Request $request){
@@ -679,6 +704,64 @@ class StoreController extends Controller
         }
         else {
             return back()->withErrors( 'Select the Material Relevant Store.');
+        }
+    }
+
+    public function submitFactoryInwardComponentToStore(Request $request){
+        $data=[
+            'name' => $request->materialName,
+            'quantity' => $request->quantity,
+            'manufacturing_order' => 'Imported',
+            //'uom' => $request->uom,
+            'stored_date' => date('Y-m-d'),
+            'status' => 0
+        ];
+        $dataStatus=[
+            'status' => 6
+        ];
+
+        if ($request->storeLocation=="Components"){
+            $insert=DB::table('store_components')->insert($data);
+            $statusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
+            if ($insert && $statusChange){
+                $checkNameInStock=DB::table('store_stock')->where('name', $request->materialName)
+                    ->where('store_location', $request->storeLocation)->first();
+                if (!empty($checkNameInStock)){
+                    $oldquantity=$checkNameInStock->quantity;
+                    $newquantity=$request->quantity;
+                    $quantity=$oldquantity+$newquantity;
+                    $updateDataStock=[
+                        'quantity' => $quantity,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $updateInStoreStock=DB::table('store_stock')->where('name', $request->materialName)
+                        ->where('store_location', $request->storeLocation)->update($updateDataStock);
+                    if ($updateInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
+                else{
+                    $insertDataStock=[
+                        'name' => $request->materialName,
+                        'quantity' => $request->quantity,
+                        'store_location' => $request->storeLocation,
+                        'date_updated' => Carbon::today()
+                    ];
+                    $insertInStoreStock=DB::table('store_stock')->insert($insertDataStock);
+                    if ($insertInStoreStock){
+                        return redirect()->back()->with('message', 'Store Assigned Successfuly.');
+                    }
+                    else {
+                        return back()->withErrors( 'Something went wrong.');
+                    }
+                }
+            }
+        }
+        else {
+                return back()->withErrors( 'Select the Component Relevant Store.');
         }
     }
 
@@ -903,18 +986,6 @@ class StoreController extends Controller
 
 
 
-    public function storewiseNewBuiltyArrival($storeLocation){
-        if ($storeLocation!=null && $storeLocation!=0){
-            $stores=DB::table('store')->get();
-            $storeName=DB::table('store')->where('id', $storeLocation)->first();
-            $inward_gate_pass=DB::table('inward_gate_pass')->where('status', 0)
-                ->where('storeLocation', $storeLocation)->get();
-            return view('store::storewiseNewBuiltyArrival', compact('stores', 'inward_gate_pass', 'storeName'));
-        }
-        else {
-            return back()->withErrors( 'Something went wrong.');
-        }
-    }
 
     public function addProduct()
     {

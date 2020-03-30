@@ -21,6 +21,9 @@
                         <a class="btn btn-app bg-danger" href="{{url('store/assignStoreToFactoryInwardMaterial')}}">
                             <i class="fas fa-project-diagram"></i>Factory Inward Material
                         </a>
+                        <a class="btn btn-app bg-danger" href="{{url('store/assignStoreToFactoryInwardComponents')}}">
+                            <i class="fas fa-project-diagram"></i>Factory Inward Components
+                        </a>
                     </div>
                 </div>
             </div>

@@ -26,7 +26,8 @@
                                 <tr>
                                     <th>Sr#</th>
                                     <th>Gate Pass ID</th>
-                                    <th>Material Name</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
                                     <th>UOM</th>
                                     <th>Quantity</th>
                                     <th>Description</th>
@@ -44,6 +45,7 @@
                                         <tr>
                                             <td>{{$count}}</td>
                                             <td>{{$item->gatePassId}}</td>
+                                            <td>{{$item->itemType}}</td>
                                             <td>{{$item->materialName}}</td>
                                             <td>{{$item->uom}}</td>
                                             <td>{{$item->qty}}</td>

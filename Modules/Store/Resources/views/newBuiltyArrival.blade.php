@@ -26,10 +26,10 @@
                                 <tr>
                                     <th>Sr#</th>
                                     <th>Gate Pass ID</th>
-                                    <th>Transporter</th>
-                                    <th>Vehicle #</th>
                                     <th>Driver Name</th>
-                                    <th>Driver Phone #</th>
+                                    <th>Vehicle #</th>
+                                    <th>Vendor Type</th>
+                                    <th>Vendor Name</th>
                                     <th>Date</th>
                                     <th>Unload Status</th>
                                     <th>Action</th>
@@ -43,10 +43,10 @@
                                         <tr>
                                             <td>{{$count}}</td>
                                             <td>{{$item->gatePassId}}</td>
-                                            <td>{{$item->transporter}}</td>
+                                            <td>{{$item->driverName}}</td>
                                             <td>{{$item->vehicalNo}}</td>
-                                            <td>{{$item->driver}}</td>
-                                            <td>{{$item->driverPh}}</td>
+                                            <td>{{$item->vendorType}}</td>
+                                            <td>{{$item->vendorName}}</td>
                                             <td>{{$item->date}}</td>
                                             <td>
                                                 @if($item->status==0)
@@ -94,7 +94,8 @@
                             <thead>
                             <tr>
                                 <th>Sr#</th>
-                                <th>Material Name</th>
+                                <th>Type</th>
+                                <th>Name</th>
                                 <th>UOM</th>
                                 <th>Quantity</th>
                                 <th>Description</th>
@@ -162,6 +163,12 @@
         });
 
         $('.getBiltyDetailsbtn').click(function () {
+            //prevent Bootstrap modal from closing when clicking outside
+            $("#biltyDetailsModal").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
             var gatepassid=$(this).data("gatepassid");
 
             $.ajax({
@@ -173,7 +180,7 @@
                     jQuery(data).each(function(i, obj) {
                         var count=parseInt(i)+1;
                         trHTML='';
-                        trHTML += '<tr><td>'+count+'</td><td>'+obj.materialName+'</td><td>'+obj.uom+'</td><td>'+obj.qty+'</td><td>'+obj.description+'</td></tr>';
+                        trHTML += '<tr><td>'+count+'</td><td>'+obj.itemType+'</td><td>'+obj.materialName+'</td><td>'+obj.uom+'</td><td>'+obj.qty+'</td><td>'+obj.description+'</td></tr>';
                         $('#append_details').append(trHTML);
                     });
                 },

@@ -27,12 +27,11 @@ Route::prefix('store')->group(function() {
     Route::get('product', 'StoreController@product');
 ////////////////////////////////////////////////////////////////////////////////////////////
     Route::get('newBuiltyArrival', 'StoreController@newBuiltyArrival');
-    Route::get('storewiseNewBuiltyArrival/{storeLocation}', 'StoreController@storewiseNewBuiltyArrival');
     Route::get('viewBuiltyDetails/{gatePassId}', 'StoreController@viewBuiltyDetails');
     Route::post('changeUnloadStatus', 'StoreController@changeUnloadStatus');
 
     Route::get('approveForInspectionNote', 'StoreController@approveForInspectionNote');
-    Route::post('submitAssignedStore/{gatePassId}', 'StoreController@submitAssignedStore');
+    Route::post('submitAssignedStore/{id}', 'StoreController@submitAssignedStore');
     Route::post('sendForInspection', 'StoreController@sendForInspection');
     Route::get('inwardInspectionNote', 'StoreController@inwardInspectionNote');
     Route::post('submitInwardInspectionNote', 'StoreController@submitInwardInspectionNote');
@@ -51,6 +50,9 @@ Route::prefix('store')->group(function() {
 
     Route::get('assignStoreToFactoryInwardMaterial', 'StoreController@assignStoreToFactoryInwardMaterial');
     Route::post('submitFactoryInwardMaterialToStore', 'StoreController@submitFactoryInwardMaterialToStore');
+
+    Route::get('assignStoreToFactoryInwardComponents', 'StoreController@assignStoreToFactoryInwardComponents');
+    Route::post('submitFactoryInwardComponentToStore', 'StoreController@submitFactoryInwardComponentToStore');
 
     Route::get('allStores', 'StoreController@allStores');
     Route::get('storeMagazine1', 'StoreController@storeMagazine1');
