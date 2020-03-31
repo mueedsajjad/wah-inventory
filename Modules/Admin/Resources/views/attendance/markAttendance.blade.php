@@ -2,91 +2,88 @@
 
 @section('content')
 
-    <div id="page-content-wrapper">
-    <div class="container-fluid"  id="content" >
+    <div class="content pt-3">
+    <div class="container-fluid">
         @if(session()->has('save'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success text-center" role="alert">
                 <strong>Success</strong> {{session()->get('save')}}
             </div>
         @endif
-            @if(session()->has('exists'))
-                <div class="alert alert-danger" role="alert">
-                    <strong>Warning</strong> {{session()->get('exists')}}
-                </div>
-            @endif
+        @if(session()->has('exists'))
+            <div class="alert alert-danger text-center" role="alert">
+                <strong>Warning</strong> {{session()->get('exists')}}
+            </div>
+        @endif
+        @if($errors->any())
+            <div class="alert alert-danger text-center">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
+        <div class="col-md-12 mt-2">
+            <div class="card p-3">
+                <h3>
+                    Mark Attendance
+                    <a href="{{url('admin/attendance')}}" class="btn btn-secondary btn-sm float-right">Back</a>
+                </h3>
+            </div>
+        </div>
 
         <div class="row mr-0" >
             <div class="col-md-6 mt-2">
                 <div class="card p-3">
-                    <div class="d-flex justify-content-between">
-                        <div class=""><span class="display-4">Entrance Time</span></div>
-                        <div><a href="{{url('admin/attendance')}}" class="btn btn bg-gradient-blue my-3 mx-3">Back</a></div>
+                    <div class="card-header">
+                        Entrance
                     </div>
 
                     {{--  Entrance Time --}}
-                    <div class="row">
+                    <div class="card-body row">
                         <div class="col-12 mt-5">
 
-                            <form action="{{url('admin/checkInAttendanceStore')}}" method="POST">
+                            <div class="row form-group">
+                                <label class="col-sm-3" for="exampleInputEmail1">Select Employee<span class="text-red">*</span></label>
+                                <select class="col-sm-6 browser-default custom-select select2" id="entranceEmployee" name="entranceEmployee" required>
+                                    <option selected disabled>Select Employee</option >
+                                    @foreach($user as $employee)
+                                        <option value="{{$employee->id}}"> {{$employee->name}} </option >
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <form action="{{url('admin/checkInAttendanceStore')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Employee Name<span class="text-red">*</span></label>
-                                    <select class="browser-default custom-select" name="user_id" required>
-                                        <option selected disabled>Select Employee</option >
-                                        @foreach($user as $employee)
-                                            <option value="{{$employee->id}}"> {{$employee->name}} </option >
-                                        @endforeach
-                                    </select>
+                                    <label for="exampleInputEmail1">Date</label>
+                                    <input readonly  class="form-control" value="{{date('d-m-Y')}}">
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Employee ID</label>
+                                    <input  name="entranceEmployeeId" id="entranceEmployeeId" required readonly class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Employee Name</label>
+                                    <input readonly class="form-control" id="entranceEmployeeName">
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Status<span class="text-red">*</span></label>
-                                    <select class="browser-default custom-select" name="status" required>
-                                        <option selected disabled> Select </option>
-                                            <option value="1"> Present</option >
-                                            <option value="0"> Absent</option >
+                                    <select class="browser-default custom-select" id="entranceEmployeeStatus" name="entranceEmployeeStatus" required>
+                                        <option value="none" selected> Select </option>
+                                        <option value="1"> Present</option>
+                                        <option value="0"> Absent</option>
                                     </select>
-                                    {{--                                    <label for="exampleInputEmail1">Employee Name<span class="text-red">*</span></label>--}}
-                                    {{--                                    <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Master" required>--}}
                                 </div>
-
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="exampleInputEmail1">Check In</label>--}}
-{{--                                    <input type="time" name="inTime" class="form-control" id="inputEmail3" >--}}
-{{--                                </div>--}}
-
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="exampleInputEmail1">Entrance Time<span class="text-red">*</span></label>--}}
-{{--                                    <input type="time" name="time" class="form-control" id="inputEmail3"  required>--}}
-
-{{--                                    <div class="bootstrap-timepicker">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label>Check In</label>--}}
-
-{{--                                            <div class="input-group date" id="timepicker" data-target-input="nearest">--}}
-{{--                                                <input type="text" name="inTime" class="form-control datetimepicker-input" data-target="#timepicker">--}}
-{{--                                                <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">--}}
-{{--                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <!-- /.input group -->--}}
-{{--                                        </div>--}}
-{{--                                        <!-- /.form group -->--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Automatically,  Date And Time is Saved</label>
-{{--                                    <input type="Date" name="date" class="form-control" id="inputEmail3" required>--}}
+                                <div class="form-group" id="entranceEmployeeTimeDiv" style="display: none;">
+                                    <label for="exampleInputEmail1">Entrance Time<span class="text-red">*</span></label>
+                                    <input class="form-control" type="time" name="entranceEmployeeTime">
                                 </div>
-
-{{--                                <div class="form-group">--}}
+{{--                                <div class="row form-group">--}}
 {{--                                    <label for="checkboxSuccess1" class="col-form-label">--}}
 {{--                                        Late--}}
 {{--                                    </label>--}}
 
-{{--                                    <div class="icheck-danger">--}}
+{{--                                    <div class="icheck-danger ml-3">--}}
 {{--                                        <input type="checkbox" id="checkboxSuccess3" name="late">--}}
 {{--                                        <label for="checkboxSuccess3">--}}
 {{--                                        </label>--}}
@@ -101,40 +98,43 @@
                             </form>
                         </div>
                     </div>
-
-
                 </div>
             </div>
             <div class="col-md-6 mt-2">
                 <div class="card p-3">
-                    <div class="d-flex justify-content-between">
-                        <div class=""><span class="display-4">Departure Time</span></div>
-                        <div><a href="{{url('admin/attendance')}}" class="btn bg-gradient-blue my-3 mx-3">Back</a></div>
+                    <div class="card-header">
+                        Departure
                     </div>
 
                     {{------   Departure Time ------}}
-                    <div class="row">
+                    <div class="card-body row">
                         <div class="col-12 mt-5" >
+                            <div class="row form-group">
+                                <label class="col-md-3" for="exampleInputEmail1">Select Employee<span class="text-red">*</span></label>
+                                <select class="col-md-6 browser-default custom-select select2" id="departureEmployee" name="departureEmployee" required>
+                                    <option selected disabled>Select Employee</option >
+                                    @foreach($todayUsers as $employee)
+                                        <option value="{{$employee->id}}"> {{$employee->name}} </option >
+                                    @endforeach
+                                </select>
+                            </div>
                             <form  action="{{url('admin/checkOutAttendanceStore')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Employee Name<span class="text-red">*</span></label>
-                                    <select class="browser-default custom-select" name="user_id" required>
-                                        <option selected disabled> Select Employee </option >
-                                         @foreach($user as $employee)
-                                            <option value="{{$employee->id}}"> {{$employee->name}} </option >
-                                        @endforeach
-                                    </select>
+                                    <label for="exampleInputEmail1">Date</label>
+                                    <input readonly  class="form-control" value="{{date('d-m-Y')}}">
                                 </div>
-
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="exampleInputEmail1">Check Out<span class="text-red">*</span></label>--}}
-{{--                                    <input type="time" name="departureTime" class="form-control" id="inputEmail3"  required>--}}
-{{--                                </div>--}}
-
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Automatically,  Date And Departure Time is Saved </label>
-{{--                                    <input type="Date" name="date" class="form-control" id="inputEmail3" required>--}}
+                                    <label for="exampleInputEmail1">Employee ID</label>
+                                    <input  name="departureEmployeeId" id="departureEmployeeId" required readonly class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Employee Name</label>
+                                    <input readonly class="form-control" id="departureEmployeeName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Departure Time<span class="text-red">*</span></label>
+                                    <input class="form-control" required type="time" name="departureEmployeeTime">
                                 </div>
 
                                 <div class="text-right">
@@ -152,4 +152,64 @@
     </div>
 </div>
 
+<script>
+    $('#entranceEmployeeStatus').on("change", function(e) {
+        var status = $("#entranceEmployeeStatus").val();
+
+        if(status==0){
+            $('#entranceEmployeeTimeDiv').hide();
+        }
+        else if(status==1){
+            $('#entranceEmployeeTimeDiv').show();
+        }
+    });
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#entranceEmployee').on("change", function(e) {
+        var id=$("#entranceEmployee").val();
+
+        $.ajax({
+            type:'POST',
+            url:'{{url('admin/entranceEmployeeDetails')}}',
+            data:{'id': id},
+            success: function(data) {
+                data=JSON.parse(data);
+                var name =data.name;
+                var id= data.id;
+
+                $('#entranceEmployeeId').val(id);
+                $('#entranceEmployeeName').val(name);
+            },
+            error: function (data) {
+                var errors = data.responseJSON;
+            }
+        });
+    });
+
+    $('#departureEmployee').on("change", function(e) {
+        var id=$("#departureEmployee").val();
+
+        $.ajax({
+            type:'POST',
+            url:'{{url('admin/departureEmployeeDetails')}}',
+            data:{'id': id},
+            success: function(data) {
+                data=JSON.parse(data);
+                var name =data.name;
+                var id= data.id;
+
+                $('#departureEmployeeId').val(id);
+                $('#departureEmployeeName').val(name);
+            },
+            error: function (data) {
+                var errors = data.responseJSON;
+            }
+        });
+    });
+</script>
 @endsection

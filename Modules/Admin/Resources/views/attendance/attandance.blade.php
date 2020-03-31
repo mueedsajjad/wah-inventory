@@ -13,11 +13,10 @@
             @endif
 
             <div class="row">
-
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Mark Employee Attendance</h3>
+                            <h3 class="card-title">Today's Employees Attendance List</h3>
                             <a href="{{url('admin/attendanceMark')}}" class="btn btn-primary float-right" >Mark Attendance </a>
                         </div>
                         <!-- /.card-header -->
@@ -25,10 +24,11 @@
                             <table class="table table-bordered table-striped" id="pageTable">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Sr #</th>
+                                    <th>Employee ID</th>
                                     <th>Name</th>
                                     <th>Status</th>
-                                    <th>Attendance</th>
+                                    <th>Check In Status</th>
                                     <th>Check-In Time</th>
                                     <th>Check-Out Time</th>
                                     <th>Duty Hours</th>
@@ -36,14 +36,16 @@
                                     <th>Performed Hours</th>
                                     <th>OverTime</th>
                                     <th>Date</th>
-                                    <th> </th>
+                                    <th>Action</th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                @php $i=0; @endphp
                                 @foreach($attendances as $attendance)
+                                    @php ++$i; @endphp
                                     <tr>
+                                        <td>{{$i}}</td>
                                         <td>{{$attendance->userId}}</td>
                                         <td>{{$attendance->name}}</td>
                                         <td>
@@ -55,7 +57,14 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-primary ml-3">Marked</a>
+                                            @php //dd($inn); @endphp
+                                            @if($attendance->inTime==null)
+                                                <button class="btn btn-danger btn-sm">N/A</button>
+                                            @elseif($attendance->inTime <= $compare_in_time_duty_schedule)
+                                                <button class="btn btn-success btn-sm">Timely</button>
+                                            @else
+                                                <button class="btn btn-secondary btn-sm">Late</button>
+                                            @endif
                                         </td>
 
                                         <td>

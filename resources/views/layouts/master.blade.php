@@ -7,11 +7,6 @@
   display: block;
 }
 </style>
-    {{--    <meta charset="utf-8">--}}
-    {{--    <meta name="viewport" content="width=device-width, initial-scale=1">--}}
-
-    {{--    <!-- CSRF Token -->--}}
-    {{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
 
     {{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
 
@@ -25,7 +20,13 @@
     {{--    <!-- Styles -->--}}
     {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
+
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SGA - WAH Industries Ltd.</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -55,7 +56,7 @@
     <link rel="stylesheet" href="{{asset('public/dist/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('/public/plugins/datatables/datatables.min.css')}}">
 
-
+    <link href="{{asset('/public/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css')}}">
 
 
 
@@ -199,6 +200,8 @@
 
 
 <script src="{{asset('/public/plugins/datatables/datatables.min.js')}}"></script>
+
+<script src="{{asset('/public/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
 
 <script>
     $(document).ready( function () {
