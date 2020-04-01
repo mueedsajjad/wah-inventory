@@ -19,107 +19,13 @@ class AttendanceController extends Controller
 
     public function attendance()
     {
-        $netminutes=[];
-        $remainingHour=[];
-        $nettimes=[];
-        $totalCalculatedMinutesSencond=[];
-        $totalPerforminingHour=[];
-
-
-        $duty=DB::table('duty_schedule')->first();
-      if($duty)
-      {
-        $outt=Carbon::parse($duty->out_time);
-        $inn=Carbon::parse($duty->in_time);
-        $compare_in_time_duty_schedule=$duty->in_time;
-      }
-      else
-      {
-        $duty= DB::table('duty_Schedule')->get();
-        return view('setting::setting/DutySchedule',compact('duty'));
-      }
-
-
-      $totalMinutes = $outt->diffInMinutes($inn);
-      $totalHours = $outt->diffInHours($inn);
-
-      //dd($totalHours);
-      //dd($totalMinutes);
-
-      $totalCalculatedHours = $totalHours*60;
-      $totalCalculatedMinutes= $totalMinutes- $totalCalculatedHours;
-
-
-
-        if($totalCalculatedMinutes<0)
-        {
-            $totalCalculatedMinutes=$totalCalculatedMinutes * -1;
-        }
-
-     // dd($totalCalculatedMinutes);
-//      dd($totalMinutes);
-
+        $attendances=DB::table('attendance')
+            ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+            ->join('users','attendance.userId','=','users.id')
+            ->where('attendance.date', Carbon::today())->get();
 
         $user=DB::table('users')->get();
-        $attendances=DB::table('attendance')
-            ->join('users','users.id','attendance.userId')
-            ->where('date',Carbon::today()->toDateString())
-            //->where('attendance.status', 1)
-            ->select('attendance.*','users.*','attendance.id as attendance_id')
-            ->get();
-        $i=0;
-
-
-        foreach ($attendances as $attendance)
-        {
-            $totalCalculatedMinutesSencond[$attendance->userId]=0;
-
-            $totalCalculatedMinutesSencond[$attendance->userId]=$totalCalculatedMinutes;
-            //dd($totalCalculatedMinutesSencond);
-
-            $out=Carbon::parse($attendance->outTime);
-            $in=Carbon::parse($attendance->inTime);
-            $totalPerformedMinutes = $out->diffInMinutes($in);
-            $totalPerformedHour = $out->diffInHours($in);
-
-            $totalPerforminingHour[$attendance->userId]=$totalPerformedHour;
-
-            //dd($totalPerformedHour);
-            $HoursMin=60*$totalPerformedHour;
-            //dd($HoursMin);
-
-            $RemainMin= $totalPerformedMinutes- $HoursMin;
-
-            //dd($RemainMin);
-
-             $nettime = $totalPerformedMinutes-$totalMinutes;
-
-            // dd($nettime);
-
-            if($nettime<0)
-            {
-                $nettime=$nettime * -1;
-            }
-
-            $nettimes[$attendance->userId]=  $RemainMin;
-
-            $remainingHour[$attendance->userId]=$nettime/60;
-            $remainingHour[$attendance->userId]=intval( $remainingHour[$attendance->userId]);
-
-            //dd($remainingHour[$attendance->userId]);
-            //$netminutes[$attendance->userId]=0;
-
-
-            $remainingMinutes[$attendance->userId]= $remainingHour[$attendance->userId]*60;
-          // dd($remainingMinutes[$attendance->userId]);
-            $netminutes[$attendance->userId]=$nettime-$remainingMinutes[$attendance->userId];
-
-    }
-
-        return view('admin::attendance/attandance',compact('attendances','user'
-            ,'totalMinutes','totalHours','netminutes','remainingHour','totalCalculatedMinutesSencond'
-        ,'nettimes','totalPerforminingHour', 'compare_in_time_duty_schedule'));
-
+        return view('admin::attendance/attandance' ,compact('attendances', 'user'));
     }
 
     public function attendanceMark()
@@ -166,9 +72,29 @@ class AttendanceController extends Controller
                     if ($entranceEmployeeTime=='' || $entranceEmployeeTime==null){
                         return redirect()->back()->withErrors('Entrance Time of Employee is Required.');
                     }
+                    else{
+                        $duty=DB::table('duty_schedule')->first();
+                        if($duty) {
+                            $inDuty = Carbon::parse($duty->in_time);
+                        }
+                        else{
+                            return view('setting::setting/DutySchedule',compact('duty'));
+                        }
+
+                        $entranceEmployeeTime = Carbon::parse($request->entranceEmployeeTime);
+
+                        //check employee is late or not
+                        if ($entranceEmployeeTime>$inDuty){
+                            $checkIn="Late";
+                        }
+                        else{
+                            $checkIn="Timely";
+                        }
+                    }
                 }
                 else{
                     $entranceEmployeeTime=null;
+                    $checkIn="N/A";
                 }
 
                 //date_default_timezone_set("Asia/Karachi");
@@ -186,7 +112,8 @@ class AttendanceController extends Controller
                         'userId'=> $userId,
                         'date'=> Carbon::today()->toDateString(),
                         'inTime'=> $entranceEmployeeTime,
-                        'status'=> $status
+                        'status'=> $status,
+                        'checkIn' => $checkIn
                     ]);
                     return redirect()->back()->with('save','Saved Successfully');
                 }
@@ -229,13 +156,59 @@ class AttendanceController extends Controller
 
             $attendance=DB::table('attendance')->where('userId',$userId)
                 ->where('date',Carbon::today()->toDateString())
+                ->where('status',1)
                 ->where('outTime',null)
                 ->first();
 
             if($attendance)
             {
-                DB::table('attendance')->where('userId',$userId)->update([
-                    'outTime'=> $request->departureEmployeeTime
+                //calculate Total Duty Time
+                $duty=DB::table('duty_schedule')->first();
+                if($duty)
+                {
+                    $inDuty = Carbon::parse($duty->in_time);
+                    $outDuty = Carbon::parse($duty->out_time);
+                    $interval = $inDuty->diff($outDuty);
+
+                    $hourDuty = $interval->format('%h');
+                    $minDuty =$interval->format('%i');
+                   //$sec = $interval->format('%s second');
+
+                    $dutyTime=date('H:i', mktime($hourDuty,$minDuty));
+                }
+                else
+                {
+                    $duty= DB::table('duty_Schedule')->get();
+                    return view('setting::setting/DutySchedule',compact('duty'));
+                }
+
+                //calculate Total Working Time Done by Employee
+                $outWorking=Carbon::parse($request->departureEmployeeTime);
+                $inWorking=Carbon::parse($attendance->inTime);
+                $interval = $inWorking->diff($outWorking);
+                $hourWorking = $interval->format('%h');
+                $minWorking =$interval->format('%i');
+                $workingTime=date('H:i', mktime($hourWorking,$minWorking));
+
+                ////calculate Total over Time
+                $dutyTimeInMints=$minDuty+($hourDuty*60);
+                $workingTimeInMints=$minWorking+($hourWorking*60);
+                if ($workingTimeInMints>$dutyTimeInMints){
+                    $overTimeInMints=$workingTimeInMints-$dutyTimeInMints;
+                    $overTime=date('H:i', mktime(0,$overTimeInMints));
+                }
+                else{
+                    $overTime='00:00';
+                }
+
+
+                ////////////////////////////////////////////////////////////////////
+                DB::table('attendance')->where('userId',$userId)
+                    ->where('date',Carbon::today()->toDateString())->update([
+                    'outTime'=> $request->departureEmployeeTime,
+                    'dutyTime' => $dutyTime,
+                    'workingTime' => $workingTime,
+                    'overTime'=> $overTime,
                 ]);
 
                 return redirect()->back()->with('save','Marked CheckOut Successfully');

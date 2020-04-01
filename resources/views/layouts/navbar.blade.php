@@ -1,11 +1,11 @@
 
 <nav class="main-header navbar navbar-expand-md navbar-dark  py-0">
     <div class="container-fluid">
-        <a href="#" class="navbar-brand">
-            <!-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                  style="opacity: .8">-->
-            <span class="brand-text font-weight-normal"><img class=" pr-3" src="{{asset('public/img/logo.png ')}}" alt="logo" > SGA - WAH Industries</span>
-        </a>
+{{--        <a href="#" class="navbar-brand">--}}
+{{--            <!-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"--}}
+{{--                  style="opacity: .8">-->--}}
+{{--            <span class="brand-text font-weight-normal"><img class=" pr-3" src="{{asset('public/img/logo.png ')}}" alt="logo" > SGA - WAH Industries</span>--}}
+{{--        </a>--}}
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -14,6 +14,9 @@
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
                 @if(auth()->user()->can('Dashboard'))
                 <li class="nav-item">
                     <a class="btn m-0 btn-app" href="{{url('store/dashboard')}}">
@@ -54,7 +57,7 @@
 {{--                </li>--}}
                 @if(auth()->user()->can('Gate'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-check"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-dungeon"></i>
                         Gate
                     </a>
 
@@ -64,7 +67,7 @@
                         <a class="dropdown-item" href="{{url('admin/attendance')}}"> Attendance</a>
 {{--                        <a class="dropdown-item" href="{{url('gate/security')}}"> Security</a>--}}
                         <a class="dropdown-item" href="{{url('gate/vehicleManagement')}}">Vehicle Management</a>
-{{--                        <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>--}}
+                        <a class="dropdown-item" href="{{url('gate/report')}}"> Reports</a>
                     </div>
                 </li>
                 @endif
@@ -172,7 +175,7 @@
 
                 @if(auth()->user()->can('Quality'))
                 <li class="nav-item dropdown">
-                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                    <a class=" dropdown-toggle btn pl-0 pr-0  m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-check-square"></i>
                         Quality
                     </a>
 
@@ -252,9 +255,9 @@
 
 
 {{--                </li>--}}
-@if(auth()->user()->can('Setting'))
+                    @if(auth()->user()->can('Setting'))
                     <li class="nav-item dropdown">
-                        <a class=" dropdown-toggle btn pl-0 pr-0 m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-edit"></i>
+                        <a class=" dropdown-toggle btn pl-0 pr-0 m-0 btn-app" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-wrench"></i>
                             Settings
                         </a>
 
@@ -311,3 +314,457 @@
         </ul>
     </div>
 </nav>
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-danger elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+        <img src="{{asset('public/img/logo.png ')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: 1">
+        <span class="brand-text font-weight-light">SGA - WAH Industries</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+{{--            <div class="image">--}}
+{{--                <img src="" class="img-circle elevation-2" alt="User Image">--}}
+{{--            </div>--}}
+            <div class="info">
+                <a href="#" class="d-block">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                @if(auth()->user()->can('Production'))
+                <li class="nav-item has-treeview @if(request()->segment(1)=="production") menu-open @endif">
+                    <a href="#" class="nav-link  @if(request()->segment(1)=="production") active @endif">
+                        <i class="nav-icon fas fa-spray-can"></i>
+                        <p>
+                            Production
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('production/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Production Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('production/componentDashboard')}}" class="nav-link @if(request()->segment(2)=="componentDashboard") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Component Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('production/newOrder')}}" class="nav-link @if(request()->segment(2)=="newOrder") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>New Production Order</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('production/orderComponent')}}" class="nav-link @if(request()->segment(2)=="orderComponent") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>New Component Order</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('production/materialRequisition')}}" class="nav-link @if(request()->segment(2)=="materialRequisition") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Request For Material</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('production/componentRequisition')}}" class="nav-link @if(request()->segment(2)=="componentRequisition") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Request For Component</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('production/allComponentRequisition')}}" class="nav-link @if(request()->segment(2)=="allComponentRequisition") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Component Requisition</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('production/allMaterialRequisition')}}" class="nav-link @if(request()->segment(2)=="allMaterialRequisition") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Material Requisition</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+
+                @if(auth()->user()->can('Gate'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="gate") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="gate") active @endif">
+                            <i class="nav-icon fas fa-dungeon"></i>
+
+                            <p>
+                                Gate
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('gate/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('gate/inwardGatePass')}}" class="nav-link @if(request()->segment(2)=="inwardGatePass") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Inward Gate Pass</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/attendance')}}" class="nav-link @if(request()->segment(2)=="attendance") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Attendance</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('gate/vehicleManagement')}}" class="nav-link @if(request()->segment(2)=="vehicleManagement") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Vehicle Management</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('gate/report')}}" class="nav-link @if(request()->segment(2)=="report") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Reports</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(auth()->user()->can('Supplier'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="supplier") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="supplier") active @endif">
+                            <i class="nav-icon fas fa-truck"></i>
+                            <p>
+                                Supplier
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('supplier/supplier')}}" class="nav-link @if(request()->segment(2)=="supplier") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add Supplier</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('supplier/viewSuppliers')}}" class="nav-link @if(request()->segment(2)=="viewSuppliers") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>View Suppliers</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(auth()->user()->can('Sale'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="sale") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="sale") active @endif">
+                            <i class="nav-icon fas fa-dollar-sign"></i>
+                            <p>
+                                Gate
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('sale/sale')}}" class="nav-link @if(request()->segment(2)=="sale") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sales</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('sale/saleOrder')}}" class="nav-link @if(request()->segment(2)=="saleOrder") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sales Order</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('sale/customer')}}" class="nav-link @if(request()->segment(2)=="customer") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Customer</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(auth()->user()->can('Purchase'))
+                <li class="nav-item">
+                    <a href="{{url('purchase/purchase')}}" class="nav-link @if(request()->segment(1)=="purchase") active @endif">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Purchase
+{{--                            <span class="right badge badge-danger">New</span>--}}
+                        </p>
+                    </a>
+                </li>
+                @endif
+
+                @if(auth()->user()->can('Store'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="store") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="store") active @endif">
+                            <i class="nav-icon fas fa-store"></i>
+                            <p>
+                                Store
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('store/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/newBuiltyArrival')}}" class="nav-link @if(request()->segment(2)=="newBuiltyArrival") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>New Builty Arrival</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Approve for I-Note</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Inward I-Note</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/inwardGoodsReceipt')}}" class="nav-link @if(request()->segment(2)=="inwardGoodsReceipt") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Inward Goods Receipt</p>
+                                </a>
+                            </li>
+                            @if(auth()->user()->can('Assign Stores'))
+                            <li class="nav-item">
+                                <a href="{{url('store/assignStore')}}" class="nav-link @if(request()->segment(2)=="assignStore") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Assign Stores</p>
+                                </a>
+                            </li>
+                            @endif
+                            <li class="nav-item">
+                                <a href="{{url('store/allStores')}}" class="nav-link @if(request()->segment(2)=="allStores") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Stores</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/totalStock')}}" class="nav-link @if(request()->segment(2)=="totalStock") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Current Stock</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/issueRequisition')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Issue / Requisition</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(auth()->user()->can('Quality'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="qa") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="qa") active @endif">
+                            <i class="nav-icon fas fa-check-square"></i>
+                            <p>
+                                Quality
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('qa/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('qa/qualityControl')}}" class="nav-link @if(request()->segment(2)=="qualityControl") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Quality Control</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('qa/report')}}" class="nav-link @if(request()->segment(2)=="report") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Reports</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(auth()->user()->can('HR'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="admin") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="admin") active @endif">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                HR
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('qa/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/employee')}}" class="nav-link @if(request()->segment(2)=="employee") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Employees</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/attendance')}}" class="nav-link @if(request()->segment(2)=="attendance") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Attendance</p>
+                                </a>
+                            </li>
+                            @if(auth()->user()->can('Accept Leave Request'))
+                            <li class="nav-item">
+                                <a href="{{url('admin/leave')}}" class="nav-link @if(request()->segment(2)=="leave") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Accept Leaves</p>
+                                </a>
+                            </li>
+                            @endif
+                            @if(auth()->user()->can('Apply for Attendance'))
+                            <li class="nav-item">
+                                <a href="{{url('admin/leaveOfficer')}}" class="nav-link @if(request()->segment(2)=="leaveOfficer") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Apply for Leaves</p>
+                                </a>
+                            </li>
+                            @endif
+                            <li class="nav-item">
+                                <a href="{{url('admin/salary')}}" class="nav-link @if(request()->segment(2)=="salary") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Salaries</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/advance')}}" class="nav-link @if(request()->segment(2)=="advance") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Advance</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/report')}}" class="nav-link @if(request()->segment(2)=="report") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Reports</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(auth()->user()->hasRole('GM'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="role" || request()->segment(1)=="permission" || request()->segment(1)=="assign-permission" || request()->segment(1)=="assign-role") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="role" || request()->segment(1)=="permission" || request()->segment(1)=="assign-permission" || request()->segment(1)=="assign-role") active @endif">
+                            <i class="nav-icon fas fa-users-cog"></i>
+
+                            <p>
+                                Role Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('role')}}" class="nav-link @if(request()->segment(1)=="role") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Role</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('permission')}}" class="nav-link @if(request()->segment(1)=="permission") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Permission</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('assign-permission')}}" class="nav-link @if(request()->segment(1)=="assign-permission") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Assign Permission To Roles</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('assign-role')}}" class="nav-link @if(request()->segment(1)=="assign-role") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Assign Roles to User</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(auth()->user()->can('Setting'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="setting") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="setting") active @endif">
+                            <i class="nav-icon fas fa-wrench"></i>
+                            <p>
+                                Settings
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('setting/setting')}}" class="nav-link @if(request()->segment(2)=="setting") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Settings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('setting/settingGeneral')}}" class="nav-link @if(request()->segment(2)=="settingGeneral") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>General Settings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('setting/dutySchedule')}}" class="nav-link @if(request()->segment(2)=="dutySchedule") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Duty Hours Settings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('setting/leave')}}" class="nav-link @if(request()->segment(2)=="leave") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Leave Settings</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

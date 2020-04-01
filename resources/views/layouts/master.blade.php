@@ -66,7 +66,7 @@
     <script src="{{asset('public/plugins/jquery/jquery.min.js')}}"></script>
 </head>
 
-<body class="hold-transition layout-top-nav">
+<body class="sidebar-mini layout-fixed layout-navbar-fixed">
 
 {{--<div id="app">--}}
 {{--    --}}{{--        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">--}}

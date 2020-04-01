@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2020 at 03:11 PM
+-- Generation Time: Apr 01, 2020 at 05:47 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.27
 
@@ -35,22 +35,23 @@ CREATE TABLE `attendance` (
   `inTime` time DEFAULT NULL,
   `outTime` time DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `dutyTime` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `workingTime` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `overTime` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `checkIn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`id`, `userId`, `date`, `inTime`, `outTime`, `status`, `created_at`, `updated_at`) VALUES
-(5, 10, '2020-03-31', '08:00:00', NULL, 1, NULL, NULL),
-(6, 13, '2020-03-31', '08:10:00', '18:00:00', 1, NULL, NULL),
-(7, 12, '2020-03-31', '09:10:00', '18:30:00', 1, NULL, NULL),
-(8, 17, '2020-03-31', NULL, NULL, 0, NULL, NULL),
-(9, 15, '2020-03-31', '09:00:00', '18:00:00', 1, NULL, NULL),
-(14, 1, '2020-03-31', NULL, NULL, NULL, NULL, NULL),
-(15, 11, '2020-03-31', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `attendance` (`id`, `userId`, `date`, `inTime`, `outTime`, `status`, `dutyTime`, `workingTime`, `overTime`, `checkIn`) VALUES
+(17, 10, '2020-04-01', NULL, NULL, 0, NULL, NULL, NULL, 'N/A'),
+(18, 13, '2020-04-01', '09:15:00', '18:37:00', 1, '09:00', '09:22', '00:22', 'Late'),
+(20, 12, '2020-04-01', '09:00:00', '19:41:00', 1, '09:00', '10:41', '01:41', 'Timely'),
+(21, 17, '2020-04-01', '09:28:00', '18:34:00', 1, '09:00', '09:06', '00:06', 'Late'),
+(23, 15, '2020-04-01', '09:10:00', '19:07:00', 1, '09:00', '09:57', '00:57', 'Late'),
+(30, 11, '2020-04-01', '08:59:00', '18:27:00', 1, '09:00', '09:28', '00:28', 'Timely');
 
 -- --------------------------------------------------------
 
@@ -290,7 +291,8 @@ INSERT INTO `inward_gate_pass` (`id`, `gatePassId`, `driverId`, `driverName`, `v
 (2, 'GP002', 'DR002', 'kaleem', 'LHR-1234', '03351441255', 'Registered Vendor', '', 'MM Logix', 'Lahore Pak', '03351441259', '2020-03-25', 1),
 (3, 'GP003', 'DR003', 'Mueed', 'LHR-8824', '03351441255', 'Registered Vendor', '', 'MM Logix', 'Lahore Pak', '03351441259', '2020-03-30', 1),
 (4, 'GP004', 'DR004', 'Asjid', 'LHR-8824', '03351441255', 'Registered Vendor', '', 'MM Logix', 'Lahore Pak', '03351441259', '2020-03-30', 1),
-(5, 'GP005', 'DR005', 'Waseem', 'LHR-8826', '03351441255', 'Registered Vendor', 'VND005', 'MM Logix', 'Lahore Pak', '03351441234', '2020-03-30', 1);
+(5, 'GP005', 'DR005', 'Waseem', 'LHR-8826', '03351441255', 'Registered Vendor', 'VND005', 'MM Logix', 'Lahore Pak', '03351441234', '2020-03-30', 1),
+(6, 'GP006', 'DR006', 'Waseem', 'LHR-8824', '03351441255', 'Non Registered Vendor', 'VND006', 'kaleem', 'lahore', '03351441255', '2020-04-01', 1);
 
 -- --------------------------------------------------------
 
@@ -322,7 +324,9 @@ INSERT INTO `inward_goods_receipt` (`id`, `grn`, `grnDate`, `document`, `purchas
 (5, 'GRN001', '2020-03-27', NULL, 'ppra', 'GP001', 400000.00, 'CDOXS', 'PO006', 'Soft Plastic', 'KG', 'Material Description', '100000'),
 (6, 'GRN002', '2020-03-30', NULL, 'ppra', 'GP001', 400000.00, 'CDOXS', 'PO008', 'Plastic', 'KG', 'Material Description', '99300'),
 (7, 'GRN003', '2020-03-30', NULL, 'ppra', 'GP004', 400000.00, 'CDOXS', 'PO009', 'Brass Head', 'KG', 'Component Description', '876'),
-(8, 'GRN004', '2020-03-30', NULL, 'ppra', 'GP005', 400000.00, 'MM Logix', 'PO009', 'OP Wad', 'KG', 'Component Description', '7660');
+(8, 'GRN004', '2020-03-30', NULL, 'ppra', 'GP005', 400000.00, 'MM Logix', 'PO009', 'OP Wad', 'KG', 'Component Description', '7660'),
+(9, 'GRN005', '2020-04-01', NULL, 'ppra', 'GP006', 400000.00, 'kaleem', 'PO009', 'Brass Head', 'KG', 'Description', '7666'),
+(10, 'GRN006', '2020-04-01', NULL, 'ppra', 'GP005', 400000.00, 'MM Logix', 'PO0010', 'Brass Head', 'KG', 'Material Description', '788');
 
 -- --------------------------------------------------------
 
@@ -357,8 +361,10 @@ INSERT INTO `inward_raw_material` (`id`, `itemType`, `materialName`, `uom`, `qty
 (3, 'Material', 'Soft Plastic', 'KG', '100000', 'Material Description', 'GP002', 'Magazine 2', '2020-03-25', 1, NULL, NULL, NULL, NULL),
 (4, 'Material', 'OP Wad', 'KG', '687', 'Material Description', 'GP003', NULL, '2020-03-30', 1, NULL, NULL, NULL, NULL),
 (5, 'Component', 'Brass Head', 'KG', '876', 'Component Description', 'GP004', 'Components', '2020-03-30', 6, '2020-03-30', 'excellent', NULL, NULL),
-(6, 'Material', 'Brass Head', 'KG', '788', 'Material Description', 'GP005', NULL, '2020-03-30', 1, NULL, NULL, NULL, NULL),
-(7, 'Component', 'OP Wad', 'KG', '7667', 'Component Description', 'GP005', 'Components', '2020-03-30', 6, '2020-03-30', 'bad', 'Low Quality', 7);
+(6, 'Material', 'Brass Head', 'KG', '788', 'Material Description', 'GP005', 'Magazine 2', '2020-03-30', 6, '2020-04-01', 'excellent', NULL, NULL),
+(7, 'Component', 'OP Wad', 'KG', '7667', 'Component Description', 'GP005', 'Components', '2020-03-30', 6, '2020-03-30', 'bad', 'Low Quality', 7),
+(8, 'Material', 'Brass Head', 'KG', '7676', 'Description', 'GP006', 'Magazine 2', '2020-04-01', 6, '2020-04-01', 'bad', 'Bad Quality', 10),
+(9, 'Component', 'OP Wad', 'KG', '878', 'Description', 'GP006', NULL, '2020-04-01', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -391,6 +397,13 @@ CREATE TABLE `leave_type` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `leave_type`
+--
+
+INSERT INTO `leave_type` (`id`, `leave_name`, `created_at`, `updated_at`) VALUES
+(1, 'Sick', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -953,7 +966,6 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (11, 3),
 (11, 5),
 (11, 8),
-(12, 1),
 (12, 3),
 (12, 5),
 (12, 8),
@@ -1115,7 +1127,10 @@ CREATE TABLE `store_magazine_2` (
 --
 
 INSERT INTO `store_magazine_2` (`id`, `materialName`, `uom`, `quantity`, `stored_date`, `status`) VALUES
-(1, 'Plastic', 'KG', 99300, '2020-03-30', 0);
+(1, 'Plastic', 'KG', 99300, '2020-03-30', 0),
+(2, 'Brass Head', 'KG', 7666, '2020-04-01', 0),
+(3, 'Brass Head', 'KG', 7666, '2020-04-01', 0),
+(4, 'Brass Head', 'KG', 788, '2020-04-01', 0);
 
 -- --------------------------------------------------------
 
@@ -1163,7 +1178,8 @@ INSERT INTO `store_stock` (`id`, `name`, `quantity`, `store_location`, `date_upd
 (2, 'Tube', 900, 'Components', '2020-03-25'),
 (3, 'Soft Plastic', 99900, 'Magazine 1', '2020-03-27'),
 (4, 'Plastic', 99300, 'Magazine 2', '2020-03-30'),
-(5, 'OP Wad', 7660, 'Components', '2020-03-30');
+(5, 'OP Wad', 7660, 'Components', '2020-03-30'),
+(6, 'Brass Head', 8454, 'Magazine 2', '2020-04-01');
 
 -- --------------------------------------------------------
 
@@ -1591,7 +1607,7 @@ ALTER TABLE `vehicle_management`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1651,19 +1667,19 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `inward_goods_receipt`
 --
 ALTER TABLE `inward_goods_receipt`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `inward_raw_material`
 --
 ALTER TABLE `inward_raw_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `leave`
@@ -1675,7 +1691,7 @@ ALTER TABLE `leave`
 -- AUTO_INCREMENT for table `leave_type`
 --
 ALTER TABLE `leave_type`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `material`
@@ -1813,7 +1829,7 @@ ALTER TABLE `store_magazine_1`
 -- AUTO_INCREMENT for table `store_magazine_2`
 --
 ALTER TABLE `store_magazine_2`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `store_requisition_issued`
@@ -1825,7 +1841,7 @@ ALTER TABLE `store_requisition_issued`
 -- AUTO_INCREMENT for table `store_stock`
 --
 ALTER TABLE `store_stock`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `supplier`

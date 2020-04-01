@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <table class="table table-bordered table-striped" id="pageTable">
                                 <thead>
-                                <tr>
+                                <tr class="bg-dark">
                                     <th>Sr #</th>
                                     <th>Employee ID</th>
                                     <th>Name</th>
@@ -32,12 +32,10 @@
                                     <th>Check-In Time</th>
                                     <th>Check-Out Time</th>
                                     <th>Duty Hours</th>
-{{--                                    <th>Remaining Hours</th>--}}
                                     <th>Performed Hours</th>
                                     <th>OverTime</th>
                                     <th>Date</th>
                                     <th>Action</th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -57,81 +55,19 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @php //dd($inn); @endphp
-                                            @if($attendance->inTime==null)
+                                            @if($attendance->checkIn=="N/A")
                                                 <button class="btn btn-danger btn-sm">N/A</button>
-                                            @elseif($attendance->inTime <= $compare_in_time_duty_schedule)
+                                            @elseif($attendance->checkIn=="Timely")
                                                 <button class="btn btn-success btn-sm">Timely</button>
                                             @else
                                                 <button class="btn btn-secondary btn-sm">Late</button>
                                             @endif
                                         </td>
-
-                                        <td>
-                                            {{$attendance->inTime}}
-{{--                                            <div class="form-group row">--}}
-{{--                                                <label for="checkboxSuccess1" class="col-sm-2 col-form-label">--}}
-{{--                                                    Late--}}
-{{--                                                </label>--}}
-{{--                                                @if($attendances->late==1)--}}
-{{--                                                    <div class="icheck-danger col-sm-8 d-inline">--}}
-{{--                                                        <input type="checkbox" id="checkboxSuccess3" checked>--}}
-{{--                                                        <label for="checkboxSuccess3">--}}
-{{--                                                        </label>--}}
-{{--                                                    </div>--}}
-{{--                                                @endif--}}
-
-{{--                                                @if($attendances->late==0)--}}
-{{--                                                    <div class="icheck-danger col-sm-8 d-inline">--}}
-{{--                                                        <input type="checkbox" id="checkboxSuccess3" >--}}
-{{--                                                        <label for="checkboxSuccess3">--}}
-{{--                                                        </label>--}}
-{{--                                                    </div>--}}
-{{--                                                @endif--}}
-{{--                                            </div>--}}
-                                        </td>
-                                        <td>
-                                                                {{$attendance->outTime}}
-
-                                            {{--                                            <div class="form-group row">--}}
-                                            {{--                                                <label for="checkboxSuccess1" class="col-sm-2 col-form-label">--}}
-                                            {{--                                                    Late--}}
-                                            {{--                                                </label>--}}
-                                            {{--                                                @if($attendances->late==1)--}}
-                                            {{--                                                    <div class="icheck-danger col-sm-8 d-inline">--}}
-                                            {{--                                                        <input type="checkbox" id="checkboxSuccess3" checked>--}}
-                                            {{--                                                        <label for="checkboxSuccess3">--}}
-                                            {{--                                                        </label>--}}
-                                            {{--                                                    </div>--}}
-                                            {{--                                                @endif--}}
-
-                                            {{--                                                @if($attendances->late==0)--}}
-                                            {{--                                                    <div class="icheck-danger col-sm-8 d-inline">--}}
-                                            {{--                                                        <input type="checkbox" id="checkboxSuccess3" >--}}
-                                            {{--                                                        <label for="checkboxSuccess3">--}}
-                                            {{--                                                        </label>--}}
-                                            {{--                                                    </div>--}}
-                                            {{--                                                @endif--}}
-                                            {{--
-                                                                                       </div>--}}
-
-                                        </td>
-                                        @php $overtime=$totalPerforminingHour[$attendance->userId]-$totalHours; @endphp
-                                        @php $hours=$totalHours-$totalPerforminingHour[$attendance->userId]; @endphp
-
-                                        <td>{{$totalHours}}</td>
-{{--                                        @if($hours<0)--}}
-{{--                                        <td>0</td>--}}
-{{--                                        @else--}}
-{{--                                        <td>{{$hours}}</td>--}}
-{{--                                        @endif--}}
-                                        <td>{{$totalPerforminingHour[$attendance->userId]}}:{{$nettimes[$attendance->userId]}}</td>
-
-                                        @if($overtime<0 || $nettimes[$attendance->userId]<0)
-                                            <td>00</td>
-                                        @else
-                                        <td>{{$overtime}}:{{$nettimes[$attendance->userId]}}</td>
-                                        @endif
+                                        <td>{{$attendance->inTime}}</td>
+                                        <td>{{$attendance->outTime}}</td>
+                                        <td>{{$attendance->dutyTime}}</td>
+                                        <td>{{$attendance->workingTime}}</td>
+                                        <td>{{$attendance->overTime}}</td>
                                         <td>{{$attendance->date}}</td>
                                         <td>
 {{--                                            <a href="#" class="btn btn-success btn-sm ml-1 editAttendance" type="button" data-toggle="modal" data-target="#modal-edit"--}}

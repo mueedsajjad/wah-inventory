@@ -23,7 +23,10 @@ class CreateAttendanceTable extends Migration
             $table->time('outTime')->nullable();
             $table->integer('status')->nullable();
 
-            $table->timestamps();
+            $table->string('dutyTime')->nullable();
+            $table->string('workingTime')->nullable();
+            $table->string('overTime')->nullable();
+            $table->string('checkIn')->nullable();
         });
     }
 
