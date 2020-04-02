@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="row">
             <div class="col-12">
                 <div class="card card-dark">
@@ -12,10 +12,10 @@
                     </div>
 
                     <div class="card-body dash-menu">
-                        <a class="btn btn-app bg-danger" href="{{url('gate/outVehicle')}}">
+                        <a class="btn btn-app bg-danger" href="{{url('gate/vehicleManagement/outVehicle')}}">
                             <i class="fas fa-truck"></i>Out Vehicle
                         </a>
-                        <a class="btn btn-app bg-danger" href="{{url('gate/inVehicle')}}">
+                        <a class="btn btn-app bg-danger" href="{{url('gate/vehicleManagement/inVehicle')}}">
                             <i class="fas fa-truck"></i>In Vehicle
                         </a>
                     </div>

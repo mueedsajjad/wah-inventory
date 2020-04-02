@@ -17,9 +17,9 @@ Route::prefix('gate')->group(function() {
 
 
     Route::get('vehicleManagement','GateController@vehicleManagement');
-    Route::get('outVehicle','GateController@outVehicle');
+    Route::get('vehicleManagement/outVehicle','GateController@outVehicle');
     Route::post('submitVehicleOut','GateController@submitVehicleOut');
-    Route::get('inVehicle','GateController@inVehicle');
+    Route::get('vehicleManagement/inVehicle','GateController@inVehicle');
     Route::post('submitInVehicle','GateController@submitInVehicle');
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="container-fluid">
             @if(!empty($errors->first()))
                 <div class="alert alert-danger text-center">

@@ -56,69 +56,16 @@ label:not(.form-check-label):not(.custom-file-label) {
   display: inline;
   float: left;
 }
-.navbar-dark {
 
-  background: #DA231A;
-  /*background: linear-gradient(154deg,#9a1c1f 0,#BE1D23 100%);*/
 
-}
-.dropdown-menu {
-
-  /*position: absolute;*/
-  top: 98%;
-  left: 0;
-  z-index: 1000;
-  /*display: none;*/
-  /*float: left;*/
-  min-width: 10rem;
-  padding: 0;
-  margin: .125rem 0 0;
-  font-size: 1rem;
-  color:    #212529;
-  text-align: left;
-  list-style: none;
-  background-color:    #fff;
-  background-clip: padding-box;
-  /*border: 1px solid rgba(0,0,0,.15);*/
-  border-radius: 0;
-  /*box-shadow: 0 .5rem 1rem rgba(0,0,0,.175);*/
-
-}
-.dropdown-item {
-  display: block;
-  width: 100%;
-  padding: 1rem 1rem;
-  clear: both;
-  font-weight: 400;
-  color:
-          #212529;
-  text-align: inherit;
-  white-space: nowrap;
-  background-color:
-          transparent;
-  border: 0;
-}
 .dropdown-item:hover {
   color:
           #FFFFFF;
   text-decoration: none;
   background-color:
-          #DA231A;
+      #DC3545;
 }
 
-.dropdown-toggle::after {
-  display: inline-block;
-  margin-left: .255em;
-  vertical-align: .255em;
-  content: "";
-  border-top: .3em solid;
-  border-right: .3em solid
-  transparent;
-  border-bottom: 0;
-  border-left: .3em solid
-  transparent;
-  display: none;
-}
 .card-header{
   border-radius: 0;
   padding: .55rem 1.25rem;
@@ -208,22 +155,6 @@ label:not(.form-check-label):not(.custom-file-label) {
 .card.card-outline-tabs .card-header a:hover {
   border-top: 3px solid
   #dc3545;
-}
-.production1 .nav-tabs{
-  border-bottom: #dc3545 4px solid;
-}
-
-
-.production1 a .nav-tabs .nav-link:active{
-  border: 0;
-}
-
-.production1 .nav-link.active{
-  background-color: #dc3545;
-  color: #FFF;
-}
-.production1 .nav-link{
-  border: #dc3545;
 }
 
 

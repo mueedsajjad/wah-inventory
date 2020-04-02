@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -19,6 +19,7 @@
                     <div class="card card-dark">
                         <div class="card-header">
                             <h3 class="card-title">Goods Receipt Note</h3>
+                            <a href="{{url('store/inwardGoodsReceipt')}}" class="btn btn-primary btn-sm float-right">Back</a>
                         </div>
                         <div class="card-body">
                             <form action="{{url('store/submitInwardGoodsReceipt')}}" method="post" enctype="multipart/form-data">

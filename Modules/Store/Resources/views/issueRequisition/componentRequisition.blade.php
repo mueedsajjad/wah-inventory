@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->
@@ -42,7 +42,7 @@
                                     <td>{{$item->quantity}}</td>
                                     <td>
                                     @if($item->status==0)
-                                            <a href="{{url('store/proceedComponentRequisition/'.$item->id.'/'.$item->component_name.'/'.$item->quantity)}}" class="btn btn-sm btn-secondary">Proceed</a>
+                                            <a href="{{url('store/issueRequisition/proceedComponentRequisition/'.$item->id.'/'.$item->component_name.'/'.$item->quantity)}}" class="btn btn-sm btn-secondary">Proceed</a>
                                     @else
                                         <button type="button" class="btn btn-sm btn-success">Issued</button>
                                     @endif

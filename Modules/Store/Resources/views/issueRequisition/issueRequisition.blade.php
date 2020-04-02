@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="row">
             <div class="col-12">
                 <div class="card card-dark">
@@ -12,10 +12,10 @@
                     </div>
 
                     <div class="card-body dash-menu">
-                        <a class="btn btn-app bg-danger" href="{{url('store/componentRequisition')}}">
+                        <a class="btn btn-app bg-danger" href="{{url('store/issueRequisition/componentRequisition')}}">
                             <i class="fas fa-search-minus"></i>Component Requisitions
                         </a>
-                        <a class="btn btn-app bg-danger" href="{{url('store/materialRequisition')}}">
+                        <a class="btn btn-app bg-danger" href="{{url('store/issueRequisition/materialRequisition')}}">
                             <i class="fas fa-search-minus"></i>Material Requisitions
                         </a>
                     </div>

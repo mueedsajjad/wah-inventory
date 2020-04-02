@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->
@@ -70,7 +70,7 @@
                                             </td>
                                             <td>
                                                 @if($item->status==3)
-                                                    <a class="btn btn-secondary btn-sm" href="{{url('store/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}"
+                                                    <a class="btn btn-secondary btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}"
                                                     >Make Receipt</a>
                                                 @else
                                                     <button class="btn btn-success btn-sm">Receipt Done</button>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="content pt-3">
+    <div class="content pt-5">
     <div class="container-fluid">
         @if(session()->has('save'))
             <div class="alert alert-success text-center" role="alert">
@@ -22,7 +22,7 @@
             </div>
         @endif
 
-        <div class="col-md-12 mt-2">
+        <div class="col-md-12">
             <div class="card p-3">
                 <h3>
                     Mark Attendance

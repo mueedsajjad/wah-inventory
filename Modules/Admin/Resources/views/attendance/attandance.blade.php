@@ -17,7 +17,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Today's Employees Attendance List</h3>
-                            <a href="{{url('admin/attendanceMark')}}" class="btn btn-primary float-right" >Mark Attendance </a>
+                            <a href="{{url('admin/attendance/attendanceMark')}}" class="btn btn-primary float-right" >Mark Attendance </a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

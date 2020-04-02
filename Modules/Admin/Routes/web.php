@@ -36,7 +36,7 @@ Route::prefix('admin')->group(function() {
 // ----------------------- attendance Controller ----------------------- //
     Route::get('attendance', 'AttendanceController@attendance');
 
-    Route::get('attendanceMark', 'AttendanceController@attendanceMark');
+    Route::get('attendance/attendanceMark', 'AttendanceController@attendanceMark');
     Route::post('entranceEmployeeDetails', 'AttendanceController@entranceEmployeeDetails');
     Route::post('departureEmployeeDetails', 'AttendanceController@departureEmployeeDetails');
 

@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->

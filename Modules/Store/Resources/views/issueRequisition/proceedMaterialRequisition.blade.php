@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="content pt-3">
+    <section class="content pt-5">
         <div class="container-fluid">
             @if(!empty($errors->first()))
                 <div class="alert alert-danger text-center">
@@ -19,7 +19,7 @@
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Issue Material From Warehouse</h3>
-                            <a href="{{url('store/materialRequisition')}}" class="btn btn-primary btn-sm float-right">Back</a>
+                            <a href="{{url('store/issueRequisition/materialRequisition')}}" class="btn btn-primary btn-sm float-right">Back</a>
                         </div>
                         <div class="card-body">
                             <form action="{{url('store/submitIssuedMaterialRequisition')}}" method="post" enctype="multipart/form-data">
