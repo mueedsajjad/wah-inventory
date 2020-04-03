@@ -24,8 +24,13 @@ class HomeController extends Controller
     public function index()
     {
 
+        if (auth()->user()->hasRole('Quality Employee')){
+            return  redirect(url('/qa/dashboard'));
+        }
 
-        return  redirect(url('store/dashboard'));
+        return  redirect(url('/store/dashboard'));
+
+
         return view('home');
     }
 }
