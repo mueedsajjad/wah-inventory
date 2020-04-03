@@ -16,7 +16,7 @@ class CreateComponentTable extends Migration
         Schema::create('component', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('component_name');
-
+            $table->string('component_id')->nullable();
             $table->timestamps();
         });
     }
