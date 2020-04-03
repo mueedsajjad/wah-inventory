@@ -635,7 +635,8 @@
                             <li class="nav-item">
                                 <a href="{{url('store/newBuiltyArrival')}}" class="nav-link @if(request()->segment(2)=="newBuiltyArrival") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>New Builty Arrival</p>
+{{--                                    <p>New Builty Arrival</p>--}}
+                                    <p>New Inward</p>
                                 </a>
                             </li>
                             <li class="nav-item">
