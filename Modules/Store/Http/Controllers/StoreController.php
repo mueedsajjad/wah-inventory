@@ -183,6 +183,7 @@ class StoreController extends Controller
     }
 
     public function submitAssignedStore(Request $request,$id){
+//        dd($id);
         if ($id!=0 || $id!=null || $id!=''){
             $itemType=$request->itemType;
             $storeLocation=$request->storeLocation;
@@ -227,7 +228,7 @@ class StoreController extends Controller
                 ->where('materialName', $request->materialname)->first();
             $checkStore=$checkStore->storeLocation;
 
-            if ($checkStore){
+//            if ($checkStore){
                 $data=[
                     'status' => 2
                 ];
@@ -240,10 +241,10 @@ class StoreController extends Controller
                 else {
                     return back()->withErrors( 'Something went wrong.');
                 }
-            }
-            else {
-                return back()->withErrors( 'Kindly, First assign a store.');
-            }
+//            }
+//            else {
+//                return back()->withErrors( 'Kindly, First assign a store.');
+//            }
         }
         else {
             return back()->withErrors( 'Something went wrong.');
@@ -335,6 +336,7 @@ class StoreController extends Controller
 
     public function writeInwardGoodsReceipt($id, $gatePassId)
     {
+//        dd($id);
         if ($id!=null || $id!=0 || $id!=''){
 
             $countInwardGoodsReceipt=DB::table('inward_goods_receipt')->select('grn')->orderByDesc('id')->first();
@@ -345,10 +347,11 @@ class StoreController extends Controller
                 $countInwardGoodsReceipt=substr($countInwardGoodsReceipt->grn,5);
                 ++$countInwardGoodsReceipt;
             }
+            $stores=DB::table('store')->get();
 
             $inward_raw_material=DB::table('inward_raw_material')->where('id', $id)->first();
             $inward_gate_pass=DB::table('inward_gate_pass')->where('gatePassId', $gatePassId)->first();
-            return view('store::writeInwardGoodsReceipt', compact('inward_raw_material', 'inward_gate_pass', 'countInwardGoodsReceipt'));
+            return view('store::writeInwardGoodsReceipt', compact('inward_raw_material', 'inward_gate_pass', 'stores','countInwardGoodsReceipt','id'));
         }
         else {
             return back()->withErrors( 'Something went wrong.');
@@ -356,7 +359,51 @@ class StoreController extends Controller
     }
 
     public function submitInwardGoodsReceipt(Request $request){
-        //dd($request);
+        $id=$request->ids;
+
+        if ($id!=0 || $id!=null || $id!=''){
+            $itemType=$request->itemType;
+            $storeLocation=$request->storeLocation;
+            $data=[
+                'storeLocation' => $storeLocation
+            ];
+
+            if ($itemType=="Material" && ($storeLocation=="Magazine 1" || $storeLocation=="Magazine 2")){
+                $update=DB::table('inward_raw_material')->where('id', $id)
+                    ->where('materialName', $request->materialName)->update($data);
+            }
+            elseif ($itemType=="Component" && ($storeLocation=="Components")){
+                $update=DB::table('inward_raw_material')->where('id', $id)
+                    ->where('materialName', $request->materialName)->update($data);
+            }
+            else{
+                return back()->withErrors( 'Please Select the Item Relevant Store.');
+            }
+
+//            if ($update){
+//                return redirect()->back()->with('message', 'Updated Store Successfully.');
+//            }
+//            else {
+//                return back()->withErrors( 'Something went wrong in store assign.');
+//            }
+        }
+        else {
+            return back()->withErrors( 'Something went wrong in store assign.');
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if($request->hasFile('document')) {
             $validator=request()->validate([
                 'document' => 'file|mimes:pdf',

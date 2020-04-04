@@ -142,18 +142,18 @@
 
                             </tbody>
                         </table>
-                        <form class="form-control" action="" method="">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Quantity Received</label><br>
-                                    <input type="number" name="" value="1122" readonly>
-                                </div>
-                                <div class="col-md-12 mt-2">
-                                    <input type="submit" name="accept" value="Accept" class="btn btn-success">
-                                    <input type="submit" name="reject" value="Reject" class="btn btn-danger">
-                                </div>
-                            </div>
-                        </form>
+{{--                        <form class="form-control" action="" method="">--}}
+{{--                            <div class="row">--}}
+{{--                                <div class="col-md-12">--}}
+{{--                                    <label>Quantity Received</label><br>--}}
+{{--                                    <input type="number" name="" value="1122" readonly>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-12 mt-2">--}}
+{{--                                    <input type="submit" name="accept" value="Accept" class="btn btn-success">--}}
+{{--                                    <input type="submit" name="reject" value="Reject" class="btn btn-danger">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </form>--}}
                     </div>
                 </div>
                 <!-- Modal footer -->
