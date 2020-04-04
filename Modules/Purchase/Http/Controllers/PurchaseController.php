@@ -15,6 +15,19 @@ class PurchaseController extends Controller
         $credit=DB::table('credit_term')->get();
         return view('purchase::purchase/purchase',compact('credit'));
     }
+    public function dashboard()
+    {
+        $credit=DB::table('credit_term')->get();
+        return view('purchase::dashboard',compact('credit'));
+    }
+
+
+
+    public function createVendor(){
+        return view('purchase::createVendor');
+
+    }
+
 
     public function purchaseStore(Request $request)
     {
