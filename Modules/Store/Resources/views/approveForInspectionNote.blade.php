@@ -139,4 +139,9 @@
             $('#materialname').val(materialname);
         });
     </script>
+    <script>
+        $( document ).ready(function() {
+            $('#builtyTable').DataTable();
+        });
+    </script>
 @endsection

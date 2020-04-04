@@ -132,4 +132,9 @@
             $('#sendId').val(sendId);
         });
     </script>
+    <script>
+        $( document ).ready(function() {
+            $('#builtyTable').DataTable();
+        });
+    </script>
 @endsection

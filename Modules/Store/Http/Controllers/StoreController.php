@@ -127,6 +127,7 @@ class StoreController extends Controller
 
     public function viewBuiltyDetails($gatePassId)
     {
+//        dd($gatePassId);
         if ($gatePassId!=0 || $gatePassId!=null || $gatePassId!=''){
             $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatePassId)->get();
 
@@ -249,6 +250,19 @@ class StoreController extends Controller
         }
     }
 
+    public function inwardInspectionNote_date(Request $request)
+    {
+        $inward_raw_material=[];
+//        dd('faizan');
+        $from = $request->fromDate;
+        $to = $request->toDate;
+//        dd($request->all());
+        $inward_raw_material=DB::table('inward_raw_material')->where('status', 2)->whereBetween('date', [$from,$to])->orWhere('status', 3)->whereBetween('date', [$from,$to])->orWhere('status', 4)->whereBetween('date', [$from,$to])->orWhere('status', 5)->whereBetween('date', [$from,$to])->orWhere('status', 6)->whereBetween('date', [$from,$to])->get();
+
+
+//        dd($inward_raw_material);
+        return view('store::inwardInspectionNote', compact( 'inward_raw_material'));
+    }
     public function inwardInspectionNote()
     {
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 2)
