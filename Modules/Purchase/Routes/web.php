@@ -18,14 +18,16 @@ Route::prefix('purchase')->group(function() {
 
     Route::get('/get-requ/{data}', 'PurchaseController@getRequ');
     Route::get('/get-details/{data}', 'PurchaseController@getDetail');
+    Route::get('/get-vendor/{data}', 'PurchaseController@getVendor');
 
     Route::get('/order-approve/{data}', 'PurchaseController@orderApprove');
     Route::get('/order-reject/{data}', 'PurchaseController@orderReject');
 
 
-    Route::get('/make-order/{data}', 'PurchaseController@makeOrder');
+    Route::get('/make-order/{data}/{id}', 'PurchaseController@makeOrder');
 
     Route::post('/purchase-order-approval', 'PurchaseController@purchaseOrderApproval');
+    Route::post('/send-order', 'PurchaseController@sendOrder');
 
 
 

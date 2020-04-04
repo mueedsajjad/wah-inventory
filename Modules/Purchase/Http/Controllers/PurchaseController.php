@@ -217,15 +217,45 @@ class PurchaseController extends Controller
         return redirect()->back()->with('save','Order is Rejected');
     }
 
-    public function makeOrder($data){
-        if ($data == 'ppra'){
+    public function makeOrder($data, $id){
 
-            return view('purchase::orderTableForPurchase',compact('orders'));
+        $record = DB::table('purchase_order_approval')->find($id);
+        $vendor = DB::table('supplier')->get();
+
+        $details = DB::table('purchase_order_approval_detail')->where('po_id', $record->id)->get();
+
+        if ($data == 'ppra'){
+            return view('purchase::ppraOrder',compact('id'));
         }else{
-            return view('purchase::orderTableForPurchase',compact('orders'));
+            return view('purchase::directPurchaseOrder',compact('record', 'details', 'vendor'));
+        }
+
+    }
+
+
+
+        public function getVendor($id){
+
+        $vendor  = DB::table('supplier')->find($id);
+        return view('purchase::getVendor',compact('vendor'));
 
         }
-    }
+
+        public function sendOrder(Request $request){
+
+        if ($request->vendor == null){
+            return redirect()->back()->with('error', 'select vendor then submit the form');
+        }
+
+                DB::table('purchase_order_approval')->where('id', $request->id)->update([
+                   'vendor_id' => $request->vendor,
+                    'status' => 3,
+                ]);
+
+
+            return redirect(url('purchase/new-purchase-list'))->with('save', 'Successfully Submitted');
+
+        }
 
 
 

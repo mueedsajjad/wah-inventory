@@ -677,6 +677,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{url('purchase/purchase')}}" class="nav-link @if(request()->segment(2)=="purchase") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Purchase</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{url('purchase/create-vendor')}}" class="nav-link @if(request()->segment(2)=="create-vendor") active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create Vendor</p>

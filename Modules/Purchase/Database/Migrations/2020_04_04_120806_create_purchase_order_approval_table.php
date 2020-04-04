@@ -19,8 +19,9 @@ class CreatePurchaseOrderApprovalTable extends Migration
             $table->string('requisition_id');
             $table->date('issue_date');
             $table->string('purchase_type');
+            $table->bigInteger('vendor_id')->nullable();
             $table->string('upload')->nullable();
-            $table->integer('status')->default('0');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

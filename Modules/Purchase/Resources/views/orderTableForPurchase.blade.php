@@ -1,8 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+    <section class="content pt-3">
+        <div class="container-fluid">
 
-    <div class="card m-5">
+
+        <div class="card ">
         <div class="card-header">
             <h3 class="card-title">Purchase Requisitions Request Status</h3>
         </div>
@@ -35,10 +38,13 @@
                             @elseif($data->status == 1)
                                 <td> Approved</td>
                                 <td>
-                                    <a href="{{url('purchase/make-order/'.$data->purchase_type)}}" class="btn btn-sm btn-success" >Make Purchase Order</a>
+                                    <a href="{{url('purchase/make-order/'.$data->purchase_type.'/'.$data->id)}}" class="btn btn-sm btn-success" >Make Purchase Order</a>
                                 </td>
                             @elseif($data->status == 2)
                                 <td>Rejected</td>
+                                <td></td>
+                            @elseif($data->status == 3)
+                                <td>PO Generated</td>
                                 <td></td>
                             @endif
                             <td><button type="button" onclick="getDetails({{$data->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
@@ -72,7 +78,8 @@
             </div>
         </div>
     </div>
-
+        </div>
+    </section>
 @endsection
 <script>
     function getDetails(data) {

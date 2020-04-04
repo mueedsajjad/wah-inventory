@@ -1,8 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+    <section class="content pt-3">
+        <div class="container-fluid">
 
-    <div class="card m-5">
+
+    <div class="card">
         <div class="card-header">
             <h3 class="card-title">Purchase Requisitions Request Status</h3>
         </div>
@@ -70,7 +73,8 @@
             </div>
         </div>
     </div>
-
+        </div>
+    </section>
 @endsection
 <script>
     function getDetails(data) {
