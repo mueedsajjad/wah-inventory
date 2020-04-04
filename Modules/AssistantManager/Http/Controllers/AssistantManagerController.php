@@ -5,6 +5,7 @@ namespace Modules\AssistantManager\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AssistantManagerController extends Controller
 {
@@ -18,13 +19,27 @@ class AssistantManagerController extends Controller
      */
     public function index()
     {
-        return view('assistantmanager::index');
+        return view('assistantmanager::dashboard');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+    public function requisitionRequest(){
+
+
+        $units = DB::table('unit')->get();
+        $components = DB::table('component')->get();
+
+
+
+
+
+        return view('assistantmanager::requisitionRequest', compact('units', 'components'));
+    }
+
+
+
+
+
+
     public function create()
     {
         return view('assistantmanager::create');

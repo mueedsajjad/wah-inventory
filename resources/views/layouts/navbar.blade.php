@@ -343,12 +343,12 @@
                 <span class="dropdown-header">15 Notifications</span>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
+                    <i class="fas fa-envelope mr-2"></i> 4 new Deliveries
                     <span class="float-right text-muted text-sm">3 mins</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
+                    <i class="fas fa-users mr-2"></i> 8 Requisitions requests
                     <span class="float-right text-muted text-sm">12 hours</span>
                 </a>
                 <div class="dropdown-divider"></div>
@@ -524,12 +524,12 @@
                                     <p>Inward Gate Pass</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{url('admin/attendance')}}" class="nav-link @if(request()->segment(2)=="attendance") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Attendance</p>
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{url('admin/attendance')}}" class="nav-link @if(request()->segment(2)=="attendance") active @endif">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Attendance</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
                             <li class="nav-item">
                                 <a href="{{url('gate/vehicleManagement')}}" class="nav-link @if(request()->segment(2)=="vehicleManagement") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
@@ -603,6 +603,33 @@
                         </ul>
                     </li>
                 @endif
+
+                @if(auth()->user()->can('Purchase Requisition'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="assistantmanager") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="assistantmanager") active @endif">
+                            <i class="nav-icon fas fa-dollar-sign"></i>
+                            <p>
+                                Purchase Requisition
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('assistantmanager/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('assistantmanager/requisition-request')}}" class="nav-link @if(request()->segment(2)=="requisition-request") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Requisition Request</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
 
                 @if(auth()->user()->can('Purchase'))
                 <li class="nav-item">
