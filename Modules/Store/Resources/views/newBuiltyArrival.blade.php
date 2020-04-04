@@ -1,7 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="content pt-5">
+    <section class="">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="form-group mt-2 mr-4 ">
+                    <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
+                    {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
+                </div>
+            </div>
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->
@@ -31,7 +38,7 @@
                                     <th>Vendor Type</th>
                                     <th>Vendor Name</th>
                                     <th>Date</th>
-                                    <th>Unload Status</th>
+                                    <th>Inward Receiving</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -59,7 +66,7 @@
                                             </td>
                                             <td class="project-actions">
                                                 <a class="btn btn-primary btn-sm getBiltyDetailsbtn" data-toggle="modal" data-target="#biltyDetailsModal" data-gatepassid="{{$item->gatePassId}}">
-                                                    <i class="fas fa-folder mr-1"></i>View Bilty Details
+                                                    <i class="fas fa-folder mr-1"></i>View Inward Details
                                                 </a>
                                             </td>
                                         </tr>

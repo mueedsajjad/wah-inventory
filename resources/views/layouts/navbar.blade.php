@@ -643,6 +643,21 @@
                 </li>
                 @endif
 
+                @if(auth()->user()->hasRole('QC'))
+                    <li class="nav-item">
+                        <a href="{{url('qc/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Inward I-Note</p>
+                        </a>
+                    </li>
+                @endif
+
                 @if(auth()->user()->can('Store'))
                     <li class="nav-item has-treeview @if(request()->segment(1)=="store") menu-open @endif">
                         <a href="#" class="nav-link  @if(request()->segment(1)=="store") active @endif">
@@ -662,7 +677,8 @@
                             <li class="nav-item">
                                 <a href="{{url('store/newBuiltyArrival')}}" class="nav-link @if(request()->segment(2)=="newBuiltyArrival") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>New Builty Arrival</p>
+{{--                                    <p>New Builty Arrival</p>--}}
+                                    <p>New Inward</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -671,12 +687,12 @@
                                     <p>Approve for I-Note</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inward I-Note</p>
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Inward I-Note</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
                             <li class="nav-item">
                                 <a href="{{url('store/inwardGoodsReceipt')}}" class="nav-link @if(request()->segment(2)=="inwardGoodsReceipt") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
@@ -700,7 +716,7 @@
                             <li class="nav-item">
                                 <a href="{{url('store/totalStock')}}" class="nav-link @if(request()->segment(2)=="totalStock") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Current Stock</p>
+                                    <p>Store Position</p>
                                 </a>
                             </li>
                             <li class="nav-item">

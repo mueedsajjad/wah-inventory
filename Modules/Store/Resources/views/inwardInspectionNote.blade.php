@@ -1,7 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="content pt-5">
+    <section class="">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="form-group mt-2 mr-4 ">
+                    @if(auth()->user()->hasRole('QC'))
+                        <a href="{{url('/qc/dashboard')}}" class="btn btn-sm btn-secondary">Back</a>
+                    @else
+                        <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
+                    @endif
+                    {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
+                </div>
+            </div>
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->
