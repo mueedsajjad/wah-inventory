@@ -28,11 +28,10 @@ class AdminController extends Controller
             ->join('departments', 'departments.id', '=', 'employees.department_id')
             ->join('state', 'state.id', '=', 'employees.state_id')
             ->join('city', 'city.id', '=', 'employees.city_id')
-
             ->select('employees.*', 'departments.name as department_name', 'users.name as username')
             ->get();
 
-        //dd($alluser);
+//        dd($alluser);
 
         $user=User::all();
         $role=Role::all();
@@ -48,6 +47,9 @@ class AdminController extends Controller
             ->select('employees.*','users.*', 'users.name as userName','roles.*','roles.name as roleName')
             ->get();
 
+//        $managers = User::role('Manager')->get();
+
+//        dd($managers);
 
 //        $manager=DB::table('employees')
 //            ->join('users', 'users.id', '=', 'employees.user_id')
