@@ -210,12 +210,14 @@
                                             <input type="text" required name="gatePassId" readonly class="form-control" value="GP00{{$countInwardGatePass}}" id="sga_13" placeholder="GP001">
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
                                         <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
                                         <div class="col-sm-8">
                                             <input type="text" readonly required value="{{date('d-m-Y')}}" class="form-control" id="sga_19" placeholder="08-02-2020">
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Driver ID</label>
                                         <div class="col-sm-8">
@@ -259,6 +261,20 @@
                                             <input type="text" name="vendorId" required readonly value="VND00{{$countInwardGatePass}}" class="form-control" placeholder="VND001">
                                         </div>
                                     </div>
+{{--                                    changing--}}
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Vendor details</label>
+                                        <div class="col-sm-8" >
+                                            <select name="" id="V_details" class="form-control">
+                                                <option value="" id="sel" >select</option>
+                                                <option value="">V1</option>
+                                                <option value="">V2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="display"></div>
+{{--                                    end here--}}
+
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Vendor Name</label>
                                         <div class="col-sm-8">
@@ -293,6 +309,7 @@
                                                 <tr>
                                                     <th style="width: 5%;">Sr#</th>
                                                     <th style="width: 15%;">Type</th>
+                                                    <th style="width: 15%;">PO</th>
                                                     <th style="width: 15%;">Name</th>
                                                     <th style="width: 15%;">UOM</th>
                                                     <th style="width: 15%;">Qty</th>
@@ -307,6 +324,15 @@
                                                         <select name="itemType[]" class="form-control" required>
                                                             <option value="Material">Material</option>
                                                             <option value="Component">Component</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select name="PO" id="" class="form-control">
+                                                            <option value="">select</option>
+                                                            @foreach($PO_number as $PO)
+                                                                <option value="{{$PO}}">{{$PO}}</option>
+                                                            @endforeach
+
                                                         </select>
                                                     </td>
                                                     <td>
@@ -379,6 +405,17 @@
                             '<option value="Component">Component</option>'+
                         '</select>'+
                     '</td>'+
+
+                        '<td>'+
+                                '<select name="PO" id="" class="form-control">'+
+                                '<option value="">select</option>'+
+                                '@foreach($PO_number as $PO)'+
+                                '<option value="{{$PO}}">{{$PO}}</option>'+
+                                '@endforeach'+
+
+                                '</select>'+
+                        '</td>'+
+
                     '<td>'+
                         '<input type="text" name="materialName[]" class="form-control" placeholder="">'+
                         // '<select name="materialName[]" class="form-control select2">'+
@@ -424,5 +461,27 @@
             $('#countMaterial').val(count);
         }
     });
+    $('#V_details').on('change', function () {
+        // alert('working');
+
+
+        $.ajax({
+            type: "GET",
+            url: 'vendor_data',
+            success:function(data)
+            {
+
+                $("#display").html(data);
+
+            }
+        });
+    });
+
+    // $('#sel').on('click',function () {
+    //     $("#display").hide();
+    // });
+    //
+    // $('select')
+
 </script>
 @endsection

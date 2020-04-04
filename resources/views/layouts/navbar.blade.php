@@ -632,14 +632,35 @@
 
 
                 @if(auth()->user()->can('Purchase'))
-                <li class="nav-item">
-                    <a href="{{url('purchase/purchase')}}" class="nav-link @if(request()->segment(1)=="purchase") active @endif">
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="purchase") menu-open @endif">
+                    <a href="#" class="nav-link @if(request()->segment(1)=="purchase") active @endif">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
                             Purchase
-{{--                            <span class="right badge badge-danger">New</span>--}}
+                            <i class="right fas fa-angle-left"></i>
+
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('purchase/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('purchase/purchase')}}" class="nav-link @if(request()->segment(2)=="purchase") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Purchese Order</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('purchase/create-vendor')}}" class="nav-link @if(request()->segment(2)=="create-vendor") active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Vendor</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endif
 

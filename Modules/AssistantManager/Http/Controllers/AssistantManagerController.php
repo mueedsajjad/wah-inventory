@@ -19,7 +19,12 @@ class AssistantManagerController extends Controller
      */
     public function index()
     {
-        return view('assistantmanager::dashboard');
+
+        $records = DB::table('purchase_requisitions')->get();
+
+
+
+        return view('assistantmanager::dashboard', compact('records'));
     }
 
     public function requisitionRequest(){
@@ -27,14 +32,32 @@ class AssistantManagerController extends Controller
 
         $units = DB::table('unit')->get();
         $components = DB::table('component')->get();
-
-
-
-
-
         return view('assistantmanager::requisitionRequest', compact('units', 'components'));
     }
 
+    public function requisitionRequestSubmit(Request $request){
+
+        $materialName = implode(',', $request->materialName);
+        $uom = implode(',', $request->uom);
+        $description = implode(',', $request->description);
+        $qty = implode(',', $request->qty);
+        $issue_date = $request->issue_date;
+
+        $req_id = 'PR-'.random_int(4, 9999);
+
+
+        DB::table('purchase_requisitions')->insert([
+            'req_id' => $req_id,
+            'material_name' => $materialName,
+            'uom' => $uom,
+            'issue_date' => $issue_date,
+            'quantity' => $qty,
+            'description' => $description,
+            'status' => 0,
+        ]);
+
+        return redirect()->back()->with('message', 'Requisition Request Submitted Successfully');
+    }
 
 
 

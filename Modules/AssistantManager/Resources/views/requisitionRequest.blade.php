@@ -21,29 +21,21 @@
                 <div class="col-md-12">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Material Requisition To Store</h3>
+                            <h3 class="card-title">Material Requisition For Purchase</h3>
                         </div>
 
                         <div class="card-body">
 
-                            <form action="{{url('production/materialRequisitionStore')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('assistantmanager/requisition-request')}}" method="post" enctype="multipart/form-data">
                                 @csrf
-
-
-
-
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">Issue Date</label>
-                                            <div class="col-sm-8">
-                                                <input type="date"  name="issue_date"  required value="{{\Carbon\Carbon::now()->toDateString()}}" class="form-control" id="sga_19" readonly>
-                                            </div>
-                                        </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                      <label for="sga_13" class="col-sm-4 col-form-label">Issue Date</label>
+                                    <div class="col-sm-8">
+                                          <input type="date"  name="issue_date"  required value="{{\Carbon\Carbon::now()->toDateString()}}" class="form-control" id="sga_19" readonly>
                                     </div>
-
-
-
-
+                               </div>
+                             </div>
                                 <div class="row justify-content-around">
                                     <div class="col-md-12">
                                         <div class="card card-secondary">
@@ -71,7 +63,7 @@
                                                                 <option selected disabled>Select</option>
                                                                 @if(!$components->isempty())
                                                                     @foreach($components as $unit)
-                                                                        <option value="{{$unit->id}}">{{$unit->component_name}}</option>
+                                                                        <option value="{{$unit->component_id}}">{{$unit->component_name}}</option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
@@ -82,7 +74,7 @@
                                                                 <option selected disabled>Select</option>
                                                                 @if(!$units->isempty())
                                                                     @foreach($units as $unit)
-                                                                        <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                                        <option value="{{$unit->name}}">{{$unit->name}}</option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
@@ -136,7 +128,7 @@
                 '<select name="materialName[]" class="form-control select2">'+
                 '<?php if(!$components->isempty()){
                     foreach($components as $data){ ?>'+
-                '<option value="{{$data->id}}">{{$data->component_name}}</option>'+
+                '<option value="{{$data->component_id}}">{{$data->component_name}}</option>'+
                 '<?php }
                     } ?>'+
                 '</select>'+
@@ -145,7 +137,7 @@
                 '<select name="uom[]" class="form-control select2">'+
                 '<?php if(!$units->isempty()){
                     foreach($units as $unit){ ?>'+
-                '<option value="{{$unit->id}}">{{$unit->name}}</option>'+
+                '<option value="{{$unit->name}}">{{$unit->name}}</option>'+
                 '<?php }
                     } ?>'+
                 '</select>'+

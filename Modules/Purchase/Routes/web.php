@@ -13,6 +13,8 @@
 
 Route::prefix('purchase')->group(function() {
     Route::get('/', 'PurchaseController@index');
+    Route::get('/dashboard', 'PurchaseController@dashboard');
+    Route::get('/create-vendor', 'PurchaseController@createVendor');
 
     Route::get('purchase', 'PurchaseController@purchase');
     Route::post('purchaseStore', 'PurchaseController@purchaseStore');
