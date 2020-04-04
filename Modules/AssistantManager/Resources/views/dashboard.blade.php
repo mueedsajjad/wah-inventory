@@ -13,9 +13,6 @@
                     <tr>
                         <th>Sr#</th>
                         <th>Requisition Request ID</th>
-                        <th>Name</th>
-                        <th>UOM</th>
-                        <th>Quantity</th>
                         <th>Issue Date</th>
                         <th>Status</th>
                     </tr>
@@ -24,10 +21,7 @@
                         @foreach($records as $key => $data)
                            <tr>
                                <td>{{$key+1}}</td>
-                               <td>{{$data->req_id}}</td>
-                               <td>{{$data->material_name}}</td>
-                               <td>{{$data->uom}}</td>
-                               <td>{{$data->quantity}}</td>
+                               <td>{{$data->requisition_id}}</td>
                                <td>{{$data->issue_date}}</td>
                                <td>{{$data->status}}</td>
                            </tr>
