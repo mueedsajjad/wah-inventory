@@ -512,7 +512,7 @@
         else {
             if ($(this).val()=='req'){
                 $('#vendor_details').hide().find('input:text').val('');
-                alert('Requisition Selected');
+                alert('Requisition Selected'); 
             }
             else
                 $('#vendor_details').hide().find('input:text').val('');
