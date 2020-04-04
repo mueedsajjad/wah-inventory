@@ -225,6 +225,17 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">PO/Requisition</label>
+                                        <div class="col-sm-8">
+                                            <select name="Po/req" id="" class="form-control">
+                                                <option value="">select</option>
+                                                <option value="po" id="po">Purchase Order</option>
+                                                <option value="req" id="req">Requisition</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Driver Name</label>
                                         <div class="col-sm-8">
                                             <input type="text" name="driverName" required class="form-control" placeholder="Waseem">
@@ -244,7 +255,15 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-4 " style="display: none" id="vendor_details" >
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Purchase Order #</label>
+                                        <div class="col-sm-8">
+                                            <select name="po_num" class="form-control" required>
+
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Vendor Type</label>
                                         <div class="col-sm-8">
@@ -265,10 +284,10 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Vendor details</label>
                                         <div class="col-sm-8" >
-                                            <select name="" id="V_details" class="form-control">
+                                            <select name="vendor" id="V_details" class="form-control">
                                                 <option value="" id="sel" >select</option>
-                                                <option value="">V1</option>
-                                                <option value="">V2</option>
+                                                <option value="V1">V1</option>
+                                                <option value="V2">V2</option>
                                             </select>
                                         </div>
                                     </div>
@@ -328,10 +347,11 @@
                                                     </td>
                                                     <td>
                                                         <select name="PO" id="" class="form-control">
-                                                            <option value="">select</option>
-                                                            @foreach($PO_number as $PO)
-                                                                <option value="{{$PO}}">{{$PO}}</option>
-                                                            @endforeach
+                                                                <option value="">select</option>
+                                                                @foreach($PO as $key=>$PO_number)
+                                                                    <option value="{{$PO_number->po_number}}">{{$PO_number->po_number}}</option>
+                                                                @endforeach
+
 
                                                         </select>
                                                     </td>
@@ -409,8 +429,8 @@
                         '<td>'+
                                 '<select name="PO" id="" class="form-control">'+
                                 '<option value="">select</option>'+
-                                '@foreach($PO_number as $PO)'+
-                                '<option value="{{$PO}}">{{$PO}}</option>'+
+                                '@foreach($PO as $key=> $PO_number)'+
+                                '<option value="{{$PO_number->po_number}}">{{$PO_number->po_number}}</option>'+
                                 '@endforeach'+
 
                                 '</select>'+
@@ -463,25 +483,46 @@
     });
     $('#V_details').on('change', function () {
         // alert('working');
+          if ($(this).val()==''){
+              $('#display').hide().empty();
+          }
+          else{
+              $('#display').show();
+              $.ajax({
+                  type: "GET",
+                  url: 'vendor_data',
+                  success:function(data)
+                  {
+
+                      $("#display").html(data);
+
+                  }
+              });
+          }
 
 
-        $.ajax({
-            type: "GET",
-            url: 'vendor_data',
-            success:function(data)
-            {
-
-                $("#display").html(data);
-
-            }
-        });
     });
 
-    // $('#sel').on('click',function () {
-    //     $("#display").hide();
+
+    $('select[name="Po/req"]').on('change',function () {
+
+        if ($(this).val()=='po'){
+            $('#vendor_details').show();
+        }
+        else {
+            if ($(this).val()=='req'){
+                $('#vendor_details').hide().find('input:text').val('');
+                alert('Requisition Selected');
+            }
+            else
+                $('#vendor_details').hide().find('input:text').val('');
+        }
+
+
+    });
+    // $('select[name="Po/req"]').on('click',function () {
+    //     alert('Requisition');
     // });
-    //
-    // $('select')
 
 </script>
 @endsection

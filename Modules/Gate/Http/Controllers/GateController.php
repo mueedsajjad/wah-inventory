@@ -71,12 +71,13 @@ class GateController extends Controller
             $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
             ++$countInwardGatePass;
         }
-        $PO=DB::table('purchase_order')->get();
-        foreach ($PO as $key=>$P){
-            $PO_number[]=$P->po_number;
-        }
-//        dd($PO_number);
-        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO_number'));
+        $PO=DB::table('purchase_order')->get('po_number');
+//        dd($PO);
+        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO'));
+    }
+    public function outwardGatePass(){
+
+        return view('gate::gate/outwardGatePass');
     }
 
     public function vehicleManagement(){
