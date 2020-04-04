@@ -36,25 +36,37 @@ class AssistantManagerController extends Controller
     }
 
     public function requisitionRequestSubmit(Request $request){
-
-        $materialName = implode(',', $request->materialName);
-        $uom = implode(',', $request->uom);
-        $description = implode(',', $request->description);
-        $qty = implode(',', $request->qty);
         $issue_date = $request->issue_date;
 
-        $req_id = 'PR-'.random_int(4, 9999);
+        $requisition_id = 'PR-'.random_int(4, 9999);
+
 
 
         DB::table('purchase_requisitions')->insert([
-            'req_id' => $req_id,
-            'material_name' => $materialName,
-            'uom' => $uom,
+            'requisition_id' => $requisition_id,
             'issue_date' => $issue_date,
-            'quantity' => $qty,
-            'description' => $description,
-            'status' => 0,
         ]);
+
+        $latest = DB::table('purchase_requisitions')->orderByDesc('id')->first();
+
+
+
+
+
+        $size = sizeof($request->materialName);
+
+        for ($i = 0; $i < $size; $i++) {
+            $answers[] = [
+                'req_id' => $latest->id,
+                'requisition_id' => $latest->requisition_id,
+                'material_name' => $request->materialName[$i],
+                'uom' => $request->uom[$i],
+                'description' => $request->description[$i],
+                'quantity' => $request->qty[$i],
+            ];
+        }
+        DB::table('purchase_requisitions_detail')->insert($answers);
+
 
         return redirect()->back()->with('message', 'Requisition Request Submitted Successfully');
     }

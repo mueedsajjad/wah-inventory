@@ -14,7 +14,20 @@
 Route::prefix('purchase')->group(function() {
     Route::get('/', 'PurchaseController@index');
     Route::get('/dashboard', 'PurchaseController@dashboard');
-    Route::get('/create-vendor', 'PurchaseController@createVendor');
+    Route::get('/new-purchase-list', 'PurchaseController@purchaseOrderlist');
+
+    Route::get('/get-requ/{data}', 'PurchaseController@getRequ');
+    Route::get('/get-details/{data}', 'PurchaseController@getDetail');
+
+    Route::get('/order-approve/{data}', 'PurchaseController@orderApprove');
+    Route::get('/order-reject/{data}', 'PurchaseController@orderReject');
+
+
+    Route::get('/make-order/{data}', 'PurchaseController@makeOrder');
+
+    Route::post('/purchase-order-approval', 'PurchaseController@purchaseOrderApproval');
+
+
 
     Route::get('purchase', 'PurchaseController@purchase');
     Route::post('purchaseStore', 'PurchaseController@purchaseStore');
@@ -33,4 +46,13 @@ Route::prefix('purchase')->group(function() {
     Route::get('directReceipt', 'PurchaseController@directReceipt');
 
     Route::get('tender', 'PurchaseController@tender');
+});
+
+Route::prefix('order')->group(function() {
+
+    Route::get('/order-approve', 'PurchaseController@orderTable');
+    Route::get('/order-approve/{id}', 'PurchaseController@orderApprove');
+
+
+
 });
