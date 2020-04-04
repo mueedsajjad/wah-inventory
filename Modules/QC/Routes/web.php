@@ -13,4 +13,5 @@
 
 Route::prefix('qc')->group(function() {
     Route::get('/', 'QCController@index');
+    Route::get('dashboard', 'QCController@dashboard');
 });

@@ -27,16 +27,34 @@ class SettingController extends Controller
 
     public function componentStore(Request $request)
     {
+
         $data= $request->validate(['name' => 'required|string']);
 
-        $count=DB::table('component')->where('component_name',$data['name'])->count();
+        if (count(explode(' ', $request->name)) > 1) {
+            $word = preg_split("/\s+/", $request->name);
+            $arr = '';
+            foreach ($word as $data) {
+                $arr .= $data[0];
+            }
+            $user_id = 'C-'.$arr.'-'.date('s', time());
+        }else{
+            $fL = $request->name[0];
+            $lL = $request->name[strlen($request->name) - 1];
+            $fL = strtoupper($fL);
+            $lL = strtoupper($lL);
+            $user_id = 'C-'.$fL.$lL.'-'.date('s', time());
+        }
+
+
+
+        $count=DB::table('component')->where('component_name',$request->name)->count();
         if($count>0)
         {
             return redirect()->back()->with('exists','this record exist already');
         }
         else
         {
-            DB::table('component')->insert(['component_name' => $data['name']]);
+            DB::table('component')->insert(['component_name' => $request->name, 'component_id' => $user_id]);
             return redirect()->back()->with('save', 'Saved Successfully');
         }
     }

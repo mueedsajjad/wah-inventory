@@ -5,6 +5,7 @@ namespace Modules\AssistantManager\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AssistantManagerController extends Controller
 {
@@ -18,13 +19,50 @@ class AssistantManagerController extends Controller
      */
     public function index()
     {
-        return view('assistantmanager::index');
+
+        $records = DB::table('purchase_requisitions')->get();
+
+
+
+        return view('assistantmanager::dashboard', compact('records'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+    public function requisitionRequest(){
+
+
+        $units = DB::table('unit')->get();
+        $components = DB::table('component')->get();
+        return view('assistantmanager::requisitionRequest', compact('units', 'components'));
+    }
+
+    public function requisitionRequestSubmit(Request $request){
+
+        $materialName = implode(',', $request->materialName);
+        $uom = implode(',', $request->uom);
+        $description = implode(',', $request->description);
+        $qty = implode(',', $request->qty);
+        $issue_date = $request->issue_date;
+
+        $req_id = 'PR-'.random_int(4, 9999);
+
+
+        DB::table('purchase_requisitions')->insert([
+            'req_id' => $req_id,
+            'material_name' => $materialName,
+            'uom' => $uom,
+            'issue_date' => $issue_date,
+            'quantity' => $qty,
+            'description' => $description,
+            'status' => 0,
+        ]);
+
+        return redirect()->back()->with('message', 'Requisition Request Submitted Successfully');
+    }
+
+
+
+
+
     public function create()
     {
         return view('assistantmanager::create');

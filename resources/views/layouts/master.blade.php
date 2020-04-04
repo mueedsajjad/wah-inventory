@@ -56,6 +56,9 @@
     <link rel="stylesheet" href="{{asset('public/dist/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('/public/plugins/datatables/datatables.min.css')}}">
 
+    <script src="{{asset('public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+
+
     <link href="{{asset('/public/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css')}}">
 
 
@@ -192,6 +195,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('public/dist/js/demo.js')}}"></script>
 <!-- Page script -->
+<script src="{{asset('public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{asset('public/plugins/chart.js/Chart.min.js')}}"></script>
 <script src="{{asset('public/dist/js/demo.js')}}"></script>

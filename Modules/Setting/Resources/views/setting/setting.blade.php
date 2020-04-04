@@ -50,7 +50,7 @@
                                         <div class="tab-pane text-left fade active show" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
                                             <h4>Units of measure</h4>
 
-                                            <table class="table table-bordered col-md-3">
+                                            <table class="table table-bordered col-md-12">
                                                 <tbody>
                                                 @foreach($units as $unit)
                                                 <tr>
@@ -66,7 +66,7 @@
                                         <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
                                             <h4>Categories</h4>
 {{--                                            <p>The categories here can be assigned to items for better organizing and grouping of products and materials.</p>--}}
-                                            <table class="table table-bordered col-md-3">
+                                            <table class="table table-bordered col-md-12">
                                                 <tbody>
                                                 @foreach($categories as $category)
                                                 <tr>
@@ -82,7 +82,7 @@
                                         <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
                                             <h4>Operations</h4>
 {{--                                            <p>You can reorder Operations in this list. The same order is used in the selection menu when choosing a Production Operation for a product.</p>--}}
-                                            <table class="table table-bordered col-md-3">
+                                            <table class="table table-bordered col-md-12">
                                                 <tbody>
                                                 @foreach($operations as $operation)
                                                 <tr>
@@ -98,7 +98,7 @@
 
                                         <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
                                             <h4>Stores</h4>
-                                            <table class="table table-bordered col-md-3">
+                                            <table class="table table-bordered col-md-12">
                                                 <tbody>
                                                 @foreach($stores as $store)
 
@@ -115,7 +115,7 @@
                                         </div>
                                         <div class="tab-pane fade" id="vert-tabs-departments" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
                                             <h4>Departments</h4>
-                                            <table class="table table-bordered col-md-3">
+                                            <table class="table table-bordered col-md-12">
                                                 <tbody>
                                                 @foreach($departments as $department)
                                                     <tr>
@@ -131,11 +131,12 @@
                                         </div>
                                         <div class="tab-pane fade" id="vert-tabs-components" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
                                             <h4>Components</h4>
-                                            <table class="table table-bordered col-md-3">
+                                            <table class="table table-bordered col-md-12">
                                                 <tbody>
                                                 @foreach($components as $component)
                                                     <tr>
                                                         <td>{{$component->component_name}}</td>
+                                                        <td>{{$component->component_id}}</td>
                                                         <td><a class="text-danger" href="{{url('setting/componentDelete/'.$component->id)}}"><i class="fa fa-trash"></i></a></td>
                                                     </tr>
                                                 @endforeach
