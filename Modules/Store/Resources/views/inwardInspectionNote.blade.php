@@ -132,7 +132,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Rejection Reason</label>
+                                <label class="col-sm-4 col-form-label">Remarks</label>
                                 <div class="col-sm-8">
                                     <textarea rows="3" name="rejectionReason" class="form-control"></textarea>
                                 </div>

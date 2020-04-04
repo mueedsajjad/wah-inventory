@@ -15,6 +15,88 @@ class PurchaseController extends Controller
         $credit=DB::table('credit_term')->get();
         return view('purchase::purchase/purchase',compact('credit'));
     }
+    public function dashboard()
+    {
+
+
+        $purchase_requ = DB::table('purchase_requisitions')->get();
+        $credit=DB::table('credit_term')->get();
+        return view('purchase::dashboard',compact('credit', 'purchase_requ'));
+    }
+
+
+
+    public function createVendor(){
+        return view('purchase::createVendor');
+
+    }
+
+    public function getRequ($id){
+
+        $requ_req = DB::table('purchase_requisitions')->find($id);
+        $details = DB::table('purchase_requisitions_detail')->where('req_id', $requ_req->id)->get();
+
+        return view('purchase::getRequ', compact('details', 'requ_req'));
+    }
+
+    public function purchaseOrderApproval(Request $request){
+
+
+        if ($request->hasFile('upload'))
+        {
+            $image = $request->file('upload');
+            $name = time() . '.' . $image->getClientOriginalName();
+            $destinationPath = public_path('upload');
+            $image->move($destinationPath, $name);
+        }
+        else
+        {
+            $name=null;
+        }
+
+        $requisition_id = DB::table('purchase_requisitions')->find($request->requisition_id);
+
+
+        $issue_date = $request->issue_date;
+
+        $purchase_order_id = 'PO-'.random_int(4, 9999);
+
+
+
+        DB::table('purchase_order_approval')->insert([
+            'purchase_order_id' => $purchase_order_id,
+            'requisition_id' => $requisition_id->requisition_id,
+            'upload' => $name,
+            'issue_date' => $issue_date,
+            'purchase_type' => $request->purchase_type,
+        ]);
+
+        $latest = DB::table('purchase_order_approval')->orderByDesc('id')->first();
+
+
+        $size = sizeof($request->material_name);
+
+        for ($i = 0; $i < $size; $i++) {
+            $answers[] = [
+                'po_id' => $latest->id,
+                'purchase_order_id' => $latest->purchase_order_id,
+                'material_name' => $request->material_name[$i],
+                'uom' => $request->uom[$i],
+                'description' => $request->description[$i],
+                'quantity' => $request->qty[$i],
+                'unit_price' => $request->unitprice[$i],
+                'total_price' => $request->totalprice[$i],
+            ];
+        }
+        DB::table('purchase_order_approval_detail')->insert($answers);
+
+
+
+        return redirect()->back()->with('message', 'Purchase Order Request Submitted Successfully');
+
+
+    }
+
 
     public function purchaseStore(Request $request)
     {
@@ -100,10 +182,84 @@ class PurchaseController extends Controller
             ->where('purchase_order_item.purchase_id','=',$id)
             ->select('purchase_order.*','purchase_order_item.*')
             ->get();
-        //dd($order);
-
         return view('purchase::purchase/orderDetail',compact('order'));
     }
+
+
+    public function orderTable(){
+        $orders = DB::table('purchase_order_approval')->get();
+        return view('purchase::orderTable',compact('orders'));
+    }
+
+    public function getDetail($id){
+        $details = DB::table('purchase_order_approval_detail')->where('po_id', $id)->get();
+        return view('purchase::getDetails',compact('details'));
+    }
+
+
+    public function purchaseOrderlist(){
+
+        $orders = DB::table('purchase_order_approval')->get();
+
+        return view('purchase::orderTableForPurchase',compact('orders'));
+
+    }
+
+    public function orderApprove($id)
+    {
+        DB::table('purchase_order_approval')->where('id',$id)->update(['status'=>1]);
+        return redirect()->back()->with('save','Order is Accepted');
+    }
+
+    public function orderReject($id)
+    {
+        DB::table('purchase_order_approval')->where('id',$id)->update(['status'=>2]);
+        return redirect()->back()->with('save','Order is Rejected');
+    }
+
+    public function makeOrder($data, $id){
+
+        $record = DB::table('purchase_order_approval')->find($id);
+        $vendor = DB::table('supplier')->get();
+
+        $details = DB::table('purchase_order_approval_detail')->where('po_id', $record->id)->get();
+
+        if ($data == 'ppra'){
+            return view('purchase::ppraOrder',compact('id'));
+        }else{
+            return view('purchase::directPurchaseOrder',compact('record', 'details', 'vendor'));
+        }
+
+    }
+
+
+
+        public function getVendor($id){
+
+        $vendor  = DB::table('supplier')->find($id);
+        return view('purchase::getVendor',compact('vendor'));
+
+        }
+
+        public function sendOrder(Request $request){
+
+        if ($request->vendor == null){
+            return redirect()->back()->with('error', 'select vendor then submit the form');
+        }
+
+                DB::table('purchase_order_approval')->where('id', $request->id)->update([
+                   'vendor_id' => $request->vendor,
+                    'status' => 3,
+                ]);
+
+
+            return redirect(url('purchase/new-purchase-list'))->with('save', 'Successfully Submitted');
+
+        }
+
+
+
+
 
     public function accept($id)
     {
