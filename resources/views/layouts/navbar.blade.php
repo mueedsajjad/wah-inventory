@@ -524,6 +524,12 @@
                                     <p>Inward Gate Pass</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{url('gate/outwardGatePass')}}" class="nav-link @if(request()->segment(2)=="outwardGatePass") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Outward Gate Pass</p>
+                                </a>
+                            </li>
 {{--                            <li class="nav-item">--}}
 {{--                                <a href="{{url('admin/attendance')}}" class="nav-link @if(request()->segment(2)=="attendance") active @endif">--}}
 {{--                                    <i class="far fa-circle nav-icon"></i>--}}
