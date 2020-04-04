@@ -27,6 +27,9 @@ class HomeController extends Controller
         if (auth()->user()->hasRole('Quality Employee')){
             return  redirect(url('/qa/dashboard'));
         }
+        elseif (auth()->user()->hasRole('QC')){
+            return  redirect(url('/qc/dashboard'));
+        }
 
         return  redirect(url('/store/dashboard'));
 

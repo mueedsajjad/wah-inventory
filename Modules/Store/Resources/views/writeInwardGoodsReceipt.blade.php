@@ -154,7 +154,49 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-11">
+
+
+
+
+
+
+                                <div class="row justify-content-around">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <?php
+                                            $item=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('id',$id)->first();
+//                                            dd($item);
+                                        ?>
+                                        @if(Empty($item->storeLocation))
+                                                <input type="hidden" value="{{$item->materialName}}" name="materialName">
+                                                <input type="hidden" value="{{$item->itemType}}" name="itemType">
+                                                <input type="hidden" value="{{$item->id}}" name="ids">
+                                                <div class="row">
+                                                    <label class="col-sm-4 col-form-label">Assign Store  </label>
+                                                    <select name="storeLocation" style="width: 70%;" class="col-md-8 form-control">
+                                                        @if(!$stores->isempty())
+                                                            @foreach($stores as $store)
+                                                                <option value="{{$store->name}}">{{$store->name}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+{{--                                                    <button type="submit" class="btn btn-success btn-sm ml-1">Submit</button>--}}
+                                                </div>
+{{--                                            </form>--}}
+                                        @else
+                                            {{$item->storeLocation}}
+                                        @endif
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="col-md-11 mt-2">
                                     <a href="#" class="btn btn-secondary ml-3 float-right">Print</a>
                                     <input type="submit" value="Save" class="btn btn-success float-right">
                                 </div>
