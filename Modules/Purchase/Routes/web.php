@@ -28,6 +28,7 @@ Route::prefix('purchase')->group(function() {
 
     Route::post('/purchase-order-approval', 'PurchaseController@purchaseOrderApproval');
     Route::post('/send-order', 'PurchaseController@sendOrder');
+    Route::post('/ppra-order', 'PurchaseController@ppraOrder');
 
 
 

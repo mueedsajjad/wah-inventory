@@ -677,7 +677,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('purchase/new-purchase-list')}}" class="nav-link @if(request()->segment(2)=="new-purchase") active @endif">
+                            <a href="{{url('purchase/new-purchase-list')}}" class="nav-link @if(request()->segment(2)=="new-purchase-list") active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Purchase Order List</p>
                             </a>

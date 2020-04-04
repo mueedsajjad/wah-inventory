@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use vendor\project\StatusTest;
 
 class PurchaseController extends Controller
 {
@@ -225,7 +226,12 @@ class PurchaseController extends Controller
         $details = DB::table('purchase_order_approval_detail')->where('po_id', $record->id)->get();
 
         if ($data == 'ppra'){
-            return view('purchase::ppraOrder',compact('id'));
+            $record = DB::table('purchase_order_approval')->find($id);
+            $vendor = DB::table('supplier')->get();
+
+            $details = DB::table('purchase_order_approval_detail')->where('po_id', $record->id)->get();
+
+            return view('purchase::ppraOrder',compact('record', 'details', 'vendor'));
         }else{
             return view('purchase::directPurchaseOrder',compact('record', 'details', 'vendor'));
         }
@@ -245,12 +251,44 @@ class PurchaseController extends Controller
 
         if ($request->vendor == null){
             return redirect()->back()->with('error', 'select vendor then submit the form');
+        }elseif($request->vendor == 'direct'){
+            DB::table('purchase_order_approval')->where('id', $request->id)->update([
+                'status' => 3,
+                'vendor' => null,
+            ]);
+        }else{
+            DB::table('purchase_order_approval')->where('id', $request->id)->update([
+                'vendor_id' => $request->vendor,
+                'status' => 3,
+            ]);
         }
 
-                DB::table('purchase_order_approval')->where('id', $request->id)->update([
-                   'vendor_id' => $request->vendor,
-                    'status' => 3,
-                ]);
+            return redirect(url('purchase/new-purchase-list'))->with('save', 'Successfully Submitted');
+
+        }
+
+
+        public function ppraOrder(Request $request){
+            if ($request->vendor == null){
+                return redirect()->back()->with('error', 'select vendor then submit the form');
+            }
+
+            DB::table('purchase_order_approval')->where('id', $request->id)->update([
+                'vendor_id' => $request->vendor,
+                'status' => 3,
+            ]);
+
+
+            $rec = DB::table('purchase_order_approval')->find($request->id);
+
+            DB::table('ppra_order')->insert([
+                'requisition_id' => $rec->requisition_id,
+                'purchase_order_id' => $rec->purchase_order_id,
+                'po_id' => $rec->id,
+                'commercial_offer' => $request->c_offer,
+                'technical_offer' => $request->t_offer,
+                'vendor_id' => $request->vendor,
+            ]);
 
 
             return redirect(url('purchase/new-purchase-list'))->with('save', 'Successfully Submitted');
