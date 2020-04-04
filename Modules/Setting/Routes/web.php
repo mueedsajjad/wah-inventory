@@ -66,4 +66,9 @@ Route::prefix('setting')->group(function() {
     Route::post('leaveStore', 'SettingController@leaveStore');
     Route::post('deleteLeave', 'SettingController@deleteLeave');
 
+    // -----------------------------   Material And Product Code -------------------- //
+    Route::get('productAndMateralCode', 'SettingController@productAndMateralCode');
+    Route::post('productAndMateralCodeStore', 'SettingController@productAndMateralCodeStore');
+    Route::post('deleteMaterialCode', 'SettingController@deleteMaterialCode');
+    Route::get('deleteProductCode/{id}', 'SettingController@deleteProductCode');
 });

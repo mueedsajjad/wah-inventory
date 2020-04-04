@@ -25,23 +25,26 @@
                         <!-- /.card-header -->
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table m-0">
+                                <table class="table m-0" id="pageTable">
                                     <thead>
                                     <tr>
-                                        <th>Order ID</th>
-                                        <th>Item</th>
-                                        <th>Qty</th>
-                                        <th>Status</th>
+                                        <th>SO Number</th>
+                                        <th>date</th>
+                                        <th>Name</th>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($orders as $order)
                                     <tr>
-                                        <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                        <td>Product 1</td>
-                                        <td>250</td>
-                                        <td><span class="badge badge-success">Shipped</span></td>
-
+                                        <td>{{$order->so_number}}</td>
+                                        <td>{{$order->date}}</td>
+                                        <td>{{$order->name}}</td>
+                                        <td>{{$order->product_name}}</td>
+                                        <td>{{$order->quantity}}</td>
                                     </tr>
+                                    @endforeach
 
                                     </tbody>
                                 </table>
@@ -49,9 +52,9 @@
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
+                        <!-- <div class="card-footer clearfix">
                             <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Place New Order</a>
-                        </div>
+                        </div> -->
                         <!-- /.card-footer -->
                     </div>
 
