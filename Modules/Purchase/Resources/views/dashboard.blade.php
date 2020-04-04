@@ -86,7 +86,7 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" name="purchase_type" required>
                                                     <option disabled>Select Purchase Type</option>
-                                                    <option value="pepra">PPRA</option>
+                                                    <option value="ppra">PPRA</option>
                                                     <option value="direct-purchase">Direct Purchase</option>
                                                 </select>
                                             </div>
