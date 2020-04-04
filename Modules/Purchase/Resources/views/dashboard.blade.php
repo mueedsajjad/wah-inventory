@@ -25,12 +25,28 @@
 
 
                         <div class="card-body">
-                            <form action="{{url('purchase/purchaseStore')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('purchase/purchase-order-approval')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row justify-content-around">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_13" class="col-sm-4 col-form-label">Purchase Requisition</label>
 
+                                            <div class="col-sm-8">
+                                                <div class="">
+                                                    <select class="form-control select2 " name="requisition_id" onchange="getRequData(this.value)">
+                                                        <option selected="selected" disabled>Select Requisition</option>
+                                                        @foreach($purchase_requ as $credits)
+                                                            <option value="{{$credits->id}}">{{$credits->requisition_id}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div class="col-md-8">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
                                         <div class="form-group row">
                                             <label for="sga_13" class="col-sm-4 col-form-label">Document</label>
 
@@ -47,40 +63,19 @@
 
 
                                 <div class="row justify-content-around">
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">PO date</label>
-                                            <div class="col-sm-8">
-                                                <input type="date" name="date" class="form-control" id="sga_14" placeholder="08-02-2020">
-                                            </div>
-                                        </div>
-                                    </div>
 
 
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Credit Terms</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control select2 " name="credit_term">
-                                                    <option selected="selected" disabled>Select Days</option>
-                                                    @foreach($credit as $credits)
-                                                        <option value="{{$credits->id}}">{{$credits->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
 
 
                                 <div class="row justify-content-around">
-                                    <div class="col-md-4  ">
+
+                                    <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Supplier ID</label>
+                                            <label for="sga_13" class="col-sm-4 col-form-label">PO date</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select2" disabled name="supplier_id">
-                                                    <option selected="selected">SUPP001</option>
-                                                </select>
+                                                <input type="date"  name="issue_date"  required value="{{\Carbon\Carbon::now()->toDateString()}}" class="form-control" id="sga_19" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -89,40 +84,40 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Purchase By</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select2" name="purchase_by">
-                                                    <option selected="selected">PPRA</option>
-                                                    <option>Direct Purchase</option>
+                                                <select class="form-control" name="purchase_type" required>
+                                                    <option disabled>Select Purchase Type</option>
+                                                    <option value="pepra">PPRA</option>
+                                                    <option value="direct-purchase">Direct Purchase</option>
                                                 </select>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
 
 
 
-                                <div class="row justify-content-around">
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_18" class="col-sm-4 col-form-label">Supplier Name</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="supplier_name" class="form-control" disabled  id="sga_18" placeholder="MMLOGIX (PVT) Ltd.">
-                                            </div>
-                                        </div>
-                                    </div>
+{{--                                <div class="row justify-content-around">--}}
+{{--                                    <div class="col-md-4">--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label for="sga_18" class="col-sm-4 col-form-label">Supplier Name</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" name="supplier_name" class="form-control" disabled  id="sga_18" placeholder="MMLOGIX (PVT) Ltd.">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
 
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="checkboxSuccess1" class="col-sm-4 col-form-label">
-                                                Approved
-                                            </label>
-                                            <div class="icheck-success col-sm-8 d-inline">
-                                                <input type="checkbox" name="check" checked="" id="checkboxSuccess1">
-                                                <label for="checkboxSuccess1">
-                                                </label>
-                                            </div>
-                                        </div>
+{{--                                    <div class="col-md-4">--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label for="checkboxSuccess1" class="col-sm-4 col-form-label">--}}
+{{--                                                Approved--}}
+{{--                                            </label>--}}
+{{--                                            <div class="icheck-success col-sm-8 d-inline">--}}
+{{--                                                <input type="checkbox" name="check" checked="" id="checkboxSuccess1">--}}
+{{--                                                <label for="checkboxSuccess1">--}}
+{{--                                                </label>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <!--
                                                               <div class="form-group row">
                                                                 <label class="col-sm-4 col-form-label">Status</label>
@@ -134,8 +129,8 @@
                                                                 </div>
                                                               </div>
                                         -->
-                                    </div>
-                                </div>
+{{--                                    </div>--}}
+
 
 
 
@@ -156,83 +151,87 @@
                                 </div>
 
 
-                                <div class="row justify-content-around">
-                                    <div class="col-md-12">
-                                        <div class="card card-dark">
-                                            <!--<div class="card-header">
-                                              <h3 class="card-title">Products</h3>
-                                            </div>-->
-                                            <!-- /.card-header -->
-
-                                            <div class="card-body">
-                                                {{--                                               here is all  --}}
-
-                                                <div id="append_condition">
-                                                    <input type="hidden" id="countConditions"  name="countConditions" value="0">
-                                                    <div class="row">
-
-                                                        <div class="form-group col-1 bg-light">
-                                                            <label for="sga_13" class="col-form-label">PO Number</label>
-                                                            <input type="text" class="form-control"  name="p_number0" placeholder="PR001">
-                                                        </div>
-
-                                                        <div class="form-group col-2 bg-light">
-                                                            <label for="sga_13" class="col-form-label">Product Name</label>
-                                                            <input type="text" class="form-control"  name="p_name0" placeholder="Product Name">
-                                                        </div>
-
-                                                        <div class="form-group col-2 bg-light">
-                                                            <label for="sga_13" class="col-form-label">Product Description</label>
-                                                            <input type="text" class="form-control"  name="p_description0" placeholder="Product Description">
-                                                        </div>
-
-                                                        <div class="form-group col-2 bg-light">
-                                                            <label for="sga_13" class="col-form-label">UOM</label>
-                                                            <input type="text" class="form-control"  name="p_unit0" placeholder="PCS">
-                                                        </div>
-                                                        <div class="form-group col-2 bg-light">
-                                                            <label for="sga_13" class="col-form-label">Qty</label>
-                                                            <input type="text" class="form-control"  name="p_quantity0" placeholder="100">
-                                                        </div>
-                                                        <div class="form-group col-2 bg-light">
-                                                            <label for="sga_13" class="col-form-label">Unit Price</label>
-                                                            <input type="text" class="form-control"  name="p_price0" placeholder="200">
-                                                        </div>
-                                                        <div class="form-group col-1 bg-light">
-                                                            <label for="sga_13" class="col-form-label">Total Price</label>
-                                                            <input type="text" class="form-control"  name="p_total_price0" placeholder="300">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-6 text-left">
-                                                        <a id="create_condition_btn" class="btn btn-secondary btn-sm mt-3 " type="button" href="#">
-                                                            <i class="fas mr-2 fa-plus">Add Row</i>
-                                                        </a>
-
-                                                    </div>
-                                                    <div class="col-6 text-right">
-                                                        <button class="btn btn-danger btn-sm" type="button" id="remove_condition_btn">
-                                                            <i class="fas fa-trash">
-                                                            </i>
-                                                        </button>
-                                                    </div>
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <a href="#" class="btn btn-danger ml-3 float-right">Cancel</a>
-                                        <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a>
-                                        <input type="submit" value="Save" class="btn btn-success float-right">
-                                    </div>
+                                <div id="data">
 
                                 </div>
+{{--                                <div class="row justify-content-around">--}}
+{{--                                    <div class="col-md-12">--}}
+{{--                                        <div class="card card-dark">--}}
+{{--                                            <!--<div class="card-header">--}}
+{{--                                              <h3 class="card-title">Products</h3>--}}
+{{--                                            </div>-->--}}
+{{--                                            <!-- /.card-header -->--}}
+
+{{--                                            <div class="card-body">--}}
+{{--                                                --}}{{--                                               here is all  --}}
+
+{{--                                                <div id="append_condition">--}}
+{{--                                                    <input type="hidden" id="countConditions"  name="countConditions" value="0">--}}
+{{--                                                    <div class="row">--}}
+
+{{--                                                        <div class="form-group col-1 bg-light">--}}
+{{--                                                            <label for="sga_13" class="col-form-label">PO Number</label>--}}
+{{--                                                            <input type="text" class="form-control"  name="p_number0" placeholder="PR001">--}}
+{{--                                                        </div>--}}
+
+{{--                                                        <div class="form-group col-2 bg-light">--}}
+{{--                                                            <label for="sga_13" class="col-form-label">Product Name</label>--}}
+{{--                                                            <input type="text" class="form-control"  name="p_name0" placeholder="Product Name">--}}
+{{--                                                        </div>--}}
+
+{{--                                                        <div class="form-group col-2 bg-light">--}}
+{{--                                                            <label for="sga_13" class="col-form-label">Product Description</label>--}}
+{{--                                                            <input type="text" class="form-control"  name="p_description0" placeholder="Product Description">--}}
+{{--                                                        </div>--}}
+
+{{--                                                        <div class="form-group col-2 bg-light">--}}
+{{--                                                            <label for="sga_13" class="col-form-label">UOM</label>--}}
+{{--                                                            <input type="text" class="form-control"  name="p_unit0" placeholder="PCS">--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="form-group col-2 bg-light">--}}
+{{--                                                            <label for="sga_13" class="col-form-label">Qty</label>--}}
+{{--                                                            <input type="text" class="form-control"  name="p_quantity0" placeholder="100">--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="form-group col-2 bg-light">--}}
+{{--                                                            <label for="sga_13" class="col-form-label">Unit Price</label>--}}
+{{--                                                            <input type="text" class="form-control"  name="p_price0" placeholder="200">--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="form-group col-1 bg-light">--}}
+{{--                                                            <label for="sga_13" class="col-form-label">Total Price</label>--}}
+{{--                                                            <input type="text" class="form-control"  name="p_total_price0" placeholder="300">--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+
+{{--                                                <div class="row">--}}
+{{--                                                    <div class="col-6 text-left">--}}
+{{--                                                        <a id="create_condition_btn" class="btn btn-secondary btn-sm mt-3 " type="button" href="#">--}}
+{{--                                                            <i class="fas mr-2 fa-plus">Add Row</i>--}}
+{{--                                                        </a>--}}
+
+{{--                                                    </div>--}}
+{{--                                                    <div class="col-6 text-right">--}}
+{{--                                                        <button class="btn btn-danger btn-sm" type="button" id="remove_condition_btn">--}}
+{{--                                                            <i class="fas fa-trash">--}}
+{{--                                                            </i>--}}
+{{--                                                        </button>--}}
+{{--                                                    </div>--}}
+
+{{--                                                </div>--}}
+
+
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+{{--                                    <div class="col-12">--}}
+{{--                                        <a href="#" class="btn btn-danger ml-3 float-right">Cancel</a>--}}
+{{--                                        <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a>--}}
+{{--                                        <input type="submit" value="Save" class="btn btn-success float-right">--}}
+{{--                                    </div>--}}
+
+{{--                                </div>--}}
+
                             </form>
                         </div>
                     </div>
@@ -283,6 +282,22 @@
             --countConditions;
             $('#countConditions').val(countConditions);
         });
+    </script>
+    <script>
+        function getRequData(data) {
+            console.log(data);
+            var path = location.pathname.split('/');
+            var app=path[1];
+            console.log(app);
+            $.ajax({
+                type: "GET",
+                url: "/"+app+"/purchase/get-requ/"+data,
+                success:function(data)
+                {
+                    $("#data").html(data);
+                }
+            });
+        }
     </script>
 
 @endsection
