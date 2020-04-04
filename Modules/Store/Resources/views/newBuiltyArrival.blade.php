@@ -1,9 +1,37 @@
 @extends('layouts.master')
 
+@section('headSection')
+
+    <link rel="stylesheet" href="{{ asset('public/plugins/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/print_jquery/print.css') }}" media="print" />
+@endsection
+
 @section('content')
     <section class="">
         <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4 mt-2">
+                <form id="dateHearing" action="{{ route('dateHearing') }}" method="POST" >
+                    @csrf
+                    <div class="d-flex">
+                        <div class="form-group row p-0 m-0">
+                            <label class="col-sm-3 col-form-label">From</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="fromDate" id="fromDate" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row p-0 m-0">
+                            <label class="col-sm-2 col-form-label">To</label>
+                            <div class="col-sm-10">
+                                <input type="date" onchange="myFunction()" name="toDate" id="toDate" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 text-right">
                 <div class="form-group mt-2 mr-4 ">
                     <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
                     {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
@@ -81,11 +109,13 @@
             </div>
             <!-- /.col -->
         </div>
+        </div>
         <!-- /.row -->
     </section>
 
 
     <!-- The Bilty Details Modal -->
+    <div class="">
     <div class="modal fade" id="biltyDetailsModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content modal-lg">
@@ -97,7 +127,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table id="materialTable" class="table table-bordered table-striped">
+                        <table id="materialTable" class="print_card table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Sr#</th>
@@ -117,10 +147,12 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    <button id="print" class="btn btn-info">Print</button>
                     <button type="button" class="btn btn-secondary closebtn" data-dismiss="modal" >Close</button>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- The change Unload Status Modal -->
@@ -152,7 +184,16 @@
     </div>
 
 
-
+    <script src="{{ asset('public/print_jquery/printThis.js') }}"></script>
+    <script>
+        $('#print').click(function () {
+            // $(".l_p").hide();
+            // $('a').each(function() {
+            //     $(this).data('href', $(this).attr('href')).removeAttr('href');
+            // });
+            $('.print_card').printThis();
+        });
+    </script>
     <script>
         $( document ).ready(function() {
             $('#builtyTable').DataTable();
@@ -201,5 +242,14 @@
             $('#append_details').text('');
         });
 
+    </script>
+    <script>
+        function myFunction(){
+
+            if(document.getElementById("fromDate").value != ''){
+
+                document.getElementById("dateHearing").submit();
+            }
+        }
     </script>
 @endsection

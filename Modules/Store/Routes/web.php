@@ -12,6 +12,7 @@
 */
 
 Route::prefix('store')->group(function() {
+    Route::post('dateHearing', 'StoreController@date_filter')->name('dateHearing');
     Route::get('/', 'StoreController@index');
     Route::get('dashboard', 'StoreController@dashboard');
     Route::get('assignStore', 'StoreController@assignStore');

@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
+    public function date_filter(Request $request)
+    {
+        $from = $request->fromDate;
+        $to = $request->toDate;
+        $inward_gate_pass = DB::table('inward_gate_pass')->whereBetween('date', [$from,$to])->paginate(10);
+//        dd($inward_gate_pass);
+        return view('store::newBuiltyArrival', compact('inward_gate_pass'));
+
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
