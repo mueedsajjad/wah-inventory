@@ -15,6 +15,8 @@ Route::prefix('assistantmanager')->group(function() {
 
     Route::get('/dashboard', 'AssistantManagerController@index');
     Route::get('/requisition-request', 'AssistantManagerController@requisitionRequest');
+    Route::get('/get-details/{id}', 'AssistantManagerController@getDetails');
     Route::post('/requisition-request', 'AssistantManagerController@requisitionRequestSubmit');
+
 
 });

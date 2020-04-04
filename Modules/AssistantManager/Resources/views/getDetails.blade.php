@@ -5,8 +5,6 @@
         <th>Material Name/Code</th>
         <th>Quantity</th>
         <th>Description</th>
-        <th>Unit Price</th>
-        <th>Total Price</th>
     </tr>
     </thead>
     <tbody>
@@ -16,8 +14,8 @@
             <td>{{$data->material_name}}</td>
             <td>{{$data->quantity}}</td>
             <td>{{$data->description}}</td>
-            <td>{{$data->unit_price}}</td>
-            <td>{{$data->total_price}}</td>
+
+
         </tr>
     @endforeach
     </tbody>

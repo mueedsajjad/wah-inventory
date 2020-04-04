@@ -72,7 +72,10 @@ class AssistantManagerController extends Controller
     }
 
 
-
+        public function getDetails($id){
+            $details = DB::table('purchase_requisitions_detail')->where('req_id', $id)->get();
+            return view('assistantmanager::getDetails',compact('details'));
+        }
 
 
     public function create()
