@@ -59,6 +59,7 @@ class GateController extends Controller
 
     public function inwardGatePass()
     {
+
         $supplier=DB::table('supplier')->get();
         $units=DB::table('unit')->get();
         $stores=DB::table('store')->get();
@@ -70,7 +71,12 @@ class GateController extends Controller
             $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
             ++$countInwardGatePass;
         }
-        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
+        $PO=DB::table('purchase_order')->get();
+        foreach ($PO as $key=>$P){
+            $PO_number[]=$P->po_number;
+        }
+//        dd($PO_number);
+        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO_number'));
     }
 
     public function vehicleManagement(){
@@ -253,5 +259,22 @@ class GateController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function vendor_data(){
+
+        $vendors=DB::table('supplier')->where('id',1)->get();
+//        dd($vendors);
+        foreach ($vendors as $key=>$vendor){
+            $v_name=$vendor->name;
+            $v_email=$vendor->email;
+            $v_city=$vendor->city;
+            $v_bank=$vendor->bank_name;
+            $v_account=$vendor->account_num;
+
+        }
+//dd($v_name,$v_email,$v_city);
+
+
+        return view('gate::gate.vendor',compact('v_name','v_email','v_city','v_bank','v_account'));
     }
 }
