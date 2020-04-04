@@ -13,5 +13,6 @@
     "Sale": true,
     "Supplier": true,
     "RoleManagement": true,
-    "Setting": true
+    "Setting": true,
+    "CreatePurchaseRequestTable": true
 }
