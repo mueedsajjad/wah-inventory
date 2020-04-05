@@ -15,20 +15,28 @@ class GateController extends Controller
         $this->middleware('auth');
     }
     public function addInwardGatePass(Request $request){
-        dd($request->all());
-        dd($request->vendor_id);
+//        dd($request->all());
+
+        $vendor = DB::table('supplier')->find($request->ven_id);
+
+//        dd($request->po_num);
+        $por=DB::table('purchase_order_approval')->where('id',$request->po_num)->first();
+
+//        dd($por->requisition_id);
         $data=[
             'gatePassId' => $request->gatePassId,
+            'requisition_id'=>$por->requisition_id,
+            'purchase_order_id'=>$por->purchase_order_id,
             'driverId' => $request->driverId,
             'driverName' => $request->driverName,
             'driverPh' => $request->driverPh,
             'vehicalNo' => $request->vehicalNo,
 
-//            'vendorType' => $request->vendorType,
-            'vendorId' => $request->vendorId,
-            'vendorName' => $request->vendorName,
-            'vendorAddress' => $request->vendorAddress,
-            'vendorPh' => $request->vendorPh,
+            'vendorType' => 'Registered Vendor',
+            'vendorId' => $vendor->supplier_id,
+            'vendorName' => $vendor->name,
+            'vendorAddress' => $vendor->city,
+            'vendorPh' => $vendor->p_number	,
 
             'date' => date('Y-m-d'),
             'status' => 0
@@ -36,15 +44,17 @@ class GateController extends Controller
 
         $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
 
-        $size = sizeof($request->materialName);
+        $size = sizeof($request->material_name);
 
         for($i=0 ; $i<$size ; $i++){
             $data=[
-                'itemType' => $request['itemType'][$i],
-                'materialName' => $request['materialName'][$i],
+                'requisition_id'=>$por->requisition_id,
+                'purchase_order_id'=>$por->purchase_order_id,
+                'itemType' => 'Material',
+                'materialName' => $request['material_name'][$i],
                 'uom' => $request['uom'][$i],
-                'qty' => $request['qty'][$i],
-                'order_qty' => $request['qty_received'][$i],
+                'qty' => $request['qty_received'][$i],
+                'order_qty' => $request['qty'][$i],
                 'description' => $request['description'][$i],
                 'gatePassId' => $request->gatePassId,
                 'date' => date('Y-m-d'),

@@ -339,7 +339,7 @@ class StoreController extends Controller
 
     public function writeInwardGoodsReceipt($id, $gatePassId)
     {
-//        dd($id);
+//        dd($request->all());
         if ($id!=null || $id!=0 || $id!=''){
 
             $countInwardGoodsReceipt=DB::table('inward_goods_receipt')->select('grn')->orderByDesc('id')->first();
@@ -353,8 +353,11 @@ class StoreController extends Controller
             $stores=DB::table('store')->get();
 
             $inward_raw_material=DB::table('inward_raw_material')->where('id', $id)->first();
+            $pop=DB::table('purchase_order_approval')->where('purchase_order_id',$inward_raw_material->purchase_order_id)->first();
             $inward_gate_pass=DB::table('inward_gate_pass')->where('gatePassId', $gatePassId)->first();
-            return view('store::writeInwardGoodsReceipt', compact('inward_raw_material', 'inward_gate_pass', 'stores','countInwardGoodsReceipt','id'));
+            $cost=DB::table('purchase_order_approval_detail')->where('purchase_order_id',$inward_raw_material->purchase_order_id)->where('material_name',$inward_raw_material->materialName)->first();
+//            dd($cost);
+            return view('store::writeInwardGoodsReceipt', compact('cost','pop','inward_raw_material', 'inward_gate_pass', 'stores','countInwardGoodsReceipt','id'));
         }
         else {
             return back()->withErrors( 'Something went wrong.');
@@ -362,6 +365,9 @@ class StoreController extends Controller
     }
 
     public function submitInwardGoodsReceipt(Request $request){
+        $purchase_from_a=DB::table('purchase_order_approval')->where('purchase_order_id',$request->purchaseOrderNo)->first();
+//        dd($request->all());
+//        dd($purchase_from_a->purchase_type);
         $id=$request->ids;
 
         if ($id!=0 || $id!=null || $id!=''){
@@ -430,7 +436,7 @@ class StoreController extends Controller
             'grn' => $request->grn,
             'grnDate' => date('Y-m-d'),
             'document' => $document,
-            'purchasedFrom' => $request->purchasedFrom,
+            'purchasedFrom' => $purchase_from_a->purchase_type,
             'gatePassId' => $request->gatePassId,
             'totalCost' => $request->totalCost,
             'name' => $request->name,
