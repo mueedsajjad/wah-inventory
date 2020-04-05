@@ -243,6 +243,142 @@ class AttendanceController extends Controller
         return redirect()->back()->with('save','Updated Successfully');
     }
 
+    // ------------------------------------ Attendance Report ---------------------------//
+    public function attedanceReport()
+    {
+        $leave="";
+        $late="";
+        $name="";
+        $overTimes="";
+
+        $attendances=DB::table('attendance')
+            ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+            ->join('users','attendance.userId','=','users.id')
+            ->where('attendance.date', Carbon::today())->get();
+
+        $user=DB::table('users')->get();
+        return view('admin::report/attendenceReport' ,compact('attendances', 'user'
+        ,'overTimes','leave','late','name'));
+    }
+
+    public function attendanceMWD(Request $request)
+    {
+        $attendances=[];
+        $date=$request->validate(['id'=>'required']);
+        
+            $count=$request->type;
+                if($count=="0")
+                {
+                   
+                    $attendances=DB::table('attendance')
+                    ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+                    ->join('users','attendance.userId','=','users.id')
+                    ->where('attendance.date','=', Carbon::today())
+                    ->where('users.id','=', $request->id)
+                    ->get();
+                }
+
+                if($count==1)
+                {
+                    $now=Carbon::now();
+                    $dateOfWeek=$now->weekday();
+                    
+                    $current_week=Carbon::now()->weekOfYear;
+
+                   $date = $now;
+                   
+                    $date->setISODate(2020,$now->weekOfYear);
+                    $mo = $date->startOfWeek()->toDateString();
+                    $tu = $date->startOfWeek()->addDay(1)->toDateString();
+                    $wd = $date->startOfWeek()->addDay(2)->toDateString();
+                    $th = $date->startOfWeek()->addDay(3)->toDateString();
+                    $fr = $date->startOfWeek()->addDay(4)->toDateString();
+                    $st = $date->startOfWeek()->addDay(5)->toDateString();
+                    $su = $date->startOfWeek()->addDay(6)->toDateString();
+                  
+                    $attendances=DB::table('attendance')
+                    ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+                    ->join('users','attendance.userId','=','users.id')
+                    ->whereBetween('attendance.date', [$mo,$su])
+                    ->where('users.id','=', $request->id)
+                    ->get();
+                }
+                if($count==2)
+                {
+                    
+                    $startDate = Carbon::now();
+                    $firstDay = $startDate->firstOfMonth();
+                    $sm = $firstDay->toDateString();
+                   
+                    $endDay = $startDate->endOfMonth();
+                    $em = $endDay->toDateString();
+
+                   
+                    $attendances=DB::table('attendance')
+                    ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+                    ->join('users','attendance.userId','=','users.id')
+                    ->whereBetween('attendance.date', [$sm,$em])
+                    ->where('users.id','=', $request->id)
+                    ->get();   
+                }
+        
+            $toDate=$request->toDate;
+            $fromDate=$request->fromDate;
+        if($fromDate)
+        {
+            
+            $attendances=DB::table('attendance')
+            ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+            ->join('users','attendance.userId','=','users.id')
+            ->whereBetween('attendance.date', [$fromDate,$toDate])
+            ->where('users.id','=', $request->id)
+            ->get();   
+
+        }
+       
+        // ------ Sum of OverTime,Total Leaves, Total Lates Of Employee  ---------- //
+         $leave=0;
+         $late=0;
+         $name="";
+        $tempTime=date('H:i', mktime(0,0));
+        $tempTime=Carbon::parse($tempTime);
+        $addTime=date('H:i', mktime(0,0));
+        $addTime=Carbon::parse($addTime);
+        foreach($attendances as $attendance)
+        {
+            $name=$attendance->name;
+           if($attendance->checkIn=="N/A")
+           {
+             $leave++;
+           }
+           if($attendance->checkIn!="Timely"&&$attendance->checkIn!="N/A")
+           {
+             $late++;
+           }
+           
+        $inWorking=Carbon::parse($attendance->overTime);
+
+       if($attendance->overTime!=null)
+       {
+                $interval = $tempTime->diff($inWorking);
+     
+                $hourWorking = $interval->format('%H');
+                $minWorking =$interval->format('%i');
+                $hourWorkingInt=(int) $hourWorking;
+                $minWorkingInt =(int) $minWorking;
+        
+                $addTime=$addTime->addHours($hourWorkingInt);
+                $addTime=$addTime->addMinutes($minWorkingInt);
+        }
+
+        }
+        $overTimes=$addTime->format('H:i');
+
+    $user=DB::table('users')->get();
+    return view('admin::report/attendenceReport' ,compact('attendances',
+     'user','overTimes','leave','late','name'));
+    }
+
 
     /**
      * Display a listing of the resource.

@@ -497,6 +497,12 @@
                                 <p>All Material Requisition</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                                <a href="{{url('setting/productAndMateralCode')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Items Code</p>
+                                </a>
+                            </li>
                     </ul>
                 </li>
                 @endif
@@ -546,6 +552,12 @@
                                 <a href="{{url('gate/report')}}" class="nav-link @if(request()->segment(2)=="report") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Reports</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('setting/productAndMateralCode')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Items Code</p>
                                 </a>
                             </li>
                         </ul>
@@ -780,6 +792,12 @@
                                     <p>Requisition</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{url('setting/productAndMateralCode')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Items Code</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif
@@ -852,6 +870,7 @@
                                 </a>
                             </li>
                             @endif
+                            
                             @if(auth()->user()->can('Apply for Attendance'))
                             <li class="nav-item">
                                 <a href="{{url('admin/leaveOfficer')}}" class="nav-link @if(request()->segment(2)=="leaveOfficer") active @endif">
@@ -953,6 +972,12 @@
                                 <a href="{{url('setting/leave')}}" class="nav-link @if(request()->segment(2)=="leave") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Leave Settings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('setting/productAndMateralCode')}}" class="nav-link @if(request()->segment(2)=="Items Code") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Items Code</p>
                                 </a>
                             </li>
                         </ul>

@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <section class="content pt-5">
         <div class="container-fluid">
 
@@ -11,16 +10,138 @@
                     <strong>Success</strong> {{session()->get('save')}}
                 </div>
             @endif
+            
+            <!-- <div class="container-fluid">
+            <div class="row">
 
+                <div class="col-md-12">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title">HR Reports</h3>
+                        </div>
+                        <div class="card-body dash-menu">
+                            <a class="btn btn-app bg-danger" href="{{url('admin/employeeReport')}}">
+                                <i class="fas fa-edit"></i> Daily
+                            </a>
+                            <a class="btn btn-app bg-danger" href="{{url('admin/attedanceReport')}}">
+                                <i class="fas fa-edit"></i> Weekly
+                            </a>
+                            <a class="btn btn-app bg-danger" href="#">
+                                <i class="fas fa-edit"></i> Leaves
+                            </a>
+                            <a class="btn btn-app bg-danger" href="#">
+                                <i class="fas fa-edit"></i> Salaries
+                            </a>
+                            <a class="btn btn-app bg-danger" href="#">
+                                <i class="fas fa-edit"></i> Advance
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Today's Employees Attendance List</h3>
+                    <div class="card-header">
+                            <h3 class="card-title">Employees Attendance Report</h3>
                              
-                            <a href="{{url('admin/attendance/attendanceMark')}}" class="btn btn-primary float-right" >Mark Attendance </a>
+                            <a href="{{url('admin/report')}}" class="btn btn-primary float-right" >Back</a>
                            
                         </div>
+                        <div class="card-header">
+                        <form action="{{url('admin/attendanceMWD')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row justify-content-around">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_20" class="col-sm-4 col-form-label">Employee<span class="text-red">*</span></label>
+                                            <div class="col-sm-8">
+                                                <select name="id" class="form-control" required>
+                                                <option selected disabled>Select</option>
+                                                   @foreach($user as $users)
+                                                    <option value="{{$users->id}}">{{$users->name}}</option>
+                                                    @endforeach
+                                                   
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_13" class="col-sm-4 col-form-label">From Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" name="fromDate"   class="form-control"
+                                                       id="sga_19" placeholder="08-02-2020" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-around">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_20" class="col-sm-4 col-form-label">Type</label>
+                                            <div class="col-sm-8">
+                                                <select name="type" class="form-control" required>
+                                                    <option selected disabled>Select</option>
+                                                    <option value="0">Daily</option>
+                                                    <option value="1">Weekly</option>
+                                                    <option value="2">Monthly</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_13" class="col-sm-4 col-form-label">To Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" name="toDate"  class="form-control"
+                                                       id="sga_19" placeholder="08-02-2020" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mt-5">
+                                        <input type="submit" value="Search" class="btn btn-success float-right">
+                                    </div>
+                                </form>
+                        </div>
+                        
+                        <!-- Extract Report -->
+                        @if($name!="")
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr class="bg-dark">
+                                    
+                                    <th>Name</th>
+                                    <th>Late</th>
+                                    <th>OverTime</th>
+                                    <th>Leave</th>
+                                    
+                                </tr>
+                                </thead>
+                                <tbody>
+                               
+                                    <tr>
+                                        <td>{{$name}}</td> 
+                                        <td>{{$late}}</td>
+                                        <td>{{$overTimes}}</td>
+                                        <td>{{$leave}}</td>
+                                       
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        @endif
+                        <!-- /.card-body -->
+                    </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered table-striped" id="pageTable">
@@ -42,6 +163,9 @@
                                 </thead>
                                 <tbody>
                                 @php $i=0; @endphp
+                                @php $upsent=0; @endphp
+                                @php $late=0; @endphp
+                                @php $name=""; @endphp
                                 @foreach($attendances as $attendance)
                                     @php ++$i; @endphp
                                     <tr>
@@ -58,11 +182,13 @@
                                         </td>
                                         <td>
                                             @if($attendance->checkIn=="N/A")
+                                          
                                                 <button class="btn btn-danger btn-sm">N/A</button>
                                             @elseif($attendance->checkIn=="Timely")
                                                 <button class="btn btn-success btn-sm">Timely</button>
                                             @else
                                                 <button class="btn btn-secondary btn-sm">Late</button>
+                        
                                             @endif
                                         </td>
                                         <td>{{$attendance->inTime}}</td>
@@ -84,6 +210,8 @@
                                             <a href="#" class="btn btn-danger btn-sm ml-1 deleteMaterial" data-id="{{$attendance->attendance_id}}" type="button"  data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash pr-1" class="text-red"></i>Delete</a>
                                         </td>
                                     </tr>
+                                
+
                                 @endforeach
                                 </tbody>
 

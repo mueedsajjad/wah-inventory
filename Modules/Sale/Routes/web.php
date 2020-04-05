@@ -15,6 +15,8 @@ Route::prefix('sale')->group(function() {
     Route::get('/', 'SaleController@index');
 
     Route::get('sale', 'SaleController@sale');
+    Route::post('saleStore', 'SaleController@saleStore');
+
     Route::get('saleOrder', 'SaleController@saleOrder');
 
     Route::get('customer', 'SaleController@customer');

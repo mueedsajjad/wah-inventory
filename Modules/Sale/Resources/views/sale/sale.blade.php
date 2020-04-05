@@ -8,24 +8,30 @@
             <div class="row">
 
                 <div class="col-md-12">
+                @if(session()->has('save'))
+                <div class="alert alert-success" role="alert">
+                    <strong>Success</strong>{{session()->get('save')}}
+                </div>
+                @endif
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">New Purchase Order</h3>
+                            <h3 class="card-title">New Sale Order</h3>
                         </div>
                         <div class="card-body">
-                            <form action="products.html">
+                            <form action="{{url('sale/saleStore')}}" method="post">
+                            @csrf
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">PO Number</label>
+                                            <label for="sga_13" class="col-sm-4 col-form-label">SO Number</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="sga_13" placeholder="S-001">
+                                                <input type="text" name="so_number" class="form-control" id="sga_13" placeholder="S-001">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <!-- <div class="form-group row">
                                             <label for="sga_13" class="col-sm-4 col-form-label">Document</label>
                                             <div class="col-sm-8">
                                                 <div class="custom-file">
@@ -33,7 +39,7 @@
                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -41,15 +47,15 @@
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">PO date</label>
+                                            <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="sga_14" placeholder="08-02-2020">
+                                                <input type="Date" name="date" class="form-control" id="sga_14" required>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <!-- <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Credit Terms</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control select2">
@@ -60,25 +66,31 @@
                                                     <option>45 - Days</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
 
                                 <div class="row justify-content-around">
-                                    <div class="col-md-4  ">
-                                        <div class="form-group row">
+                                    <div class="col-md-4">
+                                    <div class="form-group row">
+                                            <label for="sga_18" class="col-sm-4 col-form-label">Name</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="name" class="form-control" id="sga_18" placeholder="Zafer&co" required>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Supplier ID</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control select2">
                                                     <option selected="selected">SUPP001</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <!-- <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Purchase By</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control select2">
@@ -86,7 +98,7 @@
                                                     <option>Direct Purchase</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                 </div>
@@ -94,19 +106,18 @@
 
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_18" class="col-sm-4 col-form-label">Supplier Name</label>
+                                    <div class="form-group row">
+                                            <label for="sga_18" class="col-sm-4 col-form-label">Product</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="sga_18" placeholder="MMLOGIX (PVT) Ltd.">
+                                                <input type="text" name="product_number" class="form-control" id="sga_18" placeholder="P0001" required>
                                             </div>
                                         </div>
 
-
-
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
+                                    <div class="col-md-2">
+                                   
+                                        <!-- <div class="form-group row">
                                             <label for="checkboxSuccess1" class="col-sm-4 col-form-label">
                                                 Approved
                                             </label>
@@ -115,7 +126,7 @@
                                                 <label for="checkboxSuccess1">
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!--
                                                               <div class="form-group row">
                                                                 <label class="col-sm-4 col-form-label">Status</label>
@@ -134,6 +145,12 @@
 
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
+                                    <div class="form-group row">
+                                            <label for="sga_18" class="col-sm-4 col-form-label">Quantity</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" name="quantity" class="form-control" id="sga_18" required>
+                                            </div>
+                                        </div>
                                         <!--
                                                               <div class="form-group row">
                                                                 <label for="sga_16" class="col-sm-4 col-form-label">Rate</label>
@@ -143,19 +160,19 @@
                                                               </div>
                                         -->
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
 
                                     </div>
                                 </div>
 
 
                                 <div class="row justify-content-around">
-                                    <div class="col-md-12">
+                                    <!-- <div class="col-md-12">
                                         <div class="card card-dark">
-                                            <!--<div class="card-header">
+                                            <div class="card-header">
                                               <h3 class="card-title">Products</h3>
-                                            </div>-->
-                                            <!-- /.card-header -->
+                                            </div>
+                                            
                                             <div class="card-body">
                                                 <table class="table table-bordered">
                                                     <thead class="bg-light">
@@ -192,10 +209,10 @@
                                                 </a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-12">
                                         <a href="#" class="btn btn-danger ml-3 float-right">Cancel</a>
-                                        <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a>
+                            
                                         <input type="submit" value="Save" class="btn btn-success float-right">
                                     </div>
                                 </div>
