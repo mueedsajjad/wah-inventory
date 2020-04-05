@@ -16,6 +16,7 @@ class GateController extends Controller
     }
     public function addInwardGatePass(Request $request){
         dd($request->all());
+        dd($request->vendor_id);
         $data=[
             'gatePassId' => $request->gatePassId,
             'driverId' => $request->driverId,
@@ -23,7 +24,7 @@ class GateController extends Controller
             'driverPh' => $request->driverPh,
             'vehicalNo' => $request->vehicalNo,
 
-            'vendorType' => $request->vendorType,
+//            'vendorType' => $request->vendorType,
             'vendorId' => $request->vendorId,
             'vendorName' => $request->vendorName,
             'vendorAddress' => $request->vendorAddress,
@@ -37,12 +38,13 @@ class GateController extends Controller
 
         $size = sizeof($request->materialName);
 
-        for($i=0 ; $i < $size ; $i++){
+        for($i=0 ; $i<$size ; $i++){
             $data=[
                 'itemType' => $request['itemType'][$i],
                 'materialName' => $request['materialName'][$i],
                 'uom' => $request['uom'][$i],
                 'qty' => $request['qty'][$i],
+                'order_qty' => $request['qty_received'][$i],
                 'description' => $request['description'][$i],
                 'gatePassId' => $request->gatePassId,
                 'date' => date('Y-m-d'),
