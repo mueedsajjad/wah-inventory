@@ -62,10 +62,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Purchased From</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select2" required name="purchasedFrom">
-                                                    <option value="ppra">PPRA</option>
-                                                    <option value="direct purchase">Direct Purchase</option>
-                                                </select>
+{{--                                                <input type="hidden" value="{{$pop->purchase_type}}">--}}
+                                                <input type="text" name="purchasedFrom" readonly value="{{$pop->purchase_type}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +83,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Total Cost</label>
                                             <div class="col-sm-8">
-                                                <input type="text" required name="totalCost" class="form-control" placeholder="175">
+                                                <input type="text" readonly required name="totalCost" value="{{$cost->total_price}}" class="form-control" placeholder="175">
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +103,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Purchase Order No</label>
                                             <div class="col-sm-8">
-                                                <input type="text" required name="purchaseOrderNo" class="form-control" placeholder="PON001">
+                                                <input type="text" readonly required name="purchaseOrderNo" value="{{$cost->purchase_order_id}}" class="form-control" placeholder="PON001">
                                             </div>
                                         </div>
                                     </div>

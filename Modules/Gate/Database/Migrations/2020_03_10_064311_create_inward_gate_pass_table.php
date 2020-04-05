@@ -15,6 +15,8 @@ class CreateInwardGatePassTable extends Migration
     {
         Schema::create('inward_gate_pass', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('purchase_order_id')->nullable();
+            $table->string('requisition_id')->nullable();
             $table->string('gatePassId');
             $table->date('date');
             $table->string('driverId');
