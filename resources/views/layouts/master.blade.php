@@ -56,12 +56,51 @@
     <link rel="stylesheet" href="{{asset('public/dist/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('/public/plugins/datatables/datatables.min.css')}}">
 
-    <script src="{{asset('public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('public/dist/js/slimscrool.min.js')}}"></script>
 
 
     <link href="{{asset('/public/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css')}}">
 
 
+    <style>
+        /* For the "inset" look only */
+        html {
+            overflow-y: auto;
+        }
+        body {
+            position: absolute;
+            /*top: 20px;*/
+            left: 0px;
+            /*bottom: 20px;*/
+            right: 0px;
+            /*padding: 30px;*/
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        /* Let's get this party started */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            -webkit-border-radius: 0px;
+            border-radius: 0px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 0px;
+            border-radius: 0px;
+            background: rgba(43, 44, 45, 0.9);
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+        ::-webkit-scrollbar-thumb:window-inactive {
+            background: rgba(43, 44, 45, 0.8);
+        }
+    </style>
 
     <!-- Google Font: Source Sans Pro -->
     <link href="{{asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700')}}" rel="stylesheet">
@@ -195,12 +234,12 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('public/dist/js/demo.js')}}"></script>
 <!-- Page script -->
-<script src="{{asset('public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{asset('public/plugins/chart.js/Chart.min.js')}}"></script>
 <script src="{{asset('public/dist/js/demo.js')}}"></script>
 <script src="{{asset('public/dist/js/pages/dashboard3.js')}}"></script>
+
 
 
 

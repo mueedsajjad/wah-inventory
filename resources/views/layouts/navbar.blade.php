@@ -827,7 +827,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{url('qa/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                <a href="{{url('admin/hr')}}" class="nav-link @if(request()->segment(2)=="hr") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Dashboard</p>
                                 </a>
