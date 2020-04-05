@@ -1,9 +1,9 @@
 <div class="row justify-content-around">
     <div class="col-md-10">
         <div class="card card-dark">
-            <!--<div class="card-header">
+          <div class="card-header">
               <h3 class="card-title">Products</h3>
-            </div>-->
+            </div>
             <!-- /.card-header -->
 
             <div class="card-body">
