@@ -10,7 +10,8 @@
     @else
 
 
-
+    <input type="hidden" name="ven_id" value="{{$vend->id}}">
+    <input type="hidden" name="suppl_id" value="{{$vend->supplier_id}}">
 
 <div class="form-group row">
     <label class="col-sm-4 col-form-label">Vendor ID:</label>
@@ -39,7 +40,7 @@
 <div class="form-group row">
     <label class="col-sm-4 col-form-label">Vendor City:</label>
     <div class="col-sm-8">
-        <input type="text" name="" disabled required readonly value="{{$vend->city}}" class="form-control" >
+        <input type="text" name="" required readonly value="{{$vend->city}}" class="form-control" >
     </div>
 </div>
 @endif
