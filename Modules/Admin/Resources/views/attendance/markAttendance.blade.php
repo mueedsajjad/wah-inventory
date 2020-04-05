@@ -14,6 +14,7 @@
                 <strong>Warning</strong> {{session()->get('exists')}}
             </div>
         @endif
+        
         @if($errors->any())
             <div class="alert alert-danger text-center">
                 @foreach ($errors->all() as $error)

@@ -394,8 +394,100 @@ class SettingController extends Controller
           return redirect()->back()->with('save','Deleted Successfully');
       }
 
+      // -------------------------- Product and Material Code Function ----------------------- //
 
+      public function productAndMateralCode()
+      {
+        $materials=DB::table("setting_material")->get();
+        $products=DB::table("setting_product")->get();
+        return view("setting::setting/productAndMaterialCode",compact('products','materials'));
+      }
 
+      public function productAndMateralCodeStore(Request $request)
+      {
+          //dd($request);
+        $data= $request->validate(
+            [
+                'name' => 'required|string',
+                'type' => 'required'
+            ]);
+
+        if($data['type']==0)
+        {
+            $count=DB::table('setting_product')->where('product_name',$data['name'])->count();
+        if($count>0)
+        {
+            return redirect()->back()->with('exists','this record exist already');
+        }
+        else
+        {
+            $newProduct=DB::table('setting_product')->orderBy('id', 'desc')->first();
+            if($newProduct)
+            {
+               
+                $id=$newProduct->id;
+                $id++;
+                $product_id="P000".$id;
+            }
+            else
+            {
+                $id=1;
+                $product_id="P000".$id;
+            }
+
+            DB::table('setting_product')->insert([
+                'product_name' => $data['name'],
+                'product_code'=>$product_id
+                ]);
+            return redirect()->back()->with('save', 'Saved Successfully');
+        }
+        }
+       
+        else if($data['type']==1)
+        {
+            $count=DB::table('setting_material')->where('material_name',$data['name'])->count();
+        if($count>0)
+        {
+            return redirect()->back()->with('exists','this record exist already');
+        }
+        else
+        {
+            $newProduct=DB::table('setting_material')->orderBy('id', 'desc')->first();
+
+            if($newProduct)
+            {
+               
+                $id=$newProduct->id;
+                $id++;
+                $product_id="P000".$id;
+            }
+            else
+            {
+                $id=1;
+                $product_id="P000".$id;
+            }
+            DB::table('setting_material')->insert([
+                'material_name' => $data['name'],
+                'material_code'=>$product_id,
+                ]);
+            return redirect()->back()->with('save', 'Saved Successfully');
+        }
+        }
+        
+      }
+
+      public function deleteMaterialCode(Request $request)
+      {
+          DB::table('setting_material')->Where('id',$request->id)->delete();
+          return redirect()->back()->with('save','Deleted Successfully');
+      }
+
+      public function deleteProductCode($id)
+      {
+          
+          DB::table('setting_product')->Where('id',$id)->delete();
+          return redirect()->back()->with('save','Deleted Successfully');
+      }
 
     /**
      * Display a listing of the resource.
