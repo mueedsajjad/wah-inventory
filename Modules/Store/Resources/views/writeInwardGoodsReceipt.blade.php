@@ -186,7 +186,23 @@
                                                 </div>
 {{--                                            </form>--}}
                                         @else
-                                            {{$item->storeLocation}}
+
+
+                                                <div class="row justify-content-around">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Assigned Store</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="text" readonly value="{{$item->storeLocation}}" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+{{--                                                <label class="col-sm-4 col-form-label">Assign Store  </label>--}}
+{{--                                            <input class="form-control" readonly value="{{$item->storeLocation}}">--}}
                                         @endif
                                     </div>
                                 </div>

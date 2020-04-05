@@ -15,7 +15,7 @@ class StoreController extends Controller
         $from = $request->fromDate;
         $to = $request->toDate;
         $inward_gate_pass = DB::table('inward_gate_pass')->whereBetween('date', [$from,$to])->paginate(10);
-//        dd($inward_gate_pass);
+//      dd($inward_gate_pass);
         return view('store::newBuiltyArrival', compact('inward_gate_pass'));
 
     }
@@ -129,9 +129,12 @@ class StoreController extends Controller
     {
 //        dd($gatePassId);
         if ($gatePassId!=0 || $gatePassId!=null || $gatePassId!=''){
-            $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatePassId)->get();
+            $inward_gate_pass=DB::table('inward_gate_pass')->where('id', $gatePassId)->first();
+            $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $inward_gate_pass->gatePassId)->get();
 
-            return json_encode($inward_raw_material);
+//            dd($inward_gate_pass);
+//            dd('moms');
+            return view('store::table_append', compact('inward_raw_material','inward_gate_pass'));
         }
         else {
             return json_encode(['error'=> 'error']);
