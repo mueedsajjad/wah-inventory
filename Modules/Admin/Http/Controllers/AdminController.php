@@ -70,7 +70,7 @@ class AdminController extends Controller
     public function employeeStore(Request $request)
     {
 
-
+      dd($request);
         $data= $request->validate([
             'name' => 'required|string',
             'department_id'=>'required|integer',

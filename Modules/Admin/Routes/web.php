@@ -32,6 +32,8 @@ Route::prefix('admin')->group(function() {
     Route::get('advance', 'AdminController@advance');
 
     Route::get('report', 'AdminController@report');
+    Route::get('attedanceReport', 'AttendanceController@attedanceReport');
+    Route::post('attendanceMWD', 'AttendanceController@attendanceMWD');
 
 // ----------------------- attendance Controller ----------------------- //
     Route::get('attendance', 'AttendanceController@attendance');

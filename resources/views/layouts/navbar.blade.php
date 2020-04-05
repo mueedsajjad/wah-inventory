@@ -772,6 +772,7 @@
                                 </a>
                             </li>
                             @endif
+                            
                             @if(auth()->user()->can('Apply for Attendance'))
                             <li class="nav-item">
                                 <a href="{{url('admin/leaveOfficer')}}" class="nav-link @if(request()->segment(2)=="leaveOfficer") active @endif">
@@ -876,7 +877,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{url('setting/productAndMateralCode')}}" class="nav-link @if(request()->segment(2)=="leave") active @endif">
+                                <a href="{{url('setting/productAndMateralCode')}}" class="nav-link @if(request()->segment(2)=="Items Code") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Items Code</p>
                                 </a>
