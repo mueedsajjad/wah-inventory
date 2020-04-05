@@ -19,14 +19,14 @@ class CreateInwardGatePassTable extends Migration
             $table->date('date');
             $table->string('driverId');
             $table->string('driverName');
-            $table->string('driverPh')->length(11);
+            $table->string('driverPh');
             $table->string('vehicalNo');
 
             $table->string('vendorType');
             $table->string('vendorId');
             $table->string('vendorName');
             $table->string('vendorAddress');
-            $table->string('vendorPh')->length(11);
+            $table->string('vendorPh');
 
             $table->integer('status')->length(11);
         });
