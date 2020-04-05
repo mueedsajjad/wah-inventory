@@ -43,8 +43,8 @@
                                     <th>Date</th>
                                     <th>Inspection Date</th>
                                     <th>Store</th>
-                                    <th>Approval Status</th>
                                     <th>Action</th>
+                                    <th>Approval for I-Note</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -69,20 +69,20 @@
                                             <td>{{$item->inspectionDate}}</td>
                                             <td>{{$item->storeLocation}}</td>
                                             <td>
+                                                @if($item->status==3)
+                                                    <a class="btn btn-secondary btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}"
+                                                    >Make Receipt</a>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Receipt Done</button>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if($item->status==4 || $item->status==3)
                                                     <a class="getReceiptData" data-toggle="modal" data-target="#changeApprovalStatusModal" data-id="{{$item->id}}">
                                                         <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
                                                     </a>
                                                 @else
                                                     <i class="fas fa-toggle-on fa-2x" style="color: #DA231A;"></i>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($item->status==3)
-                                                    <a class="btn btn-secondary btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}"
-                                                    >Make Receipt</a>
-                                                @else
-                                                    <button class="btn btn-success btn-sm">Receipt Done</button>
                                                 @endif
                                             </td>
                                         </tr>

@@ -771,7 +771,7 @@
                             <li class="nav-item">
                                 <a href="{{url('store/issueRequisition')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Issue / Requisition</p>
+                                    <p>Requisition</p>
                                 </a>
                             </li>
                         </ul>
