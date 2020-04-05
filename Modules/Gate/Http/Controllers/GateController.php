@@ -15,7 +15,7 @@ class GateController extends Controller
         $this->middleware('auth');
     }
     public function addInwardGatePass(Request $request){
-        //dd($request);
+        dd($request->all());
         $data=[
             'gatePassId' => $request->gatePassId,
             'driverId' => $request->driverId,
@@ -32,9 +32,12 @@ class GateController extends Controller
             'date' => date('Y-m-d'),
             'status' => 0
         ];
+
         $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
 
-        for($i=0 ; $i<$request->countMaterial ; $i++){
+        $size = sizeof($request->materialName);
+
+        for($i=0 ; $i < $size ; $i++){
             $data=[
                 'itemType' => $request['itemType'][$i],
                 'materialName' => $request['materialName'][$i],
@@ -71,8 +74,15 @@ class GateController extends Controller
             $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
             ++$countInwardGatePass;
         }
-        $PO=DB::table('purchase_order')->get('po_number');
+        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+//        'purchase_order_id'
+//        foreach ($PO as $key=>$row){
+//            $purchase_order_id=$row->purchase_order_id;
+//            $vendor_id=$row->vendor_id;
+//        }
+//        dd($purchase_order_id,$vendor_id);
 //        dd($PO);
+
         return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO'));
     }
     public function outwardGatePass(){
@@ -261,21 +271,26 @@ class GateController extends Controller
     {
         //
     }
-    public function vendor_data(){
+    public function vendor_data($id){
+//      dd($id);
+        $vendors=DB::table('purchase_order_approval')->find($id);
+        $purchase_type=$vendors->purchase_type;
+        $vend=$vendors->vendor_id;
 
-        $vendors=DB::table('supplier')->where('id',1)->get();
-//        dd($vendors);
-        foreach ($vendors as $key=>$vendor){
-            $v_name=$vendor->name;
-            $v_email=$vendor->email;
-            $v_city=$vendor->city;
-            $v_bank=$vendor->bank_name;
-            $v_account=$vendor->account_num;
+        $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
+//        dd($purchase_items_details);
+        $vend=DB::table('supplier')->find($vend);
 
-        }
-//dd($v_name,$v_email,$v_city);
+            return view('gate::gate.vendor',compact('vend','purchase_type','purchase_items_details'));
 
 
-        return view('gate::gate.vendor',compact('v_name','v_email','v_city','v_bank','v_account'));
+    }
+
+    public  function item_details($id){
+
+        $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
+
+
+        return view('gate::gate.item-details', compact('purchase_items_details'));
     }
 }
