@@ -22,7 +22,7 @@
                             <a href="{{url('store/issueRequisition/materialRequisition')}}" class="btn btn-primary btn-sm float-right">Back</a>
                         </div>
                         <div class="card-body">
-                            <form action="{{url('store/submitIssuedMaterialRequisition')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('store/submitIssuedMaterialRequisition/{id}')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="production_material_detail_id" value="{{$id}}">
                                 <div class="row justify-content-around">
