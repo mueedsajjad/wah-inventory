@@ -41,9 +41,9 @@
                                     <td>{{$item->material_name}}</td>
                                     <td>{{$item->quantity}}</td>
                                     <td>
-                                        @if($item->status==0)
+                                        @if($item->status==1)
                                             <a href="{{url('store/issueRequisition/proceedMaterialRequisition/'.$item->id.'/'.$item->material_name.'/'.$item->quantity)}}" class="btn btn-sm btn-secondary">Proceed</a>
-                                        @else
+                                        @elseif($item->status==3)
                                             <button type="button" class="btn btn-sm btn-success">Issued</button>
                                         @endif
                                     </td>

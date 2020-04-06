@@ -58,7 +58,7 @@
                                                             <td>{{$order->create_date}}</td>
                                                             @if($order->status==0)
                                                             <td class="bg-default">
-                                                                <span>Not approved yet </span>
+                                                                <span>  Not approved yet </span>
                                                             </td>
                                                          @elseif($order->status==1)
                                                                 <td class="bg-success">
@@ -66,39 +66,49 @@
                                                                 </td>
                                                         @endif
                                                         @if($order->status==2)
+                                                                <td class="bg-danger">
+                                                                    <span> Rejected </span>
+                                                                </td>
+                                                        @endif
+                                                            @if($order->status==3)
                                                                 <td class="bg-success">
                                                                     <span> Done </span>
                                                                 </td>
-                                                        @endif
+                                                            @endif
+
                                                             <!--
                                                                                                            <td class="bg-success text-center"><a href="#">Available</a></td>-->
-
-                                                             @if($order->status==1)
+                                                             @if($order->status==3)
                                                                 <td class="bg-light text-center">
                                                                     <div class="form-group m-0">
-                                                                       
+
                                                                         <form action="{{url('production/receiveComponent')}}" method="post">
                                                                             @csrf
                                                                         <input type="hidden" name="id" value="{{$order->id}}">
                                                                         <input type="hidden" name="name" value="{{$order->component_name}}">
 
                                                                         <input type="submit" value="Receive Components" class="btn bnt-md btn-primary ml-1">
-                                                                        
+
                                                                         </form>
                                                                         </div>
                                                                         </td>
-                                                                            @endif
+                                                              @endif
 
                                                                             @if($order->status==2)
-                                                                            <td class="bg-success">
-                                                                                <span > Received</span>
+                                                                            <td class="bg-danger">
+                                                                                <span > Nothing to Perform</span>
                                                                                 </td>
-                                                                                @endif
+                                                                            @endif
                                                                             @if($order->status==0)
                                                                             <td class="bg-primary">
                                                                             <span> waiting</span>
+                                                                            </td>
+                                                                             @endif
+                                                            @if($order->status==1)
+                                                                <td class="bg-primary">
+                                                                    <span> waiting from Store</span>
                                                                 </td>
-                                                                @endif
+                                                            @endif
 
                                                         </tr>
                                                     @endif

@@ -920,8 +920,7 @@ class StoreController extends Controller
     }
 
     public function materialRequisition(){
-        $production_material_detail=DB::table('production_material_detail')->where('status', 0)
-            ->orWhere('status', 1)->get();
+        $production_material_detail=DB::table('production_material_detail')->Where('status', 1)->orWhere('status', 3)->get();
         return view('store::issueRequisition/materialRequisition', compact('production_material_detail'));
     }
 
@@ -944,6 +943,7 @@ class StoreController extends Controller
         $stores=DB::table('store')->get();
 
         $count_store_requisition_issued=DB::table('store_requisition_issued')->select('transaction_id')->orderByDesc('id')->first();
+//        dd($count_store_requisition_issued);
         if(empty($count_store_requisition_issued)){
             $count_store_requisition_issued=1;
         }
@@ -1032,13 +1032,13 @@ class StoreController extends Controller
                     $insert=DB::table('store_requisition_issued')->insert($data);
 
                     $changeStatusData=[
-                        'status' => 1
+                        'status' => 3
                     ];
                     $updateStatus=DB::table('production_material_detail')
                         ->where('id', $request->production_material_detail_id)->update($changeStatusData);
 
                     if ($insert && $updateStatus){
-                        return redirect('store/materialRequisition')->with('message', 'Material Issued Successfully.');
+                        return redirect(url('store/issueRequisition/materialRequisition'))->with('message', 'Material Issued Successfully.');
                     }
                     else{
                         return back()->withErrors( 'Something went wrong.');

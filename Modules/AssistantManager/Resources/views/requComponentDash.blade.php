@@ -35,7 +35,6 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{$data->component_requisition_id}}</td>
                                     <td>{{strtoupper($data->gate_type)}}</td>
-
                                     <td>{{$data->issue_date}}</td>
                                     <td><button type="button" onclick="getDetails({{$data->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
                                             Details
