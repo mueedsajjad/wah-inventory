@@ -18,6 +18,7 @@ class CreateProductionMaterialDetailTable extends Migration
         Schema::create('production_material_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('material_requisition_id')->nullable();
+            $table->string('gate_type')->nullable();
             $table->string('material_name')->nullable();
             $table->integer('UOM')->nullable();
             $table->integer('quantity')->nullable();

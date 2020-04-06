@@ -613,6 +613,12 @@
                                     <p>Material Requisition</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{url('requisition/component-dashboard')}}" class="nav-link @if(request()->segment(2)=="component-dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Component Requisition</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif

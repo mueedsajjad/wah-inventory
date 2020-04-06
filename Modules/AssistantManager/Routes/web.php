@@ -25,15 +25,16 @@ Route::prefix('requisition')->group(function() {
 
     Route::get('/dashboard', 'AssistantManagerController@requDash');
     Route::get('/material-dashboard', 'AssistantManagerController@requMaterialDash');
+    Route::get('/component-dashboard', 'AssistantManagerController@requComponentDash');
 
 
     Route::get('/material/{condition}/{id}', 'AssistantManagerController@requMaterialAction');
+    Route::get('/component/{condition}/{id}', 'AssistantManagerController@requComponentAction');
 
 
 
     Route::get('/material-details/{data}', 'AssistantManagerController@requMaterialDetail');
-
-
+    Route::get('/component-details/{data}', 'AssistantManagerController@requComponentDetail');
 
 
 

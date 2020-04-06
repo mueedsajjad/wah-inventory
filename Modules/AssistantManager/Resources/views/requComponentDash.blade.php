@@ -16,7 +16,7 @@
             @endif
             <div class="card">
                 <div class="card-header bg-dark">
-                    <h3 class="card-title">Material Requisition Requests Status</h3>
+                    <h3 class="card-title">Component Requisition Requests Status</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -25,16 +25,15 @@
                             <tr>
                                 <th>Sr#</th>
                                 <th>Requisition Request ID</th>
-                                <th>Gate Type</th>
                                 <th>Issue Date</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($m_requ as $key => $data)
+                            @foreach($c_requ as $key => $data)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td>{{$data->material_requisition_id}}</td>
+                                    <td>{{$data->component_requisition_id}}</td>
                                     <td>{{strtoupper($data->gate_type)}}</td>
 
                                     <td>{{$data->issue_date}}</td>
@@ -82,7 +81,7 @@
         console.log(app);
         $.ajax({
             type: "GET",
-            url: "/"+app+"/requisition/material-details/"+data,
+            url: "/"+app+"/requisition/component-details/"+data,
             success:function(data)
             {
                 $("#data").html(data);

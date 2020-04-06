@@ -15,8 +15,9 @@ class CreateProductionComponentTable extends Migration
     {
         Schema::create('production_component', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->integer('manufacturing_no')->nullable();
+            $table->string('component_requisition_id')->nullable();
+            $table->string('gate_type')->nullable();
             $table->date('issue_date')->nullable();
             $table->date('create_date')->nullable();
 
