@@ -61,13 +61,23 @@
                                         <div class="form-group row">
                                             <label for="sga_13" class="col-sm-4 col-form-label">Issue Date</label>
                                             <div class="col-sm-8">
-                                                <input type="date"  name="issue_date"  required value="" class="form-control" id="sga_19"
+                                                <input type="date"  name="issue_date" readonly required value="{{\Carbon\Carbon::now()->toDateString()}}" class="form-control" id="sga_19"
                                                       >
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_13" class="col-sm-4 col-form-label">Requisition Type</label>
+                                            <div class="col-sm-8">
+                                                <select name="gate_type" id="" required class="form-control">
+                                                    <option disabled selected>Select</option>
+                                                    <option value="inward">In-Ward</option>
+                                                    <option value="outward">Out-Ward</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
