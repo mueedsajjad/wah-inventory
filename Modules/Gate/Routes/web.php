@@ -24,7 +24,13 @@ Route::prefix('gate')->group(function() {
 
     //outward
     Route::get('outward_customer/{id}','GateController@outward_customer');
-    Route::get('outward_factory/{id}','GateController@outward_factory');
+    Route::get('outward_factory_material/{id}','GateController@outward_factory_material');
+    Route::get('outward_factory_component/{id}','GateController@outward_factory_component');
+
+
+
+    Route::get('get_data_material/{id}','GateController@getDataMaterial');
+    Route::get('get_data_component/{id}','GateController@getDataComponent');
 
 
 

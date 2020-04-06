@@ -387,16 +387,43 @@ class GateController extends Controller
         return view('gate::gate.requisition_detail',compact('req_data'));
     }
 
-    public function outward_customer($id){
+            public function outward_customer($id){
+
+                return view('gate::gate.customer_data');
+            }
 
 
-
-        return view('gate::gate.customer_data');
-    }
-    public function outward_factory($id){
+            public function outward_factory_component($id){
 
 
+                $component = DB::table('production_component')->where('gate_type', 'outward')->get();
 
-        return view('gate::gate.factory_data');
-    }
+
+                return view('gate::gate.factory_data_component', compact('component'));
+            }
+
+
+            public function outward_factory_material($id){
+
+                $material = DB::table('production_material')->where('gate_type', 'outward')->get();
+
+                return view('gate::gate.factory_data_material', compact('material'));
+
+            }
+
+
+            public function getDataMaterial($id){
+
+                $details = DB::table('production_material_detail')->where('production_material_id', $id)->get();
+                return view('gate::gate.table', compact('details'));
+
+            }
+
+
+                public function getDataComponent($id){
+
+                    $details = DB::table('production_component_detail')->where('production_component_id', $id)->get();
+                    return view('gate::gate.tableComponent', compact('details'));
+
+                }
 }

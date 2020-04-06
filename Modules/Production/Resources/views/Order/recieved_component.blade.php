@@ -46,7 +46,7 @@
                                                 @php $n=0; @endphp
                                                 @foreach($orders as $order)
 
-                                                    @if($order->status==0 || $order->status==1||$order->status==2)
+                                                    @if($order->status==0 || $order->status==1||$order->status==2 ||$order->status==3 ||$order->status==5 )
                                                         @php $n++; @endphp
 
                                                         <tr>
@@ -65,12 +65,20 @@
                                                                     <span> Approved </span>
                                                                 </td>
                                                         @endif
+
                                                         @if($order->status==2)
                                                                 <td class="bg-danger">
                                                                     <span> Rejected </span>
                                                                 </td>
                                                         @endif
+
                                                             @if($order->status==3)
+                                                                <td class="bg-success">
+                                                                    <span> Received from  </span>
+                                                                </td>
+                                                            @endif
+
+                                                            @if($order->status==5)
                                                                 <td class="bg-success">
                                                                     <span> Done </span>
                                                                 </td>
@@ -107,6 +115,12 @@
                                                             @if($order->status==1)
                                                                 <td class="bg-primary">
                                                                     <span> waiting from Store</span>
+                                                                </td>
+                                                            @endif
+
+                                                            @if($order->status==5)
+                                                                <td class="bg-primary">
+                                                                    <span> Done </span>
                                                                 </td>
                                                             @endif
 

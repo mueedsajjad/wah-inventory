@@ -40,9 +40,9 @@ class HomeController extends Controller
             return  redirect(url('/gate/dashboard'));
         }
 
-        return  redirect(url('/store/dashboard'));
+//        return  redirect(url('/dashboard'));
 
 
-        return view('home');
+        return view('dashboard');
     }
 }

@@ -509,7 +509,7 @@ class ProductionController extends Controller
     public function receiveComponent(Request $request)
     {
         DB::table('production_component_detail')->where('id',$request->id)
-            ->update(['status'=>2]);
+            ->update(['status'=>5]);
 
         $component=DB::table('production_component_detail')
             ->where('id',$request->id)
@@ -566,7 +566,7 @@ class ProductionController extends Controller
     public function receiveMaterial(Request $request)
     {
         DB::table('production_material_detail')->where('id',$request->id)
-            ->update(['status'=>2]);
+            ->update(['status'=>5]);
 
 //        $component=DB::table('production_component_detail')
 //            ->where('id',$request->id)

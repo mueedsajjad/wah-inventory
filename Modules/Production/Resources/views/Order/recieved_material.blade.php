@@ -72,6 +72,11 @@
                                                             @endif
                                                             @if($order->status==3)
                                                                 <td class="bg-success">
+                                                                    <span> Received from Store </span>
+                                                                </td>
+                                                            @endif
+                                                            @if($order->status==5)
+                                                                <td class="bg-success">
                                                                     <span> Done </span>
                                                                 </td>
                                                             @endif
@@ -104,13 +109,11 @@
                                                                     <span> waiting from Store</span>
                                                                 </td>
                                                             @endif
-
-
-                                        </div>
-
-
-                                                            </td>
-
+                                                            @if($order->status==5)
+                                                                <td class="bg-primary">
+                                                                    <span> Done </span>
+                                                                </td>
+                                                            @endif
 
                                                         </tr>
                                                     @endif
