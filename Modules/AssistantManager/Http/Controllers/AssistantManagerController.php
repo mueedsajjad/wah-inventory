@@ -27,18 +27,52 @@ class AssistantManagerController extends Controller
         return view('assistantmanager::dashboard', compact('records'));
     }
 
+
+    public function requDash(){
+        return view('assistantmanager::requDash');
+    }
+
+    public function requMaterialDash(){
+
+        $m_requ = DB::table('production_material')->get();
+
+        return view('assistantmanager::requMaterialDash', compact('m_requ'));
+    }
+
+
+    public function requMaterialDetail($data){
+
+        $details = DB::table('production_material_detail')->where('production_material_id', $data)->get();
+
+
+//        dd($details);
+        return view('assistantmanager::getMaterialDetails', compact('details'));
+
+    }
+
+    public function requMaterialAction($condition, $id){
+
+        if ($condition == 'accept'){
+            DB::table('production_material_detail')->where('id', $id)->update(['status' => 1]);
+        }else{
+            DB::table('production_material_detail')->where('id', $id)->update(['status' => 2]);
+        }
+        return redirect()->back()->with('message', 'Action Perform Successfully');
+    }
+
     public function requisitionRequest(){
 
 
         $units = DB::table('unit')->get();
         $components = DB::table('component')->get();
         return view('assistantmanager::requisitionRequest', compact('units', 'components'));
+
     }
 
     public function requisitionRequestSubmit(Request $request){
         $issue_date = $request->issue_date;
 
-        $requisition_id = 'PR-'.random_int(4, 9999);
+        $requisition_id = 'PR-'.random_int(999, 9999);
 
 
 

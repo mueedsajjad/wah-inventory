@@ -15,7 +15,7 @@ class GateController extends Controller
         $this->middleware('auth');
     }
     public function addInwardGatePass(Request $request){
-//        dd($request->all());
+        dd($request->all());
 
         $vendor = DB::table('supplier')->find($request->ven_id);
 
@@ -72,6 +72,23 @@ class GateController extends Controller
 
     }
 
+
+    public function poDetails($data){
+        if ($data == 'po'){
+            $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+
+            return view('gate::gate.purchaseRight', compact('PO'));
+        }else{
+            $requisitions=DB::table('purchase_requisitions')->get();
+
+            return view('gate::gate.reqRight', compact('requisitions'));
+        }
+
+    }
+
+
+
+
     public function inwardGatePass()
     {
 
@@ -86,7 +103,9 @@ class GateController extends Controller
             $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
             ++$countInwardGatePass;
         }
-        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+//        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+//        $requisitions=DB::table('purchase_requisitions')->get();
+//        dd($requisitions);
 //        'purchase_order_id'
 //        foreach ($PO as $key=>$row){
 //            $purchase_order_id=$row->purchase_order_id;
@@ -95,7 +114,7 @@ class GateController extends Controller
 //        dd($purchase_order_id,$vendor_id);
 //        dd($PO);
 
-        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO'));
+        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
     }
     public function outwardGatePass(){
 
@@ -302,7 +321,13 @@ class GateController extends Controller
 
         $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
 
-
         return view('gate::gate.item-details', compact('purchase_items_details'));
+    }
+
+    public function requisition_detail($id){
+//          dd($id);
+          $req_data=DB::table('purchase_requisitions_detail')->where('req_id',$id)->get();
+//          dd($req_data);
+        return view('gate::gate.requisition_detail',compact('req_data'));
     }
 }

@@ -37,6 +37,9 @@ class ProductionController extends Controller
         return view('production::dashboard/all_production_detail', compact('orders','stocks'));
     }
 
+
+
+
     public function newOrder()
     {
 
@@ -51,7 +54,7 @@ class ProductionController extends Controller
         {
             $id=1;
         }
-       
+
         return view('production::Order/newOrder',compact('id'));
     }
 
@@ -294,7 +297,7 @@ class ProductionController extends Controller
         {
             $id=1;
         }
-        
+
         return view('production::Order/componetOrder',compact('id'));
     }
 
@@ -381,7 +384,11 @@ class ProductionController extends Controller
 
     public function materialRequisitionStore(Request $request)
     {
+
+        $material_requisition_id = 'MR-'.random_int(999,9999);
+//        dd($material_requisition_id);
         $data=[
+            'material_requisition_id' => $material_requisition_id,
             'manufacturing_no' => $request->manufacturing_no,
             'issue_date' => $request->issue_date,
             'create_date' => Carbon::today(),
@@ -396,6 +403,7 @@ class ProductionController extends Controller
 
         for($i=0 ; $i<$request->countMaterial ; $i++){
             $data=[
+                'material_requisition_id' => $productionMaterial->material_requisition_id,
                 'material_name' => $request['materialName'][$i],
                 'UOM' => $request['uom'][$i],
                 'quantity' => $request['qty'][$i],
