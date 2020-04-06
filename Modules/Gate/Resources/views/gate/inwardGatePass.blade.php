@@ -254,7 +254,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-4 " style="display: none" id="vendor_details" >
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Purchase Order #</label>
@@ -269,59 +268,33 @@
                                             </select>
                                         </div>
                                     </div>
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Type</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <select name="vendorType" class="form-control" required>--}}
-{{--                                                <option value="Registered Vendor">Registered Vendor</option>--}}
-{{--                                                <option value="Non Registered Vendor">Non Registered Vendor</option>--}}
-{{--                                                <option value="WIL Collection">WIL Collection</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor ID</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorId" required readonly value="VND00{{$countInwardGatePass}}" class="form-control" placeholder="VND001">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    changing--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor details</label>--}}
-{{--                                        <div class="col-sm-8" >--}}
-{{--                                            <select name="vendor" id="V_details" class="form-control">--}}
-{{--                                                <option value="" id="sel" >select</option>--}}
-{{--                                                <option value="V1">V1</option>--}}
-{{--                                                <option value="V2">V2</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-                                    <div id="display"></div>
-{{--                                    end here--}}
 
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Name</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorName" required class="form-control" placeholder="CDOXS">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Address</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorAddress" required class="form-control" placeholder="Lahore Pak">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Phone #</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorPh" required class="form-control" placeholder="03351234567">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    <div id="display">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 " style="display: none" id="req_details" >
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Requisition No :</label>
+                                        <div class="col-sm-8">
+                                            <select name="req_number" id="req_id" class="form-control" required>
+                                                <option value="">select</option>
+                                                @foreach($requisitions as $key=>$requisition)
+                                                    <option value="{{$requisition->id}}">{{$requisition->requisition_id}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="requisition_detail">
+
+                                    </div>
                                 </div>
                             </div>
                               <div id="tbody">
 
                               </div>
+
+
 
 
                         </form>
@@ -407,6 +380,7 @@
         // alert('working');
           if ($(this).val()==''){
               $('#display').hide().empty();
+              $('#tbody').hide().empty();
 
           }
           else{
@@ -436,15 +410,23 @@
 
         if ($(this).val()=='Purchase Order'){
             $('#vendor_details').show();
+            $('#display').hide();
+            $('#req_details').hide();
+            $('#requisition_table').hide();
         }
         else {
             if ($(this).val()=='Requisition'){
+                $('#req_details').show();
                 $('#vendor_details').hide();
-                alert('Requisition Selected');
+                $('#po_num').val("");
+
+
             }
             else
                 $('#vendor_details').hide();
+                // $('#req_details').hide();
                 $('#tbody').hide();
+                $('#po_num').val("");
         }
 
 
@@ -467,6 +449,28 @@
             });
         }
     })
+
+    $('#req_id').on('change',function () {
+        $('#requisition_detail').show();
+        var req_Id = $(this).val();
+        var path = location.pathname.split('/');
+        var app=path[1];
+        console.log(app);
+        console.log(req_Id);
+        if (req_Id){
+            $.ajax({
+                type: "GET",
+                url: "/"+app+"/gate/requisition_detail/"+req_Id,
+                success:function(data)
+                {
+
+                    $("#tbody").html(data);
+
+                }
+            });
+        }
+    })
+
 
 </script>
 @endsection
