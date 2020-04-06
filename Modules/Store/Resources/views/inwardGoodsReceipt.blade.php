@@ -3,15 +3,6 @@
 @section('content')
     <section class="">
         <div class="row">
-            <div class="col-md-12 text-right">
-                <div class="form-group mt-2 mr-4 ">
-                    <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
-                    {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
             <div class="col-12">
                 <!-- /.card -->
                 @if(!empty($errors->first()))
@@ -27,6 +18,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Inward Goods Receipt</h3>
+                        <a href="{{url('/')}}" class="btn btn-secondary btn-sm float-right">Back</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -82,7 +74,7 @@
                                                         <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
                                                     </a>
                                                 @else
-                                                    <i class="fas fa-toggle-on fa-2x" style="color: #DA231A;"></i>
+                                                    <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>
                                                 @endif
                                             </td>
                                         </tr>
