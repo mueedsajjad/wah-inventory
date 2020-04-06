@@ -12,7 +12,7 @@
 */
 
 Route::prefix('admin')->group(function() {
-    Route::get('/', 'AdminController@index');
+    Route::get('/hr', 'AdminController@index');
 
     Route::get('employee', 'AdminController@employee');
     Route::post('employeeStore', 'AdminController@employeeStore');
@@ -32,6 +32,8 @@ Route::prefix('admin')->group(function() {
     Route::get('advance', 'AdminController@advance');
 
     Route::get('report', 'AdminController@report');
+    Route::get('attedanceReport', 'AttendanceController@attedanceReport');
+    Route::post('attendanceMWD', 'AttendanceController@attendanceMWD');
 
 // ----------------------- attendance Controller ----------------------- //
     Route::get('attendance', 'AttendanceController@attendance');

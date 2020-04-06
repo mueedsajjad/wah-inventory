@@ -24,9 +24,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Leave Application</h3>
+                        @if(auth()->user()->can('Apply for Attendance')) 
                         <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg">
                             Apply Leave
                         </button>
+                        @endif
                     </div>
 
                     <!-- /.card-header -->
