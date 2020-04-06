@@ -31,8 +31,8 @@
                                         <td><input type="text" class="form-control"  name="material_name[]" value="{{$requisition->material_name}}" readonly></td>
                                         <td><input type="text" class="form-control"  name="uom[]" value="{{$requisition->uom}}" readonly></td>
                                         <td><input type="text" class="form-control"  name="qty[]" value="{{$requisition->quantity}}" readonly></td>
-                                        <td><input type="number" class="form-control"  name="qty_received[]" value="" ></td>
-                                        <td><input type="text" class="form-control"  name="description[]" value=""  ></td>
+                                        <td><input type="number" class="form-control"  name="qty_received[]" value="" required></td>
+                                        <td><input type="text" class="form-control"  name="description[]" value=""  required></td>
                                     </div>
                                 </tr>
                             @endforeach

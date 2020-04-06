@@ -37,6 +37,9 @@ class ProductionController extends Controller
         return view('production::dashboard/all_production_detail', compact('orders','stocks'));
     }
 
+
+
+
     public function newOrder()
     {
 
@@ -51,7 +54,7 @@ class ProductionController extends Controller
         {
             $id=1;
         }
-       
+
         return view('production::Order/newOrder',compact('id'));
     }
 
@@ -294,7 +297,7 @@ class ProductionController extends Controller
         {
             $id=1;
         }
-        
+
         return view('production::Order/componetOrder',compact('id'));
     }
 
