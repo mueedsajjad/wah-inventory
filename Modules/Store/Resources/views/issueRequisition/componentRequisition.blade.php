@@ -30,6 +30,7 @@
                                 <th>Component Name</th>
                                 <th>Required Quantity</th>
                                 <th>Issue Status</th>
+                                <th>Inward/Outward</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -41,11 +42,39 @@
                                     <td>{{$item->component_name}}</td>
                                     <td>{{$item->quantity}}</td>
                                     <td>
-                                    @if($item->status==1)
-                                            <a href="{{url('store/issueRequisition/proceedComponentRequisition/'.$item->id.'/'.$item->component_name.'/'.$item->quantity)}}" class="btn btn-sm btn-secondary">Proceed</a>
-                                    @else($item->status==3)
-                                        <button type="button" class="btn btn-sm btn-success">Issued</button>
-                                    @endif
+                                        @if($item->gate_type=='inward')
+                                            @if($item->status==1)
+                                                <a href="{{url('store/issueRequisition/proceedComponentRequisition/'.$item->id.'/'.$item->component_name.'/'.$item->quantity)}}" class="btn btn-sm btn-secondary">Proceed</a>
+                                            @elseif($item->status==3)
+                                                <button type="button" class="btn btn-sm btn-success">Issued</button>
+                                            @elseif($item->status==5)
+                                                <button type="button" class="btn btn-sm btn-success">Received by Production</button>
+                                            @endif
+                                        @elseif($item->gate_type=='outward')
+                                            @if($item->status==1)
+                                                <button type="button" class="btn btn-sm btn-secondary">Outward</button>
+
+                                            @elseif($item->status==4)
+                                                <button type="button" class="btn btn-sm btn-secondary">Forwarded For Outward</button>
+                                            @endif
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                        @if($item->gate_type=='inward')
+                                            @if($item->status==3)
+                                                <a class="btn btn-success">Inward Done</a>
+                                            @else
+                                                <a class="btn btn-primary">Inward</a>
+                                            @endif
+                                        @elseif($item->gate_type=='outward')
+                                                @if($item->status==4)
+                                                    <a class="btn btn-success">Forwarded Outward</a>
+                                                @elseif($item->status==1)
+                                                    <a href="{{url('/store/forwarded_to_gate/'.$item->id)}}" class="btn btn-primary">Forward For Outward</a>
+                                                @endif
+                                        @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

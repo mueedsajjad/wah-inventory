@@ -913,8 +913,17 @@ class StoreController extends Controller
         return view('store::issueRequisition/issueRequisition');
     }
 
+    public function forwarded_to_gate_outward($id)
+    {
+        $status=[
+            'status' => 4
+        ];
+        DB::table('production_component_detail')->where('id',$id)->update($status);
+        return redirect()->back();
+    }
+
     public function componentRequisition(){
-        $production_component_detail=DB::table('production_component_detail')->Where('status', 1)->orWhere('status', 3)->get();
+        $production_component_detail=DB::table('production_component_detail')->Where('status', 1)->orWhere('status', 3)->orWhere('status', 4)->orWhere('status', 5)->get();
         return view('store::issueRequisition/componentRequisition', compact('production_component_detail'));
     }
 
@@ -924,6 +933,7 @@ class StoreController extends Controller
     }
 
     public function proceedComponentRequisition($id, $name, $quantity){
+//        dd('faizu');
         $stores=DB::table('store')->get();
 
         $count_store_requisition_issued=DB::table('store_requisition_issued')->select('transaction_id')->orderByDesc('id')->first();
@@ -961,6 +971,7 @@ class StoreController extends Controller
         if (!empty($checkAvailableInStock)){
             $stockQuantity=$checkAvailableInStock->quantity;
             $requiredQuantity=$request->quantity;
+//            dd($requiredQuantity);
             if ($stockQuantity > $requiredQuantity){
                 $quantity=$stockQuantity-$requiredQuantity;
                 $quantityStockData=[
@@ -980,13 +991,14 @@ class StoreController extends Controller
                     $insert=DB::table('store_requisition_issued')->insert($data);
 
                     $changeStatusData=[
-                        'status' => 1
+                        'status' => 3
                     ];
+//                    dd($request->production_component_detail_id);
                     $updateStatus=DB::table('production_component_detail')
                         ->where('id', $request->production_component_detail_id)->update($changeStatusData);
 
                     if ($insert && $updateStatus){
-                        return redirect('store/componentRequisition')->with('message', 'Component Issued Successfully.');
+                        return redirect('store/issueRequisition/componentRequisition')->with('message', 'Component Issued Successfully.');
                     }
                     else{
                         return back()->withErrors( 'Something went wrong.');

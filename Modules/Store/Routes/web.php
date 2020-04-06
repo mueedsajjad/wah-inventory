@@ -15,6 +15,7 @@ Route::prefix('store')->group(function() {
     Route::post('dateHearing', 'StoreController@date_filter')->name('dateHearing');
     Route::post('inspectionInward_Note_Date', 'StoreController@inwardInspectionNote_date')->name('inward_insp_note_date');
     Route::get('/', 'StoreController@index');
+    Route::get('/forwarded_to_gate/{id}', 'StoreController@forwarded_to_gate_outward');
     Route::get('dashboard', 'StoreController@dashboard');
     Route::get('assignStore', 'StoreController@assignStore');
 
