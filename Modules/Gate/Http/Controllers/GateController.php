@@ -72,6 +72,23 @@ class GateController extends Controller
 
     }
 
+
+    public function poDetails($data){
+        if ($data == 'po'){
+            $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+
+            return view('gate::gate.purchaseRight', compact('PO'));
+        }else{
+            $requisitions=DB::table('purchase_requisitions')->get();
+
+            return view('gate::gate.reqRight', compact('requisitions'));
+        }
+
+    }
+
+
+
+
     public function inwardGatePass()
     {
 
@@ -86,8 +103,8 @@ class GateController extends Controller
             $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
             ++$countInwardGatePass;
         }
-        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
-        $requisitions=DB::table('purchase_requisitions')->get();
+//        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+//        $requisitions=DB::table('purchase_requisitions')->get();
 //        dd($requisitions);
 //        'purchase_order_id'
 //        foreach ($PO as $key=>$row){
@@ -97,7 +114,7 @@ class GateController extends Controller
 //        dd($purchase_order_id,$vendor_id);
 //        dd($PO);
 
-        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO','requisitions'));
+        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
     }
     public function outwardGatePass(){
 
@@ -303,7 +320,6 @@ class GateController extends Controller
     public  function item_details($id){
 
         $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
-
 
         return view('gate::gate.item-details', compact('purchase_items_details'));
     }

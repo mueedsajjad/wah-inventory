@@ -20,6 +20,7 @@ Route::prefix('gate')->group(function() {
 
     //inward requisition
     Route::get('requisition_detail/{id}','GateController@requisition_detail');
+    Route::get('right_side_purchase/{id}','GateController@poDetails');
 
 
     Route::get('vehicleManagement','GateController@vehicleManagement');
