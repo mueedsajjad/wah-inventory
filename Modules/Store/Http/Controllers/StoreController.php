@@ -922,6 +922,15 @@ class StoreController extends Controller
         return redirect()->back();
     }
 
+    public function forwarded_to_gate_outward_mat($id)
+    {
+        $status=[
+            'status' => 4
+        ];
+        DB::table('production_material_detail')->where('id',$id)->update($status);
+        return redirect()->back();
+    }
+
     public function componentRequisition(){
         $production_component_detail=DB::table('production_component_detail')->Where('status', 1)->orWhere('status', 3)->orWhere('status', 4)->orWhere('status', 5)->get();
         return view('store::issueRequisition/componentRequisition', compact('production_component_detail'));
