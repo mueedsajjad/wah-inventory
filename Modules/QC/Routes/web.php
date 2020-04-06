@@ -13,5 +13,5 @@
 
 Route::prefix('qc')->group(function() {
     Route::get('/', 'QCController@index');
-    Route::get('dashboard', 'QCController@dashboard');
+    Route::get('dashboard', '\Modules\Store\Http\Controllers\StoreController@inwardInspectionNote');
 });
