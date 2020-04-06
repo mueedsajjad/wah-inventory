@@ -920,7 +920,7 @@ class StoreController extends Controller
     }
 
     public function materialRequisition(){
-        $production_material_detail=DB::table('production_material_detail')->Where('status', 1)->get();
+        $production_material_detail=DB::table('production_material_detail')->Where('status', 1)->orWhere('status', 3)->get();
         return view('store::issueRequisition/materialRequisition', compact('production_material_detail'));
     }
 
