@@ -27,7 +27,7 @@
                             @foreach($req_data as $key=>$requisition)
                                 <tr>
                                     <div class="mome">
-                                        <td><input type="text" class="form-control"  name="req_id" value="{{$requisition->requisition_id}}" readonly></td>
+                                        <td><input type="text" class="form-control"  name="reqisition_id" value="{{$requisition->requisition_id}}" readonly></td>
                                         <td><input type="text" class="form-control"  name="material_name[]" value="{{$requisition->material_name}}" readonly></td>
                                         <td><input type="text" class="form-control"  name="uom[]" value="{{$requisition->uom}}" readonly></td>
                                         <td><input type="text" class="form-control"  name="qty[]" value="{{$requisition->quantity}}" readonly></td>

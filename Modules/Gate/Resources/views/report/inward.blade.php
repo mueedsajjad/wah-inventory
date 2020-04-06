@@ -42,19 +42,20 @@
                                     <th>Gate Pass ID</th>
                                     <th>Gate Pass Type</th>
                                     <th>Date</th>
-                                    <th>Type</th>
-                                    <th>Supplier</th>
+                                    <th>Purchase Order</th>
+                                    <th>Requisition</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($report_data as $key=>$report)
 
                                 <tr>
-                                    <td>0001</td>
+                                    <td>{{$report->gatePassId}}</td>
                                     <td>Inward</td>
-                                    <td>20-Feb-2020</td>
-                                    <td>Supplier</td>
-                                    <td>MMLOGIX</td>
+                                    <td>{{$report->date}}</td>
+                                    <td>{{$report->purchase_order_id}}</td>
+                                    <td>{{$report->requisition_id}}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">
                                             View
@@ -62,6 +63,7 @@
 
                                     </td>
                                 </tr>
+                                    @endforeach
 
                                 </tbody>
                                 <!-- <tfoot>

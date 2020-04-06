@@ -29,7 +29,7 @@
                                         <div class="form-group row">
                                             <label for="sga_13" class="col-sm-4 col-form-label">Gate Pass ID</label>
                                             <div class="col-sm-8">
-                                                <input type="text" required name="gatePassId" readonly class="form-control" value="GP00" id="sga_13" placeholder="GP001">
+                                                <input type="text" required name="gatePassId" readonly class="form-control" value="GP00{{$countInwardGatePass}}" id="sga_13" placeholder="GP001">
                                             </div>
                                         </div>
 
@@ -43,7 +43,17 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Driver ID</label>
                                             <div class="col-sm-8">
-                                                <input type="text" required readonly name="driverId" class="form-control" value="DR00" placeholder="DR001">
+                                                <input type="text" required readonly name="driverId" class="form-control" value="DR00{{$countInwardGatePass}}" placeholder="DR001">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">PO/Requisition</label>
+                                            <div class="col-sm-8">
+                                                <select name="out_type" id="" class="form-control" onchange="poList(this.value)">
+                                                    <option value="">select</option>
+                                                    <option value="customer" >Towards Customer</option>
+                                                    <option value="factory" >Towards Factory</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -66,55 +76,55 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Vendor Type</label>
-                                            <div class="col-sm-8">
-                                                <select name="vendorType" class="form-control" required>
-                                                    <option value="Registered Vendor">Registered Vendor</option>
-                                                    <option value="Non Registered Vendor">Non Registered Vendor</option>
-                                                    <option value="WIL Collection">WIL Collection</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Vendor ID</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="vendorId" required readonly value="VND00" class="form-control" placeholder="VND001">
-                                            </div>
-                                        </div>
-                                        {{--                                    changing--}}
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Vendor details</label>
-                                            <div class="col-sm-8" >
-                                                <select name="vendor" id="V_details" class="form-control">
-                                                    <option value="" id="sel" >select</option>
-                                                    <option value="V1">V1</option>
-                                                    <option value="V2">V2</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div id="display"></div>
-                                        {{--                                    end here--}}
+                                    <div class="col-md-4" id="right_side">
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Vendor Type</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <select name="vendorType" class="form-control" required>--}}
+{{--                                                    <option value="Registered Vendor">Registered Vendor</option>--}}
+{{--                                                    <option value="Non Registered Vendor">Non Registered Vendor</option>--}}
+{{--                                                    <option value="WIL Collection">WIL Collection</option>--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Vendor ID</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" name="vendorId" required readonly value="VND00" class="form-control" placeholder="VND001">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        --}}{{--                                    changing--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Vendor details</label>--}}
+{{--                                            <div class="col-sm-8" >--}}
+{{--                                                <select name="vendor" id="V_details" class="form-control">--}}
+{{--                                                    <option value="" id="sel" >select</option>--}}
+{{--                                                    <option value="V1">V1</option>--}}
+{{--                                                    <option value="V2">V2</option>--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div id="display"></div>--}}
+{{--                                        --}}{{--                                    end here--}}
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Vendor Name</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="vendorName" required class="form-control" placeholder="CDOXS">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Vendor Address</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="vendorAddress" required class="form-control" placeholder="Lahore Pak">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Vendor Phone #</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="vendorPh" required class="form-control" placeholder="03351234567">
-                                            </div>
-                                        </div>
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Vendor Name</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" name="vendorName" required class="form-control" placeholder="CDOXS">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Vendor Address</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" name="vendorAddress" required class="form-control" placeholder="Lahore Pak">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Vendor Phone #</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" name="vendorPh" required class="form-control" placeholder="03351234567">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
 
@@ -215,4 +225,42 @@
             </div>
         </div>
     </section>
+
+    <script >
+        function poList(data){
+            if(data == 'customer'){
+                var path = location.pathname.split('/');
+                var app=path[1];
+                console.log(app);
+                console.log(data);
+                if (data){
+                    $.ajax({
+                        type: "GET",
+                        url: "/"+app+"/gate/outward_customer/"+data,
+                        success:function(data)
+                        {
+                            $("#right_side").html(data);
+                        }
+                    });
+                }
+            }
+            else if(data == 'factory')
+            {
+                var path = location.pathname.split('/');
+                var app=path[1];
+                console.log(app);
+                console.log(data);
+                if (data){
+                    $.ajax({
+                        type: "GET",
+                        url: "/"+app+"/gate/outward_factory/"+data,
+                        success:function(data)
+                        {
+                            $("#right_side").html(data);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
     @endsection

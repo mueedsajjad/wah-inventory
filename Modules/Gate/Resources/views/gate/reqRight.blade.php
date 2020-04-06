@@ -1,4 +1,4 @@
-
+<input type="hidden" value="requisition" name="type">
 <div class="form-group row">
     <label class="col-sm-4 col-form-label">Requisition No :</label>
     <div class="col-sm-8">
@@ -10,6 +10,9 @@
         </select>
     </div>
 </div>
+
+</div>
+
 <div id="display">
 
 </div>

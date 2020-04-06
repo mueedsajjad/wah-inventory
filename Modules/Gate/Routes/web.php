@@ -22,6 +22,12 @@ Route::prefix('gate')->group(function() {
     Route::get('requisition_detail/{id}','GateController@requisition_detail');
     Route::get('right_side_purchase/{id}','GateController@poDetails');
 
+    //outward
+    Route::get('outward_customer/{id}','GateController@outward_customer');
+    Route::get('outward_factory/{id}','GateController@outward_factory');
+
+
+
 
     Route::get('vehicleManagement','GateController@vehicleManagement');
     Route::get('vehicleManagement/outVehicle','GateController@outVehicle');

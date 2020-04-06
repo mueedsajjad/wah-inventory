@@ -1,5 +1,6 @@
+<input type="hidden" value="purchase" name="type">
 
-        <div class="form-group row">
+<div class="form-group row">
             <label class="col-sm-4 col-form-label">Purchase Order #</label>
             <div class="col-sm-8">
                 <select name="po_num" id="po_num" class="form-control" required>
@@ -10,12 +11,17 @@
                     @endforeach
                 </select>
             </div>
+</div>
+
         </div>
+
+
+
 
 
     <div id="display">
 
-
+    </div>
 
 
 
