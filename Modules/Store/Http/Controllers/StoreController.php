@@ -914,8 +914,7 @@ class StoreController extends Controller
     }
 
     public function componentRequisition(){
-        $production_component_detail=DB::table('production_component_detail')->where('status', 0)
-            ->orWhere('status', 1)->get();
+        $production_component_detail=DB::table('production_component_detail')->Where('status', 1)->orWhere('status', 3)->get();
         return view('store::issueRequisition/componentRequisition', compact('production_component_detail'));
     }
 
