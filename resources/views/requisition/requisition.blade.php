@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Store Details</h3>
+                <h3 class="card-title">Request Details</h3>
             </div>
             <!-- /.card-header -->
 
@@ -11,14 +11,14 @@
                     <input type="hidden" id="countConditions"  name="countConditions" value="0">
                     <div class="row">
                             <div class="col-md-6">
-                                <a href="{{url('/gate/inward')}}">
+                                <a href="{{url('/requisition/material-dashboard')}}">
                             <div class="info-box" style="cursor: pointer">
                                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text text-black">Material Requests</span>
                                     <span class="info-box-number">
-                                                      {{$inward_gate_pass}}
+                                                      {{$material_requisition}}
 {{--                                            <small>%</small>--}}
                                            </span>
                                 </div>
@@ -28,15 +28,16 @@
                             <!-- /.info-box -->
                         </div>
                         <div class="col-md-6">
-                            <a href="{{url('/gate/inward')}}">
+                            <a href="{{url('/requisition/component-dashboard')}}">
                             <div class="info-box" style="cursor: pointer">
                                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Component Request</span>
                                     <span class="info-box-number">
-                                           10
-{{--                                    <small>%</small>--}}
+                                                                                                 {{$component_requisition}}
+
+                                        {{--                                    <small>%</small>--}}
                                     </span>
                                 </div>
                                 <!-- /.info-box-content -->

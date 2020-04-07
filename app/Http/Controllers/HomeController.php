@@ -81,12 +81,27 @@ class HomeController extends Controller
     }
 
     public function requisition(){
-        $store_info = DB::table('store')->get();
-        $inward_gate_pass = DB::table('inward_gate_pass')->count();
+
+        $material_requisition = DB::table('production_material')->count();
+        $component_requisition = DB::table('production_component')->count();
 
 
 
-        return view('requisition.requisition', compact('store_info', 'inward_gate_pass'));
+        return view('requisition.requisition', compact('material_requisition', 'component_requisition'));
+    }
+
+    public function sale(){
+
+
+        return view('sale');
+
+    }
+
+    public function production(){
+
+
+        return view('production');
+
     }
 
 }

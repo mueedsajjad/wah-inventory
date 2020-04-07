@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Store Details</h3>
+                <h3 class="card-title">Gate Details</h3>
             </div>
             <!-- /.card-header -->
 
