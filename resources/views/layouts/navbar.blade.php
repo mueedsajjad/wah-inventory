@@ -751,12 +751,12 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Inward I-Note</p>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">--}}
+{{--                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                            <p>Inward I-Note</p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 @endif
 
                 @if(auth()->user()->can('Store'))
@@ -782,12 +782,12 @@
                                     <p>New Inward</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Approve for I-Note</p>
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Approve for I-Note</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 {{--                            <li class="nav-item">--}}
 {{--                                <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">--}}
 {{--                                    <i class="far fa-circle nav-icon"></i>--}}
