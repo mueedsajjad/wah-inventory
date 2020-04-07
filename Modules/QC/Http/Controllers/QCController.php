@@ -1,7 +1,7 @@
 <?php
 
 namespace Modules\QC\Http\Controllers;
-namespace Modules\Store\Http\Controllers;
+//namespace Modules\Store\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,6 +13,10 @@ class QCController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
+    public function love()
+    {
+        dd('faizan');
+    }
     public function dashboard()
     {
         return view('qc::dashboard/dashboard');
