@@ -26,6 +26,8 @@ Route::prefix('gate')->group(function() {
     Route::get('outward_customer/{id}','GateController@outward_customer');
     Route::get('outward_factory_material/{id}','GateController@outward_factory_material');
     Route::get('outward_factory_component/{id}','GateController@outward_factory_component');
+    Route::post('addOutwardGatePass','GateController@addOutwardGatePass');
+
 
 
 

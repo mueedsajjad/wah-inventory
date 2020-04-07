@@ -24,6 +24,7 @@ class GateController extends Controller
                 'requisition_id'=>$request->reqisition_id,
                 'driverId' => $request->driverId,
                 'driverName' => $request->driverName,
+                'driverCNIC' => $request->driverCNIC,
                 'driverPh' => $request->driverPh,
                 'vehicalNo' => $request->vehicalNo,
                 'date' => date('Y-m-d'),
@@ -60,18 +61,38 @@ class GateController extends Controller
 
         }elseif ($request->type == 'purchase'){
 
+//            dd($request->all());
             $vendor = DB::table('supplier')->find($request->ven_id);
-
+//            dd($vendor);
 //        dd($request->po_num);
             $por=DB::table('purchase_order_approval')->where('id',$request->po_num)->first();
 
 //        dd($por->requisition_id);
+            if ($vendor==null){
+                $data=[
+                    'gatePassId' => $request->gatePassId,
+                    'requisition_id'=>$por->requisition_id,
+                    'purchase_order_id'=>$por->purchase_order_id,
+                    'driverId' => $request->driverId,
+                    'driverName' => $request->driverName,
+                    'driverCNIC' => $request->driverCNIC,
+                    'driverPh' => $request->driverPh,
+                    'vehicalNo' => $request->vehicalNo,
+
+
+                    'date' => date('Y-m-d'),
+                    'status' => 0
+                ];
+
+            }
+            else{
             $data=[
                 'gatePassId' => $request->gatePassId,
                 'requisition_id'=>$por->requisition_id,
                 'purchase_order_id'=>$por->purchase_order_id,
                 'driverId' => $request->driverId,
                 'driverName' => $request->driverName,
+                'driverCNIC' => $request->driverCNIC,
                 'driverPh' => $request->driverPh,
                 'vehicalNo' => $request->vehicalNo,
 
@@ -84,6 +105,7 @@ class GateController extends Controller
                 'date' => date('Y-m-d'),
                 'status' => 0
             ];
+            }
 
             $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
 
@@ -425,5 +447,10 @@ class GateController extends Controller
                     $details = DB::table('production_component_detail')->where('production_component_id', $id)->get();
                     return view('gate::gate.tableComponent', compact('details'));
 
+                }
+
+                public function addOutwardGatePass(Request $request){
+                 dd($request->all());
+                 return value('addOutwardGatePass');
                 }
 }
