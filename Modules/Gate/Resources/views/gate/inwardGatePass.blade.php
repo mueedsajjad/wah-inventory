@@ -265,7 +265,9 @@
                                 <div id="right_side" class="col-md-4">
 
 
+                                </div>
 
+                                <div id="details"></div>
 
                             </div>
                         </form>
