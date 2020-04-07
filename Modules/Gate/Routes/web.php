@@ -57,6 +57,8 @@ Route::prefix('gate')->group(function() {
     // ------------ Reports --------------------//
     Route::get('report','GateController@report');
     Route::get('inward','GateController@inward');
+    Route::get('inward_report/{id}','GateController@inward_report');
+
 
 });
 
