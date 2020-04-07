@@ -24,10 +24,10 @@ class CreateInwardGatePassTable extends Migration
             $table->string('driverPh');
             $table->string('vehicalNo');
             $table->string('vendorType')->nullable();
-            $table->string('vendorId');
-            $table->string('vendorName');
-            $table->string('vendorAddress');
-            $table->string('vendorPh');
+            $table->string('vendorId')->nullable();
+            $table->string('vendorName')->nullable();
+            $table->string('vendorAddress')->nullable();
+            $table->string('vendorPh')->nullable();
 
             $table->integer('status')->length(11);
         });

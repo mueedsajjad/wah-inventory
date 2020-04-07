@@ -210,14 +210,12 @@
                                             <input type="text" required name="gatePassId" readonly class="form-control" value="GP00{{$countInwardGatePass}}" id="sga_13" placeholder="GP001">
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
                                         <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
                                         <div class="col-sm-8">
                                             <input type="text" readonly required value="{{date('d-m-Y')}}" class="form-control" id="sga_19" placeholder="08-02-2020">
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Driver ID</label>
                                         <div class="col-sm-8">
@@ -227,11 +225,15 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">PO/Requisition</label>
                                         <div class="col-sm-8">
-                                            <select name="Po/req" id="" class="form-control">
+{{--                                            <select name="Po/req" id="" class="form-control">--}}
+{{--                                                <option value="">select</option>--}}
+{{--                                                <option value="Purchase Order" id="po">Purchase Order</option>--}}
+{{--                                                <option value="Requisition" id="req">Requisition</option>--}}
+{{--                                            </select>--}}
+                                            <select name="Po/req" id="" class="form-control" onchange="poList(this.value)">
                                                 <option value="">select</option>
-                                                <option value="Purchase Order" id="po">Purchase Order</option>
-                                                <option value="Requisition" id="req">Requisition</option>
-
+                                                <option value="po" >Purchase Order</option>
+                                                <option value="req" >Requisition</option>
                                             </select>
                                         </div>
                                     </div>
@@ -254,76 +256,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div id="right_side" class="col-md-4">
 
-                                <div class="col-md-4 " style="display: none" id="vendor_details" >
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Purchase Order #</label>
-                                        <div class="col-sm-8">
-                                            <select name="po_num" id="po_num" class="form-control" required>
-                                                <option value="">select</option>
-                                                @foreach($PO as $key=>$PO_id)
-{{--                                                    <input type="hidden" name="po_numbu" value="{{$PO_id->id}}">--}}
-                                                    <option value="{{$PO_id->id}}">{{$PO_id->purchase_order_id}}</option>
-                                                    @endforeach
 
-                                            </select>
-                                        </div>
-                                    </div>
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Type</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <select name="vendorType" class="form-control" required>--}}
-{{--                                                <option value="Registered Vendor">Registered Vendor</option>--}}
-{{--                                                <option value="Non Registered Vendor">Non Registered Vendor</option>--}}
-{{--                                                <option value="WIL Collection">WIL Collection</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor ID</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorId" required readonly value="VND00{{$countInwardGatePass}}" class="form-control" placeholder="VND001">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    changing--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor details</label>--}}
-{{--                                        <div class="col-sm-8" >--}}
-{{--                                            <select name="vendor" id="V_details" class="form-control">--}}
-{{--                                                <option value="" id="sel" >select</option>--}}
-{{--                                                <option value="V1">V1</option>--}}
-{{--                                                <option value="V2">V2</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-                                    <div id="display"></div>
-{{--                                    end here--}}
 
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Name</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorName" required class="form-control" placeholder="CDOXS">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Address</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorAddress" required class="form-control" placeholder="Lahore Pak">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="form-group row">--}}
-{{--                                        <label class="col-sm-4 col-form-label">Vendor Phone #</label>--}}
-{{--                                        <div class="col-sm-8">--}}
-{{--                                            <input type="text" name="vendorPh" required class="form-control" placeholder="03351234567">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-                                </div>
+
                             </div>
-                              <div id="tbody">
-
-                              </div>
-
-
                         </form>
                     </div>
                 </div>
@@ -403,70 +341,44 @@
             $('#countMaterial').val(count);
         }
     });
-    $('#po_num').on('change', function () {
-        // alert('working');
-          if ($(this).val()==''){
-              $('#display').hide().empty();
 
-          }
-          else{
-              $('#display').show();
-              var poId = $(this).val();
-              // console.log(poId);
-              if (poId){
-                  $.ajax({
-                      type: "GET",
-                      url: 'vendor_data/'+poId,
-                      success:function(data)
-                      {
-
-                          $("#display").html(data);
-
-                      }
-                  });
-              }
-
-          }
-
-
-    });
-
-
-    $('select[name="Po/req"]').on('change',function () {
-
-        if ($(this).val()=='Purchase Order'){
-            $('#vendor_details').show();
-        }
-        else {
-            if ($(this).val()=='Requisition'){
-                $('#vendor_details').hide();
-                alert('Requisition Selected');
+    function poList(data){
+        if(data == 'po'){
+            var path = location.pathname.split('/');
+            var app=path[1];
+            console.log(app);
+            console.log(data);
+            if (data){
+                $.ajax({
+                    type: "GET",
+                    url: "/"+app+"/gate/right_side_purchase/"+data,
+                    success:function(data)
+                    {
+                        $("#right_side").html(data);
+                    }
+                });
             }
-            else
-                $('#vendor_details').hide();
-                $('#tbody').hide();
         }
-
-
-    });
-
-    $('#po_num').on('change',function () {
-        $('#tbody').show();
-        var poId = $(this).val();
-        console.log(poId);
-        if (poId){
-            $.ajax({
-                type: "GET",
-                url: 'item_details/'+poId,
-                success:function(data)
-                {
-
-                    $("#tbody").html(data);
-
-                }
-            });
+        else if(data == 'req')
+        {
+            var path = location.pathname.split('/');
+            var app=path[1];
+            console.log(app);
+            console.log(data);
+            if (data){
+                $.ajax({
+                    type: "GET",
+                    url: "/"+app+"/gate/right_side_purchase/"+data,
+                    success:function(data)
+                    {
+                        $("#right_side").html(data);
+                    }
+                });
+            }
         }
-    })
+    }
+
+
 
 </script>
 @endsection

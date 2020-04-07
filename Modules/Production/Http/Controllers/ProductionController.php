@@ -37,6 +37,9 @@ class ProductionController extends Controller
         return view('production::dashboard/all_production_detail', compact('orders','stocks'));
     }
 
+
+
+
     public function newOrder()
     {
 
@@ -51,7 +54,7 @@ class ProductionController extends Controller
         {
             $id=1;
         }
-       
+
         return view('production::Order/newOrder',compact('id'));
     }
 
@@ -294,7 +297,7 @@ class ProductionController extends Controller
         {
             $id=1;
         }
-        
+
         return view('production::Order/componetOrder',compact('id'));
     }
 
@@ -381,7 +384,13 @@ class ProductionController extends Controller
 
     public function materialRequisitionStore(Request $request)
     {
+
+        $material_requisition_id = 'MR-'.random_int(999,9999);
+//        dd($material_requisition_id);
         $data=[
+            'gate_type' => $request->gate_type,
+
+            'material_requisition_id' => $material_requisition_id,
             'manufacturing_no' => $request->manufacturing_no,
             'issue_date' => $request->issue_date,
             'create_date' => Carbon::today(),
@@ -396,6 +405,9 @@ class ProductionController extends Controller
 
         for($i=0 ; $i<$request->countMaterial ; $i++){
             $data=[
+                'gate_type' => $request->gate_type,
+
+                'material_requisition_id' => $productionMaterial->material_requisition_id,
                 'material_name' => $request['materialName'][$i],
                 'UOM' => $request['uom'][$i],
                 'quantity' => $request['qty'][$i],
@@ -431,8 +443,12 @@ class ProductionController extends Controller
 
     public function componentRequisitionStore(Request $request)
     {
-        //dd('abc');
+
+        $component_requisition_id = 'CR-'.random_int(999,9999);
+
         $data=[
+            'gate_type' => $request->gate_type,
+            'component_requisition_id' => $component_requisition_id,
             'manufacturing_no' => $request->manufacturing_no,
             'issue_date' => $request->issue_date,
             'create_date' => Carbon::today(),
@@ -449,6 +465,8 @@ class ProductionController extends Controller
         for($i=0 ; $i<$request->countMaterial ; $i++){
 
             $data=[
+                'gate_type' => $request->gate_type,
+                'component_requisition_id' => $component_requisition_id,
                 'component_name' => $request['materialName'][$i],
                 'quantity' => $request['qty'][$i],
                 'description' => $request['description'][$i],
@@ -491,7 +509,7 @@ class ProductionController extends Controller
     public function receiveComponent(Request $request)
     {
         DB::table('production_component_detail')->where('id',$request->id)
-            ->update(['status'=>2]);
+            ->update(['status'=>5]);
 
         $component=DB::table('production_component_detail')
             ->where('id',$request->id)
@@ -548,7 +566,7 @@ class ProductionController extends Controller
     public function receiveMaterial(Request $request)
     {
         DB::table('production_material_detail')->where('id',$request->id)
-            ->update(['status'=>2]);
+            ->update(['status'=>5]);
 
 //        $component=DB::table('production_component_detail')
 //            ->where('id',$request->id)

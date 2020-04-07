@@ -71,8 +71,7 @@ class AdminController extends Controller
 
     public function employeeStore(Request $request)
     {
-
-      dd($request);
+//      dd($request);
         $data= $request->validate([
             'name' => 'required|string',
             'department_id'=>'required|integer',
@@ -84,6 +83,12 @@ class AdminController extends Controller
             'city_id'=>'required|integer',
             'password'=>'required',
             'address'=>'required',
+            'salary'=>'required|integer',
+            'createdDate'=>'required|date',
+            'designation'=>'required|string',
+          
+            'joinDate'=>'required|date',
+            
         ]);
         //dd($data);
         $exist=DB::table('users')->where('email',$data['email'])->first();
@@ -121,7 +126,6 @@ class AdminController extends Controller
             $user= DB::table('users')->orderBy('id', 'desc')->first();
             $user_id=$user->id;
 
-
             DB::table('employees')->insert(
                 [
                     'user_id'=> $user_id,
@@ -132,6 +136,11 @@ class AdminController extends Controller
                     'city_id' =>$data['city_id'],
                     'state_id' =>$data['state_id'],
                     'address' =>$data['address'],
+                    'salary' =>$data['salary'],
+                    'createdDate' =>$data['createdDate'],
+                    'joinDate' =>$data['joinDate'],
+                   
+                    'designation' =>$data['designation'],
                     'upload'=>$name
                 ]);
 
@@ -155,6 +164,12 @@ class AdminController extends Controller
             'city_id'=>'required|integer',
             'password'=>'required',
             'address'=>'required',
+            'salary'=>'required|integer',
+            'createdDate'=>'required|date',
+            'designation'=>'required|string',
+           
+            'joinDate'=>'required|date',
+
         ]);
         //dd($data);
         $exist=DB::table('users')->where('email',$data['email'])->first();
@@ -203,6 +218,11 @@ class AdminController extends Controller
                     'city_id' =>$data['city_id'],
                     'state_id' =>$data['state_id'],
                     'address' =>$data['address'],
+                    'salary' =>$data['salary'],
+                    'createdDate' =>$data['createdDate'],
+                    'joinDate' =>$data['joinDate'],
+                   
+                    'designation' =>$data['designation'],
                     'upload'=>$name
                 ]);
 
@@ -257,6 +277,12 @@ class AdminController extends Controller
             'city_id'=>'required|integer',
             'password'=>'required',
             'address'=>'required',
+            'salary'=>'required|integer',
+            'createdDate'=>'required|date',
+            'joinDate'=>'required|date',
+            'designation'=>'required|string',
+           
+            
         ]);
 
 
@@ -310,6 +336,10 @@ class AdminController extends Controller
                     'city_id' => $data['city_id'],
                     'state_id' => $data['state_id'],
                     'address' => $data['address'],
+                    'salary' =>$data['salary'],
+                    'createdDate' =>$data['createdDate'],
+                    'joinDate' =>$data['joinDate'],
+                    'designation' =>$data['designation'],
                     'upload' => $name
                 ]);
 
@@ -368,7 +398,62 @@ class AdminController extends Controller
 
     public function salary()
     {
-        return view('admin::salary/salary');
+        $salary= DB::table('users')
+        ->join('employees', 'users.id', '=', 'employees.user_id')
+        ->join('salary','salary.userId','=','users.id')
+        ->get();
+
+        //dd($salaries);
+        return view('admin::salary/salary',compact('salary'));
+    }
+    
+    public function salaryEmployee()
+    {
+        $user=DB::table('users')->get();
+       
+        return view('admin::salary/salaryToEmployee',compact('user'));
+    }
+
+    
+    public function employeeSalaryDetails(Request $request){
+       
+        $id=$request->id;
+        if ($id!=0 || $id!='' || $id!=null) {
+            $entranceEmployee = DB::table('users')->select('users.*','employees.*')
+            ->join('employees', 'users.id', '=', 'employees.user_id')
+            ->where('users.id', $id)->first();
+           // dd($entranceEmployee);
+
+            if ($entranceEmployee){
+                return json_encode($entranceEmployee);
+            }
+            else{
+                return json_encode('error');
+            }
+        }
+        else{
+            return json_encode('error');
+        }
+    }
+    
+    public function salaryStore(Request $request)
+    {
+       
+            $data= $request->validate(
+                [
+                    'userId' => 'required',
+                    'salary' => 'required',
+                    'salaryDate' => 'required',
+                ]);
+           
+                DB::table('salary')->insert(
+                    [ 
+                        'userId'=> $data['userId'],
+                        'salary'=> $data['salary'],
+                        'salaryDate'=> $data['salaryDate']
+                    ]);
+                return redirect()->back()->with('save','Saved Successfully');
+           
     }
 
     public function advance()

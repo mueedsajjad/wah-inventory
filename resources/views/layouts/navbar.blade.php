@@ -590,6 +590,40 @@
                     </li>
                 @endif
 
+
+                @if(auth()->user()->can('Approve Requisition'))
+                    <li class="nav-item has-treeview @if(request()->segment(1)=="requisition") menu-open @endif">
+                        <a href="#" class="nav-link  @if(request()->segment(1)=="requisition") active @endif">
+                            <i class="fas fa-receipt nav-icon"></i>
+                            <p>
+                                Requisition Approval
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('requisition/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('requisition/material-dashboard')}}" class="nav-link @if(request()->segment(2)=="material-dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Material Requisition</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('requisition/component-dashboard')}}" class="nav-link @if(request()->segment(2)=="component-dashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Component Requisition</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+
                 @if(auth()->user()->can('Sale'))
                     <li class="nav-item has-treeview @if(request()->segment(1)=="sale") menu-open @endif">
                         <a href="#" class="nav-link  @if(request()->segment(1)=="sale") active @endif">
@@ -870,7 +904,7 @@
                                 </a>
                             </li>
                             @endif
-                            
+
                             @if(auth()->user()->can('Apply for Attendance'))
                             <li class="nav-item">
                                 <a href="{{url('admin/leaveOfficer')}}" class="nav-link @if(request()->segment(2)=="leaveOfficer") active @endif">

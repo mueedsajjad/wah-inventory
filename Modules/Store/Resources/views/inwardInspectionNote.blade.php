@@ -25,15 +25,6 @@
                         </div>
                     </form>
                 </div>
-            <div class="col-md-4 text-right">
-                <div class="form-group mt-2 mr-4 ">
-                    @if(auth()->user()->hasRole('QC'))
-                        <a href="{{url('/qc/dashboard')}}" class="btn btn-sm btn-secondary">Back</a>
-                    @else
-                        <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
-                    @endif
-                    {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
-                </div>
             </div>
         <div class="row">
             <div class="col-12">
@@ -51,6 +42,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Inspection Note</h3>
+                        @if(auth()->user()->hasRole('QC'))
+                            <a href="{{url('/qc/dashboard')}}" class="btn btn-secondary btn-sm float-right">Back</a>
+                        @else
+                            <a href="{{url('/')}}" class="btn btn-secondary btn-sm float-right">Back</a>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -101,7 +97,7 @@
                                                         <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
                                                     </a>
                                                 @else
-                                                    <i class="fas fa-toggle-on fa-2x" style="color: #DA231A;"></i>
+                                                    <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>
                                                 @endif
                                             </td>
                                         </tr>

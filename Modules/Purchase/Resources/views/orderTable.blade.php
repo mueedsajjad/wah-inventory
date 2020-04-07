@@ -64,10 +64,19 @@
                                         </div>
                                     </div>
                                 </div></td>
-                            <td>
-                                <a href="{{url('purchase/order-approve/'.$data->id)}}" class="btn btn-sm btn-success" >Accept</a>
-                                <a href="{{url('purchase/order-reject/'.$data->id)}}" class="btn btn-sm btn-danger" >Reject</a>
-                            </td>
+
+                            @if($data->status == 0)
+                                <td>
+                                    <a href="{{url('purchase/order-approve/'.$data->id)}}" class="btn btn-sm btn-success" >Accept</a>
+                                    <a href="{{url('purchase/order-reject/'.$data->id)}}" class="btn btn-sm btn-danger" >Reject</a>
+                                </td>
+                            @elseif($data->status == 1)
+                                <td></td>
+                            @elseif($data->status == 2)
+                                <td></td>
+                            @elseif($data->status == 3)
+                                <td></td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>

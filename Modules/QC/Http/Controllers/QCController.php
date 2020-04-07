@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\QC\Http\Controllers;
+namespace Modules\Store\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

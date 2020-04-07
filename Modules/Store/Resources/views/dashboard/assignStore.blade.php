@@ -10,15 +10,9 @@
                 <div class="card card-dark">
                     <div class="card-header">
                         <h3 class="card-title">Assign Stores</h3>
+                        <a href="{{url('/')}}" class="btn btn-secondary btn-sm float-right">Back</a>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <div class="form-group mt-2 mr-4 ">
-                                <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
-                                {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
-                            </div>
-                        </div>
 
                     </div>
 

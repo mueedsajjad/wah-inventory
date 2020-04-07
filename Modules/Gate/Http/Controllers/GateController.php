@@ -16,61 +16,124 @@ class GateController extends Controller
     }
     public function addInwardGatePass(Request $request){
 //        dd($request->all());
+        if($request->type == 'requisition'){
 
-        $vendor = DB::table('supplier')->find($request->ven_id);
+
+            $data=[
+                'gatePassId' => $request->gatePassId,
+                'requisition_id'=>$request->reqisition_id,
+                'driverId' => $request->driverId,
+                'driverName' => $request->driverName,
+                'driverPh' => $request->driverPh,
+                'vehicalNo' => $request->vehicalNo,
+                'date' => date('Y-m-d'),
+                'status' => 0
+
+            ];
+            $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
+            $size = sizeof($request->material_name);
+
+            for($i=0 ; $i<$size ; $i++){
+                $data=[
+                    'requisition_id'=>$request->reqisition_id,
+                    'itemType' => 'Component',
+                    'materialName' => $request['material_name'][$i],
+                    'uom' => $request['uom'][$i],
+                    'qty' => $request['qty_received'][$i],
+                    'order_qty' => $request['qty'][$i],
+                    'description' => $request['description'][$i],
+                    'gatePassId' => $request->gatePassId,
+                    'date' => date('Y-m-d'),
+                    'status' => 0
+                ];
+                $insertInwardRawMaterial=DB::table('inward_raw_material')->insert($data);
+            }
+
+
+
+            if ($insertInwardGatePass && $insertInwardRawMaterial){
+                return redirect()->back()->with('message', 'Submitted Successfully.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+
+        }elseif ($request->type == 'purchase'){
+
+            $vendor = DB::table('supplier')->find($request->ven_id);
 
 //        dd($request->po_num);
-        $por=DB::table('purchase_order_approval')->where('id',$request->po_num)->first();
+            $por=DB::table('purchase_order_approval')->where('id',$request->po_num)->first();
 
 //        dd($por->requisition_id);
-        $data=[
-            'gatePassId' => $request->gatePassId,
-            'requisition_id'=>$por->requisition_id,
-            'purchase_order_id'=>$por->purchase_order_id,
-            'driverId' => $request->driverId,
-            'driverName' => $request->driverName,
-            'driverPh' => $request->driverPh,
-            'vehicalNo' => $request->vehicalNo,
-
-            'vendorType' => 'Registered Vendor',
-            'vendorId' => $vendor->supplier_id,
-            'vendorName' => $vendor->name,
-            'vendorAddress' => $vendor->city,
-            'vendorPh' => $vendor->p_number	,
-
-            'date' => date('Y-m-d'),
-            'status' => 0
-        ];
-
-        $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
-
-        $size = sizeof($request->material_name);
-
-        for($i=0 ; $i<$size ; $i++){
             $data=[
+                'gatePassId' => $request->gatePassId,
                 'requisition_id'=>$por->requisition_id,
                 'purchase_order_id'=>$por->purchase_order_id,
-                'itemType' => 'Material',
-                'materialName' => $request['material_name'][$i],
-                'uom' => $request['uom'][$i],
-                'qty' => $request['qty_received'][$i],
-                'order_qty' => $request['qty'][$i],
-                'description' => $request['description'][$i],
-                'gatePassId' => $request->gatePassId,
+                'driverId' => $request->driverId,
+                'driverName' => $request->driverName,
+                'driverPh' => $request->driverPh,
+                'vehicalNo' => $request->vehicalNo,
+
+                'vendorType' => 'Registered Vendor',
+                'vendorId' => $vendor->supplier_id,
+                'vendorName' => $vendor->name,
+                'vendorAddress' => $vendor->city,
+                'vendorPh' => $vendor->p_number	,
+
                 'date' => date('Y-m-d'),
                 'status' => 0
             ];
-            $insertInwardRawMaterial=DB::table('inward_raw_material')->insert($data);
-        }
 
-        if ($insertInwardGatePass && $insertInwardRawMaterial){
-            return redirect()->back()->with('message', 'Submitted Successfuly.');
+            $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
+
+            $size = sizeof($request->material_name);
+
+            for($i=0 ; $i<$size ; $i++){
+                $data=[
+                    'requisition_id'=>$por->requisition_id,
+                    'purchase_order_id'=>$por->purchase_order_id,
+                    'itemType' => 'Material',
+                    'materialName' => $request['material_name'][$i],
+                    'uom' => $request['uom'][$i],
+                    'qty' => $request['qty_received'][$i],
+                    'order_qty' => $request['qty'][$i],
+                    'description' => $request['description'][$i],
+                    'gatePassId' => $request->gatePassId,
+                    'date' => date('Y-m-d'),
+                    'status' => 0
+                ];
+                $insertInwardRawMaterial=DB::table('inward_raw_material')->insert($data);
+            }
+
+            if ($insertInwardGatePass && $insertInwardRawMaterial){
+                return redirect()->back()->with('message', 'Submitted Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
         }
-        else {
-            return back()->withErrors( 'Something went wrong.');
+//        dd($request->all());
+
+
+    }
+
+
+    public function poDetails($data){
+        if ($data == 'po'){
+            $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+
+            return view('gate::gate.purchaseRight', compact('PO'));
+        }else{
+            $requisitions=DB::table('purchase_requisitions')->get();
+
+            return view('gate::gate.reqRight', compact('requisitions'));
         }
 
     }
+
+
+
 
     public function inwardGatePass()
     {
@@ -86,7 +149,9 @@ class GateController extends Controller
             $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
             ++$countInwardGatePass;
         }
-        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+//        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+//        $requisitions=DB::table('purchase_requisitions')->get();
+//        dd($requisitions);
 //        'purchase_order_id'
 //        foreach ($PO as $key=>$row){
 //            $purchase_order_id=$row->purchase_order_id;
@@ -95,11 +160,19 @@ class GateController extends Controller
 //        dd($purchase_order_id,$vendor_id);
 //        dd($PO);
 
-        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO'));
+        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
     }
     public function outwardGatePass(){
+        $countInwardGatePass=DB::table('inward_gate_pass')->select('gatePassId')->orderByDesc('id')->first();
+        if(empty($countInwardGatePass)){
+            $countInwardGatePass=1;
+        }
+        else{
+            $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
+            ++$countInwardGatePass;
+        }
 
-        return view('gate::gate/outwardGatePass');
+        return view('gate::gate/outwardGatePass',compact('countInwardGatePass'));
     }
 
     public function vehicleManagement(){
@@ -213,7 +286,9 @@ class GateController extends Controller
 
     public function inward()
     {
-        return view('gate::report/inward');
+        $report_data=DB::table('inward_gate_pass')->get();
+
+        return view('gate::report/inward',compact('report_data'));
     }
     /**
      * Display a listing of the resource.
@@ -302,7 +377,53 @@ class GateController extends Controller
 
         $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
 
-
         return view('gate::gate.item-details', compact('purchase_items_details'));
     }
+
+    public function requisition_detail($id){
+//          dd($id);
+          $req_data=DB::table('purchase_requisitions_detail')->where('req_id',$id)->get();
+//          dd($req_data);
+        return view('gate::gate.requisition_detail',compact('req_data'));
+    }
+
+            public function outward_customer($id){
+
+                return view('gate::gate.customer_data');
+            }
+
+
+            public function outward_factory_component($id){
+
+
+                $component = DB::table('production_component')->where('gate_type', 'outward')->get();
+
+
+                return view('gate::gate.factory_data_component', compact('component'));
+            }
+
+
+            public function outward_factory_material($id){
+
+                $material = DB::table('production_material')->where('gate_type', 'outward')->get();
+
+                return view('gate::gate.factory_data_material', compact('material'));
+
+            }
+
+
+            public function getDataMaterial($id){
+
+                $details = DB::table('production_material_detail')->where('production_material_id', $id)->get();
+                return view('gate::gate.table', compact('details'));
+
+            }
+
+
+                public function getDataComponent($id){
+
+                    $details = DB::table('production_component_detail')->where('production_component_id', $id)->get();
+                    return view('gate::gate.tableComponent', compact('details'));
+
+                }
 }

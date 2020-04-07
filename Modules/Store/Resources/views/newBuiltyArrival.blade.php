@@ -31,12 +31,8 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4 text-right">
-                <div class="form-group mt-2 mr-4 ">
-                    <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
-                    {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
-                </div>
             </div>
+
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->
@@ -53,6 +49,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">New Bilty Arrivals</h3>
+{{--                        <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>--}}
+                        <a href="{{url('/')}}" class="btn btn-secondary btn-sm float-right">Back</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -89,7 +87,7 @@
                                                         <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
                                                     </a>
                                                 @else
-                                                    <i class="fas fa-toggle-on fa-2x" style="color: #DA231A;"></i>
+                                                    <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>
                                                 @endif
                                             </td>
                                             <td><button type="button" onclick="getDetail({{$item->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">

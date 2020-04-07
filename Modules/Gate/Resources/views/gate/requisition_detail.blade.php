@@ -14,7 +14,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th>Purchase Order Id</th>
+                                <th>Requisition Id</th>
                                 <th>Material Code</th>
                                 <th>UOM</th>
                                 <th>Quantity</th>
@@ -24,13 +24,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($purchase_items_details as $data)
+                            @foreach($req_data as $key=>$requisition)
                                 <tr>
                                     <div class="mome">
-                                        <td><input type="text" class="form-control"  name="po_id" value="{{$data->purchase_order_id}}" readonly></td>
-                                        <td><input type="text" class="form-control"  name="material_name[]" value="{{$data->material_name}}" readonly></td>
-                                        <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
-                                        <td><input type="text" class="form-control"  name="qty[]" value="{{$data->quantity}}" readonly></td>
+                                        <td><input type="text" class="form-control"  name="reqisition_id" value="{{$requisition->requisition_id}}" readonly></td>
+                                        <td><input type="text" class="form-control"  name="material_name[]" value="{{$requisition->material_name}}" readonly></td>
+                                        <td><input type="text" class="form-control"  name="uom[]" value="{{$requisition->uom}}" readonly></td>
+                                        <td><input type="text" class="form-control"  name="qty[]" value="{{$requisition->quantity}}" readonly></td>
                                         <td><input type="number" class="form-control"  name="qty_received[]" value="" required></td>
                                         <td><input type="text" class="form-control"  name="description[]" value=""  required></td>
                                     </div>
