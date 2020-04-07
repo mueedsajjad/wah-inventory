@@ -21,6 +21,7 @@ class CreateInwardGatePassTable extends Migration
             $table->date('date');
             $table->string('driverId');
             $table->string('driverName');
+            $table->bigInteger('driverCNIC');
             $table->string('driverPh');
             $table->string('vehicalNo');
             $table->string('vendorType')->nullable();
