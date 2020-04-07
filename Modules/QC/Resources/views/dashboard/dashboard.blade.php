@@ -1,41 +1,115 @@
-
 @extends('layouts.master')
 
 @section('content')
-
-
-    <div class="content pt-5">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="mb-3 ml-2">
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-plus">
-                        </i>
-                        Add New Item/ Product/ Material
-                    </a>
+    <div class="row">
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>6</h3>
+                    <p>Stores</p>
                 </div>
-                <div class="mb-3 ml-2">
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder">
-                        </i>
-                        View Material
-                    </a>
+                <div class="icon">
+                    <i class="ion ion-android-playstore"></i>
                 </div>
-                <div class="mb-3 ml-2">
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder">
-                        </i>
-                        View Products
-                    </a>
-                </div>
-                <div class="mb-3 ml-2">
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-receipt">
-                        </i>
-                        Goods Receipt
-                    </a>
-                </div>
+                <a onclick="store()" style="cursor: pointer"  class="small-box-footer bg-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
-    </div>
-@endsection
+
+        <div class="col-lg-12 col-6">
+            <div id="detail">
+
+            </div>
+        </div>
+
+        @endsection
+
+        <script>
+            function store() {
+                console.log();
+                var path = location.pathname.split('/');
+                var app=path[1];
+                console.log(app);
+                $.ajax({
+                    type: "GET",
+                    url: "/"+app+"/store/dash/",
+                    success:function(data)
+                    {
+                        $("#detail").html(data);
+                    }
+                });
+            }
+
+            function gate() {
+                console.log();
+                var path = location.pathname.split('/');
+                var app=path[1];
+                console.log(app);
+                $.ajax({
+                    type: "GET",
+                    url: "/"+app+"/gate/dash/",
+                    success:function(data)
+                    {
+                        $("#detail").html(data);
+                    }
+                });
+            }
+
+            function requisition() {
+                console.log();
+                var path = location.pathname.split('/');
+                var app=path[1];
+                console.log(app);
+                $.ajax({
+                    type: "GET",
+                    url: "/"+app+"/requisition/dash/",
+                    success:function(data)
+                    {
+                        $("#detail").html(data);
+                    }
+                });
+            }
+
+            function sale() {
+                console.log();
+                var path = location.pathname.split('/');
+                var app = path[1];
+                console.log(app);
+                $.ajax({
+                    type: "GET",
+                    url: "/" + app + "/sale/dash/",
+                    success: function (data) {
+                        $("#detail").html(data);
+                    }
+                })
+            }
+            function production() {
+                console.log();
+                var path = location.pathname.split('/');
+                var app = path[1];
+                console.log(app);
+                $.ajax({
+                    type: "GET",
+                    url: "/" + app + "/production/dash/",
+                    success: function (data) {
+                        $("#detail").html(data);
+                    }
+                })
+            }
+
+            function QC() {
+                console.log();
+                var path = location.pathname.split('/');
+                var app = path[1];
+                console.log(app);
+                $.ajax({
+                    type: "GET",
+                    url: "/" + app + "/production/dash/",
+                    success: function (data) {
+                        $("#detail").html(data);
+                    }
+                })
+            }
+
+        </script>
