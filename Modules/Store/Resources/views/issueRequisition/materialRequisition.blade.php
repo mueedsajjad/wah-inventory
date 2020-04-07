@@ -44,7 +44,7 @@
                                     <td>
                                         @if($item->gate_type=='inward')
                                             @if($item->status==1)
-                                                <a href="{{url('store/issueRequisition/proceedComponentRequisition/'.$item->id.'/'.$item->component_name.'/'.$item->quantity)}}" class="btn btn-sm btn-secondary">Proceed</a>
+                                                <a href="{{url('store/issueRequisition/proceedComponentRequisition/'.$item->id.'/'.$item->material_name.'/'.$item->quantity)}}" class="btn btn-sm btn-secondary">Proceed</a>
                                             @elseif($item->status==3)
                                                 <button type="button" class="btn btn-sm btn-success">Issued</button>
                                             @elseif($item->status==5)

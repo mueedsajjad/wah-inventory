@@ -42,6 +42,8 @@ class PurchaseController extends Controller
 
     public function purchaseOrderApproval(Request $request){
 
+//
+//        dd($request->all());
 
         if ($request->hasFile('upload'))
         {
@@ -57,6 +59,7 @@ class PurchaseController extends Controller
 
         $requisition_id = DB::table('purchase_requisitions')->find($request->requisition_id);
 
+        DB::table('purchase_requisitions')->where('id',$request->requisition_id)->update(['status' => 1]);
 
         $issue_date = $request->issue_date;
 
@@ -93,7 +96,7 @@ class PurchaseController extends Controller
 
 
 
-        return redirect()->back()->with('message', 'Purchase Order Request Submitted Successfully');
+        return redirect(url('/purchase/'))->with('message', 'Purchase Order Request Submitted Successfully');
 
 
     }
@@ -395,13 +398,29 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        return view('purchase::index');
+        $records = DB::table('purchase_requisitions')->get();
+
+
+
+
+        return view('purchase::index', compact('records'));
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
+
+    public function purchaseNewRequest($id){
+
+        $records = DB::table('purchase_requisitions')->find($id);
+
+        $details = DB::table('purchase_requisitions_detail')->where('req_id', $records->id)->get();
+
+
+        return view('purchase::purchaseNewRequest', compact('records', 'details'));
+
+    }
 
     public function create()
     {

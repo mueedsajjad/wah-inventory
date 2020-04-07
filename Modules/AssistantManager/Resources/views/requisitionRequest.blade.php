@@ -63,7 +63,7 @@
                                                                 <option selected disabled>Select</option>
                                                                 @if(!$components->isempty())
                                                                     @foreach($components as $unit)
-                                                                        <option value="{{$unit->component_id}}">{{$unit->component_name}}</option>
+                                                                        <option value="{{$unit->component_id}}">{{$unit->component_id}}</option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
@@ -128,7 +128,7 @@
                 '<select name="materialName[]" class="form-control select2">'+
                 '<?php if(!$components->isempty()){
                     foreach($components as $data){ ?>'+
-                '<option value="{{$data->component_id}}">{{$data->component_name}}</option>'+
+                '<option value="{{$data->component_id}}">{{$data->component_id}}</option>'+
                 '<?php }
                     } ?>'+
                 '</select>'+

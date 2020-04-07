@@ -180,7 +180,11 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper water-mark">
+        <section class="content pt-3">
+            <div class="container-fluid">
         @yield('content')
+            </div>
+        </section>
         <!-- Content Header (Page header) -->
         <!--    <div class="content-header">-->
         <!--      <div class="container-fluid">-->
