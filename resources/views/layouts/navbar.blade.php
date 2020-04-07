@@ -592,6 +592,12 @@
 
 
                 @if(auth()->user()->can('Approve Requisition'))
+                    <li class="nav-item">
+                        <a href="{{url('assistantmanager/')}}" class="nav-link @if(request()->segment(1)=="assistantmanager") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview @if(request()->segment(1)=="requisition") menu-open @endif">
                         <a href="#" class="nav-link  @if(request()->segment(1)=="requisition") active @endif">
                             <i class="fas fa-receipt nav-icon"></i>
@@ -601,12 +607,6 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{url('requisition/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard</p>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{url('requisition/material-dashboard')}}" class="nav-link @if(request()->segment(2)=="material-dashboard") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
