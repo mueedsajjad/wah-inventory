@@ -125,7 +125,7 @@
             </div>
             <!-- /.col -->
         </div>
-        </div>
+
         <!-- /.row -->
     </section>
 

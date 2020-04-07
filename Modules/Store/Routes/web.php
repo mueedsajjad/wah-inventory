@@ -31,6 +31,7 @@ Route::prefix('store')->group(function() {
     Route::get('product', 'StoreController@product');
 ////////////////////////////////////////////////////////////////////////////////////////////
     Route::get('newBuiltyArrival', 'StoreController@newBuiltyArrival');
+    Route::get('add_i_note_qc/{id}', 'StoreController@add_i_note_qc');
     Route::get('viewBuiltyDetails/{gatePassId}', 'StoreController@viewBuiltyDetails');
     Route::post('changeUnloadStatus', 'StoreController@changeUnloadStatus');
 
