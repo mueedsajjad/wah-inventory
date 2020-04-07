@@ -1,7 +1,40 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="content pt-5">
+    <section class="">
+        <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4 mt-2">
+                    <form id="dateHearing" action="{{ route('inward_insp_note_date') }}" method="POST" >
+                        @csrf
+                        <div class="d-flex">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">From</label>
+                                <div class="col-sm-9">
+                                    <input type="date" name="fromDate" id="fromDate" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">To</label>
+                                <div class="col-sm-10">
+                                    <input type="date" onchange="myFunction()" name="toDate" id="toDate" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            <div class="col-md-4 text-right">
+                <div class="form-group mt-2 mr-4 ">
+                    @if(auth()->user()->hasRole('QC'))
+                        <a href="{{url('/qc/dashboard')}}" class="btn btn-sm btn-secondary">Back</a>
+                    @else
+                        <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
+                    @endif
+                    {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
+                </div>
+            </div>
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->
@@ -33,8 +66,8 @@
                                     <th>Description</th>
                                     <th>Date</th>
                                     <th style="">Store</th>
-                                    <th>Send for Receipt Status</th>
                                     <th>Action</th>
+                                    <th>Generate I-Note</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -53,22 +86,22 @@
                                             <td>{{$item->date}}</td>
                                             <td>{{$item->storeLocation}}</td>
                                             <td>
+                                                @if(empty($item->inspectionDate))
+                                                    <a class="btn btn-secondary btn-sm getBiltyId" data-toggle="modal" data-target="#addInspectionNoteModal" data-id="{{$item->id}}"
+                                                    >Add I-Note</a>
+                                                @else
+                                                    <a class="btn btn-success btn-sm getBiltyData" data-toggle="modal" data-target="#viewInspectionNoteModal" data-id="{{$item->id}}"
+                                                       data-inspectiondate="{{$item->inspectionDate}}" data-rejectionreason="{{$item->rejectionReason}}"
+                                                       data-inspectionstatus="{{$item->inspectionStatus}}" data-rejectedqty="{{$item->rejectedQty}}">View Note</a>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if($item->status==2)
                                                     <a class="getNoteData" data-toggle="modal" data-target="#changeRecepitStatusModal" data-id="{{$item->id}}">
                                                         <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
                                                     </a>
                                                 @else
                                                     <i class="fas fa-toggle-on fa-2x" style="color: #DA231A;"></i>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(empty($item->inspectionDate))
-                                                <a class="btn btn-secondary btn-sm getBiltyId" data-toggle="modal" data-target="#addInspectionNoteModal" data-id="{{$item->id}}"
-                                                   >Add Note</a>
-                                                @else
-                                                <a class="btn btn-success btn-sm getBiltyData" data-toggle="modal" data-target="#viewInspectionNoteModal" data-id="{{$item->id}}"
-                                                   data-inspectiondate="{{$item->inspectionDate}}" data-rejectionreason="{{$item->rejectionReason}}"
-                                                   data-inspectionstatus="{{$item->inspectionStatus}}" data-rejectedqty="{{$item->rejectedQty}}">View Note</a>
                                                 @endif
                                             </td>
                                         </tr>
@@ -81,6 +114,7 @@
                 </div>
                 <!-- /.card -->
             </div>
+        </div>
         </div>
     </section>
 
@@ -101,7 +135,7 @@
                     <div class="modal-body">
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Inspection Date</label>
+                                <label class="col-sm-4 col-form-label">I-Note Date</label>
                                 <div class="col-sm-8">
                                     <input type="text" readonly value="{{date('d-m-Y')}}" class="form-control">
                                 </div>
@@ -109,7 +143,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Inspection Status</label>
+                                <label class="col-sm-4 col-form-label">I-Note Status</label>
                                 <div class="col-sm-8">
                                     <select name="inspectionStatus" class="form-control select2" required>
                                         <option value="excellent">Excellent</option>
@@ -121,7 +155,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Rejection Reason</label>
+                                <label class="col-sm-4 col-form-label">Remarks</label>
                                 <div class="col-sm-8">
                                     <textarea rows="3" name="rejectionReason" class="form-control"></textarea>
                                 </div>
@@ -160,7 +194,7 @@
                 <div class="modal-body">
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Inspection Date</label>
+                            <label class="col-sm-4 col-form-label">I-Note Date</label>
                             <div class="col-sm-8">
                                 <input type="text" readonly name="inspectionDate" class="form-control inspectionDate">
                             </div>
@@ -168,7 +202,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Inspection Status</label>
+                            <label class="col-sm-4 col-form-label">I-Note Status</label>
                             <div class="col-sm-8">
                                 <select name="inspectionStatus" class="form-control inspectionStatus" disabled>
                                     <option value="excellent">Excellent</option>
@@ -180,7 +214,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Rejection Reason</label>
+                            <label class="col-sm-4 col-form-label">Remarks</label>
                             <div class="col-sm-8">
                                 <textarea rows="3" readonly name="rejectionReason" class="form-control rejectionReason"></textarea>
                             </div>
@@ -263,6 +297,20 @@
             var sendId=$(this).data("id");
             $('#sendId').val(sendId);
         });
+    </script>
+    <script>
+        $( document ).ready(function() {
+            $('#builtyTable').DataTable();
+        });
+    </script>
+    <script>
+        function myFunction(){
+
+            if(document.getElementById("fromDate").value != ''){
+
+                document.getElementById("dateHearing").submit();
+            }
+        }
     </script>
 @endsection
 

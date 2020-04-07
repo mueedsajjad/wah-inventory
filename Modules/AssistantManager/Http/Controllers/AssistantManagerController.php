@@ -5,6 +5,7 @@ namespace Modules\AssistantManager\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AssistantManagerController extends Controller
 {
@@ -18,13 +19,65 @@ class AssistantManagerController extends Controller
      */
     public function index()
     {
-        return view('assistantmanager::index');
+
+        $records = DB::table('purchase_requisitions')->get();
+
+
+
+        return view('assistantmanager::dashboard', compact('records'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+    public function requisitionRequest(){
+
+
+        $units = DB::table('unit')->get();
+        $components = DB::table('component')->get();
+        return view('assistantmanager::requisitionRequest', compact('units', 'components'));
+    }
+
+    public function requisitionRequestSubmit(Request $request){
+        $issue_date = $request->issue_date;
+
+        $requisition_id = 'PR-'.random_int(4, 9999);
+
+
+
+        DB::table('purchase_requisitions')->insert([
+            'requisition_id' => $requisition_id,
+            'issue_date' => $issue_date,
+        ]);
+
+        $latest = DB::table('purchase_requisitions')->orderByDesc('id')->first();
+
+
+
+
+
+        $size = sizeof($request->materialName);
+
+        for ($i = 0; $i < $size; $i++) {
+            $answers[] = [
+                'req_id' => $latest->id,
+                'requisition_id' => $latest->requisition_id,
+                'material_name' => $request->materialName[$i],
+                'uom' => $request->uom[$i],
+                'description' => $request->description[$i],
+                'quantity' => $request->qty[$i],
+            ];
+        }
+        DB::table('purchase_requisitions_detail')->insert($answers);
+
+
+        return redirect()->back()->with('message', 'Requisition Request Submitted Successfully');
+    }
+
+
+        public function getDetails($id){
+            $details = DB::table('purchase_requisitions_detail')->where('req_id', $id)->get();
+            return view('assistantmanager::getDetails',compact('details'));
+        }
+
+
     public function create()
     {
         return view('assistantmanager::create');

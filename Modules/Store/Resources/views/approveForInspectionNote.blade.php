@@ -1,7 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="content pt-5">
+    <section class="">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="form-group mt-2 mr-4 ">
+                    <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>
+                    {{--                                <button id="print" class="btn btn-sm btn-info">Print</button>--}}
+                </div>
+            </div>
         <div class="row">
             <div class="col-12">
                 <!-- /.card -->
@@ -33,7 +40,7 @@
                                     <th>Description</th>
                                     <th>Date</th>
                                     <th style="width: 15%;">Send for Inspection Status</th>
-                                    <th style="width: 20%;">Assign Store</th>
+{{--                                    <th style="width: 20%;">Assign Store</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -60,27 +67,27 @@
                                                     <i class="fas fa-toggle-on fa-2x" style="color: #DA231A;"></i>
                                                 @endif
                                             </td>
-                                            <td>
-                                                @if(Empty($item->storeLocation))
-                                                    <form action="{{url('store/submitAssignedStore/'.$item->id)}}" method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input type="hidden" value="{{$item->materialName}}" name="materialName">
-                                                        <input type="hidden" value="{{$item->itemType}}" name="itemType">
-                                                        <div class="row">
-                                                            <select name="storeLocation" style="width: 70%;" class="form-control">
-                                                                @if(!$stores->isempty())
-                                                                    @foreach($stores as $store)
-                                                                        <option value="{{$store->name}}">{{$store->name}}</option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-                                                            <button type="submit" class="btn btn-success btn-sm ml-1">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                @else
-                                                    {{$item->storeLocation}}
-                                                @endif
-                                            </td>
+{{--                                            <td>--}}
+{{--                                                @if(Empty($item->storeLocation))--}}
+{{--                                                    <form action="{{url('store/submitAssignedStore/'.$item->id)}}" method="post" enctype="multipart/form-data">--}}
+{{--                                                        @csrf--}}
+{{--                                                        <input type="hidden" value="{{$item->materialName}}" name="materialName">--}}
+{{--                                                        <input type="hidden" value="{{$item->itemType}}" name="itemType">--}}
+{{--                                                        <div class="row">--}}
+{{--                                                            <select name="storeLocation" style="width: 70%;" class="form-control">--}}
+{{--                                                                @if(!$stores->isempty())--}}
+{{--                                                                    @foreach($stores as $store)--}}
+{{--                                                                        <option value="{{$store->name}}">{{$store->name}}</option>--}}
+{{--                                                                    @endforeach--}}
+{{--                                                                @endif--}}
+{{--                                                            </select>--}}
+{{--                                                            <button type="submit" class="btn btn-success btn-sm ml-1">Submit</button>--}}
+{{--                                                        </div>--}}
+{{--                                                    </form>--}}
+{{--                                                @else--}}
+{{--                                                    {{$item->storeLocation}}--}}
+{{--                                                @endif--}}
+{{--                                            </td>--}}
                                         </tr>
                                     @endforeach
                                 @endif
@@ -130,6 +137,11 @@
             $('#gatepassid').val(gatepassid);
             var materialname=$(this).data("materialname");
             $('#materialname').val(materialname);
+        });
+    </script>
+    <script>
+        $( document ).ready(function() {
+            $('#builtyTable').DataTable();
         });
     </script>
 @endsection

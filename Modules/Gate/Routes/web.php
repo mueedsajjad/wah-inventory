@@ -13,6 +13,9 @@
 
 Route::prefix('gate')->group(function() {
     Route::get('inwardGatePass','GateController@inwardGatePass');
+    Route::get('outwardGatePass','GateController@outwardGatePass');
+    Route::get('vendor_data/{id}','GateController@vendor_data');
+    Route::get('item_details/{id}','GateController@item_details');
     Route::post('addInwardGatePass','GateController@addInwardGatePass');
 
 

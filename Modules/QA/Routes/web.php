@@ -21,5 +21,3 @@ Route::prefix('qa')->group(function() {
 
     Route::get('report', 'QAController@report');
 });
-
-

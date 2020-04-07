@@ -15,31 +15,46 @@ class GateController extends Controller
         $this->middleware('auth');
     }
     public function addInwardGatePass(Request $request){
-        //dd($request);
+//        dd($request->all());
+
+        $vendor = DB::table('supplier')->find($request->ven_id);
+
+//        dd($request->po_num);
+        $por=DB::table('purchase_order_approval')->where('id',$request->po_num)->first();
+
+//        dd($por->requisition_id);
         $data=[
             'gatePassId' => $request->gatePassId,
+            'requisition_id'=>$por->requisition_id,
+            'purchase_order_id'=>$por->purchase_order_id,
             'driverId' => $request->driverId,
             'driverName' => $request->driverName,
             'driverPh' => $request->driverPh,
             'vehicalNo' => $request->vehicalNo,
 
-            'vendorType' => $request->vendorType,
-            'vendorId' => $request->vendorId,
-            'vendorName' => $request->vendorName,
-            'vendorAddress' => $request->vendorAddress,
-            'vendorPh' => $request->vendorPh,
+            'vendorType' => 'Registered Vendor',
+            'vendorId' => $vendor->supplier_id,
+            'vendorName' => $vendor->name,
+            'vendorAddress' => $vendor->city,
+            'vendorPh' => $vendor->p_number	,
 
             'date' => date('Y-m-d'),
             'status' => 0
         ];
+
         $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
 
-        for($i=0 ; $i<$request->countMaterial ; $i++){
+        $size = sizeof($request->material_name);
+
+        for($i=0 ; $i<$size ; $i++){
             $data=[
-                'itemType' => $request['itemType'][$i],
-                'materialName' => $request['materialName'][$i],
+                'requisition_id'=>$por->requisition_id,
+                'purchase_order_id'=>$por->purchase_order_id,
+                'itemType' => 'Material',
+                'materialName' => $request['material_name'][$i],
                 'uom' => $request['uom'][$i],
-                'qty' => $request['qty'][$i],
+                'qty' => $request['qty_received'][$i],
+                'order_qty' => $request['qty'][$i],
                 'description' => $request['description'][$i],
                 'gatePassId' => $request->gatePassId,
                 'date' => date('Y-m-d'),
@@ -59,6 +74,7 @@ class GateController extends Controller
 
     public function inwardGatePass()
     {
+
         $supplier=DB::table('supplier')->get();
         $units=DB::table('unit')->get();
         $stores=DB::table('store')->get();
@@ -70,7 +86,20 @@ class GateController extends Controller
             $countInwardGatePass=substr($countInwardGatePass->gatePassId,4);
             ++$countInwardGatePass;
         }
-        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units'));
+        $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+//        'purchase_order_id'
+//        foreach ($PO as $key=>$row){
+//            $purchase_order_id=$row->purchase_order_id;
+//            $vendor_id=$row->vendor_id;
+//        }
+//        dd($purchase_order_id,$vendor_id);
+//        dd($PO);
+
+        return view('gate::gate/inwardGatePass', compact('countInwardGatePass', 'supplier', 'stores', 'units','PO'));
+    }
+    public function outwardGatePass(){
+
+        return view('gate::gate/outwardGatePass');
     }
 
     public function vehicleManagement(){
@@ -253,5 +282,27 @@ class GateController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function vendor_data($id){
+//      dd($id);
+        $vendors=DB::table('purchase_order_approval')->find($id);
+        $purchase_type=$vendors->purchase_type;
+        $vend=$vendors->vendor_id;
+
+        $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
+//        dd($purchase_items_details);
+        $vend=DB::table('supplier')->find($vend);
+
+            return view('gate::gate.vendor',compact('vend','purchase_type','purchase_items_details'));
+
+
+    }
+
+    public  function item_details($id){
+
+        $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
+
+
+        return view('gate::gate.item-details', compact('purchase_items_details'));
     }
 }

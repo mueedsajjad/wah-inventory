@@ -12,6 +12,11 @@ class QCController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
+    public function dashboard()
+    {
+        return view('qc::dashboard/dashboard');
+    }
+
     public function index()
     {
         return view('qc::index');
