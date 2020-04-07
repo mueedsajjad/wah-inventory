@@ -22,7 +22,7 @@
                                     {{ session()->get('message') }}
                                 </div>
                             @endif
-                            <form action="{{url('gate/addInwardGatePass')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('gate/addOutwardGatePass')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
@@ -47,17 +47,17 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">PO/Requisition</label>
+                                            <label class="col-sm-4 col-form-label">Outward Type</label>
                                             <div class="col-sm-8">
-                                                <select name="out_type" id="" class="form-control" onchange="showlist(this.value)">
+                                                <select name="out_t" id="" class="form-control" onchange="showlist(this.value)">
                                                     <option value="">select</option>
-                                                    <option value="customer" >Towards Customer</option>
+                                                    <option value="customer" >Delivery Order</option>
                                                     <option value="factory" >Towards Factory</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row" style="display: none" id="type">
-                                            <label class="col-sm-4 col-form-label">PO/Requisition</label>
+                                            <label class="col-sm-4 col-form-label">Material/Component</label>
                                             <div class="col-sm-8">
                                                 <select name="product_type" id="" class="form-control" onchange="mat(this.value)" >
                                                     <option disabled selected>select Type</option>
@@ -66,24 +66,30 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Driver Name</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="driverName" required class="form-control" placeholder="Waseem">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="sga_21" class="col-sm-4 col-form-label">Driver Phone #</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="driverPh" required class="form-control" id="sga_24" placeholder="03351234567">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Vehicle No</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" required name="vehicalNo" class="form-control" id="sga_22" placeholder="LHR-8828">
-                                            </div>
-                                        </div>
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Driver Name</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" name="driverName" required class="form-control" placeholder="Waseem">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Driver CNIC</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="number"  name="driverCNIC" required class="form-control" placeholder="3520156743568">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label for="sga_21" class="col-sm-4 col-form-label">Driver Phone #</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" name="driverPh" required class="form-control" id="sga_24" placeholder="03351234567">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Vehicle No</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <input type="text" required name="vehicalNo" class="form-control" id="sga_22" placeholder="LHR-8828">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     </div>
 
 

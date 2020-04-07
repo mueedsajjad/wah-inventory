@@ -13,7 +13,7 @@
             </div>
 </div>
 
-        </div>
+
 
 
 
@@ -35,13 +35,23 @@
                         url: 'vendor_data/'+poId,
                         success:function(data)
                         {
-
                             $("#display").html(data);
-
                         }
                     });
                 }
-
-
+        });
+        $('#po_num').on('change', function () {
+            var poId = $(this).val();
+            // console.log(poId);
+            if (poId){
+                $.ajax({
+                    type: "GET",
+                    url: 'item_details/'+poId,
+                    success:function(data)
+                    {
+                        $("#details").html(data);
+                    }
+                });
+            }
         });
     </script>

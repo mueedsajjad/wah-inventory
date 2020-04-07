@@ -11,7 +11,7 @@
     </div>
 </div>
 
-</div>
+
 
 <div id="display">
 
@@ -33,7 +33,7 @@
                 success:function(data)
                 {
 
-                    $("#display").html(data);
+                    $("#details").html(data);
 
                 }
             });

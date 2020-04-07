@@ -12,9 +12,12 @@
 */
 
 Route::prefix('purchase')->group(function() {
+
     Route::get('/', 'PurchaseController@index');
     Route::get('/dashboard', 'PurchaseController@dashboard');
     Route::get('/new-purchase-list', 'PurchaseController@purchaseOrderlist');
+
+    Route::get('/new-request/{id}', 'PurchaseController@purchaseNewRequest');
 
     Route::get('/get-requ/{data}', 'PurchaseController@getRequ');
     Route::get('/get-details/{data}', 'PurchaseController@getDetail');
