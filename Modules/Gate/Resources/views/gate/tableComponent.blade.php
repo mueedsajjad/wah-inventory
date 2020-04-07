@@ -14,8 +14,8 @@
                         <table>
                             <thead>
                             <tr>
-                                <th>Material Requisition ID</th>
-                                <th>Material Code</th>
+                                <th>Component Requisition ID</th>
+                                <th>Component Code</th>
                                 <th>Quantity</th>
                             </tr>
                             </thead>
