@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -45,9 +46,31 @@ class HomeController extends Controller
 
 
 
+        $user = DB::table('users')->count();
+        $store = DB::table('store')->count();
 
 
-
-        return view('dashboard');
+        return view('dashboard', compact('user', 'store'));
     }
+
+    public function store(){
+
+        $store_info = DB::table('store')->get();
+//        dd($store_info);
+
+        return view('store', compact('store_info'));
+    }
+
+    public function singleData($id){
+        $store_info = DB::table('store')->get();
+
+        $store = DB::table('store')->find($id);
+
+        $details = DB::table('store_stock')->where('store_location', $store->name)->get();
+
+        return view('storeDetails', compact('store', 'details', 'store_info'));
+    }
+
+
+
 }

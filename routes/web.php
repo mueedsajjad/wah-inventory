@@ -21,3 +21,5 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/store/dash', 'HomeController@store');
+Route::get('/store/single-data/{id}', 'HomeController@singleData');
