@@ -2,6 +2,7 @@
 
 namespace Modules\Sale\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -16,28 +17,46 @@ class SaleController extends Controller
 
     public function sale()
     {
-        return view('sale::sale/sale');
+        $count=DB::table('sale_order')->orderByDesc('id')->first();
+        if(empty($count)){
+            $countSoNumber=1;
+        }
+        else{
+            $countSoNumber=substr($count->so_number,4);
+            ++$countSoNumber;
+        }
+        $units=DB::table('unit')->get();
+        $products=DB::table('setting_product')->get();
+
+        return view('sale::sale/sale', compact('countSoNumber','units', 'products'));
     }
 
     public function saleStore(Request $request)
     {
-        $data= $request->validate([
-            'so_number' => 'required',
-            'date' => 'required|date',
-            'name' => 'required',
-            'product_number' => 'required',
-            'quantity' => 'required',
-            ]);
+        //dd($request);
 
-            DB::table('sale_order')->insert([
-                'so_number' => $data['so_number'],
-                'date' => $data['date'],
-                'name' => $data['name'],
-                'product_number' => $data['product_number'],
-                'quantity' => $data['quantity'],
+            $sale_order=DB::table('sale_order')->insert([
+                'so_number' => $request->so_number,
+                'date' => Carbon::today(),
                 ]);
 
-            return redirect()->back()->with('save', 'Saved Successfully');
+            for ($i=0 ; $i<$request->countProduct; $i++){
+                $sale_order_products=DB::table('sale_order_products')->insert([
+                    'so_number' => $request['so_number'][$i],
+                    'product_code' =>$request['productCode'][$i],
+                    'uom' =>$request['uom'][$i],
+                    'qty' =>$request['qty'][$i],
+                    'description' =>$request['description'][$i]
+                ]);
+            }
+
+            if($sale_order && $sale_order_products){
+                return redirect()->back()->with('message', 'Saved Successfully');
+            }
+            else{
+                return redirect()->back()->withErrors('Something went wrong.');
+            }
+
     }
 
     public function saleOrder()
