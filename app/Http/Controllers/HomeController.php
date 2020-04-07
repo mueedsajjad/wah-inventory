@@ -58,7 +58,16 @@ class HomeController extends Controller
         $store_info = DB::table('store')->get();
 //        dd($store_info);
 
-        return view('store', compact('store_info'));
+        return view('store.store', compact('store_info'));
+    }
+
+    public function gate(){
+        $store_info = DB::table('store')->get();
+        $inward_gate_pass = DB::table('inward_gate_pass')->count();
+
+
+
+        return view('gate.gate', compact('store_info', 'inward_gate_pass'));
     }
 
     public function singleData($id){
@@ -68,9 +77,16 @@ class HomeController extends Controller
 
         $details = DB::table('store_stock')->where('store_location', $store->name)->get();
 
-        return view('storeDetails', compact('store', 'details', 'store_info'));
+        return view('store.storeDetails', compact('store', 'details', 'store_info'));
     }
 
+    public function requisition(){
+        $store_info = DB::table('store')->get();
+        $inward_gate_pass = DB::table('inward_gate_pass')->count();
 
+
+
+        return view('requisition.requisition', compact('store_info', 'inward_gate_pass'));
+    }
 
 }

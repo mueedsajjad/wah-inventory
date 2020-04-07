@@ -23,3 +23,10 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/store/dash', 'HomeController@store');
 Route::get('/store/single-data/{id}', 'HomeController@singleData');
+
+
+
+Route::get('/gate/dash', 'HomeController@gate');
+
+
+Route::get('/requisition/dash', 'HomeController@requisition');

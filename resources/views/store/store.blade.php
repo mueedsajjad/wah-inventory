@@ -22,7 +22,7 @@
                                     @foreach($store_info as $key => $data)
                                         <tr>
                                             <td>{{$key+1}}</td>
-                                            <td><a style="color: red" onclick="singleData({{$data->id}})">{{$data->name}}</a></td>
+                                            <td><a style="color: red; cursor: pointer" onclick="singleData({{$data->id}})">{{$data->name}}</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
