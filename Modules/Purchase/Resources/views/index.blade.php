@@ -45,11 +45,16 @@
                                         <a href="{{url('/purchase/new-request/'.$data->id)}}" class="btn btn-sm btn-success">Make Requisition</a>
                                     </td>
                                         @elseif($data->status ==  1)
-                                    <td>Request sent for Approval</td>
+                                    <td>Request sent</td>
                                     <td>
                                     </td>
                                     @elseif($data->status ==  2)
-                                        <td>Accepted </td>
+                                        <td>Accepted</td>
+                                        <td>
+                                        </td>
+
+                                    @elseif($data->status ==  3)
+                                        <td>Rejected</td>
                                         <td>
                                         </td>
                                     @endif
@@ -59,8 +64,8 @@
                                         </button>
                                         <!-- Modal -->
                                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content modal-lg">
+                                            <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+                                                <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

@@ -23,7 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         if (auth()->user()->hasRole('Quality Employee')){
             return  redirect(url('/qa/dashboard'));
         }elseif (auth()->user()->hasRole('QC')){
@@ -41,6 +40,12 @@ class HomeController extends Controller
         }
 
 //        return  redirect(url('/dashboard'));
+
+
+
+
+
+
 
 
         return view('dashboard');

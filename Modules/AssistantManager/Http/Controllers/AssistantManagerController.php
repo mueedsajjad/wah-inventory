@@ -103,8 +103,6 @@ class AssistantManagerController extends Controller
 
 
 
-
-
         $size = sizeof($request->materialName);
 
         for ($i = 0; $i < $size; $i++) {
@@ -125,8 +123,13 @@ class AssistantManagerController extends Controller
 
 
         public function getDetails($id){
+
             $details = DB::table('purchase_requisitions_detail')->where('req_id', $id)->get();
-            return view('assistantmanager::getDetails',compact('details'));
+
+            $record = DB::table('purchase_requisitions')->find($id);
+
+//            dd($record);
+            return view('assistantmanager::getDetails',compact('details', 'record'));
         }
 
 
