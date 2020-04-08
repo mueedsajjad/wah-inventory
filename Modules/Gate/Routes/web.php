@@ -63,6 +63,7 @@ Route::prefix('gate')->group(function() {
 
         //----Outward Report------///
     Route::get('outward_report','GateController@outward_report');
+    Route::get('out_report/{id}','GateController@out_report');
 
 
 
