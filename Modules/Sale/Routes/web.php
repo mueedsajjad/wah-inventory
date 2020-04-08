@@ -12,12 +12,16 @@
 */
 
 Route::prefix('sale')->group(function() {
-    Route::get('/', 'SaleController@index');
 
     Route::get('sale', 'SaleController@sale');
     Route::post('saleStore', 'SaleController@saleStore');
-
     Route::get('saleOrder', 'SaleController@saleOrder');
+    Route::post('getSaleOrderProducts', 'SaleController@getSaleOrderProducts');
+    Route::post('changeApprovalStatus', 'SaleController@changeApprovalStatus');
 
+
+
+
+    Route::get('/', 'SaleController@index');
     Route::get('customer', 'SaleController@customer');
 });

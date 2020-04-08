@@ -90,7 +90,8 @@
                                                     <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>
                                                 @endif
                                             </td>
-                                            <td><button type="button" onclick="getDetail({{$item->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+                                            <td>
+                                                <button type="button" onclick="getDetail({{$item->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
                                                     View Inward Details
                                                 </button>
                                                 <!-- Modal -->

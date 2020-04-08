@@ -637,7 +637,7 @@
                             <li class="nav-item">
                                 <a href="{{url('sale/sale')}}" class="nav-link @if(request()->segment(2)=="sale") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Sales</p>
+                                    <p>New Sale Order</p>
                                 </a>
                             </li>
                             <li class="nav-item">
