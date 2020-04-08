@@ -2,7 +2,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <section class="content pt-5">
+    <section class="content pt-3">
         <div class="container-fluid">
             @if(!empty($errors->first()))
                 <div class="alert alert-danger text-center">
@@ -24,24 +24,44 @@
                         </div>
                         <div class="card-body">
 
-                                <div class="row justify-content-around">
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">SO Number</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" required name="so_number" readonly class="form-control" value="SO00{{$countSoNumber}}" id="sga_13" placeholder="GP001">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" readonly required value="{{date('d-m-Y')}}" class="form-control" id="sga_19" placeholder="08-02-2020">
-                                            </div>
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">SO Number</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" required name="so_number" readonly class="form-control" value="SO00{{$countSoNumber}}" id="sga_13" placeholder="GP001">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly required value="{{date('d-m-Y')}}" class="form-control" id="sga_19" placeholder="08-02-2020">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Delivery Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="date" required class="form-control" name="delivery_date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Customer</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" required class="form-control" name="customer_name" placeholder="kaleem">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
 

@@ -17,7 +17,9 @@ class CreateSaleOrderTable extends Migration
             $table->bigIncrements('id');
             $table->string('so_number')->nullable();
             $table->date('date')->nullable();
-
+            $table->date('delivery_date')->nullable();
+            $table->string('customer_name')->nullable();
+            $table->integer('status');
         });
     }
 
