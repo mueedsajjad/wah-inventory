@@ -223,7 +223,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">PO/Requisition</label>
+                                        <label class="col-sm-4 col-form-label">Inward Type</label>
                                         <div class="col-sm-8">
 {{--                                            <select name="Po/req" id="" class="form-control">--}}
 {{--                                                <option value="">select</option>--}}
@@ -234,6 +234,7 @@
                                                 <option value="">select</option>
                                                 <option value="po" >Purchase Order</option>
                                                 <option value="req" >Requisition</option>
+                                                <option value="fact" >Factory Inward</option>
                                             </select>
                                         </div>
                                     </div>
@@ -270,6 +271,64 @@
                                 <div id="details"></div>
 
                             </div>
+                            <div class="col-md-12 " style="display: none" id="factory" >
+                                <div class="card card-secondary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Raw Material</h3>
+
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead class="bg-light">
+                                            <tr>
+                                                <th style="width: 10%;">Sr#</th>
+                                                <th style="width: 15%;">Component Name</th>
+                                                <th style="width: 15%;">UOM</th>
+                                                <th style="width: 15%;">Qty</th>
+                                                <th>Material Description</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="appendMaterial">
+                                            <tr>
+                                                <input name="countMaterial" type="hidden" value="1" id="countMaterial">
+                                                <td>1</td>
+                                                <td>
+                                                    <input type="text" name="componentName[]" class="form-control" placeholder="">
+                                                </td>
+                                                <td>
+
+                                                    <select name="uom[]" class="form-control ">
+                                                        <option selected="" disabled="">Select</option>
+                                                        <option value="1">KG</option>
+                                                        <option value="2">PCS</option>
+                                                        <option value="4">TON</option>
+                                                        <option value="6">Liters</option>
+                                                    </select>
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="qty[]" class="form-control" id="" placeholder="">
+                                                </td>
+                                                <td>
+                                                    <textarea rows="1" type="text" name="description[]" class="form-control"></textarea>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <button class="btn btn-secondary btn-sm mt-3" type="button" id="addRow">
+                                            <i class="fas mr-2 fa-plus">
+                                                Add Row</i>
+                                        </button>
+
+                                        <button class="btn btn-danger btn-sm mt-3" type="button" id="deleteRow">
+                                            <i class="fas fa-trash">
+                                            </i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary float-right" >
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -282,73 +341,69 @@
 </section>
 
 <script>
-    $('#addRow').click(function () {
-        var count=$('#countMaterial').val();
-        ++count;
-        var html='<tr id="deleteMaterial'+count+'">'+
-                    '<td>'+count+'</td>'+
-                    '<td>'+
-                        '<select name="itemType[]" class="form-control" required>'+
-                            '<option value="Material">Material</option>'+
-                            '<option value="Component">Component</option>'+
-                        '</select>'+
-                    '</td>'+
+    {{--$('#addRow').click(function () {--}}
+    {{--    var count=$('#countMaterial').val();--}}
+    {{--    ++count;--}}
+    {{--    var html='<tr id="deleteMaterial'+count+'">'+--}}
+    {{--                '<td>'+count+'</td>'+--}}
+    {{--                '<td>'+--}}
+    {{--                    '<select name="itemType[]" class="form-control" required>'+--}}
+    {{--                        '<option value="Material">Material</option>'+--}}
+    {{--                        '<option value="Component">Component</option>'+--}}
+    {{--                    '</select>'+--}}
+    {{--                '</td>'+--}}
 
-                        '<td>'+
-                                '<select name="PO" id="" class="form-control">'+
-                                '<option value="">select</option>'+
-                                {{--'@foreach($PO as $key=> $PO_number)'+--}}
-                                {{--'<option value="{{$PO_number->po_number}}">{{$PO_number->po_number}}</option>'+--}}
-                                {{--'@endforeach'+--}}
+    {{--                    '<td>'+--}}
+    {{--                            '<select name="PO" id="" class="form-control">'+--}}
+    {{--                            '<option value="">select</option>'+--}}
+    {{--                            --}}{{--'@foreach($PO as $key=> $PO_number)'+--}}
+    {{--                            --}}{{--'<option value="{{$PO_number->po_number}}">{{$PO_number->po_number}}</option>'+--}}
+    {{--                            --}}{{--'@endforeach'+--}}
 
-                                '</select>'+
-                        '</td>'+
+    {{--                            '</select>'+--}}
+    {{--                    '</td>'+--}}
 
-                    '<td>'+
-                        '<input type="text" name="materialName[]" class="form-control" placeholder="">'+
-                        // '<select name="materialName[]" class="form-control select2">'+
-                        //     '<option value="brassHead">Brass Head</option>'+
-                        //     '<option value="primer">Primer</option>'+
-                        //     '<option value="baseWad">Base Wad</option>'+
-                        //     '<option value="opWad">OP Wad</option>'+
-                        //     '<option value="leadShot">Lead Shot</option>'+
-                        //     '<option value="closingDisc">Closing Disc</option>'+
-                        //     '<option value="tube">Tube</option>'+
-                        //     '<option value="propellant">Propellant</option>'+
-                        // '</select>'+
-                    '</td>'+
-                    '<td>'+
-                        '<select name="uom[]" class="form-control select2">'+
-                           '<?php if(!$units->isempty()){
-                             foreach($units as $unit){ ?>'+
-                            '<option value="{{$unit->name}}">{{$unit->name}}</option>'+
-                           '<?php }
-                                } ?>'+
-                        '</select>'+
-                    '</td>'+
-                '<td>'+
-                    '<input type="text" name="qty[]" class="form-control" id="" placeholder="">'+
-                '</td>'+
-                '<td>'+
-                    '<textarea rows="1" type="text" name="description[]" class="form-control"></textarea>'+
-                '</td>'+
-            '</tr>';
+    {{--                '<td>'+--}}
+    {{--                    '<input type="text" name="materialName[]" class="form-control" placeholder="">'+--}}
+    {{--                    // '<select name="materialName[]" class="form-control select2">'+--}}
+    {{--                    //     '<option value="brassHead">Brass Head</option>'+--}}
+    {{--                    //     '<option value="primer">Primer</option>'+--}}
+    {{--                    //     '<option value="baseWad">Base Wad</option>'+--}}
+    {{--                    //     '<option value="opWad">OP Wad</option>'+--}}
+    {{--                    //     '<option value="leadShot">Lead Shot</option>'+--}}
+    {{--                    //     '<option value="closingDisc">Closing Disc</option>'+--}}
+    {{--                    //     '<option value="tube">Tube</option>'+--}}
+    {{--                    //     '<option value="propellant">Propellant</option>'+--}}
+    {{--                    // '</select>'+--}}
+    {{--                '</td>'+--}}
+    {{--                '<td>'+--}}
+    {{--                    '<select name="uom[]" class="form-control select2">'+--}}
 
-        $('#countMaterial').val(count);
-        $('#appendMaterial').append(html);
-    });
+    {{--                    '</select>'+--}}
+    {{--                '</td>'+--}}
+    {{--            '<td>'+--}}
+    {{--                '<input type="text" name="qty[]" class="form-control" id="" placeholder="">'+--}}
+    {{--            '</td>'+--}}
+    {{--            '<td>'+--}}
+    {{--                '<textarea rows="1" type="text" name="description[]" class="form-control"></textarea>'+--}}
+    {{--            '</td>'+--}}
+    {{--        '</tr>';--}}
 
-    $('#deleteRow').click(function () {
-        var count = $('#countMaterial').val();
-        if(count<2){
-            return false;
-        }
-        else{
-            $('#deleteMaterial'+count).remove();
-            --count;
-            $('#countMaterial').val(count);
-        }
-    });
+    {{--    $('#countMaterial').val(count);--}}
+    {{--    $('#appendMaterial').append(html);--}}
+    {{--});--}}
+
+    {{--$('#deleteRow').click(function () {--}}
+    {{--    var count = $('#countMaterial').val();--}}
+    {{--    if(count<2){--}}
+    {{--        return false;--}}
+    {{--    }--}}
+    {{--    else{--}}
+    {{--        $('#deleteMaterial'+count).remove();--}}
+    {{--        --count;--}}
+    {{--        $('#countMaterial').val(count);--}}
+    {{--    }--}}
+    {{--});--}}
 
     function poList(data){
         if(data == 'po'){
@@ -384,9 +439,63 @@
                 });
             }
         }
+        else if(data=='fact'){
+             $('#factory').show().append('<input type="hidden" name="factory" value="factory_inward">');
+
+        }
     }
 
+    $('#addRow').click(function () {
+        var count=$('#countMaterial').val();
+        ++count;
+        var html='<tr id="deleteMaterial'+count+'">'+
+            '<td>'+count+'</td>'+
+            '<td>'+
+            '<input type="text" name="componentName[]" class="form-control" placeholder="">'+
+            // '<select name="materialName[]" class="form-control select2">'+
+            //     '<option value="brassHead">Brass Head</option>'+
+            //     '<option value="primer">Primer</option>'+
+            //     '<option value="baseWad">Base Wad</option>'+
+            //     '<option value="opWad">OP Wad</option>'+
+            //     '<option value="leadShot">Lead Shot</option>'+
+            //     '<option value="closingDisc">Closing Disc</option>'+
+            //     '<option value="tube">Tube</option>'+
+            //     '<option value="propellant">Propellant</option>'+
+            // '</select>'+
+            '</td>'+
+            '<td>'+
+            '<select name="uom[]" class="form-control select2">'+
+            '<?php if(!$units->isempty()){
+                foreach($units as $unit){ ?>'+
+            '<option value="{{$unit->name}}">{{$unit->name}}</option>'+
+            '<?php }
+                } ?>'+
+            '</select>'+
+            '</td>'+
+            '<td>'+
+            '<input type="text" name="qty[]" class="form-control" id="" placeholder="">'+
+            '</td>'+
+            '<td>'+
+            '<textarea rows="1" type="text" name="description[]" class="form-control"></textarea>'+
+            '</td>'+
+            '</tr>';
 
+
+        $('#countMaterial').val(count);
+        $('#appendMaterial').append(html);
+    });
+
+    $('#deleteRow').click(function () {
+        var count = $('#countMaterial').val();
+        if(count<2){
+            return false;
+        }
+        else{
+            $('#deleteMaterial'+count).remove();
+            --count;
+            $('#countMaterial').val(count);
+        }
+    });
 
 </script>
 @endsection

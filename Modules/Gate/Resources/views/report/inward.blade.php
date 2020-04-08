@@ -13,7 +13,7 @@
                             <a class="btn btn-app bg-danger" href="{{url('gate/inward')}}">
                                 <i class="fas fa-edit"></i> Inward Report
                             </a>
-                            <a class="btn btn-app bg-danger" href="#">
+                            <a class="btn btn-app bg-danger" href="{{url('gate/outward_report')}}">
                                 <i class="fas fa-edit"></i> Outward Report
                             </a>
                             <a class="btn btn-app bg-danger" href="#">
