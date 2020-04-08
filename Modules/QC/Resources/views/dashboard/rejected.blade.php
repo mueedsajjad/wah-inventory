@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Request Details</h3>
+                <h3 class="card-title">Rejected Items</h3>
             </div>
             <!-- /.card-header -->
 
@@ -11,7 +11,7 @@
                     <input type="hidden" id="countConditions"  name="countConditions" value="0">
                     <div class="row">
                         <div class="col-md-3">
-                                <div class="info-box" style="cursor: pointer">
+                                <div class="info-box" style="cursor: pointer" onclick="singleData()">
                                     <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
 
                                     <div class="info-box-content">

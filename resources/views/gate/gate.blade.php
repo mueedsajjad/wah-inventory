@@ -28,7 +28,7 @@
                             <!-- /.info-box -->
                         </div>
                         <div class="col-md-6">
-                            <a href="{{url('/gate/inward')}}">
+                            <a href="{{url('/gate/outward_report')}}">
                             <div class="info-box" style="cursor: pointer">
                                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-door-open"></i></span>
 
