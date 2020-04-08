@@ -274,7 +274,10 @@ class StoreController extends Controller
 
     public function sale_storing(Request $request)
     {
-//        dd($request->all());
+        $so=DB::table('sale_order')->where('id',$request->so_id)->first();
+//        dd($so->so_number);
+        $sop=DB::table('sale_order_products')->where('so_number',$so->so_number)->first();
+        $order_quantity=$sop->qty;
         $data=[
             'driver_id' => $request->driver_cnic,
             'driver_name' => $request->driver_name,
@@ -283,7 +286,17 @@ class StoreController extends Controller
         ];
 //        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
         $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
-        dd($store->quantity);
+//        dd();
+        $store_quantity=$store->quantity;
+        if($store_quantity > $order_quantity)
+        {
+            $store_quantity=$store_quantity-$order_quantity;
+            dd($store_quantity);
+        }
+        else
+        {
+            return back()->withErrors( 'You have less quantity in the store.');
+        }
         return redirect()->back();
     }
 
