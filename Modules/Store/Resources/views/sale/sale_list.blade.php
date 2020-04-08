@@ -18,7 +18,7 @@
                     @endif
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">Goods Receipt Note</h3>
+                            <h3 class="card-title">Products ready to Sale</h3>
                             <a href="{{url('store/dashboard')}}" class="btn btn-primary btn-sm float-right">Back</a>
                         </div>
                         <div class="card-body">
