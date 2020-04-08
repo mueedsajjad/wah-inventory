@@ -11,7 +11,7 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Requisition ID</label>
+            <label class="col-sm-4 col-form-label">Purchase Order ID</label>
             <div class="col-sm-8">
                 <input type="text" name="driverName" required class="form-control" placeholder="Waseem" readonly value="{{$record->purchase_order_id}}">
             </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="sga_13" class="col-sm-4 col-form-label">Issue Date</label>
+            <label for="sga_13" class="col-sm-4 col-form-label">Purchase Type</label>
             <div class="col-sm-8">
                 <input type="text" readonly required value="{{$record->purchase_type}}" class="form-control" id="sga_19" placeholder="08-02-2020">
             </div>

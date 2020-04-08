@@ -326,7 +326,7 @@
 
 
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-danger navbar-dark bg-transparent"  style=" background-image: linear-gradient(to right,#bedfff, #2c37cf,  #dc3545, #dc3545);">
+<nav class="main-header navbar navbar-expand navbar-danger navbar-dark bg-transparent"  style=" background-image: linear-gradient(to right,#bedfff,  #1565c0,   #dc4451, #dc3545);">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
