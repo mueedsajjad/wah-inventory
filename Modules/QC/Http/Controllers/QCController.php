@@ -75,14 +75,17 @@ class QCController extends Controller
 
     public function productionProduct(){
 
-        $record = DB::table('production_order')->where('status', 4)->get();
+        $record = DB::table('production_order')->where('status', '>=',4)->get();
+
+
+//        dd($record);
 
         return view('qc::productionProduct', compact('record'));
     }
 
     public function productionComponent(){
 
-        $record = DB::table('component_order')->where('status', 4)->get();
+        $record = DB::table('component_order')->where('status', '>=',4)->get();
 
         return view('qc::productionComponent', compact('record'));
     }
@@ -95,6 +98,22 @@ class QCController extends Controller
 
 
         return view('qc::dashboard.list');
+    }
+
+    public function componentInspection(Request $request){
+
+//        dd('component');
+        DB::table('component_order')->where('id', $request->id)->update($request->except('_token', 'id'));
+
+            return redirect()->back()->with('message', 'This i note genareted successfully and sent to Store');
+    }
+
+    public function productInspection(Request $request){
+//dd('sasaa');
+        DB::table('production_order')->where('id', $request->id)->update($request->except('_token', 'id'));
+
+        return redirect()->back()->with('message', 'This i note genareted successfully and sent to Store');
+
     }
 
 
