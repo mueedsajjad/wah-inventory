@@ -244,6 +244,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Driver CNIC</label>
+                                        <div class="col-sm-8">
+                                            <input type="number"  name="driverCNIC" required class="form-control" placeholder="3520156743568">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="sga_21" class="col-sm-4 col-form-label">Driver Phone #</label>
                                         <div class="col-sm-8">
                                             <input type="text" name="driverPh" required class="form-control" id="sga_24" placeholder="03351234567">
@@ -259,7 +265,9 @@
                                 <div id="right_side" class="col-md-4">
 
 
+                                </div>
 
+                                <div id="details"></div>
 
                             </div>
                         </form>

@@ -592,6 +592,12 @@
 
 
                 @if(auth()->user()->can('Approve Requisition'))
+                    <li class="nav-item">
+                        <a href="{{url('assistantmanager/')}}" class="nav-link @if(request()->segment(1)=="assistantmanager") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview @if(request()->segment(1)=="requisition") menu-open @endif">
                         <a href="#" class="nav-link  @if(request()->segment(1)=="requisition") active @endif">
                             <i class="fas fa-receipt nav-icon"></i>
@@ -601,12 +607,6 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{url('requisition/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard</p>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{url('requisition/material-dashboard')}}" class="nav-link @if(request()->segment(2)=="material-dashboard") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
@@ -717,9 +717,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('purchase/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                            <a href="{{url('purchase/')}}" class="nav-link @if(request()->segment(2)=="") active @endif">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard</p>
+                                <p>Requests List</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -751,12 +751,12 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Inward I-Note</p>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">--}}
+{{--                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                            <p>Inward I-Note</p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 @endif
 
                 @if(auth()->user()->can('Store'))
@@ -782,12 +782,12 @@
                                     <p>New Inward</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Approve for I-Note</p>
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Approve for I-Note</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 {{--                            <li class="nav-item">--}}
 {{--                                <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">--}}
 {{--                                    <i class="far fa-circle nav-icon"></i>--}}

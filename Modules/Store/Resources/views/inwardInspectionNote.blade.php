@@ -55,62 +55,132 @@
                                 <tr>
                                     <th>Sr#</th>
                                     <th>Gate Pass ID</th>
-                                    <th>Type</th>
-                                    <th>Name</th>
-                                    <th>UOM</th>
-                                    <th>Quantity</th>
-                                    <th>Description</th>
+                                    <th>Driver Name</th>
+                                    <th>Vehicle #</th>
+                                    <th>Vendor Type</th>
+                                    <th>Vendor Name</th>
                                     <th>Date</th>
-                                    <th style="">Store</th>
                                     <th>Action</th>
                                     <th>Generate I-Note</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(!$inward_raw_material->isempty())
+                                @if(!$inward_gate_pass->isempty())
                                     @php $count=0; @endphp
-                                    @foreach($inward_raw_material as $item)
+                                    @foreach($inward_gate_pass as $item)
+                                        <?php
+                                        $material=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$item->gatePassId)->first();
+                                        $view=$material->status;
+                                        $date=$material->inspectionDate;
+                                        ?>
+                                        @if($view>=2)
                                         @php ++$count; @endphp
                                         <tr>
                                             <td>{{$count}}</td>
                                             <td>{{$item->gatePassId}}</td>
-                                            <td>{{$item->itemType}}</td>
-                                            <td>{{$item->materialName}}</td>
-                                            <td>{{$item->uom}}</td>
-                                            <td>{{$item->qty}}</td>
-                                            <td>{{$item->description}}</td>
+                                            <td>{{$item->driverName}}</td>
+                                            <td>{{$item->vehicalNo}}</td>
+                                            <td>{{$item->vendorType}}</td>
+                                            <td>{{$item->vendorName}}</td>
                                             <td>{{$item->date}}</td>
-                                            <td>{{$item->storeLocation}}</td>
                                             <td>
-                                                @if(empty($item->inspectionDate))
-                                                    <a class="btn btn-secondary btn-sm getBiltyId" data-toggle="modal" data-target="#addInspectionNoteModal" data-id="{{$item->id}}"
-                                                    >Add I-Note</a>
-                                                @else
-                                                    <a class="btn btn-success btn-sm getBiltyData" data-toggle="modal" data-target="#viewInspectionNoteModal" data-id="{{$item->id}}"
-                                                       data-inspectiondate="{{$item->inspectionDate}}" data-rejectionreason="{{$item->rejectionReason}}"
-                                                       data-inspectionstatus="{{$item->inspectionStatus}}" data-rejectedqty="{{$item->rejectedQty}}">View Note</a>
-                                                @endif
+                                                    @if($date==NULL)
+                                                        <a href="{{url('store/add_i_note_qc/'.$item->id)}}" class="btn btn-secondary btn-sm">Add I-Note</a>
+                                                    @elseif($date!=NULL && $view>=2)
+                                                        <a href="{{url('store/add_i_note_qc/'.$item->id)}}" class="btn btn-success btn-sm">View I-Note</a>
+                                                    @endif
                                             </td>
                                             <td>
-                                                @if($item->status==2)
+                                                @if($date==NULL)
+                                                    <a class="getNoteData" data-target="#changeRecepitStatusModal">
+                                                        <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
+                                                    </a>
+                                                @elseif($date!=NULL && $view==2)
                                                     <a class="getNoteData" data-toggle="modal" data-target="#changeRecepitStatusModal" data-id="{{$item->id}}">
                                                         <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
                                                     </a>
-                                                @else
+                                                @elseif($view>=3)
                                                     <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>
                                                 @endif
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @endif
                                 </tbody>
                             </table>
+
+
+
+
+
+
+
+
+
+
+
+
+{{--                            <table id="builtyTable" class="table table-bordered table-striped">--}}
+{{--                                <thead>--}}
+{{--                                <tr>--}}
+{{--                                    <th>Sr#</th>--}}
+{{--                                    <th>Gate Pass ID</th>--}}
+{{--                                    <th>Type</th>--}}
+{{--                                    <th>Name</th>--}}
+{{--                                    <th>UOM</th>--}}
+{{--                                    <th>Quantity</th>--}}
+{{--                                    <th>Description</th>--}}
+{{--                                    <th>Date</th>--}}
+{{--                                    <th style="">Store</th>--}}
+{{--                                    <th>Action</th>--}}
+{{--                                    <th>Generate I-Note</th>--}}
+{{--                                </tr>--}}
+{{--                                </thead>--}}
+{{--                                <tbody>--}}
+{{--                                @if(!$inward_raw_material->isempty())--}}
+{{--                                    @php $count=0; @endphp--}}
+{{--                                    @foreach($inward_raw_material as $item)--}}
+{{--                                        @php ++$count; @endphp--}}
+{{--                                        <tr>--}}
+{{--                                            <td>{{$count}}</td>--}}
+{{--                                            <td>{{$item->gatePassId}}</td>--}}
+{{--                                            <td>{{$item->itemType}}</td>--}}
+{{--                                            <td>{{$item->materialName}}</td>--}}
+{{--                                            <td>{{$item->uom}}</td>--}}
+{{--                                            <td>{{$item->qty}}</td>--}}
+{{--                                            <td>{{$item->description}}</td>--}}
+{{--                                            <td>{{$item->date}}</td>--}}
+{{--                                            <td>{{$item->storeLocation}}</td>--}}
+{{--                                            <td>--}}
+{{--                                                @if(empty($item->inspectionDate))--}}
+{{--                                                    <a class="btn btn-secondary btn-sm getBiltyId" data-toggle="modal" data-target="#addInspectionNoteModal" data-id="{{$item->id}}"--}}
+{{--                                                    >Add I-Note</a>--}}
+{{--                                                @else--}}
+{{--                                                    <a class="btn btn-success btn-sm getBiltyData" data-toggle="modal" data-target="#viewInspectionNoteModal" data-id="{{$item->id}}"--}}
+{{--                                                       data-inspectiondate="{{$item->inspectionDate}}" data-rejectionreason="{{$item->rejectionReason}}"--}}
+{{--                                                       data-inspectionstatus="{{$item->inspectionStatus}}" data-rejectedqty="{{$item->rejectedQty}}">View Note</a>--}}
+{{--                                                @endif--}}
+{{--                                            </td>--}}
+{{--                                            <td>--}}
+{{--                                                @if($item->status==2)--}}
+{{--                                                    <a class="getNoteData" data-toggle="modal" data-target="#changeRecepitStatusModal" data-id="{{$item->id}}">--}}
+{{--                                                        <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>--}}
+{{--                                                    </a>--}}
+{{--                                                @else--}}
+{{--                                                    <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>--}}
+{{--                                                @endif--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
+{{--                                </tbody>--}}
+{{--                            </table>--}}
                         </div>
                     </div>
                 </div>
                 <!-- /.card -->
             </div>
-        </div>
         </div>
     </section>
 

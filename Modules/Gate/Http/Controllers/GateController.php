@@ -24,6 +24,7 @@ class GateController extends Controller
                 'requisition_id'=>$request->reqisition_id,
                 'driverId' => $request->driverId,
                 'driverName' => $request->driverName,
+                'driverCNIC' => $request->driverCNIC,
                 'driverPh' => $request->driverPh,
                 'vehicalNo' => $request->vehicalNo,
                 'date' => date('Y-m-d'),
@@ -34,7 +35,9 @@ class GateController extends Controller
             $size = sizeof($request->material_name);
 
             for($i=0 ; $i<$size ; $i++){
+
                 $data=[
+
                     'requisition_id'=>$request->reqisition_id,
                     'itemType' => 'Component',
                     'materialName' => $request['material_name'][$i],
@@ -47,6 +50,7 @@ class GateController extends Controller
                     'status' => 0
                 ];
                 $insertInwardRawMaterial=DB::table('inward_raw_material')->insert($data);
+//                dd('inserted in raw material');
             }
 
 
@@ -58,20 +62,41 @@ class GateController extends Controller
                 return back()->withErrors( 'Something went wrong.');
             }
 
-        }elseif ($request->type == 'purchase'){
+        }
+        elseif ($request->type == 'purchase'){
 
+//            dd($request->all());
             $vendor = DB::table('supplier')->find($request->ven_id);
-
+//            dd($vendor);
 //        dd($request->po_num);
             $por=DB::table('purchase_order_approval')->where('id',$request->po_num)->first();
 
 //        dd($por->requisition_id);
+            if ($vendor==null){
+                $data=[
+                    'gatePassId' => $request->gatePassId,
+                    'requisition_id'=>$por->requisition_id,
+                    'purchase_order_id'=>$por->purchase_order_id,
+                    'driverId' => $request->driverId,
+                    'driverName' => $request->driverName,
+                    'driverCNIC' => $request->driverCNIC,
+                    'driverPh' => $request->driverPh,
+                    'vehicalNo' => $request->vehicalNo,
+
+
+                    'date' => date('Y-m-d'),
+                    'status' => 0
+                ];
+
+            }
+            else{
             $data=[
                 'gatePassId' => $request->gatePassId,
                 'requisition_id'=>$por->requisition_id,
                 'purchase_order_id'=>$por->purchase_order_id,
                 'driverId' => $request->driverId,
                 'driverName' => $request->driverName,
+                'driverCNIC' => $request->driverCNIC,
                 'driverPh' => $request->driverPh,
                 'vehicalNo' => $request->vehicalNo,
 
@@ -84,6 +109,7 @@ class GateController extends Controller
                 'date' => date('Y-m-d'),
                 'status' => 0
             ];
+            }
 
             $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
 
@@ -287,8 +313,19 @@ class GateController extends Controller
     public function inward()
     {
         $report_data=DB::table('inward_gate_pass')->get();
+//        dd($report_data);
+        $report_modal_data=DB::table('inward_raw_material')->get();
+//        dd($report_modal_data);
 
-        return view('gate::report/inward',compact('report_data'));
+        return view('gate::report/inward',compact('report_data','report_modal_data'));
+    }
+    public function inward_report($id){
+
+        $data=DB::table('inward_gate_pass')->where('id',$id)->first();
+        $gatePassId=$data->gatePassId;
+        $report_details=DB::table('inward_raw_material')->where('gatePassId',$gatePassId)->get();
+//        dd($report_details);
+        return view('gate::report/inward_report_details',compact('data','report_details'));
     }
     /**
      * Display a listing of the resource.
@@ -396,7 +433,7 @@ class GateController extends Controller
             public function outward_factory_component($id){
 
 
-                $component = DB::table('production_component')->where('gate_type', 'outward')->get();
+                $component = DB::table('production_component_detail')->where('gate_type', 'outward')->where('status',4)->get();
 
 
                 return view('gate::gate.factory_data_component', compact('component'));
@@ -404,26 +441,37 @@ class GateController extends Controller
 
 
             public function outward_factory_material($id){
-
-                $material = DB::table('production_material')->where('gate_type', 'outward')->get();
-
+//                dd('Bilal');
+                $material = DB::table('production_material_detail')->where('gate_type', 'outward')->where('status',4)->get();
+//                dd($material);
                 return view('gate::gate.factory_data_material', compact('material'));
 
             }
 
 
             public function getDataMaterial($id){
-
-                $details = DB::table('production_material_detail')->where('production_material_id', $id)->get();
+                $details = DB::table('production_material_detail')->where('id', $id)->where('status',4)->get();;
+//                dd($details);
                 return view('gate::gate.table', compact('details'));
 
             }
 
 
                 public function getDataComponent($id){
-
-                    $details = DB::table('production_component_detail')->where('production_component_id', $id)->get();
+//                     dd($id);
+                    $details = DB::table('production_component_detail')->where('id', $id)->where('status',4)->get();
                     return view('gate::gate.tableComponent', compact('details'));
 
+                }
+
+                public function addOutwardGatePass(Request $request){
+//                 dd($request->all());
+                 if ($request->product_type=="component"){
+                    $component=DB::table('production_component_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                     return redirect()->back()->with('message', 'Submitted Successfuly.');
+                 }
+                 else
+                     $material=DB::table('production_material_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                    return redirect()->back()->with('message', 'Submitted Successfuly.');
                 }
 }

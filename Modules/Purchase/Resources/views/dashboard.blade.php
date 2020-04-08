@@ -154,83 +154,7 @@
                                 <div id="data">
 
                                 </div>
-{{--                                <div class="row justify-content-around">--}}
-{{--                                    <div class="col-md-12">--}}
-{{--                                        <div class="card card-dark">--}}
-{{--                                            <!--<div class="card-header">--}}
-{{--                                              <h3 class="card-title">Products</h3>--}}
-{{--                                            </div>-->--}}
-{{--                                            <!-- /.card-header -->--}}
 
-{{--                                            <div class="card-body">--}}
-{{--                                                --}}{{--                                               here is all  --}}
-
-{{--                                                <div id="append_condition">--}}
-{{--                                                    <input type="hidden" id="countConditions"  name="countConditions" value="0">--}}
-{{--                                                    <div class="row">--}}
-
-{{--                                                        <div class="form-group col-1 bg-light">--}}
-{{--                                                            <label for="sga_13" class="col-form-label">PO Number</label>--}}
-{{--                                                            <input type="text" class="form-control"  name="p_number0" placeholder="PR001">--}}
-{{--                                                        </div>--}}
-
-{{--                                                        <div class="form-group col-2 bg-light">--}}
-{{--                                                            <label for="sga_13" class="col-form-label">Product Name</label>--}}
-{{--                                                            <input type="text" class="form-control"  name="p_name0" placeholder="Product Name">--}}
-{{--                                                        </div>--}}
-
-{{--                                                        <div class="form-group col-2 bg-light">--}}
-{{--                                                            <label for="sga_13" class="col-form-label">Product Description</label>--}}
-{{--                                                            <input type="text" class="form-control"  name="p_description0" placeholder="Product Description">--}}
-{{--                                                        </div>--}}
-
-{{--                                                        <div class="form-group col-2 bg-light">--}}
-{{--                                                            <label for="sga_13" class="col-form-label">UOM</label>--}}
-{{--                                                            <input type="text" class="form-control"  name="p_unit0" placeholder="PCS">--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="form-group col-2 bg-light">--}}
-{{--                                                            <label for="sga_13" class="col-form-label">Qty</label>--}}
-{{--                                                            <input type="text" class="form-control"  name="p_quantity0" placeholder="100">--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="form-group col-2 bg-light">--}}
-{{--                                                            <label for="sga_13" class="col-form-label">Unit Price</label>--}}
-{{--                                                            <input type="text" class="form-control"  name="p_price0" placeholder="200">--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="form-group col-1 bg-light">--}}
-{{--                                                            <label for="sga_13" class="col-form-label">Total Price</label>--}}
-{{--                                                            <input type="text" class="form-control"  name="p_total_price0" placeholder="300">--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-
-{{--                                                <div class="row">--}}
-{{--                                                    <div class="col-6 text-left">--}}
-{{--                                                        <a id="create_condition_btn" class="btn btn-secondary btn-sm mt-3 " type="button" href="#">--}}
-{{--                                                            <i class="fas mr-2 fa-plus">Add Row</i>--}}
-{{--                                                        </a>--}}
-
-{{--                                                    </div>--}}
-{{--                                                    <div class="col-6 text-right">--}}
-{{--                                                        <button class="btn btn-danger btn-sm" type="button" id="remove_condition_btn">--}}
-{{--                                                            <i class="fas fa-trash">--}}
-{{--                                                            </i>--}}
-{{--                                                        </button>--}}
-{{--                                                    </div>--}}
-
-{{--                                                </div>--}}
-
-
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-12">--}}
-{{--                                        <a href="#" class="btn btn-danger ml-3 float-right">Cancel</a>--}}
-{{--                                        <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a>--}}
-{{--                                        <input type="submit" value="Save" class="btn btn-success float-right">--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
 
                             </form>
                         </div>
@@ -283,6 +207,7 @@
             $('#countConditions').val(countConditions);
         });
     </script>
+
     <script>
         function getRequData(data) {
             console.log(data);

@@ -391,11 +391,6 @@ class AdminController extends Controller
         //return view('admin::report/employeeReport');
     }
 
-
-
-
-
-
     public function salary()
     {
         $salary= DB::table('users')
@@ -403,14 +398,13 @@ class AdminController extends Controller
         ->join('salary','salary.userId','=','users.id')
         ->get();
 
-        //dd($salaries);
+        //dd($salary);
         return view('admin::salary/salary',compact('salary'));
     }
     
     public function salaryEmployee()
     {
         $user=DB::table('users')->get();
-       
         return view('admin::salary/salaryToEmployee',compact('user'));
     }
 
@@ -456,6 +450,13 @@ class AdminController extends Controller
            
     }
 
+    public function salaryDelete(Request $request)
+    {
+        //dd($request->id);
+        DB::table('salary')->where('id',$request->id)->delete();
+        return redirect()->back()->with('save','Deleted Successfully');
+    }
+    
     public function advance()
     {
         return view('admin::advance/advance');
@@ -472,7 +473,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin::dashboard');
+        $users = DB::table('employees')->count();
+        return view('admin::dashboard',compact('users'));
     }
 
     /**
