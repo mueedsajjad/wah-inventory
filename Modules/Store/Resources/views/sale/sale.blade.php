@@ -18,7 +18,7 @@
                     @endif
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">Goods Receipt Note</h3>
+                            <h3 class="card-title">Sent to Gate</h3>
                             <a href="{{url('store/dashboard')}}" class="btn btn-primary btn-sm float-right">Back</a>
                         </div>
                         <div class="card-body">
@@ -77,6 +77,7 @@
                                             </thead>
                                             <tbody>
                                             <tr>
+                                                <input type="hidden" name="so_id" value="{{$sale->id}}">
                                                 <td>
                                                     <input type="text" readonly name="" value="{{$sale->so_number}}" class="form-control">
                                                 </td>
@@ -112,7 +113,7 @@
 
                                     <div class="col-md-11 mt-2">
                                         {{--                                        <a href="#" class="btn btn-secondary ml-3 float-right">Print</a>--}}
-                                        <input type="submit" value="Sent Bilty To Store" class="btn btn-success float-right">
+                                        <input type="submit" value="Sent Bilty To Gate" class="btn btn-success float-right">
                                     </div>
 
                                 </form>
