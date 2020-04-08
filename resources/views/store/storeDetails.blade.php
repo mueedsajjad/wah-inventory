@@ -8,7 +8,7 @@
         {{$data->name}}
         <span class="float-right"><b>{{$data->quantity}}</b>/PCS</span>
         <div class="progress progress-sm">
-            <div class="progress-bar bg-danger" style="width: 80%"></div>
+            <div class="progress-bar bg-gradient-danger "  style="width: 80%"></div>
         </div>
     </div>
     @endforeach

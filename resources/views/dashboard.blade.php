@@ -4,11 +4,11 @@
     <div class="row">
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>150</h3>
 
-                    <p>New Orders</p>
+                    <p>Purchase</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-paperclip"></i>
@@ -20,7 +20,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{$user-1}}</h3>
 
@@ -35,7 +35,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{$store}}</h3>
                     <p>Stores</p>
@@ -51,7 +51,7 @@
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{'45'}}</h3>
                     <p>Gate</p>
@@ -65,7 +65,7 @@
 
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+                <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                     <div class="inner">
                         <h3>{{'54'}}</h3>
                         <p>Requisition Requests</p>
@@ -79,7 +79,7 @@
 
         <div class="col-lg-3 col-6">
                 <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                     <div class="inner">
                         <h3>{{'24'}}</h3>
                         <p>Sales Orders</p>
@@ -93,7 +93,7 @@
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{'134'}}</h3>
                     <p>Production</p>
@@ -107,7 +107,7 @@
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{89}}</h3>
                     <p>QC</p>
@@ -122,7 +122,7 @@
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{350}}</h3>
                     <p>Rejected Goods</p>
@@ -135,7 +135,7 @@
         </div>
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>Settings</h3>
 

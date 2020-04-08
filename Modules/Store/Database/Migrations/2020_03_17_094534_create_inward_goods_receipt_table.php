@@ -18,11 +18,11 @@ class CreateInwardGoodsReceiptTable extends Migration
             $table->string('grn');
             $table->date('grnDate');
             $table->string('document')->nullable();
-            $table->string('purchasedFrom');
+            $table->string('purchasedFrom')->nullable();
             $table->string('gatePassId');
-            $table->float('totalCost');
-            $table->string('name');
-            $table->string('purchaseOrderNo');
+            $table->float('totalCost')->nullable();
+            $table->string('name')->nullable();
+            $table->string('purchaseOrderNo')->nullable();
             $table->string('materialName');
             $table->string('uom');
             $table->string('description');
