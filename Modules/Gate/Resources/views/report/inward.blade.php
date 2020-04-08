@@ -38,7 +38,7 @@
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="builtyTable" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
                                             <th>Gate Pass ID</th>

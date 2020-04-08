@@ -77,6 +77,7 @@
                                             </thead>
                                             <tbody>
                                             <tr>
+                                                <input type="hidden" name="so_id" value="{{$sale->id}}">
                                                 <td>
                                                     <input type="text" readonly name="" value="{{$sale->so_number}}" class="form-control">
                                                 </td>

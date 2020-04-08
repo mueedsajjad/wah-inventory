@@ -53,10 +53,14 @@
                             <table id="builtyTable" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
+
                                     <th>Sr#</th>
-                                    <th>Date</th>
+                                    <th>Manufacturing No</th>
+                                    <th>Component Name/Code</th>
+                                    <th>Quantity</th>
+                                    <th>Total Cost</th>
                                     <th>Action</th>
-                                    <th>Generate I-Note</th>
+                                    {{--                                    <th>Generate I-Note</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -71,22 +75,159 @@
                                         <td>{{$item->total_cost}}</td>
                                         <td>
                                             @if($item->inspectionStatus==NULL)
-                                                <a href="{{url('store/add_i_note_product/'.$item->id)}}" class="btn btn-secondary btn-sm">Add I-Note</a>
+
+                                                {{--                                                        <a href="{{url('store/add_i_note_component/'.$item->id)}}" class="btn btn-secondary btn-sm">Add I-Note</a>--}}
+                                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                                    Add I-Note
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Inspection Note</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{url('qc/product-inspection')}}" method="post" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <input type="hidden" value="{{$item->id}}" id="submitId" name="id">
+                                                                    <input type="hidden" value="5" id="submitId" name="status">
+                                                                    <!-- Modal Header -->
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">I-Note Date</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" name="inspectionDate" readonly value="{{\Carbon\Carbon::now()->toDateString()}}" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">I-Note Status</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <select name="inspectionStatus" class="form-control select2" required>
+                                                                                        <option value="excellent">Excellent</option>
+                                                                                        <option value="good">Good</option>
+                                                                                        <option value="bad">Bad</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">Remarks</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <textarea rows="3" name="rejectionReason" class="form-control"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">Rejected Quantity</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" name="rejectionQty" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Modal footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-success">Generate I-Note</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @else
-                                                <a href="{{url('store/add_i_note_product/'.$item->id)}}" class="btn btn-success btn-sm">View I-Note</a>
+                                                {{--                                                        <a href="{{url('store/add_i_note_component/'.$item->id)}}" class="btn btn-success btn-sm">View I-Note</a>--}}
+
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal21">
+                                                    View I-Note
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal21" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Inspection Note Product</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{url('qc/product-inspection')}}" method="post" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <input type="hidden" value="{{$item->id}}" id="submitId" name="id">
+                                                                    <input type="hidden" value="5" id="submitId" name="status">
+                                                                    <!-- Modal Header -->
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">I-Note Date</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" name="inspectionDate" readonly value="{{\Carbon\Carbon::now()->toDateString()}}" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">I-Note Status</label>
+                                                                                <div class="col-sm-8">
+
+                                                                                    <input type="text" class="form-control" value="{{$item->inspectionStatus}}" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">Remarks</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <textarea rows="3" readonly name="rejectionReason" class="form-control">{{$item->rejectionReason}}</textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-4 col-form-label">Rejected Quantity</label>
+                                                                                <div class="col-sm-8">
+                                                                                    <input type="text" readonly value="{{$item->rejectionQty}}" name="rejectionQty" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Modal footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                        {{--                                                                                <button type="submit" class="btn btn-success">Generate I-Note</button>--}}
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @endif
                                         </td>
-                                        <td>
-                                            @if($item->inspectionStatus==NULL)
-                                                <a class="getNoteData" data-target="#changeRecepitStatusModal">
-                                                    <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
-                                                </a>
-                                            @else
-                                                <a class="getNoteData" data-toggle="modal" data-target="#changeRecepitStatusModal" data-id="{{$item->id}}">
-                                                    <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
-                                                </a>
-                                        </td>
-                                        @endif
+                                        {{--                                                <td>--}}
+                                        {{--                                                    @if($item->inspectionStatus==NULL)--}}
+                                        {{--                                                        <a class="getNoteData" data-target="#changeRecepitStatusModal">--}}
+                                        {{--                                                            <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>--}}
+                                        {{--                                                        </a>--}}
+                                        {{--                                                    @else--}}
+                                        {{--                                                        <a class="getNoteData" data-toggle="modal" data-target="#changeRecepitStatusModal" data-id="{{$item->id}}">--}}
+                                        {{--                                                            <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>--}}
+                                        {{--                                                        </a>--}}
+                                        {{--                                                </td>--}}
+                                        {{--                                                @endif--}}
                                     </tr>
                                 @endforeach
 

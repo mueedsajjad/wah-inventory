@@ -169,18 +169,18 @@ class StoreController extends Controller
     }
 
 
-      public function productionProduct()
-      {
-          $stores=DB::table('store')->get();
-          $products=DB::table('production_order')
-              ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
-              ->where('status',4)
-              ->get();
+    public function productionProduct()
+    {
+        $stores=DB::table('store')->get();
+        $products=DB::table('production_order')
+            ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
+            ->where('status',4)
+            ->get();
 
-          return view('store::dashboard/product', compact('products','stores'));
-      }
+        return view('store::dashboard/product', compact('products','stores'));
+    }
 
-      public function approveForInspectionNote(){
+    public function approveForInspectionNote(){
         $stores=DB::table('store')->get();
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 1)
             ->orWhere('status', 2)->orWhere('status', 3)
@@ -236,18 +236,18 @@ class StoreController extends Controller
             $checkStore=$checkStore->storeLocation;
 
 //            if ($checkStore){
-                $data=[
-                    'status' => 2
-                ];
-                $update=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)
-                    ->where('materialName', $request->materialname)->update($data);
+            $data=[
+                'status' => 2
+            ];
+            $update=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)
+                ->where('materialName', $request->materialname)->update($data);
 
-                if ($update){
-                    return redirect()->back()->with('message', 'Sent for Inspection Successfuly.');
-                }
-                else {
-                    return back()->withErrors( 'Something went wrong.');
-                }
+            if ($update){
+                return redirect()->back()->with('message', 'Sent for Inspection Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
 //            }
 //            else {
 //                return back()->withErrors( 'Kindly, First assign a store.');
@@ -274,16 +274,38 @@ class StoreController extends Controller
 
     public function sale_storing(Request $request)
     {
-//        dd($request->all());
+        $so=DB::table('sale_order')->where('id',$request->so_id)->first();
+//        dd($so->so_number);
+        $sop=DB::table('sale_order_products')->where('so_number',$so->so_number)->first();
+        $order_quantity=$sop->qty;
+
+
+        $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
+//        dd($store->id);
+        $store_quantity=$store->quantity;
+        if($store_quantity > $order_quantity)
+        {
+            $store_quantity=$store_quantity-$order_quantity;
+            $data=[
+                'quantity' => $store_quantity
+            ];
+            $update=DB::table('store_stock')->where('id', $store->id)->update($data);
+        }
+        else
+        {
+            return back()->withErrors( 'You have less quantity in the store.');
+        }
+
+
+
         $data=[
             'driver_id' => $request->driver_cnic,
             'driver_name' => $request->driver_name,
             'vehicle_number' => $request->vehicle_number,
             'status' => 2
         ];
-//        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
-        $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
-//        dd($store->quantity);
+        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
+
         return redirect()->back();
     }
 
@@ -309,7 +331,7 @@ class StoreController extends Controller
 //        dd($material);
         foreach ($inward_raw_material as $in)
         {
-                $view=$in;
+            $view=$in;
         }
 //        dd($view);
         return view('store::add_i_note_qc',compact('inward_raw_material','gate','view'));
@@ -349,7 +371,7 @@ class StoreController extends Controller
             ];
             $update=DB::table('inward_raw_material')->where('id', $request->detail_id[$i])->update($data);
         }
-            return redirect()->back()->with('message', 'Updated Successfuly.');
+        return redirect()->back()->with('message', 'Updated Successfuly.');
 
 
 //        $submitId=$request->submitId;
@@ -570,7 +592,7 @@ class StoreController extends Controller
                 return back()->withErrors('Something went wrong.');
             }
         }
-            return redirect()->back()->with('message', 'Submitted Successfuly.');
+        return redirect()->back()->with('message', 'Submitted Successfuly.');
     }
 
     //    ------------------------------ Products Came Form Production ----------------------------- //
@@ -765,11 +787,11 @@ class StoreController extends Controller
 
     public function assignStoreToFactoryInwardComponents(){
         $inward_raw_material=DB::table('inward_raw_material')->where('itemType' , 'Component')
-                    ->where(function($result) {
-                        $result->where("status" , 5)
-                            ->orWhere('status' , 6);
-                    })
-                    ->get();
+            ->where(function($result) {
+                $result->where("status" , 5)
+                    ->orWhere('status' , 6);
+            })
+            ->get();
         return view('store::dashboard/assignStoreToFactoryInwardComponents', compact('inward_raw_material'));
     }
 
@@ -925,7 +947,7 @@ class StoreController extends Controller
             }
         }
         else {
-                return back()->withErrors( 'Select the Component Relevant Store.');
+            return back()->withErrors( 'Select the Component Relevant Store.');
         }
     }
 

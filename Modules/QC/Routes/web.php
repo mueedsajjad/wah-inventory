@@ -23,4 +23,8 @@ Route::prefix('qc')->group(function() {
 
     Route::get('production-product', 'QCController@productionProduct');
     Route::get('production-component', 'QCController@productionComponent');
+
+    Route::post('component-inspection', 'QCController@componentInspection');
+    Route::post('product-inspection', 'QCController@productInspection');
+
 });
