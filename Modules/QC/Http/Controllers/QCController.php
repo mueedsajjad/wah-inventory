@@ -18,7 +18,7 @@ class QCController extends Controller
     public function dash()
     {
 //        dd('faizu');
-        $pending=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate',NULL)->get();
+        $pending=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate',NULL)->where('requisition_id','!=',Null)->get();
         $done_2=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
         $done_3=DB::table('inward_raw_material')->where('status',3)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
         $done_4=DB::table('inward_raw_material')->where('status',4)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
@@ -30,6 +30,18 @@ class QCController extends Controller
         $count_pen=sizeof($pending);
 //        dd($count);
         $approved=[];
+        $app_pend=[];
+        $all_gate=DB::table('inward_gate_pass')->select('gatePassId')->get();
+        foreach($all_gate as $a)
+        {
+            $app_3=DB::table('inward_raw_material')->where('gatePassId',$a->gatePassId)->where('requisition_id','!=',Null)->where('inspectionDate','!=',NULL)->first();
+            if ($app_3!=NULL)
+                $app_pend[]=$app_3;
+
+        }
+        $count_app=sizeof($app_pend);
+//        dd($app_pend);
+        $count_all=sizeof($app_pend);
         $all=DB::table('inward_raw_material')->get();
         foreach ($all as $a)
         {
@@ -45,14 +57,21 @@ class QCController extends Controller
     }
     public function dashboard()
     {
-        $pending=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate',NULL)->get();
-        $done_2=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate','!=',NULL)->where('purchase_order_id','!=',Null)->get();
-        $done_3=DB::table('inward_raw_material')->where('status',3)->where('inspectionDate','!=',NULL)->where('purchase_order_id','!=',Null)->get();
-        $done_4=DB::table('inward_raw_material')->where('status',4)->where('inspectionDate','!=',NULL)->where('purchase_order_id','!=',Null)->get();
-        $done_5=DB::table('inward_raw_material')->where('status',5)->where('inspectionDate','!=',NULL)->where('purchase_order_id','!=',Null)->get();
-        $done_6=DB::table('inward_raw_material')->where('status',6)->where('inspectionDate','!=',NULL)->where('purchase_order_id','!=',Null)->get();
-//        dd($done_6);
-        $count_all=sizeof($pending)+sizeof($done_2)+sizeof($done_3)+sizeof($done_4)+sizeof($done_5)+sizeof($done_6);
+        $arr_pend=[];
+        $app_pend=[];
+        $all_gate=DB::table('inward_gate_pass')->select('gatePassId')->get();
+//        dd($all_gate);
+        foreach($all_gate as $a)
+        {
+            $app_3=DB::table('inward_raw_material')->where('gatePassId',$a->gatePassId)->where('requisition_id','!=',Null)->where('inspectionDate','!=',NULL)->first();
+            if ($app_3!=NULL)
+                $app_pend[]=$app_3;
+
+        }
+//        dd($app_pend);
+        $count_all=sizeof($app_pend);
+        //        dd($done_6);
+//        $count_all=sizeof($pending)+sizeof($done_2)+sizeof($done_3)+sizeof($done_4)+sizeof($done_5)+sizeof($done_6);
         return view('qc::dashboard/dashboard',compact('count_all'));
     }
 
