@@ -757,6 +757,18 @@
                             <p>Inward I-Note</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{url('qc/production-product')}}" class="nav-link @if(request()->segment(2)=="production-product") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Product I-Note</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('qc/production-component')}}" class="nav-link @if(request()->segment(2)=="production-component") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Component I-Note</p>
+                        </a>
+                    </li>
                 @endif
 
                 @if(auth()->user()->can('Store'))

@@ -10,7 +10,7 @@
                 <div id="append_condition">
                     <input type="hidden" id="countConditions"  name="countConditions" value="0">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <a href="{{url('qc/inward_qc')}}">
                                 <div class="info-box" style="cursor: pointer">
                                     <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
@@ -26,8 +26,8 @@
                                 </div>
                             </a>
                             <!-- /.info-box -->
-                        </div>
-                        <div class="col-md-6">
+{{--                        </div>--}}
+{{--                        <div class="col-md-6">--}}
                             <a href="{{url('qc/inward_qc')}}">
                                 <div class="info-box" style="cursor: pointer">
                                     <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>

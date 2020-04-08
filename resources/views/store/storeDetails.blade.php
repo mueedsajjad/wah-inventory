@@ -6,7 +6,7 @@
     @foreach($details as $data)
     <div class="progress-group">
         {{$data->name}}
-        <span class="float-right"><b>{{$data->quantity}}</b>/10000</span>
+        <span class="float-right"><b>{{$data->quantity}}</b></span>
         <div class="progress progress-sm">
             <div class="progress-bar bg-danger" style="width: 80%"></div>
         </div>
