@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
     <section class="content pt-5">
         <div class="container-fluid">
             <div class="row">

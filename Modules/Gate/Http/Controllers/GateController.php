@@ -474,4 +474,9 @@ class GateController extends Controller
                      $material=DB::table('production_material_detail')->where('id',$request->out_type)->update(array('status' => '5'));
                     return redirect()->back()->with('message', 'Submitted Successfuly.');
                 }
+
+                public function outward_report (){
+
+                   return view('gate::report/outward_report');
+                }
 }

@@ -12,6 +12,7 @@
 */
 
 Route::prefix('gate')->group(function() {
+
     Route::get('inwardGatePass','GateController@inwardGatePass');
     Route::get('outwardGatePass','GateController@outwardGatePass');
     Route::get('vendor_data/{id}','GateController@vendor_data');
@@ -56,8 +57,13 @@ Route::prefix('gate')->group(function() {
 
     // ------------ Reports --------------------//
     Route::get('report','GateController@report');
+         //---Inward Report---//
     Route::get('inward','GateController@inward');
     Route::get('inward_report/{id}','GateController@inward_report');
+
+        //----Outward Report------///
+    Route::get('outward_report','GateController@outward_report');
+
 
 
 });
