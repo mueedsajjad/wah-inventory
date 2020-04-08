@@ -109,7 +109,7 @@ class QCController extends Controller
     }
 
     public function productInspection(Request $request){
-//dd($request->all());
+dd($request->all());
         DB::table('production_order')->where('id', $request->id)->update($request->except('_token', 'id'));
 
         return redirect()->back()->with('message', 'This i note genareted successfully and sent to Store');
