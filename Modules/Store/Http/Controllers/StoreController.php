@@ -281,13 +281,15 @@ class StoreController extends Controller
             'vehicle_number' => $request->vehicle_number,
             'status' => 2
         ];
-        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
+//        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
+        $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
+        dd($store->quantity);
         return redirect()->back();
     }
 
     public function sales_list()
     {
-        $sales_list=DB::table('sale_order')->get();
+        $sales_list=DB::table('sale_order')->where('status',1)->orwhere('status',2)->orwhere('status',3)->get();
         return view('store::sale/sale_list',compact('sales_list'));
     }
     public function saling($id)
