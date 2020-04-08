@@ -34,9 +34,12 @@ Route::prefix('store')->group(function() {
     Route::get('product', 'StoreController@product');
 ////////////////////////////////////////////////////////////////////////////////////////////
     Route::get('newBuiltyArrival', 'StoreController@newBuiltyArrival');
+    Route::get('newBuiltyArrival_out', 'StoreController@newBuiltyArrival_outward');
     Route::get('add_i_note_qc/{id}', 'StoreController@add_i_note_qc');
     Route::get('viewBuiltyDetails/{gatePassId}', 'StoreController@viewBuiltyDetails');
+    Route::get('viewBuiltyDetails_out/{gatePassId}', 'StoreController@viewBuiltyDetails_out');
     Route::post('changeUnloadStatus', 'StoreController@changeUnloadStatus');
+    Route::post('changeUnloadStatus_out', 'StoreController@changeUnloadStatus_out');
 
     Route::get('approveForInspectionNote', 'StoreController@approveForInspectionNote');
     Route::post('submitAssignedStore/{id}', 'StoreController@submitAssignedStore');

@@ -798,6 +798,13 @@
                                             <p>New Inward</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('store/newBuiltyArrival_out')}}" class="nav-link @if(request()->segment(2)=="newBuiltyArrival") @endif">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            {{--                                    <p>New Builty Arrival</p>--}}
+                                            <p>New Inward from Factory</p>
+                                        </a>
+                                    </li>
                                     {{--                            <li class="nav-item">--}}
                                     {{--                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">--}}
                                     {{--                                    <i class="far fa-circle nav-icon"></i>--}}

@@ -140,9 +140,10 @@ class GateController extends Controller
             }
         }
         elseif ($request->factory=='factory_inward'){
-
+                $req1= "FI-".random_int(999,9999);
             $data=[
                 'gatePassId' => $request->gatePassId,
+                'requisition_id'=>$req1,
                 'driverId' => $request->driverId,
                 'driverName' => $request->driverName,
                 'driverCNIC' => $request->driverCNIC,
@@ -469,8 +470,17 @@ class GateController extends Controller
     }
 
             public function outward_customer($id){
+              $delivery_data=DB::table('sale_order')->where('status',2)->get();
+//              dd($delivery_data);
 
-                return view('gate::gate.customer_data');
+                return view('gate::gate.customer_data',compact('delivery_data'));
+            }
+            public function delivery_order($id){
+              $delivery_data=DB::table('sale_order')->where('so_number',$id)->first();
+//              dd($delivery_data);
+                $item_detail=DB::table('sale_order_products')->where('so_number',$id)->get();
+                dd($item_detail);
+                return view('gate::gate.Delivery_data',compact('delivery_data','item_detail'));
             }
 
 

@@ -146,7 +146,7 @@
                                     <div class="row justify-content-around">
                                         <div class="col-md-12">
                                             <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Driver Name</label>
+                                                <label class="col-sm-4 col-form-label">Vendor Name</label>
                                                 <div class="col-sm-8">
                                                     <input type="text" readonly name="name" value="{{$inward_gate_pass->vendorName}}" class="form-control">
                                                 </div>
