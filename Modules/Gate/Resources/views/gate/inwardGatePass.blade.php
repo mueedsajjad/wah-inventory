@@ -274,7 +274,7 @@
                             <div class="col-md-12 " style="display: none" id="factory" >
                                 <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h3 class="card-title">Raw Material</h3>
+                                        <h3 class="card-title">Factory Inward Details</h3>
 
                                     </div>
                                     <!-- /.card-header -->
@@ -286,7 +286,7 @@
                                                 <th style="width: 15%;">Component Name</th>
                                                 <th style="width: 15%;">UOM</th>
                                                 <th style="width: 15%;">Qty</th>
-                                                <th>Material Description</th>
+                                                <th>Component Description</th>
                                             </tr>
                                             </thead>
                                             <tbody id="appendMaterial">

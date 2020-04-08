@@ -41,6 +41,7 @@
                                     <th>Gate Pass ID</th>
 {{--                                    <th>Gate Pass Type</th>--}}
                                     <th>Date</th>
+                                    <th>Inward Type</th>
                                     <th>Purchase Order</th>
                                     <th>Requisition</th>
                                     <th>Action</th>
@@ -53,6 +54,13 @@
                                     <td>{{$report->gatePassId}}</td>
 {{--                                    <td>Inward</td>--}}
                                     <td>{{$report->date}}</td>
+                                    @if($report->purchase_order_id==null && $report->requisition_id==null)
+                                        <td>Factory Inward</td>
+                                    @elseif($report->purchase_order_id==null)
+                                        <td>Requisition Inward</td>
+                                    @else
+                                        <td>Purchase Inward</td>
+                                    @endif
                                     <td>{{$report->purchase_order_id}}</td>
                                     <td>{{$report->requisition_id}}</td>
                                     <td>

@@ -11,19 +11,19 @@
                             <h3 class="card-title">Gate Reports</h3>
                         </div>
 
-                        <div class="card-body dash-menu">
+                        <div class="card-body dash-menu text-center">
                             <a class="btn btn-app bg-danger" href="{{url('gate/inward')}}">
                                 <i class="fas fa-edit"></i> Inward Report
                             </a>
                             <a class="btn btn-app bg-danger" href="{{url('gate/outward_report')}}">
                                 <i class="fas fa-edit"></i> Outward Report
                             </a>
-                            <a class="btn btn-app bg-danger" href="#">
-                                <i class="fas fa-edit"></i> Attendance Report
-                            </a>
-                            <a class="btn btn-app bg-danger" href="#">
-                                <i class="fas fa-edit"></i> Security Report
-                            </a>
+{{--                            <a class="btn btn-app bg-danger" href="#">--}}
+{{--                                <i class="fas fa-edit"></i> Attendance Report--}}
+{{--                            </a>--}}
+{{--                            <a class="btn btn-app bg-danger" href="#">--}}
+{{--                                <i class="fas fa-edit"></i> Security Report--}}
+{{--                            </a>--}}
                             <a class="btn btn-app bg-danger" href="#">
                                 <i class="fas fa-edit"></i> Vehicle Report
                             </a>
