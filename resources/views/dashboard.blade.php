@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box" style=" background-image: linear-gradient(to right, #dc3545 , #2c37cf);">
+            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #76c5f0, #2c37cf,  #c42d40, #dc3545);">
                 <div class="inner">
                     <h3>150</h3>
 
@@ -13,7 +13,7 @@
                 <div class="icon">
                     <i class="ion ion-paperclip"></i>
                 </div>
-                <a href="{{url('/order/order-approve')}}" style="cursor: pointer" class="small-box-footer bg-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{url('/order/order-approve')}}" style="cursor: pointer" class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
