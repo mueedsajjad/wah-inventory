@@ -18,7 +18,7 @@
                             <a class="btn btn-app bg-danger" href="{{url('admin/attedanceReport')}}">
                                 <i class="fas fa-edit"></i> Attendance
                             </a>
-                            <a class="btn btn-app bg-danger" href="#">
+                            <!-- <a class="btn btn-app bg-danger" href="#">
                                 <i class="fas fa-edit"></i> Leaves
                             </a>
                             <a class="btn btn-app bg-danger" href="#">
@@ -26,7 +26,7 @@
                             </a>
                             <a class="btn btn-app bg-danger" href="#">
                                 <i class="fas fa-edit"></i> Advance
-                            </a>
+                            </a> -->
                         </div>
                     </div>
                 </div>

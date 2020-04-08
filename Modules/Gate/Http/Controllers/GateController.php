@@ -139,6 +139,49 @@ class GateController extends Controller
                 return back()->withErrors( 'Something went wrong.');
             }
         }
+        elseif ($request->factory=='factory_inward'){
+
+            $data=[
+                'gatePassId' => $request->gatePassId,
+                'driverId' => $request->driverId,
+                'driverName' => $request->driverName,
+                'driverCNIC' => $request->driverCNIC,
+                'driverPh' => $request->driverPh,
+                'vehicalNo' => $request->vehicalNo,
+
+
+                'date' => date('Y-m-d'),
+                'status' => 0
+            ];
+
+            $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
+
+            $size = sizeof($request->componentName);
+
+            for($i=0 ; $i<$size ; $i++){
+                $data=[
+                    'itemType' => 'Component',
+                    'materialName' => $request['componentName'][$i],
+                    'uom' => $request['uom'][$i],
+                    'qty' => $request['qty'][$i],
+                    'description' => $request['description'][$i],
+                    'gatePassId' => $request->gatePassId,
+                    'date' => date('Y-m-d'),
+                    'status' => 0
+                ];
+                $insertInwardRawMaterial=DB::table('inward_raw_material')->insert($data);
+            }
+
+            if ($insertInwardGatePass && $insertInwardRawMaterial){
+                return redirect()->back()->with('message', 'Submitted Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+
+        }
+
+
 //        dd($request->all());
 
 
@@ -473,5 +516,26 @@ class GateController extends Controller
                  else
                      $material=DB::table('production_material_detail')->where('id',$request->out_type)->update(array('status' => '5'));
                     return redirect()->back()->with('message', 'Submitted Successfuly.');
+                }
+
+                public function outward_report (){
+
+                    $report_data=DB::table('production_material')->where('gate_type','outward')->get();
+//                    dd($report_data);
+
+//                    $report_data=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->get();
+
+
+                   return view('gate::report/outward_report',compact('report_data'));
+                }
+
+                public  function out_report($id){
+
+                    $report_data=DB::table('production_material_detail')->where('production_material_id',$id)->where('status',5)->get();
+//                      dd($report_data);
+                    $data=DB::table('production_material')->where('id',$id)->first();
+//                    dd($data);
+
+                      return view('gate::report/outward_report_details',compact('report_data','data'));
                 }
 }

@@ -75,10 +75,10 @@
                                         <option value="0"> Absent</option>
                                     </select>
                                 </div>
-                                <div class="form-group" id="entranceEmployeeTimeDiv" style="display: none;">
+                                <!-- <div class="form-group" id="entranceEmployeeTimeDiv" style="display: none;">
                                     <label for="exampleInputEmail1">Entrance Time<span class="text-red">*</span></label>
                                     <input class="form-control" type="time" name="entranceEmployeeTime">
-                                </div>
+                                </div> -->
 {{--                                <div class="row form-group">--}}
 {{--                                    <label for="checkboxSuccess1" class="col-form-label">--}}
 {{--                                        Late--}}
@@ -133,10 +133,10 @@
                                     <label for="exampleInputEmail1">Employee Name</label>
                                     <input readonly class="form-control" id="departureEmployeeName">
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="exampleInputEmail1">Departure Time<span class="text-red">*</span></label>
                                     <input class="form-control" required type="time" name="departureEmployeeTime">
-                                </div>
+                                </div> -->
 
                                 <div class="text-right">
                                     <a href="{{url('admin/attendance')}}" class="btn btn-default mr-1">Cancel</a>

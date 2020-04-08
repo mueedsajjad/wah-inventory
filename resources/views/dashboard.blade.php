@@ -27,7 +27,8 @@
                     <p>Employee Details</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-stalker"></i>                </div>
+                    <i class="ion ion-person-stalker"></i>
+                </div>
                 <a href="{{url('/admin/employee')}}" style="cursor: pointer"  class="small-box-footer bg-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>

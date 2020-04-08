@@ -46,12 +46,26 @@
 
                                     <h3 class="profile-username text-center">{{$users->username}}</h3>
 
-                                    <p class="text-muted text-center">{{$users->role}}</p>
+                                    <p class="text-muted text-center">{{$users->designation}}</p>
 
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
                                             <b>Department</b> <a href="#" class="float-right">{{$users->department_name}}</a>
                                         </li>
+                                        <li class="list-group-item">
+                                            <b>Role</b> <a href="#" class="float-right">{{$users->role}}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Salary</b> <a href="#" class="float-right">{{$users->salary}}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>createdDate</b> <a href="#" class="float-right">{{$users->createdDate}}</a>
+                                        </li>
+                                        
+                                        <li class="list-group-item">
+                                            <b>joinDate</b> <a href="#" class="float-right">{{$users->joinDate}}</a>
+                                        </li>
+
                                         <li class="list-group-item">
                                             <b>Mobile</b> <a href="#" class="float-right">{{$users->mobile}}</a>
                                         </li>
@@ -104,7 +118,7 @@
                                                         <label class="col-sm-4 col-form-label">Employee Name</label>
                                                         <div class="col-sm-8">
                                                             @foreach($user as $users)
-                                                            <input type="text" name="name" class="form-control" value="{{$users->username}}"  >
+                                                            <input type="text" name="name" class="form-control" value="{{$users->username}}"  required>
                                                             @endforeach
                                                         </div>
                                                     </div>
@@ -127,10 +141,17 @@
                                                             </select>
                                                         </div>
                                                     </div>
-
-
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Designation</label>
+                                                        <div class="col-sm-8">
+                                                            @foreach($user as $users)
+                                                            <input type="text" name="designation" class="form-control"  value="{{$users->designation}}" required>
+                                                                @endforeach
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Role</label>
                                                         <div class="col-sm-8">
                                                             <select class="form-control " name="designation_id">
                                                                 @foreach($user as $users)
@@ -164,7 +185,7 @@
                                                         <label class="col-sm-4 col-form-label">Mobile</label>
                                                         <div class="col-sm-8">
                                                             @foreach($user as $users)
-                                                            <input type="text" name="mobile" class="form-control"  value="{{$users->mobile}}">
+                                                            <input type="text" name="mobile" class="form-control"  value="{{$users->mobile}}" required>
                                                                 @endforeach
                                                         </div>
                                                     </div>
@@ -173,7 +194,7 @@
                                                         <label class="col-sm-4 col-form-label">Email</label>
                                                         <div class="col-sm-8">
                                                             @foreach($user as $users)
-                                                            <input type="email" name="email" class="form-control"  value="{{$users->email}}">
+                                                            <input type="email" name="email" class="form-control"  value="{{$users->email}}" required>
                                                             @endforeach
                                                         </div>
                                                     </div>
@@ -229,7 +250,40 @@
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
                                                                 @foreach($user as $users)
-                                                                <input type="text" name="address" class="form-control" value="{{$users->address}}">
+                                                                <input type="text" name="address" class="form-control" value="{{$users->address}}" required>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Salary</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                @foreach($user as $users)
+                                                                <input type="text" name="salary" class="form-control" value="{{$users->salary}}" required>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Created Date</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                @foreach($user as $users)
+                                                                <input type="date" name="createdDate" class="form-control" value="{{$users->createdDate}}" required>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Join Date</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                @foreach($user as $users)
+                                                                <input type="date" name="joinDate" class="form-control" value="{{$users->joinDate}}" required>
                                                                 @endforeach
                                                             </div>
                                                         </div>
@@ -246,7 +300,6 @@
 
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label"></label>
-
                                                         <div class="col-sm-8">
                                                             <button type="submit" class="btn btn-dark">Submit</button>
                                                         </div>

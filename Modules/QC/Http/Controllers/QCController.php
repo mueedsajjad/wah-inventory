@@ -43,12 +43,9 @@ class QCController extends Controller
 //        dd($app_pend);
         $count_all=sizeof($app_pend);
         $all=DB::table('inward_raw_material')->get();
-        foreach ($all as $a)
-        {
-//            if ()
-        }
 
-        return view('qc::dash',compact('count_pen','count_app'));
+
+        return view('qc::dashboard.details',compact('count_pen','count_app'));
     }
 
     public function love()
@@ -68,32 +65,52 @@ class QCController extends Controller
                 $app_pend[]=$app_3;
 
         }
+
 //        dd($app_pend);
         $count_all=sizeof($app_pend);
         //        dd($done_6);
 //        $count_all=sizeof($pending)+sizeof($done_2)+sizeof($done_3)+sizeof($done_4)+sizeof($done_5)+sizeof($done_6);
-        return view('qc::dashboard/dashboard',compact('count_all'));
+        return view('qc::dashboard.dashboard',compact('count_all'));
     }
+
+    public function productionProduct(){
+
+        $record = DB::table('production_order')->where('status', 4)->get();
+
+        return view('qc::productionProduct', compact('record'));
+    }
+
+    public function productionComponent(){
+
+        $record = DB::table('component_order')->where('status', 4)->get();
+
+        return view('qc::productionComponent', compact('record'));
+    }
+    public function rejected(){
+
+
+        return view('qc::dashboard.rejected');
+    }
+    public function list(){
+
+
+        return view('qc::dashboard.list');
+    }
+
+
 
     public function index()
     {
         return view('qc::index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+
     public function create()
     {
         return view('qc::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
+
     public function store(Request $request)
     {
         //
