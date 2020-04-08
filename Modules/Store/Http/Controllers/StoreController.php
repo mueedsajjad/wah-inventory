@@ -272,6 +272,31 @@ class StoreController extends Controller
         return view('store::inwardInspectionNote', compact( 'inward_raw_material'));
     }
 
+    public function sale_storing(Request $request)
+    {
+//        dd($request->all());
+        $data=[
+            'driver_id' => $request->driver_cnic,
+            'driver_name' => $request->driver_name,
+            'vehicle_number' => $request->vehicle_number,
+            'status' => 2
+        ];
+        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
+        return redirect()->back();
+    }
+
+    public function sales_list()
+    {
+        $sales_list=DB::table('sale_order')->get();
+        return view('store::sale/sale_list',compact('sales_list'));
+    }
+    public function saling($id)
+    {
+//        dd($id);
+        $sale=DB::table('sale_order')->where('id',$id)->first();
+//        dd($sale);
+        return view('store::sale/sale',compact('sale'));
+    }
     public function add_i_note_qc($id)
     {
 //        dd($id);
@@ -304,6 +329,9 @@ class StoreController extends Controller
 
         return view('store::inwardInspectionNote', compact( 'inward_raw_material','inward_gate_pass'));
     }
+
+
+
 
     public function submitInwardInspectionNote(Request $request){
 

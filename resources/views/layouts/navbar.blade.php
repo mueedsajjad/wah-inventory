@@ -844,6 +844,12 @@
                                     <p>Items Code</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/sales')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sales</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif
