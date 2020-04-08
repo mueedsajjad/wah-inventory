@@ -592,6 +592,12 @@
 
 
                 @if(auth()->user()->can('Approve Requisition'))
+                    <li class="nav-item">
+                        <a href="{{url('assistantmanager/')}}" class="nav-link @if(request()->segment(1)=="assistantmanager") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview @if(request()->segment(1)=="requisition") menu-open @endif">
                         <a href="#" class="nav-link  @if(request()->segment(1)=="requisition") active @endif">
                             <i class="fas fa-receipt nav-icon"></i>
@@ -601,12 +607,6 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{url('requisition/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard</p>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{url('requisition/material-dashboard')}}" class="nav-link @if(request()->segment(2)=="material-dashboard") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
@@ -637,7 +637,7 @@
                             <li class="nav-item">
                                 <a href="{{url('sale/sale')}}" class="nav-link @if(request()->segment(2)=="sale") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Sales</p>
+                                    <p>New Sale Order</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -752,9 +752,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">
+                        <a href="{{url('qc/inward_qc')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Inward I-Note</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('qc/production-product')}}" class="nav-link @if(request()->segment(2)=="production-product") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Product I-Note</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('qc/production-component')}}" class="nav-link @if(request()->segment(2)=="production-component") active @endif">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Component I-Note</p>
                         </a>
                     </li>
                 @endif
@@ -782,12 +794,12 @@
                                     <p>New Inward</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Approve for I-Note</p>
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{url('store/approveForInspectionNote')}}" class="nav-link @if(request()->segment(2)=="approveForInspectionNote") active @endif">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Approve for I-Note</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 {{--                            <li class="nav-item">--}}
 {{--                                <a href="{{url('store/inwardInspectionNote')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote") active @endif">--}}
 {{--                                    <i class="far fa-circle nav-icon"></i>--}}
@@ -830,6 +842,12 @@
                                 <a href="{{url('setting/productAndMateralCode')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Items Code</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('store/sales')}}" class="nav-link @if(request()->segment(2)=="issueRequisition") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sales</p>
                                 </a>
                             </li>
                         </ul>

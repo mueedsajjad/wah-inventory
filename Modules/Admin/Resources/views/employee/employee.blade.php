@@ -99,7 +99,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Employee Name</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" name="name" class="form-control"  placeholder="Employee Name">
+                                                            <input type="text" name="name" class="form-control"  placeholder="Employee Name" required>
                                                         </div>
                                                     </div>
 
@@ -110,7 +110,7 @@
                                                             <select class="form-control " name="department_id">
                                                                 <option selected="selected" disabled>Select Department</option>
                                                                 @foreach($department as $departments)
-                                                                   <option value="{{$departments->id}}">{{$departments->name}} </option>
+                                                                   <option value="{{$departments->id}}">{{$departments->name}}</option>
                                                                 @endforeach
 {{--                                                                <option>Production</option>--}}
 {{--                                                                <option>Officer</option>--}}
@@ -121,8 +121,15 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Designation</label>
                                                         <div class="col-sm-8">
+                                                        <input type="text" name="designation" class="form-control" required  placeholder="Manager">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Role</label>
+                                                        <div class="col-sm-8">
                                                             <select class="form-control " name="designation_id">
-                                                                <option selected="selected" disabled>Select Designation</option>
+                                                                <option selected="selected" disabled>Select</option>
                                                                 @foreach($role as $roles)
                                                                     <option value="{{$roles->id}}">{{$roles->name}}</option>
                                                                 @endforeach
@@ -140,23 +147,25 @@
                                                             </select>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Mobile</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" name="mobile" class="form-control"  placeholder="0333 1234567">
+                                                            <input type="text" name="mobile" required class="form-control"  placeholder="0333 1234567">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Email</label>
                                                         <div class="col-sm-8">
-                                                            <input type="email" name="email" class="form-control" placeholder="info@mmlogix.com">
+                                                            <input type="email" required name="email" class="form-control" placeholder="info@mmlogix.com">
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Password</label>
                                                         <div class="col-sm-8">
-                                                            <input type="password" name="password" class="form-control" >
+                                                            <input type="password" required name="password" class="form-control" >
                                                         </div>
                                                     </div>
 
@@ -197,16 +206,41 @@
                                                         <label class="col-sm-4 col-form-label">Address line</label>
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
-                                                                <input type="text" name="address" class="form-control" placeholder="Enter ...">
+                                                                <input type="text" required name="address" class="form-control" placeholder="Enter ...">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Salary</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="number" required name="salary" class="form-control" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Created Date</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="Date" required name="createdDate" class="form-control" placeholder="Enter ...">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Joining Date</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="Date" required name="joinDate" class="form-control" placeholder="Enter ...">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label">Image</label>
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
-                                                                <input type="file" name="upload" class="form-control">
+                                                                <input type="file"  name="upload" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -219,10 +253,6 @@
                                                         </div>
 
                                                     </div>
-
-
-
-
 
                                                 </div>
                                             </div>
@@ -272,7 +302,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-sm-4 col-form-label">Employee Name</label>
                                                             <div class="col-sm-8">
-                                                                <input type="text" name="name" class="form-control"  placeholder="Employee Name">
+                                                                <input type="text" required name="name" class="form-control"  placeholder="Employee Name">
                                                             </div>
                                                         </div>
 
@@ -293,10 +323,10 @@
 
 
                                                         <div class="form-group row">
-                                                            <label class="col-sm-4 col-form-label">Designation</label>
+                                                            <label class="col-sm-4 col-form-label">Role</label>
                                                             <div class="col-sm-8">
                                                                 <select class="form-control " name="designation_id">
-                                                                    <option selected="selected" disabled>Select Designation</option>
+                                                                    <option selected="selected" disabled>Select</option>
                                                                     @foreach($role as $roles)
                                                                         @if($roles->name=='Officers')
                                                                         <option value="{{$roles->id}}">{{$roles->name}}</option>
@@ -305,6 +335,12 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label">Designation</label>
+                                                        <div class="col-sm-8">
+                                                        <input type="text" required name="designation" class="form-control"  placeholder="Manager">
+                                                        </div>
+                                                    </div>
 
                                                         <div class="form-group row">
                                                             <label class="col-sm-4 col-form-label">Under Manager</label>
@@ -331,20 +367,20 @@
                                                         <div class="form-group row">
                                                             <label class="col-sm-4 col-form-label">Mobile</label>
                                                             <div class="col-sm-8">
-                                                                <input type="text" name="mobile" class="form-control"  placeholder="0333 1234567">
+                                                                <input type="text" required name="mobile" class="form-control"  placeholder="0333 1234567">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group row">
                                                             <label class="col-sm-4 col-form-label">Email</label>
                                                             <div class="col-sm-8">
-                                                                <input type="email" name="email" class="form-control" placeholder="info@mmlogix.com">
+                                                                <input type="email" required name="email" class="form-control" placeholder="info@mmlogix.com">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label class="col-sm-4 col-form-label">Password</label>
                                                             <div class="col-sm-8">
-                                                                <input type="password" name="password" class="form-control" >
+                                                                <input type="password" required name="password" class="form-control" >
                                                             </div>
                                                         </div>
 
@@ -385,7 +421,31 @@
                                                             <label class="col-sm-4 col-form-label">Address line</label>
                                                             <div class="col-sm-8">
                                                                 <div class="form-group">
-                                                                    <input type="text" name="address" class="form-control" placeholder="Enter ...">
+                                                                    <input type="text" required name="address" class="form-control" placeholder="Enter ...">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Salary</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="number" required name="salary" class="form-control" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Created Date</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="Date" required name="createdDate" class="form-control" placeholder="Enter ...">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label">Joining Date</label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <input type="Date" required name="joinDate" class="form-control" placeholder="Enter ...">
                                                                 </div>
                                                             </div>
                                                         </div>

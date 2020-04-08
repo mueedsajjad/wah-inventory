@@ -63,16 +63,22 @@ class AttendanceController extends Controller
 
     public function checkInAttendanceStore(Request $request)
     {
+        $nowInTime = Carbon::now('Asia/Karachi');
+        $nowInTime=$nowInTime->format('H:i');
+       
         if ($request->entranceEmployeeStatus!='none'){
             $userId=$request->entranceEmployeeId;
             if($userId!=null || $userId!=0 || $userId!='' ){
                 $status=$request->entranceEmployeeStatus;
                 if ($status==1){
-                    $entranceEmployeeTime=$request->entranceEmployeeTime;
-                    if ($entranceEmployeeTime=='' || $entranceEmployeeTime==null){
-                        return redirect()->back()->withErrors('Entrance Time of Employee is Required.');
-                    }
-                    else{
+                    // $entranceEmployeeTime=$request->entranceEmployeeTime;
+                    // if ($entranceEmployeeTime=='' || $entranceEmployeeTime==null){
+                    //     return redirect()->back()->withErrors('Entrance Time of Employee is Required.');
+                    // }
+                    // else{
+                        $nowInTime = Carbon::now('Asia/Karachi');
+                        $nowInTime=$nowInTime->format('H:i');
+    
                         $duty=DB::table('duty_schedule')->first();
                         if($duty) {
                             $inDuty = Carbon::parse($duty->in_time);
@@ -81,19 +87,19 @@ class AttendanceController extends Controller
                             return view('setting::setting/DutySchedule',compact('duty'));
                         }
 
-                        $entranceEmployeeTime = Carbon::parse($request->entranceEmployeeTime);
+                        $nowInTime = Carbon::parse($nowInTime);
 
                         //check employee is late or not
-                        if ($entranceEmployeeTime>$inDuty){
+                        if ($nowInTime>$inDuty){
                             $checkIn="Late";
                         }
                         else{
                             $checkIn="Timely";
                         }
-                    }
+                    //}
                 }
                 else{
-                    $entranceEmployeeTime=null;
+                    $nowInTime=null;
                     $checkIn="N/A";
                 }
 
@@ -108,10 +114,11 @@ class AttendanceController extends Controller
                 }
                 else
                 {
+                   
                     DB::table('attendance')->insert([
                         'userId'=> $userId,
                         'date'=> Carbon::today()->toDateString(),
-                        'inTime'=> $entranceEmployeeTime,
+                        'inTime'=> $nowInTime,
                         'status'=> $status,
                         'checkIn' => $checkIn
                     ]);
@@ -141,6 +148,7 @@ class AttendanceController extends Controller
             }
         }
         else{
+
             return json_encode('error');
         }
     }
@@ -150,9 +158,11 @@ class AttendanceController extends Controller
         $userId=$request->departureEmployeeId;
         if($userId!=null || $userId!=0 || $userId!='' ){
             //dd($request);
-            $data= $request->validate([
-                'departureEmployeeTime' => 'required'
-            ]);
+            // $data= $request->validate([
+            //     'departureEmployeeTime' => 'required'
+            // ]);
+             
+           
 
             $attendance=DB::table('attendance')->where('userId',$userId)
                 ->where('date',Carbon::today()->toDateString())
@@ -181,9 +191,11 @@ class AttendanceController extends Controller
                     $duty= DB::table('duty_Schedule')->get();
                     return view('setting::setting/DutySchedule',compact('duty'));
                 }
-
+                
+                $nowOutTime = Carbon::now('Asia/Karachi');
+                $nowOutTime=$nowOutTime->format('H:i');
                 //calculate Total Working Time Done by Employee
-                $outWorking=Carbon::parse($request->departureEmployeeTime);
+                $outWorking=Carbon::parse($nowOutTime);
                 $inWorking=Carbon::parse($attendance->inTime);
                 $interval = $inWorking->diff($outWorking);
                 $hourWorking = $interval->format('%h');
@@ -205,7 +217,7 @@ class AttendanceController extends Controller
                 ////////////////////////////////////////////////////////////////////
                 DB::table('attendance')->where('userId',$userId)
                     ->where('date',Carbon::today()->toDateString())->update([
-                    'outTime'=> $request->departureEmployeeTime,
+                    'outTime'=> $nowOutTime,
                     'dutyTime' => $dutyTime,
                     'workingTime' => $workingTime,
                     'overTime'=> $overTime,

@@ -15,6 +15,9 @@ Route::prefix('store')->group(function() {
     Route::post('dateHearing', 'StoreController@date_filter')->name('dateHearing');
     Route::post('inspectionInward_Note_Date', 'StoreController@inwardInspectionNote_date')->name('inward_insp_note_date');
     Route::get('/', 'StoreController@index');
+    Route::post('/storing_saless', 'StoreController@sale_storing');
+    Route::get('/sales', 'StoreController@sales_list');
+    Route::get('/sale_store_to_gate/{id}', 'StoreController@saling');
     Route::get('/forwarded_to_gate/{id}', 'StoreController@forwarded_to_gate_outward');
     Route::get('/forwarded_to_gate_mat/{id}', 'StoreController@forwarded_to_gate_outward_mat');
     Route::get('dashboard', 'StoreController@dashboard');
@@ -31,6 +34,7 @@ Route::prefix('store')->group(function() {
     Route::get('product', 'StoreController@product');
 ////////////////////////////////////////////////////////////////////////////////////////////
     Route::get('newBuiltyArrival', 'StoreController@newBuiltyArrival');
+    Route::get('add_i_note_qc/{id}', 'StoreController@add_i_note_qc');
     Route::get('viewBuiltyDetails/{gatePassId}', 'StoreController@viewBuiltyDetails');
     Route::post('changeUnloadStatus', 'StoreController@changeUnloadStatus');
 

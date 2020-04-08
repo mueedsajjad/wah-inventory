@@ -16,7 +16,6 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->integer('user_id')->nullable();
             $table->integer('department_id')->nullable();
             $table->integer('designation_id')->nullable();
@@ -26,7 +25,10 @@ class CreateEmployeesTable extends Migration
             $table->integer('city_id')->nullable();
             $table->string('address')->nullable();
             $table->string('upload')->nullable();
-
+            $table->integer('salary')->nullable();
+            $table->date('createdDate')->nullable();
+            $table->date('joinDate')->nullable();
+            $table->string('designation')->nullable();
             $table->timestamps();
         });
     }

@@ -28,6 +28,11 @@ Route::prefix('admin')->group(function() {
 
 
     Route::get('salary', 'AdminController@salary');
+    Route::get('salaryEmployee', 'AdminController@salaryEmployee');
+    Route::post('employeeSalaryDetails', 'AdminController@employeeSalaryDetails');
+    Route::post('salaryStore', 'AdminController@salaryStore');
+    Route::post('salaryDelete', 'AdminController@salaryDelete');
+
 
     Route::get('advance', 'AdminController@advance');
 

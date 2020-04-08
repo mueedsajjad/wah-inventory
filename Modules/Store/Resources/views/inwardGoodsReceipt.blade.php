@@ -22,72 +22,79 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="builtyTable" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Sr#</th>
-                                    <th>Gate Pass ID</th>
-                                    <th>Type</th>
-                                    <th>Name</th>
-                                    <th>UOM</th>
-                                    <th>Quantity</th>
-                                    <th>Quantity after Inspection</th>
-                                    <th>Date</th>
-                                    <th>Inspection Date</th>
-                                    <th>Store</th>
-                                    <th>Action</th>
-                                    <th>Approval for I-Note</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if(!$inward_raw_material->isempty())
-                                    @php $count=0; @endphp
-                                    @foreach($inward_raw_material as $item)
-                                        @php ++$count; @endphp
-                                        <tr>
-                                            <td>{{$count}}</td>
-                                            <td>{{$item->gatePassId}}</td>
-                                            <td>{{$item->itemType}}</td>
-                                            <td>{{$item->materialName}}</td>
-                                            <td>{{$item->uom}}</td>
-                                            <td>{{$item->qty}}</td>
-                                            @php
-                                                $qty=$item->qty;
-                                                $rejectedQty=$item->rejectedQty;
-                                                $totalQty=$qty-$rejectedQty;
-                                            @endphp
-                                            <td>{{$totalQty}}</td>
-                                            <td>{{$item->date}}</td>
-                                            <td>{{$item->inspectionDate}}</td>
-                                            <td>{{$item->storeLocation}}</td>
-                                            <td>
-                                                @if($item->status==3)
-                                                    <a class="btn btn-secondary btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}"
-                                                    >Make Receipt</a>
-                                                @else
-                                                    <button class="btn btn-success btn-sm">Receipt Done</button>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($item->status==4 || $item->status==3)
-                                                    <a class="getReceiptData" data-toggle="modal" data-target="#changeApprovalStatusModal" data-id="{{$item->id}}">
-                                                        <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
-                                                    </a>
-                                                @else
-                                                    <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table id="builtyTable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Sr#</th>
+                                        <th>Gate Pass ID</th>
+                                        <th>Driver Name</th>
+                                        <th>Vehicle #</th>
+                                        <th>Vendor Type</th>
+                                        <th>Vendor Name</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                        <th>Approval for I-Note</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(!$inward_gate_pass->isempty())
+                                        @php $count=0; @endphp
+                                        @foreach($inward_gate_pass as $item)
+                                            <?php
+                                            $material=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$item->gatePassId)->first();
+//                                            $view=$material->status;
+//                                            $date=$material->inspectionDate;
+
+                                            ?>
+                                                @php ++$count; @endphp
+                                                <tr>
+                                                    <td>{{$count}}</td>
+                                                    <td>{{$item->gatePassId}}</td>
+                                                    <td>{{$item->driverName}}</td>
+                                                    <td>{{$item->vehicalNo}}</td>
+                                                    <td>{{$item->vendorType}}</td>
+                                                    <td>{{$item->vendorName}}</td>
+                                                    <td>{{$item->date}}</td>
+                                                    <td>
+                                                        @if($material)
+                                                            @if($material->status==3)
+                                                                <a class="btn btn-secondary btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}"
+                                                                >Make Receipt</a>
+                                                            @elseif($material->status>=4)
+                                                                <a class="btn btn-success btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}">View Receipt</a>
+                                                            @endif
+                                                        @else
+                                                            <a class="btn btn-secondary btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}">Make Receipt</a>
+                                                        @endif
+                                                    </td>
+                                                    <?php
+                                                        $data=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$item->gatePassId)->first();
+                                                    ?>
+                                                    <td>
+                                                        @if($data->status==4)
+                                                            <a class="getReceiptData" data-toggle="modal" data-target="#changeApprovalStatusModal" data-id="{{$data->id}}">
+                                                                <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
+                                                            </a>
+                                                        @elseif($data->status<4)
+                                                            <a class="getReceiptData">
+                                                                <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>
+                                                            </a>
+                                                        @else
+                                                            <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
                 <!-- /.card -->
             </div>
-        </div>
+        </div>     </div>
     </section>
 
     <!-- The change Approval Status Modal -->
