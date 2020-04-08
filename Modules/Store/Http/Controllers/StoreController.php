@@ -169,18 +169,18 @@ class StoreController extends Controller
     }
 
 
-      public function productionProduct()
-      {
-          $stores=DB::table('store')->get();
-          $products=DB::table('production_order')
-              ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
-              ->where('status',4)
-              ->get();
+    public function productionProduct()
+    {
+        $stores=DB::table('store')->get();
+        $products=DB::table('production_order')
+            ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
+            ->where('status',4)
+            ->get();
 
-          return view('store::dashboard/product', compact('products','stores'));
-      }
+        return view('store::dashboard/product', compact('products','stores'));
+    }
 
-      public function approveForInspectionNote(){
+    public function approveForInspectionNote(){
         $stores=DB::table('store')->get();
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 1)
             ->orWhere('status', 2)->orWhere('status', 3)
@@ -236,18 +236,18 @@ class StoreController extends Controller
             $checkStore=$checkStore->storeLocation;
 
 //            if ($checkStore){
-                $data=[
-                    'status' => 2
-                ];
-                $update=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)
-                    ->where('materialName', $request->materialname)->update($data);
+            $data=[
+                'status' => 2
+            ];
+            $update=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)
+                ->where('materialName', $request->materialname)->update($data);
 
-                if ($update){
-                    return redirect()->back()->with('message', 'Sent for Inspection Successfuly.');
-                }
-                else {
-                    return back()->withErrors( 'Something went wrong.');
-                }
+            if ($update){
+                return redirect()->back()->with('message', 'Sent for Inspection Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
 //            }
 //            else {
 //                return back()->withErrors( 'Kindly, First assign a store.');
@@ -331,7 +331,7 @@ class StoreController extends Controller
 //        dd($material);
         foreach ($inward_raw_material as $in)
         {
-                $view=$in;
+            $view=$in;
         }
 //        dd($view);
         return view('store::add_i_note_qc',compact('inward_raw_material','gate','view'));
@@ -371,7 +371,7 @@ class StoreController extends Controller
             ];
             $update=DB::table('inward_raw_material')->where('id', $request->detail_id[$i])->update($data);
         }
-            return redirect()->back()->with('message', 'Updated Successfuly.');
+        return redirect()->back()->with('message', 'Updated Successfuly.');
 
 
 //        $submitId=$request->submitId;
@@ -592,7 +592,7 @@ class StoreController extends Controller
                 return back()->withErrors('Something went wrong.');
             }
         }
-            return redirect()->back()->with('message', 'Submitted Successfuly.');
+        return redirect()->back()->with('message', 'Submitted Successfuly.');
     }
 
     //    ------------------------------ Products Came Form Production ----------------------------- //
@@ -787,11 +787,11 @@ class StoreController extends Controller
 
     public function assignStoreToFactoryInwardComponents(){
         $inward_raw_material=DB::table('inward_raw_material')->where('itemType' , 'Component')
-                    ->where(function($result) {
-                        $result->where("status" , 5)
-                            ->orWhere('status' , 6);
-                    })
-                    ->get();
+            ->where(function($result) {
+                $result->where("status" , 5)
+                    ->orWhere('status' , 6);
+            })
+            ->get();
         return view('store::dashboard/assignStoreToFactoryInwardComponents', compact('inward_raw_material'));
     }
 
@@ -947,7 +947,7 @@ class StoreController extends Controller
             }
         }
         else {
-                return back()->withErrors( 'Select the Component Relevant Store.');
+            return back()->withErrors( 'Select the Component Relevant Store.');
         }
     }
 

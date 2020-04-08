@@ -322,11 +322,11 @@
 
 
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-danger navbar-dark">
+<nav class="main-header navbar navbar-expand navbar-danger navbar-dark bg-transparent"  style=" background-image: linear-gradient(to right,white, #2c37cf,  #dc3545, #dc3545);">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars text-red"></i></a>
         </li>
     </ul>
 
@@ -415,7 +415,7 @@
 
 
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-danger elevation-1">
+<aside class="main-sidebar sidebar-light-danger elevation-1" style="background-image: {{asset('public/img/logo.png')}}">
     <!-- Brand Logo -->
     <a href="{{url('/')}}" class="brand-link">
         <img src="{{asset('public/img/logo.png')}}" alt="WAH Logo" class="brand-image img-circle"
