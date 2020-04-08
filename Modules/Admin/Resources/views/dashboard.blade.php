@@ -16,7 +16,7 @@
                 <div class="icon">
                     <i class="ion ion-person-stalker"></i>
                 </div>
-                <a href="{{url('/admin/employee')}}" style="cursor: pointer"  class="small-box-footer bg-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a onclick="employee()" style="cursor: pointer"  class="small-box-footer bg-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         
@@ -39,22 +39,28 @@
            
 
        
-
-    <div id="detail">
-
+    <!-- <div class="row">
+    <div class="col-md-12"> -->
+    
+    <div id="detail" class="col-md-12">
+    
     </div>
+    <!-- </div>
+    </div> -->
 
 @endsection
 
 <script>
-    function store() {
+    
+
+    function employee() {
         console.log();
         var path = location.pathname.split('/');
         var app=path[1];
         console.log(app);
         $.ajax({
             type: "GET",
-            url: "/"+app+"/store/dash/",
+            url: "/"+app+"/employeeDepartment/dash/",
             success:function(data)
             {
                 $("#detail").html(data);
@@ -62,61 +68,31 @@
         });
     }
 
-    function gate() {
-        console.log();
-        var path = location.pathname.split('/');
-        var app=path[1];
-        console.log(app);
-        $.ajax({
-            type: "GET",
-            url: "/"+app+"/gate/dash/",
-            success:function(data)
-            {
-                $("#detail").html(data);
-            }
-        });
-    }
-
-    function requisition() {
-        console.log();
-        var path = location.pathname.split('/');
-        var app=path[1];
-        console.log(app);
-        $.ajax({
-            type: "GET",
-            url: "/"+app+"/requisition/dash/",
-            success:function(data)
-            {
-                $("#detail").html(data);
-            }
-        });
-    }
-
-    function sale() {
-        console.log();
-        var path = location.pathname.split('/');
-        var app = path[1];
-        console.log(app);
-        $.ajax({
-            type: "GET",
-            url: "/" + app + "/sale/dash/",
-            success: function (data) {
-                $("#detail").html(data);
-            }
-        })
-    }
-    function production() {
-        console.log();
-        var path = location.pathname.split('/');
-        var app = path[1];
-        console.log(app);
-        $.ajax({
-            type: "GET",
-            url: "/" + app + "/production/dash/",
-            success: function (data) {
-                $("#detail").html(data);
-            }
-        })
-    }
+    // function sale() {
+    //     console.log();
+    //     var path = location.pathname.split('/');
+    //     var app = path[1];
+    //     console.log(app);
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/" + app + "/sale/dash/",
+    //         success: function (data) {
+    //             $("#detail").html(data);
+    //         }
+    //     })
+    // }
+    // function production() {
+    //     console.log();
+    //     var path = location.pathname.split('/');
+    //     var app = path[1];
+    //     console.log(app);
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/" + app + "/production/dash/",
+    //         success: function (data) {
+    //             $("#detail").html(data);
+    //         }
+    //     })
+    // }
 </script>
 

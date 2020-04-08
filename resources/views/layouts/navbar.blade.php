@@ -417,7 +417,7 @@
 <!-- Main Sidebar Container -->
 <div >
     <aside class="main-sidebar sidebar-light elevation-1" style="background-image: linear-gradient(to right,white, #bcdcfe); ">
-        <div>
+ 
             <a href="{{url('/')}}" class="brand-link">
                 <img src="{{asset('public/img/logo.png')}}" alt="WAH Logo" class="brand-image img-circle">
                 <span class="brand-text font-weight-light">SGA - WAH Industries</span>
@@ -1040,7 +1040,7 @@
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
-        </div>
+
         <!-- Brand Logo -->
 
         <!-- /.sidebar -->
