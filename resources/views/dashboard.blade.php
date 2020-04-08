@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box" style=" background-image: linear-gradient(to right, #dc3545 , #2c37cf);">
                 <div class="inner">
                     <h3>150</h3>
 
