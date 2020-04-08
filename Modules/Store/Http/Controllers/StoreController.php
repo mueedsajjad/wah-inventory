@@ -706,8 +706,8 @@ class StoreController extends Controller
 
     public function assignStoreToFactoryInMadeComponents(){
         $stores=DB::table('store')->get();
-        $components=DB::table('component_order')->where('status',4)
-            ->orWhere('status',5)
+        $components=DB::table('component_order')->where('status',5)
+            ->orWhere('status',6)
             ->get();
         return view('store::dashboard/assignStoreToFactoryInMadeComponents', compact('components','stores'));
 
@@ -723,7 +723,7 @@ class StoreController extends Controller
             'status' => 0
         ];
         $dataStatus=[
-            'status' => 5
+            'status' => 6
         ];
 
         if ($request->store_location=="Components"){
