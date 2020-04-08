@@ -120,8 +120,31 @@ class StoreController extends Controller
     }
 
     public function newBuiltyArrival(){
-        $inward_gate_pass=DB::table('inward_gate_pass')->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
         return view('store::newBuiltyArrival', compact('inward_gate_pass'));
+    }
+
+    public function newBuiltyArrival_outward(){
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
+//        dd($inward_gate_pass);
+        return view('store::newBuiltyArrival_outward', compact('inward_gate_pass'));
+    }
+
+
+    public function viewBuiltyDetails_out($gatePassId)
+    {
+//        dd($gatePassId);
+        if ($gatePassId!=0 || $gatePassId!=null || $gatePassId!=''){
+            $inward_gate_pass=DB::table('inward_gate_pass')->where('id', $gatePassId)->first();
+            $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $inward_gate_pass->gatePassId)->get();
+
+//            dd($inward_gate_pass);
+//            dd('moms');
+            return view('store::table_append_out', compact('inward_raw_material','inward_gate_pass'));
+        }
+        else {
+            return json_encode(['error'=> 'error']);
+        }
     }
 
 
@@ -140,6 +163,37 @@ class StoreController extends Controller
             return json_encode(['error'=> 'error']);
         }
     }
+
+
+
+    public function changeUnloadStatus_out(Request $request)
+    {
+        $gatepassid=$request->gatepassid;
+        if ($gatepassid!=0 || $gatepassid!=null || $gatepassid!=''){
+            $data=[
+                'status' => 1
+            ];
+            $data_one=[
+                'status' => 2
+            ];
+//            dd($gatepassid);
+            $update=DB::table('inward_gate_pass')->where('gatePassId', $gatepassid)->update($data);
+
+            $updateinward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)->update($data_one);
+
+            if ($update && $updateinward_raw_material){
+                return redirect()->back()->with('message', 'Updated Status Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+    }
+
+
 
     public function changeUnloadStatus(Request $request)
     {
