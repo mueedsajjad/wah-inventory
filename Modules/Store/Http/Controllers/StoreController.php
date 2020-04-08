@@ -278,25 +278,34 @@ class StoreController extends Controller
 //        dd($so->so_number);
         $sop=DB::table('sale_order_products')->where('so_number',$so->so_number)->first();
         $order_quantity=$sop->qty;
+
+
+        $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
+//        dd($store->id);
+        $store_quantity=$store->quantity;
+        if($store_quantity > $order_quantity)
+        {
+            $store_quantity=$store_quantity-$order_quantity;
+            $data=[
+                'quantity' => $store_quantity
+            ];
+            $update=DB::table('store_stock')->where('id', $store->id)->update($data);
+        }
+        else
+        {
+            return back()->withErrors( 'You have less quantity in the store.');
+        }
+
+
+
         $data=[
             'driver_id' => $request->driver_cnic,
             'driver_name' => $request->driver_name,
             'vehicle_number' => $request->vehicle_number,
             'status' => 2
         ];
-//        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
-        $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
-//        dd();
-        $store_quantity=$store->quantity;
-        if($store_quantity > $order_quantity)
-        {
-            $store_quantity=$store_quantity-$order_quantity;
-            dd($store_quantity);
-        }
-        else
-        {
-            return back()->withErrors( 'You have less quantity in the store.');
-        }
+        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
+
         return redirect()->back();
     }
 
