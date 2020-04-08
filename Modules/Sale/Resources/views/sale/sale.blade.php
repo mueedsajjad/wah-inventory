@@ -1,228 +1,191 @@
 
 @extends('layouts.master')
-
 @section('content')
 
     <section class="content pt-3">
         <div class="container-fluid">
-            <div class="row">
-
-                <div class="col-md-12">
-                @if(session()->has('save'))
-                <div class="alert alert-success" role="alert">
-                    <strong>Success</strong>{{session()->get('save')}}
+            @if(!empty($errors->first()))
+                <div class="alert alert-danger text-center">
+                    <span>{{ $errors->first() }}</span>
                 </div>
-                @endif
-                    <div class="card card-dark">
+            @endif
+            @if(session()->has('message'))
+                <div class="alert alert-success text-center">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="{{url('sale/saleStore')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                    <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">New Sale Order</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{url('sale/saleStore')}}" method="post">
-                            @csrf
-                                <div class="row justify-content-around">
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">SO Number</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="so_number" class="form-control" id="sga_13" placeholder="S-001">
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-2">
-                                        <!-- <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">Document</label>
-                                            <div class="col-sm-8">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-
-
-                                <div class="row justify-content-around">
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
-                                            <div class="col-sm-8">
-                                                <input type="Date" name="date" class="form-control" id="sga_14" required>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <!-- <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Credit Terms</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control select2">
-                                                    <option selected="selected">10 - Days</option>
-                                                    <option>10 - Days</option>
-                                                    <option>15 - Days</option>
-                                                    <option>30 - Days</option>
-                                                    <option>45 - Days</option>
-                                                </select>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-
-
-                                <div class="row justify-content-around">
-                                    <div class="col-md-4">
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
                                     <div class="form-group row">
-                                            <label for="sga_18" class="col-sm-4 col-form-label">Name</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="name" class="form-control" id="sga_18" placeholder="Zafer&co" required>
-                                            </div>
+                                        <label for="sga_13" class="col-sm-4 col-form-label">SO Number</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" required name="so_number" readonly class="form-control" value="SO00{{$countSoNumber}}" id="sga_13" placeholder="GP001">
                                         </div>
-                                        <!-- <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Supplier ID</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control select2">
-                                                    <option selected="selected">SUPP001</option>
-                                                </select>
-                                            </div>
-                                        </div> -->
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <!-- <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Purchase By</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control select2">
-                                                    <option selected="selected">PPRA</option>
-                                                    <option>Direct Purchase</option>
-                                                </select>
-                                            </div>
-                                        </div> -->
-
                                     </div>
                                 </div>
-
-
-                                <div class="row justify-content-around">
-                                    <div class="col-md-4">
+                                <div class="col-md-4">
                                     <div class="form-group row">
-                                            <label for="sga_18" class="col-sm-4 col-form-label">Product</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="product_number" class="form-control" id="sga_18" placeholder="P0001" required>
-                                            </div>
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly required value="{{date('d-m-Y')}}" class="form-control" id="sga_19" placeholder="08-02-2020">
                                         </div>
-
-                                    </div>
-
-                                    <div class="col-md-2">
-                                   
-                                        <!-- <div class="form-group row">
-                                            <label for="checkboxSuccess1" class="col-sm-4 col-form-label">
-                                                Approved
-                                            </label>
-                                            <div class="icheck-success col-sm-8 d-inline">
-                                                <input type="checkbox" checked="" id="checkboxSuccess1">
-                                                <label for="checkboxSuccess1">
-                                                </label>
-                                            </div>
-                                        </div> -->
-                                        <!--
-                                                              <div class="form-group row">
-                                                                <label class="col-sm-4 col-form-label">Status</label>
-                                                                <div class="col-sm-8">
-                                                                  <select class="form-control select2">
-                                                                    <option selected="selected">Active</option>
-                                                                    <option>Inactive</option>
-                                                                  </select>
-                                                                </div>
-                                                              </div>
-                                        -->
                                     </div>
                                 </div>
+                            </div>
 
-
-
-                                <div class="row justify-content-around">
-                                    <div class="col-md-4">
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
                                     <div class="form-group row">
-                                            <label for="sga_18" class="col-sm-4 col-form-label">Quantity</label>
-                                            <div class="col-sm-8">
-                                                <input type="number" name="quantity" class="form-control" id="sga_18" required>
-                                            </div>
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Delivery Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="date" required class="form-control" name="delivery_date">
                                         </div>
-                                        <!--
-                                                              <div class="form-group row">
-                                                                <label for="sga_16" class="col-sm-4 col-form-label">Rate</label>
-                                                                <div class="col-sm-8">
-                                                                  <input type="text" class="form-control" id="sga_16" placeholder="175">
-                                                                </div>
-                                                              </div>
-                                        -->
-                                    </div>
-                                    <div class="col-md-2">
-
                                     </div>
                                 </div>
-
-
-                                <div class="row justify-content-around">
-                                    <!-- <div class="col-md-12">
-                                        <div class="card card-dark">
-                                            <div class="card-header">
-                                              <h3 class="card-title">Products</h3>
-                                            </div>
-                                            
-                                            <div class="card-body">
-                                                <table class="table table-bordered">
-                                                    <thead class="bg-light">
-                                                    <tr>
-                                                        <th>Sr#</th>
-                                                        <th>Product Name</th>
-                                                        <th>Product Description</th>
-                                                        <th>UOM</th>
-                                                        <th>Qty</th>
-                                                        <th>Unit Price</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>PR001</td>
-                                                        <td>Product Description</td>
-                                                        <td>PCS</td>
-                                                        <td>100</td>
-                                                        <td>150</td>
-                                                        <td class="project-actions">
-                                                            <a class="btn btn-danger btn-sm" href="#">
-                                                                <i class="fas fa-trash">
-                                                                </i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                <a class="btn btn-secondary btn-sm mt-3  " href="#">
-                                                    <i class="fas mr-2 fa-plus">
-                                                        Add Row</i>
-                                                </a>
-                                            </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Customer</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" required class="form-control" name="customer_name" placeholder="kaleem">
                                         </div>
-                                    </div> -->
-                                    <div class="col-12">
-                                        <a href="#" class="btn btn-danger ml-3 float-right">Cancel</a>
-                            
-                                        <input type="submit" value="Save" class="btn btn-success float-right">
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card card-secondary ml-3 mr-3">
+                            <div class="card-header">
+                                <h3 class="card-title">Products</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="bg-light">
+                                    <tr>
+                                        <th style="width: 10%;">Sr#</th>
+                                        <th style="width: 15%;">Product Code</th>
+                                        <th style="width: 15%;">UOM</th>
+                                        <th style="width: 15%;">Qty</th>
+                                        <th >Product Description</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="appendProduct">
+                                    <tr>
+                                        <input name="countProduct" type="hidden" value="1" id="countProduct">
+                                        <td>1</td>
+                                        <td>
+                                            <select name="productCode[]" class="form-control productCode">
+                                                @foreach($products as $product)
+                                                    <option value="{{$product->product_code}}">{{$product->product_code}}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+
+                                        <td>
+                                            <select name="uom[]" class="form-control ">
+                                                @if(!$units->isempty())
+                                                    @foreach($units as $unit)
+                                                        <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+
+                                        </td>
+                                        <td>
+                                            <input type="text" name="qty[]" class="form-control" id="" placeholder="">
+                                        </td>
+                                        <td>
+                                            <textarea rows="1" type="text" name="description[]" class="form-control"></textarea>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-secondary btn-sm mt-3" type="button" id="addRow">
+                                    <i class="fas mr-2 fa-plus">
+                                        Add Row</i>
+                                </button>
+
+                                <button class="btn btn-danger btn-sm mt-3" type="button" id="deleteRow">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input type="submit" value="Save" class="btn btn-success float-right mb-3 mr-2">
                         </div>
                     </div>
                 </div>
 
 
+                </form>
+
+
             </div>
         </div>
     </section>
+
+    <script>
+        $('#addRow').click(function () {
+            var count=$('#countProduct').val();
+            ++count;
+            var html='<tr id="deleteProduct'+count+'">'+
+                '<td>'+count+'</td>'+
+
+                '<td>'+
+                '<select name="productCode[]" class="form-control" >'+
+                '<?php if(!$products->isempty()){
+                    foreach($products as $product){ ?>'+
+                '<option value="{{$product->product_code}}">{{$product->product_code}}</option>'+
+                '<?php }
+                    } ?>'+
+                '</select>'+
+                '</td>'+
+
+                '<td>'+
+                '<select name="uom[]" class="form-control">'+
+                '<?php if(!$units->isempty()){
+                    foreach($units as $unit){ ?>'+
+                '<option value="{{$unit->id}}">{{$unit->name}}</option>'+
+                '<?php }
+                    } ?>'+
+                '</select>'+
+                '</td>'+
+                '<td>'+
+                '<input type="text" name="qty[]" class="form-control" id="" placeholder="">'+
+                '</td>'+
+                '<td>'+
+                '<textarea rows="1" type="text" name="description[]" class="form-control"></textarea>'+
+                '</td>'+
+                '</tr>';
+
+            $('#countProduct').val(count);
+            $('#appendProduct').append(html);
+        });
+
+        $('#deleteRow').click(function () {
+            var count = $('#countProduct').val();
+            if(count<2){
+                return false;
+            }
+            else{
+                $('#deleteProduct'+count).remove();
+                --count;
+                $('#countProduct').val(count);
+            }
+        });
+
+    </script>
 @endsection
