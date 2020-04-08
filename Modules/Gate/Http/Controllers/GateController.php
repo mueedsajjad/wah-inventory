@@ -162,6 +162,7 @@ class GateController extends Controller
             for($i=0 ; $i<$size ; $i++){
                 $data=[
                     'itemType' => 'Component',
+                    'requisition_id'=>$req1,
                     'materialName' => $request['componentName'][$i],
                     'uom' => $request['uom'][$i],
                     'qty' => $request['qty'][$i],
@@ -479,8 +480,14 @@ class GateController extends Controller
               $delivery_data=DB::table('sale_order')->where('so_number',$id)->first();
 //              dd($delivery_data);
                 $item_detail=DB::table('sale_order_products')->where('so_number',$id)->get();
-                dd($item_detail);
+//                dd($item_detail);
                 return view('gate::gate.Delivery_data',compact('delivery_data','item_detail'));
+            }
+            public function delivery_order_table($id){
+
+              $table_data=DB::table('sale_order_products')->where('so_number',$id)->get();
+               return view('gate::gate.Delivery_data_table',compact('table_data'));
+
             }
 
 
