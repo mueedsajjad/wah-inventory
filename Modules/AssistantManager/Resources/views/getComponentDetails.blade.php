@@ -60,8 +60,8 @@
                                     <td>{{$data->description}}</td>
                                     @if($data->status == 0)
                                         <td class="d-flex">
-                                            <a href="{{url('requisition/material/accept/'.$data->id)}}" class="btn btn-success btn-sm m-1">Accept</a>
-                                            <a href="{{url('requisition/material/reject/'.$data->id)}}" class="btn btn-danger btn-sm m-1">Reject</a>
+                                            <a href="{{url('requisition/component/accept/'.$data->id)}}" class="btn btn-success btn-sm m-1">Accept</a>
+                                            <a href="{{url('requisition/component/reject/'.$data->id)}}" class="btn btn-danger btn-sm m-1">Reject</a>
                                         </td>
                                     @elseif($data->status == 1)
                                         <td >
@@ -88,6 +88,6 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 

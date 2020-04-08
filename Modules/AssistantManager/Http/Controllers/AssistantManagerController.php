@@ -65,6 +65,7 @@ class AssistantManagerController extends Controller
 
     }
     public function requMaterialAction($condition, $id){
+//        dd($id);
         if ($condition == 'accept'){
             DB::table('production_material_detail')->where('id', $id)->update(['status' => 1]);
         }else{
@@ -74,6 +75,8 @@ class AssistantManagerController extends Controller
     }
 
     public function requComponentAction($condition, $id){
+
+//        dd($id);
         if ($condition == 'accept'){
             DB::table('production_component_detail')->where('id', $id)->update(['status' => 1]);
         }else{
