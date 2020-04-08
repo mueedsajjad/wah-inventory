@@ -25,6 +25,11 @@ class CreateComponentOrderTable extends Migration
             $table->date('created_date')->nullable();
 
             $table->string('type')->nullable();
+            $table->string('inspectionStatus')->nullable();
+            $table->string('inspectionDate')->nullable();
+            $table->string('rejectionReason')->nullable();
+            $table->string('rejectionQty')->nullable();
+
 
             $table->timestamps();
         });

@@ -25,7 +25,11 @@ class CreateProductionOrderTable extends Migration
             $table->integer('stage_status')->nullable();
 
             $table->string('type')->nullable();
-
+            $table->string('type')->nullable();
+            $table->string('inspectionStatus')->nullable();
+            $table->string('inspectionDate')->nullable();
+            $table->string('rejectionReason')->nullable();
+            $table->string('rejectionQty')->nullable();
             $table->timestamps();
         });
     }
