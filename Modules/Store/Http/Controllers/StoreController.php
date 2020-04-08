@@ -411,10 +411,10 @@ class StoreController extends Controller
 
     public function inwardInspectionNote()
     {
-        $inward_raw_material=DB::table('inward_raw_material')->where('status', 2)
+        $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%PR-%')->where('status', 2)
             ->orWhere('status', 3)->orWhere('status', 4)
             ->orWhere('status', 5)->orWhere('status', 6)->get();
-        $inward_gate_pass=DB::table('inward_gate_pass')->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
 //        dd($inward_gate_pass);
 //        $inward_raw_material=[];
 //        foreach($inward_gate_pass as $gate)
