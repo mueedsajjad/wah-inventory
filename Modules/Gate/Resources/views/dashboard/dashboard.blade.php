@@ -3,24 +3,25 @@
 @section('content')
 
     <div class="row">
+
         <div class="col-lg-3 col-6" >
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>Inward Gate pass</h3>
+                    <h3>Inward Gate</h3>
 
                     <p>Add incoming Entry Here </p>
                 </div>
                 <div class="icon">
                     <i class = "icon ion-arrow-left-a"></i>
                 </div>
-                <a href="{{url('gate/inwardGatePass')}}" class="small-box-footer">Add new <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{url('gate/inwardGatePass')}}" class="small-box-footer bg-dark">Add new <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-danger">
                 <div class="inner">
                     <h3>Outward Gate </h3>
 
@@ -29,24 +30,38 @@
                 <div class="icon">
                     <i class="icon ion-arrow-right-a"></i>
                 </div>
-                <a href="{{url('gate/outwardGatePass')}}" class="small-box-footer">Add New <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{url('gate/outwardGatePass')}}" class="small-box-footer bg-dark">Add New <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning" >
+            <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>Reports</h3>
-
-                    <p>View Reports</p>
+                    <h3>{{'Reports'}}</h3>
+                    <p>Gate</p>
                 </div>
-                <div class="icon">
-                    <i class="icon ion-document-text"></i>
-                </div>
-                <a href="{{url('gate/report')}}" class="small-box-footer">View Reports <i class="fas fa-arrow-circle-right"></i></a>
+                                <div class="icon">
+                                    <i class="icon ion-document-text"></i>
+                                </div>
+                <a onclick="gate()" style="cursor: pointer"  class="small-box-footer bg-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+{{--        <div class="col-lg-3 col-6">--}}
+{{--            <!-- small box -->--}}
+{{--            <div class="small-box bg-warning" >--}}
+{{--                <div class="inner">--}}
+{{--                    <h3>Reports</h3>--}}
+
+{{--                    <p>View Reports</p>--}}
+{{--                </div>--}}
+{{--                <div class="icon">--}}
+{{--                    <i class="icon ion-document-text"></i>--}}
+{{--                </div>--}}
+{{--                <a href="{{url('gate/report')}}" class="small-box-footer">View Reports <i class="fas fa-arrow-circle-right"></i></a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+
         <!-- ./col -->
 {{--        <div class="col-lg-3 col-6">--}}
 {{--            <!-- small box -->--}}
@@ -64,8 +79,26 @@
 {{--        </div>--}}
         <!-- ./col -->
     </div>
-    <script >
+    <div id="detail">
 
+    </div>
 
-    </script>
 @endsection
+
+<script >
+    function gate() {
+        console.log();
+        var path = location.pathname.split('/');
+        var app=path[1];
+        console.log(app);
+        $.ajax({
+            type: "GET",
+            url: "/"+app+"/gate/dash/",
+            success:function(data)
+            {
+                $("#detail").html(data);
+            }
+        });
+    }
+
+</script>
