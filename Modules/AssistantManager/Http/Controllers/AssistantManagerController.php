@@ -50,14 +50,18 @@ class AssistantManagerController extends Controller
     public function requMaterialDetail($data){
 
         $details = DB::table('production_material_detail')->where('production_material_id', $data)->get();
-        return view('assistantmanager::getMaterialDetails', compact('details'));
+        $record = DB::table('production_material')->find($data);
+
+        return view('assistantmanager::getMaterialDetails', compact('details', 'record'));
 
     }
 
     public function requComponentDetail($data){
 
         $details = DB::table('production_component_detail')->where('production_component_id', $data)->get();
-        return view('assistantmanager::getComponentDetails', compact('details'));
+        $record = DB::table('production_component')->find($data);
+
+        return view('assistantmanager::getComponentDetails', compact('details', 'record'));
 
     }
     public function requMaterialAction($condition, $id){
