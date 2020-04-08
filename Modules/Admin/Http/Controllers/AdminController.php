@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -47,22 +48,38 @@ class AdminController extends Controller
             ->select('employees.*','users.*', 'users.name as userName','roles.*','roles.name as roleName')
             ->get();
 
-//        $managers = User::role('Manager')->get();
-
-//        dd($managers);
-
-//        $manager=DB::table('employees')
-//            ->join('users', 'users.id', '=', 'employees.user_id')
-//            ->join('departments', 'departments.id', '=', 'employees.department_id')
-//            ->join('state', 'state.id', '=', 'employees.state_id')
-//            ->join('city', 'city.id', '=', 'employees.city_id')
-//            ->join('roles', 'roles.id','=','employees.designation_id')
-//            ->where('roles','Manager')
-//            ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
-//            ->get();
+        return view('admin::employee/employee',compact('user','role','city','state',
+            'department','alluser','managers'));
+    }
+    public function employeeDepartmentWise($id)
+    {
+        // --- join query to see inforamtion of All Employees -- //
 
 
-        //dd($managers);
+        $alluser=DB::table('employees')
+            ->join('users', 'users.id', '=', 'employees.user_id')
+            ->join('departments', 'departments.id', '=', 'employees.department_id')
+            ->join('state', 'state.id', '=', 'employees.state_id')
+            ->join('city', 'city.id', '=', 'employees.city_id')
+            ->where('departments.id','=',$id)
+            ->select('employees.*', 'departments.name as department_name', 'users.name as username')
+            ->get();
+
+       //dd($alluser);
+
+        $user=User::all();
+        $role=Role::all();
+        $city=DB::table('city')->get();
+        $state=DB::table('state')->get();
+        $department=DB::table('departments')->get();
+
+        $managers=DB::table('employees')
+
+            ->join('roles', 'roles.id','=','employees.designation_id')
+            ->join('users','users.id','=','employees.user_id')
+            ->where('roles.name','Manager')
+            ->select('employees.*','users.*', 'users.name as userName','roles.*','roles.name as roleName')
+            ->get();
 
         return view('admin::employee/employee',compact('user','role','city','state',
             'department','alluser','managers'));
@@ -233,6 +250,19 @@ class AdminController extends Controller
 
     public function employeeDetail($id)
     {
+        
+
+        $user=DB::table('employees')
+            ->join('users', 'users.id', '=', 'employees.user_id')
+            ->join('departments', 'departments.id', '=', 'employees.department_id')
+            ->join('state', 'state.id', '=', 'employees.state_id')
+            ->join('city', 'city.id', '=', 'employees.city_id')
+            ->join('roles', 'roles.id','=','employees.designation_id')
+            ->where('users.id',$id)
+            ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
+            ->get();
+
+
 
         $user=User::all();
         $role=Role::all();
@@ -250,9 +280,21 @@ class AdminController extends Controller
             ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
             ->get();
 
+
+            foreach($user as $users)
+            {
+                $todayDate = Carbon::now('Asia/Karachi');
+                $todayDate= $todayDate->toDateString();
+                $todayDate=Carbon::parse($todayDate);
+                $joinDate=Carbon::parse($users->joinDate);
+                $length = $todayDate->diffInDays($joinDate);
+                //dd($lenth);
+            }
+            
+
        //dd($user);
         return view('admin::employee/employeeDetail',compact('user'
-        ,'role','city','state', 'department'));
+        ,'role','city','state', 'department','length'));
     }
 
     public function employeeDelete($id)
@@ -461,6 +503,11 @@ class AdminController extends Controller
     {
         return view('admin::advance/advance');
     }
+    public function advanceEmployee()
+    {
+        return view('admin::advance/advanceEmployee');
+    }
+
 
     public function report()
     {
@@ -474,6 +521,7 @@ class AdminController extends Controller
     public function index()
     {
         $users = DB::table('employees')->count();
+        //dd($users);
         return view('admin::dashboard',compact('users'));
     }
 

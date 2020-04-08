@@ -920,7 +920,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{url('admin/advance')}}" class="nav-link @if(request()->segment(2)=="advance") active @endif">
+                                <a href="{{url('admin/advanceEmployee')}}" class="nav-link @if(request()->segment(2)=="advance") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Advance</p>
                                 </a>
