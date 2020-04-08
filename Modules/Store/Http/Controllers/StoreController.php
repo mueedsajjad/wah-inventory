@@ -599,8 +599,8 @@ class StoreController extends Controller
     public function assignStoreToFactoryInMadeProducts()
     {
         $stores=DB::table('store')->get();
-        $products=DB::table('production_order')->where('status',4)
-            ->orWhere('status',5)
+        $products=DB::table('production_order')->where('status',5)
+            ->orWhere('status',6)
             ->get();
         return view('store::dashboard/assignStoreToFactoryInMadeProducts', compact('products','stores'));
     }
@@ -616,7 +616,7 @@ class StoreController extends Controller
             'status' => 0
         ];
         $dataStatus=[
-            'status' => 5
+            'status' => 6
         ];
 
         if ($request->store_location=="Finished Goods 1"){
