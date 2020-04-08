@@ -762,6 +762,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{url('qc/inward_qc_out')}}" class="nav-link @if(request()->segment(2)=="inwardInspectionNote_out") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Inward I-Note from Outward</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{url('qc/production-product')}}" class="nav-link @if(request()->segment(2)=="production-product") active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Product I-Note</p>
@@ -799,7 +805,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{url('store/newBuiltyArrival_out')}}" class="nav-link @if(request()->segment(2)=="newBuiltyArrival") @endif">
+                                        <a href="{{url('store/newBuiltyArrival_out')}}" class="nav-link @if(request()->segment(2)=="newBuiltyArrival_out") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             {{--                                    <p>New Builty Arrival</p>--}}
                                             <p>New Inward from Factory</p>
@@ -821,6 +827,12 @@
                                         <a href="{{url('store/inwardGoodsReceipt')}}" class="nav-link @if(request()->segment(2)=="inwardGoodsReceipt") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Inward Goods Receipt</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('store/inwardGoodsReceipt_out')}}" class="nav-link @if(request()->segment(2)=="inwardGoodsReceipt_out") active @endif">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Inward Goods Receipt from Factory</p>
                                         </a>
                                     </li>
                                     @if(auth()->user()->can('Assign Stores'))

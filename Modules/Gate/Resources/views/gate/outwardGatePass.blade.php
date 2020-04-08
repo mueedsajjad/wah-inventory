@@ -101,6 +101,7 @@
                                 <div id="getData">
 
                                 </div>
+                                <div id="details_table"></div>
 
                             </form>
                         </div>

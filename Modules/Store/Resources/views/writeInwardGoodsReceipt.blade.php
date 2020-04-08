@@ -184,6 +184,7 @@
                                                     </td>
                                                     <?php
                                                     $cost=DB::table('purchase_order_approval_detail')->where('purchase_order_id',$data->purchase_order_id)->where('material_name',$data->materialName)->first();
+//                                                    dd($cost);
                                                     ?>
                                                     <td>
                                                         <input type="text" readonly required name="totalCost[]" value="{{$cost->total_price}}" class="form-control" placeholder="175">
