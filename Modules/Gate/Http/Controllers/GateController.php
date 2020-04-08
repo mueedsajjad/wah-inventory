@@ -357,6 +357,7 @@ class GateController extends Controller
     {
         $report_data=DB::table('inward_gate_pass')->get();
 //        dd($report_data);
+
         $report_modal_data=DB::table('inward_raw_material')->get();
 //        dd($report_modal_data);
 

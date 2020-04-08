@@ -283,7 +283,7 @@ class StoreController extends Controller
         ];
 //        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
         $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
-        dd($store->quantity);
+//        dd($store->quantity);
         return redirect()->back();
     }
 
