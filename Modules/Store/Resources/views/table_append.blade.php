@@ -59,21 +59,8 @@
 
 
 
-    <section class="content pt-5">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    @if(!empty($errors->first()))
-                        <div class="alert alert-danger text-center">
-                            <span>{{ $errors->first() }}</span>
-                        </div>
-                    @endif
-                    @if(session()->has('message'))
-                        <div class="alert alert-success text-center">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
-                    <div class="card card-dark">
+
+                    <div class="card card-dark p-3">
                         <div class="card-header">
                             <h3 class="card-title">Gate Pass Details</h3>
 {{--                            <a href="{{url('store/inwardGoodsReceipt')}}" class="btn btn-primary btn-sm float-right">Back</a>--}}
@@ -228,21 +215,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-md-11 mt-2">
-{{--                                        <a href="#" class="btn btn-secondary ml-3 float-right">Print</a>--}}
-{{--                                        <input type="submit" value="Save" class="btn btn-success float-right">--}}
-                                    </div>
+
                                 </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-{{--        </div>--}}
-    </section>
-{{--@endsection--}}
-
-
-
 
 
 
