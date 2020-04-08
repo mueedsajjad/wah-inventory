@@ -43,12 +43,9 @@ class QCController extends Controller
 //        dd($app_pend);
         $count_all=sizeof($app_pend);
         $all=DB::table('inward_raw_material')->get();
-        foreach ($all as $a)
-        {
-//            if ()
-        }
 
-        return view('qc::dashboard.dash',compact('count_pen','count_app'));
+
+        return view('qc::dashboard.details',compact('count_pen','count_app'));
     }
 
     public function love()
@@ -85,8 +82,19 @@ class QCController extends Controller
 
     public function productionComponent(){
 
+        $record = DB::table('component_order')->where('status', 4)->get();
 
-        return view('qc::productionComponent');
+        return view('qc::productionComponent', compact('record'));
+    }
+    public function rejected(){
+
+
+        return view('qc::dashboard.rejected');
+    }
+    public function list(){
+
+
+        return view('qc::dashboard.list');
     }
 
 
