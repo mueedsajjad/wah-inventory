@@ -19,7 +19,10 @@ Route::prefix('sale')->group(function() {
     Route::post('getSaleOrderProducts', 'SaleController@getSaleOrderProducts');
     Route::post('changeApprovalStatus', 'SaleController@changeApprovalStatus');
 
-
+    Route::get('dashboard', 'SaleController@dashboard');
+    Route::get('dashboard/newOrders', 'SaleController@newOrders');
+    Route::get('dashboard/deliveryOrders', 'SaleController@deliveryOrders');
+    Route::get('dashboard/ordersDelivered', 'SaleController@ordersDelivered');
 
 
     Route::get('/', 'SaleController@index');

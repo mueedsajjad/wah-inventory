@@ -665,6 +665,12 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
+                                        <a href="{{url('sale/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Dashboard</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{url('sale/sale')}}" class="nav-link @if(request()->segment(2)=="sale") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>New Sale Order</p>
@@ -676,12 +682,12 @@
                                             <p>Sales Order</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="{{url('sale/customer')}}" class="nav-link @if(request()->segment(2)=="customer") active @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Customer</p>
-                                        </a>
-                                    </li>
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{url('sale/customer')}}" class="nav-link @if(request()->segment(2)=="customer") active @endif">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Customer</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
                                 </ul>
                             </li>
                         @endif
