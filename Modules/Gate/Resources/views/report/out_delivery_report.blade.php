@@ -12,25 +12,40 @@
                 <div class="col-md-12">
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">Outward Report Detail</h3>
+                            <h3 class="card-title">Report Detail</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Requisition ID</th>
-                                    <td>{{$data->component_requisition_id}}</td>
+                                    <th>Sale Order Number</th>
+                                    <td>{{$delivery_details->so_number}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Gate Type</th>
-                                    <td>{{$data->gate_type}}</td>
+                                    <th>Delivery date</th>
+                                    <td>{{$delivery_details->delivery_date}}</td>
                                 </tr>
 
                                 <tr>
-                                    <th>	Issue Date</th>
-                                    <td>{{$data->issue_date}}</td>
+                                        <th>Customer Name</th>
+                                        <td>{{$delivery_details->customer_name}}</td>
+                                 </tr>
+                                <tr>
+                                    <th>Driver Name</th>
+                                    <td>{{$delivery_details->driver_name}}</td>
                                 </tr>
+                                 <tr>
+                                        <th>Driver CNIC</th>
+                                        <td>{{$delivery_details->driver_id}}</td>
+                                 </tr>
+
+                                <tr>
+                                    <th>Vehicle Number</th>
+                                    <td>{{$delivery_details->vehicle_number}}</td>
+                                </tr>
+
+                                </thead>
                                 <tbody>
                                 </tbody>
                             </table>
@@ -38,18 +53,22 @@
 
                             <table class="table table-bordered table-striped">
                                 <tr>
-                                    <th>Component Name</th>
-{{--                                    <th>UMO</th>--}}
-                                    <th> Quantity</th>
+                                    <th>Product Code</th>
+                                    <th>UOM</th>
+                                    <th>Quantity</th>
                                     <th>Description</th>
 
                                 </tr>
 
-                                @foreach($report_data as $key=>$row)
+                                @foreach($delivery_table as $key=>$row)
+                                    <?php
+                                      $uom=\Illuminate\Support\Facades\DB::table('unit')->where('id',$row->uom)->first();
+                                      $uom_name=$uom->name;
+                                      ?>
                                     <tr>
-                                        <td>{{$row->component_name}}</td>
-{{--                                        <td>{{$row->uom}}</td>--}}
-                                        <td>{{$row->quantity}}</td>
+                                        <td>{{$row->product_code}}</td>
+                                        <td>{{$uom_name}}</td>
+                                        <td>{{$row->qty}}</td>
                                         <td>{{$row->description}}</td>
                                     </tr>
                                 @endforeach
@@ -89,6 +108,6 @@
         }
     </script>
 
-
 @endsection
+
 

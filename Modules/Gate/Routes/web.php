@@ -66,7 +66,12 @@ Route::prefix('gate')->group(function() {
     Route::get('outward_report','GateController@outward_report');
     Route::get('out_report/{id}','GateController@out_report');
     Route::get('component_out_report/{id}','GateController@component_out_report');
+    Route::get('out_delivery_report/{id}','GateController@out_delivery_report');
 
+    //----Vehicle Report------///
+
+
+    Route::get('vehicle_report','GateController@vehicle_report');
 
 
 
