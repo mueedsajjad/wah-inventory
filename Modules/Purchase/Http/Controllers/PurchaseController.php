@@ -2,6 +2,7 @@
 
 namespace Modules\Purchase\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -19,12 +20,11 @@ class PurchaseController extends Controller
 
     public function createTender(){
         $purchase_requ = DB::table('purchase_requisitions')->get();
-        $purchase_order = DB::table('purchase_order_approval')->where('purchase_type', 'ppra')->get();
+        $purchase_order = DB::table('purchase_order_approval')->where('purchase_type', 'ppra')->where('status', 4)->get();
 
 
         $vendor = DB::table('supplier')->get();
         $credit=DB::table('credit_term')->get();
-        return view('purchase::dashboard',compact('credit', 'purchase_requ', 'purchase_order', 'vendor'));
         return view('purchase::dashboard',compact('credit', 'purchase_requ', 'purchase_order', 'vendor'));
 
     }
@@ -55,6 +55,29 @@ class PurchaseController extends Controller
 
 
     public function tenderOrder(Request $request){
+
+        $data = DB::table('purchase_order_approval')->find($request->po_id);
+
+        $po_id = 'PO-'.random_int(999,9999);
+
+        DB::table('purchase_order_approval')->insert([
+            'purchase_type' => $data->purchase_type,
+            'issue_date' => Carbon::now()->toDateString(),
+            'requisition_id' => $data->requisition_id,
+            'purchase_order_id' => $po_id,
+            'vendor_id' => $data->vendor_id,
+            'status' => 1,
+        ]);
+
+        dd($data);
+
+
+
+
+
+        dd($request->all());
+
+
 
     }
 
@@ -233,7 +256,9 @@ class PurchaseController extends Controller
 
     public function orderApprove($id)
     {
-     DB::table('purchase_order_approval')->where('id',$id)->update(['status'=>1]);
+
+     DB::table('purchase_order_approval')->where('id',$id)->where('purchase_type', 'ppra')->update(['status'=>4]);
+     DB::table('purchase_order_approval')->where('id',$id)->where('purchase_type', 'direct-purchase')->update(['status'=>1]);
 
         $data = DB::table('purchase_order_approval')->find($id);
 
@@ -268,7 +293,9 @@ class PurchaseController extends Controller
             $details = DB::table('purchase_order_approval_detail')->where('po_id', $record->id)->get();
 
             return view('purchase::ppraOrder',compact('record', 'details', 'vendor'));
-        }else{
+        }
+        else
+            {
             return view('purchase::directPurchaseOrder',compact('record', 'details', 'vendor'));
         }
 

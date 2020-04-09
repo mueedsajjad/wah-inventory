@@ -34,7 +34,7 @@
 
                                             <div class="col-sm-8">
                                                 <div class="">
-                                                    <select class="form-control select2 " name="requisition_id" onchange="getRequData(this.value)">
+                                                    <select class="form-control select2 " name="po_id" onchange="getRequData(this.value)">
                                                         <option selected="selected" disabled>Select Requisition</option>
                                                         @foreach($purchase_order as $credits)
                                                             <option value="{{$credits->id}}">{{$credits->purchase_order_id}}</option>
@@ -152,6 +152,25 @@
                                     </div>
                                     <div class="col-md-4">
 
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-around">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_16" class="col-sm-4 col-form-label">Commercial Offer</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" name="c_offer" id="sga_16"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_16" class="col-sm-4 col-form-label">Technical Offer</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" name="t_offer" id="sga_16"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

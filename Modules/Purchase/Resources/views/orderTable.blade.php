@@ -40,6 +40,8 @@
                                 <td>Rejected</td>
                             @elseif($data->status == 3)
                                 <td>PO Generated</td>
+                            @elseif($data->status == 4)
+                                <td>PO generate/Create Tender</td>
                             @endif
                             <td><button type="button" onclick="getDetails({{$data->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
                                     Details
@@ -75,6 +77,8 @@
                             @elseif($data->status == 2)
                                 <td></td>
                             @elseif($data->status == 3)
+                                <td></td>
+                                @elseif($data->status == 4)
                                 <td></td>
                             @endif
                         </tr>

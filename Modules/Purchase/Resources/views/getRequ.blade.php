@@ -33,9 +33,9 @@
                                     <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
                                     <td><input type="text" class="form-control"  name="qty[]" value="{{$data->quantity}}" readonly></td>
                                     <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
-                                    <td><input type="text" class="form-control"  name="unitprice[]" value="{{$data->unit_price}}" readonly required></td>
-                                    <td><input type="text" class="form-control"  name="totalprice[]" value="{{$data->total_price}}" readonly required></td>
-                                    <td><input type="checkbox" value="1" name="check" class="form-control"></td>
+                                    <td><input type="text" class="form-control"  name="unit_price[]" value="{{$data->unit_price}}" readonly required></td>
+                                    <td><input type="text" class="form-control"  name="total_price[]" value="{{$data->total_price}}" readonly required></td>
+                                    <td><input type="checkbox" value="{{$data->id}}" name="check[]" class="form-control"></td>
                                 </div>
                             </tr>
                             @endforeach

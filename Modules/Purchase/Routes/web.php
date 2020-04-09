@@ -66,7 +66,7 @@ Route::prefix('tender')->group(function() {
 
 
     Route::get('/create', 'PurchaseController@createTender');
-    Route::post('/tender/tender-order', 'PurchaseController@tenderOrder');
+    Route::post('/tender-order', 'PurchaseController@tenderOrder');
 //    Route::get('/order-approve/{id}', 'PurchaseController@orderApprove');
 
 
