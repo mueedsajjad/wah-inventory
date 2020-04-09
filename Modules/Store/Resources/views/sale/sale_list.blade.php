@@ -23,7 +23,7 @@
                         </div>
                         <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="materialTable" class="table table-bordered table-striped">
+                                    <table id="tabless" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
                                             <th>SO Number</th>
@@ -64,4 +64,9 @@
             </div>
         </div>
     </section>
+    <script>
+        $( document ).ready(function() {
+            $('#tabless').dataTable();
+        });
+    </script>
 @endsection

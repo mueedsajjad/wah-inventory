@@ -403,6 +403,11 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <script>
+        $( document ).ready(function() {
+            $('#pageTable').DataTable();
+        });
+    </script>
 @endsection
 
 

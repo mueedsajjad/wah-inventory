@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="builtyTable" class="table table-bordered table-striped">
+                            <table id="storeTable" class="table table-bordered table-striped">
                                 <thead>
                                 <tr class="bg-secondary">
                                     <th>Sr#</th>
@@ -131,6 +131,11 @@
 
             var out_meter_reading=$(this).data("out_meter_reading");
             $('#out_meter_reading').val(out_meter_reading);
+        });
+    </script>
+    <script>
+        $( document ).ready(function() {
+            $('#storeTable').dataTable();
         });
     </script>
 @endsection

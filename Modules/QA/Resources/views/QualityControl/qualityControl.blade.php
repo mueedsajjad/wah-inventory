@@ -23,7 +23,7 @@
                                         </div>-->
                                         <!-- /.card-header -->
                                         <div class="card-body">
-                                            <table class="table table-bordered">
+                                            <table id="tabless" class="table table-bordered">
                                                 <thead class="bg-light">
                                                 <tr>
                                                     <th>Sr#</th>
@@ -60,5 +60,9 @@
         </div>
     </div>
 </section>
-
+<script>
+    $( document ).ready(function() {
+        $('#tabless').dataTable();
+    });
+</script>
 @endsection
