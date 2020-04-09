@@ -742,6 +742,12 @@
 
 
                         @if(auth()->user()->can('Purchase'))
+                            <li class="nav-item">
+                                <a href="{{url('purchase/dashboard')}}" class="nav-link @if(request()->segment(2)=="PurchaseDashboard") active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Purchase Dashboard</p>
+                                </a>
+                            </li>
                             <li class="nav-item has-treeview @if(request()->segment(1)=="purchase") menu-open @endif">
                                 <a href="#" class="nav-link @if(request()->segment(1)=="purchase") active @endif">
                                     <i class="nav-icon fas fa-boxes"></i>
