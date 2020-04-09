@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="builtyTable" class="table table-bordered table-striped">
+                <table id="storeTable" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>Sr#</th>
@@ -90,6 +90,11 @@
     </div>
         </div>
     </section>
+    <script>
+        $( document ).ready(function() {
+            $('#storeTable').dataTable();
+        });
+    </script>
 @endsection
 <script>
     function getDetails(data) {

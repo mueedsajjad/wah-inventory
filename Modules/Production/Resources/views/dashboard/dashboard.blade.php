@@ -62,7 +62,7 @@
                                                                                 <!-- /.card-header -->
 
                                                                                 <div class="card-body">
-                                                                                    <table id="pageTable" class="table table-bordered">
+                                                                                    <table id="pageTable1" class="table table-bordered">
                                                                                         <thead>
                                                                                         <tr>
                                                                                             <th>Sr</th>
@@ -495,6 +495,12 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <script>
+        $( document ).ready(function() {
+            $('#pageTable1').DataTable();
+            $('#pageTable').DataTable();
+        });
+    </script>
 @endsection
 
 

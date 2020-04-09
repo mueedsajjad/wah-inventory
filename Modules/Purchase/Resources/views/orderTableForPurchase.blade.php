@@ -85,6 +85,11 @@
     </div>
         </div>
     </section>
+    <script>
+        $( document ).ready(function() {
+            $('#builtyTable').dataTable();
+        });
+    </script>
 @endsection
 <script>
     function getDetails(data) {
