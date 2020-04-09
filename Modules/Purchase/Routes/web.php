@@ -62,3 +62,12 @@ Route::prefix('order')->group(function() {
 
 
 });
+Route::prefix('tender')->group(function() {
+
+
+    Route::get('/create', 'PurchaseController@createTender');
+//    Route::get('/order-approve/{id}', 'PurchaseController@orderApprove');
+
+
+
+});

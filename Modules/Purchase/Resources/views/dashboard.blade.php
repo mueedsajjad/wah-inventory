@@ -30,14 +30,14 @@
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">Purchase Requisition</label>
+                                            <label for="sga_13" class="col-sm-4 col-form-label">Purchase Order</label>
 
                                             <div class="col-sm-8">
                                                 <div class="">
                                                     <select class="form-control select2 " name="requisition_id" onchange="getRequData(this.value)">
                                                         <option selected="selected" disabled>Select Requisition</option>
-                                                        @foreach($purchase_requ as $credits)
-                                                            <option value="{{$credits->id}}">{{$credits->requisition_id}}</option>
+                                                        @foreach($purchase_order as $credits)
+                                                            <option value="{{$credits->id}}">{{$credits->purchase_order_id}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -82,19 +82,38 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Purchase By</label>
+                                            <label class="col-sm-4 col-form-label">Select Vendor</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" name="purchase_type" required>
-                                                    <option disabled>Select Purchase Type</option>
-                                                    <option value="ppra">PPRA</option>
-                                                    <option value="direct-purchase">Direct Purchase</option>
+                                                <select name="vendor" onchange="getVendor(this.value)" id="" class="form-control select2">
+                                                    <option value="" >Select Vendor</option>
+                                                    @foreach($vendor as $data)
+                                                        <option value="{{$data->id}}">{{$data->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
+
+
+
+                                    {{--                                    <div class="col-md-4">--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <label class="col-sm-4 col-form-label">Purchase By</label>--}}
+{{--                                            <div class="col-sm-8">--}}
+{{--                                                <select class="form-control" name="purchase_type" required>--}}
+{{--                                                    <option disabled>Select Purchase Type</option>--}}
+{{--                                                    <option value="ppra">PPRA</option>--}}
+{{--                                                    <option value="direct-purchase">Direct Purchase</option>--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
 
 
+                                <div id="vend">
+
+                                </div>
 
 {{--                                <div class="row justify-content-around">--}}
 {{--                                    <div class="col-md-4">--}}
@@ -223,6 +242,22 @@
                 }
             });
         }
+
+        function getVendor(data) {
+            console.log(data);
+            var path = location.pathname.split('/');
+            var app=path[1];
+            console.log(app);
+            $.ajax({
+                type: "GET",
+                url: "/"+app+"/purchase/get-vendor/"+data,
+                success:function(data)
+                {
+                    $("#vend").html(data);
+                }
+            });
+        }
     </script>
+
 
 @endsection

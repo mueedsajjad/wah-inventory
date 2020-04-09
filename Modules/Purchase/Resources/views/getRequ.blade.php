@@ -14,26 +14,28 @@
                         <table>
                             <thead>
                             <tr>
-                                <th>Requisition Id</th>
+                                <th>PO Id</th>
                                 <th>Material Code</th>
                                 <th>UOM</th>
                                 <th>Quantity</th>
                                 <th>Description</th>
                                 <th>Unit Price</th>
                                 <th>Total Price</th>
+                                <th>Select</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($details as $data)
                             <tr>
                                 <div class="mome">
-                                    <td><input type="text" class="form-control"  name="" value="{{$data->requisition_id}}" readonly></td>
+                                    <td><input type="text" class="form-control"  name="" value="{{$data->purchase_order_id}}" readonly></td>
                                     <td><input type="text" class="form-control"  name="material_name[]" value="{{$data->material_name}}" readonly></td>
                                     <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
                                     <td><input type="text" class="form-control"  name="qty[]" value="{{$data->quantity}}" readonly></td>
                                     <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
-                                    <td><input type="text" class="form-control"  name="unitprice[]" value="" required></td>
-                                    <td><input type="text" class="form-control"  name="totalprice[]" value="" required></td>
+                                    <td><input type="text" class="form-control"  name="unitprice[]" value="{{$data->unit_price}}" readonly required></td>
+                                    <td><input type="text" class="form-control"  name="totalprice[]" value="{{$data->total_price}}" readonly required></td>
+                                    <td><input type="checkbox" value="1" name="check" class="form-control"></td>
                                 </div>
                             </tr>
                             @endforeach

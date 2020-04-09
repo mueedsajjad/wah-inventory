@@ -16,6 +16,17 @@ class PurchaseController extends Controller
         $credit=DB::table('credit_term')->get();
         return view('purchase::purchase/purchase',compact('credit'));
     }
+
+    public function createTender(){
+        $purchase_requ = DB::table('purchase_requisitions')->get();
+        $purchase_order = DB::table('purchase_order_approval')->where('purchase_type', 'ppra')->get();
+
+
+        $vendor = DB::table('supplier')->get();
+        $credit=DB::table('credit_term')->get();
+        return view('purchase::dashboard',compact('credit', 'purchase_requ', 'purchase_order', 'vendor'));
+
+    }
     public function dashboard()
     {
 
@@ -34,8 +45,8 @@ class PurchaseController extends Controller
 
     public function getRequ($id){
 
-        $requ_req = DB::table('purchase_requisitions')->find($id);
-        $details = DB::table('purchase_requisitions_detail')->where('req_id', $requ_req->id)->get();
+        $requ_req = DB::table('purchase_order_approval')->find($id);
+        $details = DB::table('purchase_order_approval_detail')->where('po_id', $requ_req->id)->get();
 
         return view('purchase::getRequ', compact('details', 'requ_req'));
     }
