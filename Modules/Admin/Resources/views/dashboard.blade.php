@@ -7,7 +7,7 @@
         <!-- ./col -->
         <div class="col-lg-6 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+            <div class="small-box text-white box" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{$users}}</h3>
 
@@ -22,7 +22,7 @@
 
         <div class="col-lg-6 col-6">
                 <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+            <div class="small-box text-white box" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                     <div class="inner">
                         <h3>Report</h3>
                         <p> All Reports<p>
