@@ -88,10 +88,10 @@ class HomeController extends Controller
     }
 
     public function employeeDepartment(){
-         
+
         $query="Select count(*) AS total, d.name, d.id from departments d, employees e where e.department_id=d.id group by d.name,d.id";
         $employees =DB::select($query);
-        
+
         return view('hr.employeeDepartment', compact('employees'));
     }
 
