@@ -52,6 +52,12 @@ class PurchaseController extends Controller
         return view('purchase::getRequ', compact('details', 'requ_req'));
     }
 
+
+
+    public function tenderOrder(){
+        
+    }
+
     public function purchaseOrderApproval(Request $request){
 
 //

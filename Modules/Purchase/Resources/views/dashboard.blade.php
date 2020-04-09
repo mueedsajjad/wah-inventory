@@ -25,7 +25,7 @@
 
 
                         <div class="card-body">
-                            <form action="{{url('purchase/purchase-order-approval')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('tender/tender-order')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
@@ -94,20 +94,6 @@
                                         </div>
                                     </div>
 
-
-
-                                    {{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group row">--}}
-{{--                                            <label class="col-sm-4 col-form-label">Purchase By</label>--}}
-{{--                                            <div class="col-sm-8">--}}
-{{--                                                <select class="form-control" name="purchase_type" required>--}}
-{{--                                                    <option disabled>Select Purchase Type</option>--}}
-{{--                                                    <option value="ppra">PPRA</option>--}}
-{{--                                                    <option value="direct-purchase">Direct Purchase</option>--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
                                 </div>
 
 
