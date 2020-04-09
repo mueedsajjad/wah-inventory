@@ -18,6 +18,7 @@ Route::prefix('qc')->group(function() {
     Route::get('dash/rejected', 'QCController@rejected');
     Route::get('dash/list', 'QCController@list');
     Route::get('inward_qc', '\Modules\Store\Http\Controllers\StoreController@inwardInspectionNote');
+    Route::get('inward_qc_out', '\Modules\Store\Http\Controllers\StoreController@inwardInspectionNote_out');
 
 
 

@@ -59,12 +59,22 @@
                                             <b>Salary</b> <a href="#" class="float-right">{{$users->salary}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>createdDate</b> <a href="#" class="float-right">{{$users->createdDate}}</a>
+                                            <b>Created Date</b> <a href="#" class="float-right">{{$users->createdDate}}</a>
                                         </li>
                                         
                                         <li class="list-group-item">
-                                            <b>joinDate</b> <a href="#" class="float-right">{{$users->joinDate}}</a>
+                                            <b>Joining Date</b> <a href="#" class="float-right">{{$users->joinDate}}</a>
                                         </li>
+                                        @if($length>1)
+                                        <li class="list-group-item">
+                                            <b>Length Period</b> <a href="#" class="float-right">Days: {{$length}} </a>
+                                        </li>
+                                        @endif
+                                        @if($length<=1)
+                                        <li class="list-group-item">
+                                            <b>Length Period</b> <a href="#" class="float-right">Day: {{$length}}</a>
+                                        </li>
+                                        @endif
 
                                         <li class="list-group-item">
                                             <b>Mobile</b> <a href="#" class="float-right">{{$users->mobile}}</a>

@@ -31,7 +31,7 @@
                     </div>
                 </form>
             </div>
-            </div>
+        </div>
 
         <div class="row">
             <div class="col-12">
@@ -49,7 +49,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">New Bilty Arrivals</h3>
-{{--                        <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>--}}
+                        {{--                        <a href="{{url('/')}}" class="btn btn-sm btn-secondary">Back</a>--}}
                         <a href="{{url('/')}}" class="btn btn-secondary btn-sm float-right">Back</a>
                     </div>
                     <div class="card-body">
@@ -61,8 +61,6 @@
                                     <th>Gate Pass ID</th>
                                     <th>Driver Name</th>
                                     <th>Vehicle #</th>
-                                    <th>Vendor Type</th>
-                                    <th>Vendor Name</th>
                                     <th>Date</th>
                                     <th>Inward Receiving</th>
                                     <th>Action</th>
@@ -78,8 +76,6 @@
                                             <td>{{$item->gatePassId}}</td>
                                             <td>{{$item->driverName}}</td>
                                             <td>{{$item->vehicalNo}}</td>
-                                            <td>{{$item->vendorType}}</td>
-                                            <td>{{$item->vendorName}}</td>
                                             <td>{{$item->date}}</td>
                                             <td>
                                                 @if($item->status==0)
@@ -157,7 +153,7 @@
     <div class="modal fade" id="changeUnloadStatusModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{url('store/changeUnloadStatus')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('store/changeUnloadStatus_out')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" value="" id="gatepassid" name="gatepassid">
                     <!-- Modal Header -->
@@ -233,7 +229,7 @@
             console.log(app);
             $.ajax({
                 type: "GET",
-                url: "/"+app+"/store/viewBuiltyDetails/"+data,
+                url: "/"+app+"/store/viewBuiltyDetails_out/"+data,
                 success:function(data)
                 {
                     $("#data").html(data);

@@ -102,14 +102,14 @@ class QCController extends Controller
 
     public function componentInspection(Request $request){
 
-//        dd('component');
+//        dd($request->all());
         DB::table('component_order')->where('id', $request->id)->update($request->except('_token', 'id'));
 
             return redirect()->back()->with('message', 'This i note genareted successfully and sent to Store');
     }
 
     public function productInspection(Request $request){
-//dd('sasaa');
+//dd($request->all());
         DB::table('production_order')->where('id', $request->id)->update($request->except('_token', 'id'));
 
         return redirect()->back()->with('message', 'This i note genareted successfully and sent to Store');

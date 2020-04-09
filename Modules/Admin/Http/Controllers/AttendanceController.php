@@ -213,8 +213,6 @@ class AttendanceController extends Controller
                     $overTime='00:00';
                 }
 
-
-                ////////////////////////////////////////////////////////////////////
                 DB::table('attendance')->where('userId',$userId)
                     ->where('date',Carbon::today()->toDateString())->update([
                     'outTime'=> $nowOutTime,
@@ -336,6 +334,7 @@ class AttendanceController extends Controller
         
             $toDate=$request->toDate;
             $fromDate=$request->fromDate;
+            
         if($fromDate)
         {
             
@@ -390,6 +389,8 @@ class AttendanceController extends Controller
     return view('admin::report/attendenceReport' ,compact('attendances',
      'user','overTimes','leave','late','name'));
     }
+
+    
 
 
     /**

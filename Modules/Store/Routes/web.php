@@ -34,20 +34,27 @@ Route::prefix('store')->group(function() {
     Route::get('product', 'StoreController@product');
 ////////////////////////////////////////////////////////////////////////////////////////////
     Route::get('newBuiltyArrival', 'StoreController@newBuiltyArrival');
+    Route::get('newBuiltyArrival_out', 'StoreController@newBuiltyArrival_outward');
     Route::get('add_i_note_qc/{id}', 'StoreController@add_i_note_qc');
     Route::get('viewBuiltyDetails/{gatePassId}', 'StoreController@viewBuiltyDetails');
+    Route::get('viewBuiltyDetails_out/{gatePassId}', 'StoreController@viewBuiltyDetails_out');
     Route::post('changeUnloadStatus', 'StoreController@changeUnloadStatus');
+    Route::post('changeUnloadStatus_out', 'StoreController@changeUnloadStatus_out');
 
     Route::get('approveForInspectionNote', 'StoreController@approveForInspectionNote');
     Route::post('submitAssignedStore/{id}', 'StoreController@submitAssignedStore');
     Route::post('sendForInspection', 'StoreController@sendForInspection');
     Route::get('inwardInspectionNote', 'StoreController@inwardInspectionNote');
+    Route::get('inwardInspectionNote_out', 'StoreController@inwardInspectionNote_out');
     Route::post('submitInwardInspectionNote', 'StoreController@submitInwardInspectionNote');
     Route::post('sendForInwardReceipt', 'StoreController@sendForInwardReceipt');
 
     Route::get('inwardGoodsReceipt', 'StoreController@inwardGoodsReceipt');
+    Route::get('inwardGoodsReceipt_out', 'StoreController@inwardGoodsReceipt_out');
     Route::get('inwardGoodsReceipt/writeInwardGoodsReceipt/{id}/{gatePassId}', 'StoreController@writeInwardGoodsReceipt');
+    Route::get('inwardGoodsReceipt/writeInwardGoodsReceipt_out/{id}/{gatePassId}', 'StoreController@writeInwardGoodsReceipt_out');
     Route::post('submitInwardGoodsReceipt', 'StoreController@submitInwardGoodsReceipt');
+    Route::post('submitInwardGoodsReceipt_out', 'StoreController@submitInwardGoodsReceipt_out');
     Route::post('changeInwardReceiptApprovalStatus', 'StoreController@changeInwardReceiptApprovalStatus');
 
     Route::get('assignStore/assignStoreToFactoryInMadeProducts', 'StoreController@assignStoreToFactoryInMadeProducts');

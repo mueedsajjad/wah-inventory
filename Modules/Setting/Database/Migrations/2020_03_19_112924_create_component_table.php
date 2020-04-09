@@ -17,6 +17,7 @@ class CreateComponentTable extends Migration
             $table->bigIncrements('id');
             $table->string('component_name');
             $table->string('component_id')->nullable();
+            $table->string('uom')->nullable();
             $table->timestamps();
         });
     }

@@ -66,9 +66,6 @@ class HomeController extends Controller
     public function gate(){
         $store_info = DB::table('store')->get();
         $inward_gate_pass = DB::table('inward_gate_pass')->count();
-
-
-
         return view('gate.gate', compact('store_info', 'inward_gate_pass'));
     }
 
@@ -87,9 +84,15 @@ class HomeController extends Controller
         $material_requisition = DB::table('production_material')->count();
         $component_requisition = DB::table('production_component')->count();
 
-
-
         return view('requisition.requisition', compact('material_requisition', 'component_requisition'));
+    }
+
+    public function employeeDepartment(){
+         
+        $query="Select count(*) AS total, d.name, d.id from departments d, employees e where e.department_id=d.id group by d.name,d.id";
+        $employees =DB::select($query);
+        
+        return view('hr.employeeDepartment', compact('employees'));
     }
 
     public function sale(){
