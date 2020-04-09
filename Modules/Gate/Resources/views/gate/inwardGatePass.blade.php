@@ -233,7 +233,7 @@
                                             <select name="Po/req" id="" class="form-control" onchange="poList(this.value)">
                                                 <option value="">select</option>
                                                 <option value="po" >Purchase Order</option>
-                                                <option value="req" >Requisition</option>
+{{--                                                <option value="req" >Requisition</option>--}}
                                                 <option value="fact" >Factory Inward</option>
                                             </select>
                                         </div>
