@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@extends('layouts.master')
 
 @section('content')
     <section class="">
@@ -65,7 +66,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(!$inward_gate_pass->isempty())
+{{--                                @if(!$inward_gate_pass->isempty())--}}
                                     @php $count=0; @endphp
                                     @foreach($inward_gate_pass as $item)
                                         <?php
@@ -106,7 +107,7 @@
                                             @endif
                                         </tr>
                                     @endforeach
-                                @endif
+{{--                                @endif--}}
                                 </tbody>
                             </table>
 
