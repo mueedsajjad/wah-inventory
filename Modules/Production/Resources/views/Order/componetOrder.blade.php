@@ -45,10 +45,17 @@
                                         </div>
                                     </div>
 
+                                    @php($component = \Illuminate\Support\Facades\DB::table('component')->get())
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Component</label>
-                                            <input type="text" name="component_name" class="form-control" placeholder="Tube" required>
+                                            <select name="component_name" id="" class="form-control" required>
+                                                <option disabled>Select Component</option>
+                                                @foreach($component as $data)
+                                                    <option value="{{$data->component_name}}">{{$data->component_id}}</option>
+                                                @endforeach
+                                            </select>
+{{--                                            <input type="text" name="component_name" class="form-control" placeholder="Tube" required>--}}
                                         </div>
                                     </div>
 

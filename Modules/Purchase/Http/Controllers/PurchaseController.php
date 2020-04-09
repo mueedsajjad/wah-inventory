@@ -25,6 +25,7 @@ class PurchaseController extends Controller
         $vendor = DB::table('supplier')->get();
         $credit=DB::table('credit_term')->get();
         return view('purchase::dashboard',compact('credit', 'purchase_requ', 'purchase_order', 'vendor'));
+        return view('purchase::dashboard',compact('credit', 'purchase_requ', 'purchase_order', 'vendor'));
 
     }
     public function dashboard()

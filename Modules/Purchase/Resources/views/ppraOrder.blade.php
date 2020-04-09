@@ -163,6 +163,7 @@
                                                             <th>Description</th>
                                                             <th>Unit Price</th>
                                                             <th>Total Price</th>
+                                                            <th>Select</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -176,6 +177,7 @@
                                                                     <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
                                                                     <td><input type="text" class="form-control"  name="unitprice[]" value="{{$data->unit_price}}" readonly></td>
                                                                     <td><input type="text" class="form-control"  name="totalprice[]" value="{{$data->total_price}}" readonly></td>
+                                                                    <td><input type="checkbox" value="1" name="check" class="form-control"></td>
                                                                 </div>
                                                             </tr>
                                                         @endforeach

@@ -595,31 +595,31 @@
                         @endif
 
 
-                        @if(auth()->user()->can('Tender'))
-                            <li class="nav-item has-treeview @if(request()->segment(1)=="tender") menu-open @endif">
-                                <a href="#" class="nav-link  @if(request()->segment(1)=="tennder") active @endif">
-                                    <i class="nav-icon fas fa-truck"></i>
-                                    <p>
-                                        Tender
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{url('tender/create')}}" class="nav-link @if(request()->segment(2)=="create") active @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Create Tender</p>
-                                        </a>
-                                    </li>
+{{--                        @if(auth()->user()->can('Tender'))--}}
+{{--                            <li class="nav-item has-treeview @if(request()->segment(1)=="tender") menu-open @endif">--}}
+{{--                                <a href="#" class="nav-link  @if(request()->segment(1)=="tennder") active @endif">--}}
+{{--                                    <i class="nav-icon fas fa-truck"></i>--}}
+{{--                                    <p>--}}
+{{--                                        Tender--}}
+{{--                                        <i class="right fas fa-angle-left"></i>--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                                <ul class="nav nav-treeview">--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{url('tender/create')}}" class="nav-link @if(request()->segment(2)=="create") active @endif">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Create Tender</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
 {{--                                    <li class="nav-item">--}}
 {{--                                        <a href="{{url('tender/viewTender')}}" class="nav-link @if(request()->segment(2)=="viewTender") active @endif">--}}
 {{--                                            <i class="far fa-circle nav-icon"></i>--}}
 {{--                                            <p>View Vendor</p>--}}
 {{--                                        </a>--}}
 {{--                                    </li>--}}
-                                </ul>
-                            </li>
-                        @endif
+{{--                                </ul>--}}
+{{--                            </li>--}}
+{{--                        @endif--}}
 
                         @if(auth()->user()->can('Approve Requisition'))
                             <li class="nav-item">
