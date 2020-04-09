@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@extends('layouts.master')
+{{--@extends('layouts.master')--}}
 
 @section('content')
     <section class="">
@@ -111,72 +111,6 @@
                                 </tbody>
                             </table>
 
-
-
-
-
-
-
-
-
-
-
-
-{{--                            <table id="builtyTable" class="table table-bordered table-striped">--}}
-{{--                                <thead>--}}
-{{--                                <tr>--}}
-{{--                                    <th>Sr#</th>--}}
-{{--                                    <th>Gate Pass ID</th>--}}
-{{--                                    <th>Type</th>--}}
-{{--                                    <th>Name</th>--}}
-{{--                                    <th>UOM</th>--}}
-{{--                                    <th>Quantity</th>--}}
-{{--                                    <th>Description</th>--}}
-{{--                                    <th>Date</th>--}}
-{{--                                    <th style="">Store</th>--}}
-{{--                                    <th>Action</th>--}}
-{{--                                    <th>Generate I-Note</th>--}}
-{{--                                </tr>--}}
-{{--                                </thead>--}}
-{{--                                <tbody>--}}
-{{--                                @if(!$inward_raw_material->isempty())--}}
-{{--                                    @php $count=0; @endphp--}}
-{{--                                    @foreach($inward_raw_material as $item)--}}
-{{--                                        @php ++$count; @endphp--}}
-{{--                                        <tr>--}}
-{{--                                            <td>{{$count}}</td>--}}
-{{--                                            <td>{{$item->gatePassId}}</td>--}}
-{{--                                            <td>{{$item->itemType}}</td>--}}
-{{--                                            <td>{{$item->materialName}}</td>--}}
-{{--                                            <td>{{$item->uom}}</td>--}}
-{{--                                            <td>{{$item->qty}}</td>--}}
-{{--                                            <td>{{$item->description}}</td>--}}
-{{--                                            <td>{{$item->date}}</td>--}}
-{{--                                            <td>{{$item->storeLocation}}</td>--}}
-{{--                                            <td>--}}
-{{--                                                @if(empty($item->inspectionDate))--}}
-{{--                                                    <a class="btn btn-secondary btn-sm getBiltyId" data-toggle="modal" data-target="#addInspectionNoteModal" data-id="{{$item->id}}"--}}
-{{--                                                    >Add I-Note</a>--}}
-{{--                                                @else--}}
-{{--                                                    <a class="btn btn-success btn-sm getBiltyData" data-toggle="modal" data-target="#viewInspectionNoteModal" data-id="{{$item->id}}"--}}
-{{--                                                       data-inspectiondate="{{$item->inspectionDate}}" data-rejectionreason="{{$item->rejectionReason}}"--}}
-{{--                                                       data-inspectionstatus="{{$item->inspectionStatus}}" data-rejectedqty="{{$item->rejectedQty}}">View Note</a>--}}
-{{--                                                @endif--}}
-{{--                                            </td>--}}
-{{--                                            <td>--}}
-{{--                                                @if($item->status==2)--}}
-{{--                                                    <a class="getNoteData" data-toggle="modal" data-target="#changeRecepitStatusModal" data-id="{{$item->id}}">--}}
-{{--                                                        <i class="fas fa-toggle-off fa-2x" style="color: #DA231A;"></i>--}}
-{{--                                                    </a>--}}
-{{--                                                @else--}}
-{{--                                                    <i class="fas fa-toggle-on fa-2x" style="color: green;"></i>--}}
-{{--                                                @endif--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endforeach--}}
-{{--                                @endif--}}
-{{--                                </tbody>--}}
-{{--                            </table>--}}
                         </div>
                     </div>
                 </div>
