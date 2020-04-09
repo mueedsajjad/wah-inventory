@@ -55,6 +55,12 @@ class HomeController extends Controller
         return view('dashboard', compact('user', 'store'));
     }
 
+    public function orderDetails(){
+//        dd('ssa');
+
+        return view('order');
+    }
+
     public function store(){
 
         $store_info = DB::table('store')->get();

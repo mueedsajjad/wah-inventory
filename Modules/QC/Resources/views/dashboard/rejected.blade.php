@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-3">
                                 <div class="info-box" style="cursor: pointer" onclick="singleData()">
-                                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
+                                    <span class="info-box-icon bg-danger elevation-1 box shade"><i class="fas fa-ban"></i></span>
 
                                     <div class="info-box-content">
                                         <span class="info-box-text text-black">Products</span>
@@ -27,7 +27,7 @@
 {{--                        </div>--}}
 {{--                        <div class="col-md-6">--}}
                                 <div class="info-box" style="cursor: pointer" onclick="singleData()">
-                                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
+                                    <span class="info-box-icon bg-danger elevation-1 box shade"><i class="fas fa-ban"></i></span>
 
                                     <div class="info-box-content">
                                         <span class="info-box-text">Material</span>
