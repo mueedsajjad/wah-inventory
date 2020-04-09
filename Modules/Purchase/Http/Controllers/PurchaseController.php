@@ -54,8 +54,8 @@ class PurchaseController extends Controller
 
 
 
-    public function tenderOrder(){
-        
+    public function tenderOrder(Request $request){
+
     }
 
     public function purchaseOrderApproval(Request $request){
