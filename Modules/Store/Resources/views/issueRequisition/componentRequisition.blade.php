@@ -23,7 +23,7 @@
                         <a href="{{url('store/issueRequisition')}}" class="btn btn-secondary btn-sm float-right">Back</a>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table id="tabless" class="table table-bordered table-striped">
                             <thead>
                             <tr class="bg-dark">
                                 <th>Sr</th>
@@ -88,4 +88,9 @@
             <!-- /.col -->
         </div>
     </section>
+    <script>
+        $( document ).ready(function() {
+            $('#tabless').dataTable();
+        });
+    </script>
 @endsection

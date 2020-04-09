@@ -446,7 +446,7 @@
                         @if(auth()->user()->can('Production'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="production") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="production") active @endif">
-                                    <i class="nav-icon fas fa-spray-can"></i>
+                                    <i class="nav-icon fas fa-industry"></i>
                                     <p>
                                         Production
                                         <i class="right fas fa-angle-left"></i>
@@ -571,7 +571,7 @@
                         @if(auth()->user()->can('Supplier'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="supplier") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="supplier") active @endif">
-                                    <i class="nav-icon fas fa-truck"></i>
+                                    <i class="nav-icon fas fa-user-secret"></i>
                                     <p>
                                         Vendor
                                         <i class="right fas fa-angle-left"></i>
@@ -657,7 +657,7 @@
                         @if(auth()->user()->can('Sale'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="sale") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="sale") active @endif">
-                                    <i class="nav-icon fas fa-dollar-sign"></i>
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
                                     <p>
                                         Sale
                                         <i class="right fas fa-angle-left"></i>
@@ -722,8 +722,7 @@
                         @if(auth()->user()->can('Approve Order'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="order") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="order") active @endif">
-                                    <i class="nav-icon fas fa-dollar-sign"></i>
-                                    <p>
+                                    <i class="nav-icon fas fa-check"></i>                                    <p>
                                         Order Approve
                                         <i class="right fas fa-angle-left"></i>
                                     </p>

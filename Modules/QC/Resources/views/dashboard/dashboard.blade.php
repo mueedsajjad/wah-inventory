@@ -1,11 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
+    <h1 class="display-4">Dashboard</h1>
     <div class="row">
         <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+            <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{89}}</h3>
                     <p>QC</p>
@@ -20,7 +21,7 @@
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+            <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{350}}</h3>
                     <p>Rejected Goods</p>

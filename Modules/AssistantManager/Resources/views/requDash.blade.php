@@ -1,13 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
+    <h1 class="display-4">Dashboard</h1>
     <div class="row">
 
             <!-- small box -->
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-danger box shade">
                 <div class="inner">
                     <h3>{{'54'}}</h3>
                     <p>Requisition Requests</p>

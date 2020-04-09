@@ -6,7 +6,41 @@
 	.dropdown:hover>.dropdown-menu {
   display: block;
 }
+
+     .box {
+         position: relative;
+
+         background-color: #fff;
+         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+         -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+         transition: all 0.6s cubic-bezier(0.15, 0.84, 0.44, 1);
+     }
+
+    .box::after {
+
+        position: relative;
+        z-index: 9999;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+        opacity: 0;
+        -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        transition: all 0.6s cubic-bezier(0.15, 0.84, 0.44, 1);
+    }
+
+    .box:hover {
+        -webkit-transform: scale(1.25, 1.25);
+        transform: scale(1.10, 1.10);
+    }
+
+    .box:hover::after {
+        opacity: 1;
+    }
+
+    .shade {
+       background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041) !important;
+    }
 </style>
+
 
     {{--    <title>{{ config('app.name', 'Laravel') }}</title>--}}
 

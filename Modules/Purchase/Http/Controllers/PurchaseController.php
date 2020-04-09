@@ -123,7 +123,7 @@ class PurchaseController extends Controller
                 'vendor_id' => $latest->vendor_id,
             ]);
 
-        return redirect(url('/purchase/'))->with('message', 'Tender create successfully');
+        return redirect(url('/tender/view-tender/'))->with('message', 'Tender create successfully');
 
 
 

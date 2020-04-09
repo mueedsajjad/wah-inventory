@@ -83,4 +83,9 @@
         </div>
         <!-- /.col -->
     </section>
+    <script>
+        $( document ).ready(function() {
+            $('#example1').dataTable();
+        });
+    </script>
 @endsection
