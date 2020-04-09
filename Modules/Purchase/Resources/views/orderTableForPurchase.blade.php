@@ -38,7 +38,7 @@
                             @elseif($data->status == 1)
                                 <td> Approved</td>
                                 <td>
-                                    <a href="{{url('purchase/make-order/'.$data->purchase_type.'/'.$data->id)}}" class="btn btn-sm btn-success" >Make Purchase Order</a>
+                                    <a href="{{url('purchase/make-order/'.$data->purchase_type.'/'.$data->id)}}" class="btn btn-block btn-success" >Make Purchase Order</a>
                                 </td>
                             @elseif($data->status == 2)
                                 <td>Rejected</td>
@@ -49,7 +49,7 @@
                             @elseif($data->status == 4)
                                 <td>Create Tender</td>
                                 <td>
-                                    <a href="{{url('purchase/make-order/'.$data->purchase_type.'/'.$data->id)}}" class="btn btn-sm btn-success" >Create Tender</a>
+                                    <a href="{{url('tender/view-tender/')}}" class="btn btn-block btn-info" >Create Tender</a>
                                 </td>
                             @endif
                             <td><button type="button" onclick="getDetails({{$data->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">

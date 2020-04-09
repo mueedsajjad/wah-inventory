@@ -605,16 +605,16 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{url('tender/create')}}" class="nav-link @if(request()->segment(2)=="create") active @endif">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Dashboard</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
                                     <li class="nav-item">
-                                        <a href="{{url('tender/create')}}" class="nav-link @if(request()->segment(2)=="create") active @endif">
+                                        <a href="{{url('tender/view-tender')}}" class="nav-link @if(request()->segment(2)=="view-tender") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Create Tender</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{url('tender/viewTender')}}" class="nav-link @if(request()->segment(2)=="viewTender") active @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>View Vendor</p>
+                                            <p>Dashboard</p>
                                         </a>
                                     </li>
                                 </ul>

@@ -81,14 +81,15 @@
                                 </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Select Vendor</label>
+                                            <label class="col-sm-4 col-form-label">Vendor ID</label>
                                             <div class="col-sm-8">
-                                                <select name="vendor" onchange="getVendor(this.value)" id="" class="form-control select2">
-                                                    <option value="" >Select Vendor</option>
-                                                    @foreach($vendor as $data)
-                                                        <option value="{{$data->id}}">{{$data->name}}</option>
-                                                    @endforeach
-                                                </select>
+{{--                                                <select name="vendor" onchange="getVendor(this.value)" id="" class="form-control select2">--}}
+{{--                                                    <option value="" >Select Vendor</option>--}}
+{{--                                                    @foreach($vendor as $data)--}}
+{{--                                                        <option value="{{$data->id}}">{{$data->name}}</option>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </select>--}}
+                                                <input type="text" class="form-control" value="{{$vendor->supplier_id}}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -97,15 +98,49 @@
                                 <div id="data">
 
                                 </div>
-
-
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_16" class="col-sm-4 col-form-label">Vendor Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="sga_16" value="{{$vendor->name}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_16" class="col-sm-4 col-form-label">Vendor Phone#</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="sga_16" value="{{$vendor->m_number}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_16" class="col-sm-4 col-form-label">Vendor Acc No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="sga_16" value="{{$vendor->account_num}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="sga_16" class="col-sm-4 col-form-label">Vendor Email</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="sga_16" value="{{$vendor->email}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row justify-content-around">
                                 <div class="col-md-4">
                                     <div class="form-group row">
                                         <label for="sga_16" class="col-sm-4 col-form-label">Commercial Offer</label>
                                         <div class="col-sm-8">
-                                            <textarea type="text" class="form-control" name="c_offer" id="sga_16"></textarea>
+                                            <textarea type="text" class="form-control" name="c_offer" readonly id="sga_16">{{$ppra->commercial_offer}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +148,7 @@
                                     <div class="form-group row">
                                         <label for="sga_16" class="col-sm-4 col-form-label">Technical Offer</label>
                                         <div class="col-sm-8">
-                                            <textarea type="text" class="form-control" name="t_offer" id="sga_16"></textarea>
+                                            <textarea type="text" class="form-control" readonly name="t_offer" id="sga_16">{{$ppra->technical_offer}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +198,6 @@
                                                             <th>Description</th>
                                                             <th>Unit Price</th>
                                                             <th>Total Price</th>
-                                                            <th>Select</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -177,7 +211,6 @@
                                                                     <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
                                                                     <td><input type="text" class="form-control"  name="unitprice[]" value="{{$data->unit_price}}" readonly></td>
                                                                     <td><input type="text" class="form-control"  name="totalprice[]" value="{{$data->total_price}}" readonly></td>
-                                                                    <td><input type="checkbox" value="1" name="check" class="form-control"></td>
                                                                 </div>
                                                             </tr>
                                                         @endforeach

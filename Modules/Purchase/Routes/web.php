@@ -21,6 +21,8 @@ Route::prefix('purchase')->group(function() {
 
     Route::get('/get-requ/{data}', 'PurchaseController@getRequ');
     Route::get('/get-details/{data}', 'PurchaseController@getDetail');
+    Route::get('/get-details-tender/{data}', 'PurchaseController@getDetailTender');
+
     Route::get('/get-vendor/{data}', 'PurchaseController@getVendor');
 
     Route::get('/order-approve/{data}', 'PurchaseController@orderApprove');
@@ -65,7 +67,8 @@ Route::prefix('order')->group(function() {
 Route::prefix('tender')->group(function() {
 
 
-    Route::get('/create', 'PurchaseController@createTender');
+    Route::get('/create/{id}', 'PurchaseController@createTender');
+    Route::get('/view-tender', 'PurchaseController@viewTender');
     Route::post('/tender-order', 'PurchaseController@tenderOrder');
 //    Route::get('/order-approve/{id}', 'PurchaseController@orderApprove');
 
