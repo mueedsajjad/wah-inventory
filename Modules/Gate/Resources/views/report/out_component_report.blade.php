@@ -20,17 +20,17 @@
                                 <thead>
                                 <tr>
                                     <th>Requisition ID</th>
-                                    <td>{{$data->material_requisition_id}}</td>
+                                    <td>{{$data->component_requisition_id}}</td>
                                 </tr>
                                 <tr>
                                     <th>Gate Type</th>
                                     <td>{{$data->gate_type}}</td>
                                 </tr>
 
-                                    <tr>
-                                        <th>	Issue Date</th>
-                                        <td>{{$data->issue_date}}</td>
-                                    </tr>
+                                <tr>
+                                    <th>	Issue Date</th>
+                                    <td>{{$data->issue_date}}</td>
+                                </tr>
                                 <tbody>
                                 </tbody>
                             </table>
@@ -38,21 +38,21 @@
 
                             <table class="table table-bordered table-striped">
                                 <tr>
-                                    <th>Material Name</th>
+                                    <th>Component Name</th>
                                     <th>UMO</th>
                                     <th> Quantity</th>
                                     <th>Description</th>
 
                                 </tr>
 
-                                @foreach($report_data as $key=>$row)
-                                    <tr>
-                                        <td>{{$row->material_name}}</td>
-                                        <td>{{$row->UOM}}</td>
-                                        <td>{{$row->quantity}}</td>
-                                        <td>{{$row->description}}</td>
-                                    </tr>
-                                @endforeach
+{{--                                @foreach($report_data as $key=>$row)--}}
+{{--                                    <tr>--}}
+{{--                                        <td>{{$row->component_name}}</td>--}}
+{{--                                        <td>{{$row->uom}}</td>--}}
+{{--                                        <td>{{$row->quantity}}</td>--}}
+{{--                                        <td>{{$row->description}}</td>--}}
+{{--                                    </tr>--}}
+{{--                                @endforeach--}}
 
 
                             </table>
@@ -91,3 +91,4 @@
 
 
 @endsection
+

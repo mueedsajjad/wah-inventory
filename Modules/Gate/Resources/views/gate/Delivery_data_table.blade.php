@@ -19,8 +19,8 @@
                                 <th>Product Code</th>
                                 <th>UOM</th>
                                 <th>Quantity</th>
-                                <th>Quantity Received</th>
-                                <th>Description</th>
+{{--                                <th>Quantity Received</th>--}}
+{{--                                <th>Description</th>--}}
 
                             </tr>
                             </thead>
@@ -30,10 +30,14 @@
                                     <div class="mome">
                                         <td><input type="text" class="form-control"  name="po_id" value="{{$data->so_number}}" readonly></td>
                                         <td><input type="text" class="form-control"  name="material_name[]" value="{{$data->product_code}}" readonly></td>
-                                        <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
+                                        <?php
+                                            $n=\Illuminate\Support\Facades\DB::table('unit')->where('id',$data->uom)->first();
+                                            $name=$n->name;
+                                        ?>
+                                        <td><input type="text" class="form-control"  name="uom[]" value="{{$name}}" readonly></td>
                                         <td><input type="text" class="form-control"  name="qty[]" value="{{$data->qty}}" readonly></td>
-                                        <td><input type="number" class="form-control"  name="qty_received[]" value="" required></td>
-                                        <td><input type="text" class="form-control"  name="description[]" value=""  required></td>
+{{--                                        <td><input type="number" class="form-control"  name="qty_received[]" value="" required></td>--}}
+{{--                                        <td><input type="text" class="form-control"  name="description[]" value=""  required></td>--}}
                                     </div>
                                 </tr>
                             @endforeach
