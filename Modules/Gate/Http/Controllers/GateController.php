@@ -3,6 +3,7 @@
 namespace Modules\Gate\Http\Controllers;
 
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -571,6 +572,74 @@ class GateController extends Controller
                      return redirect()->back()->with('message', 'Submitted Successfuly.');
                  }
                 }
+    public function outward_Date (Request $request){
+//        dd($request->all());
+        $from = $request->fromDate;
+        $to = $request->toDate;
+
+//        $from = Carbon::parse()
+
+        $componente=[];
+        $component=[];
+        $report_data=[];
+        $report_dat=[];
+
+        $status_check=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->pluck('production_material_id');
+//        dd($status_check);
+        foreach ($status_check as $status){
+//            dd($from);
+            $report_dat[]=DB::table('production_material')->where('id',$status)->first();
+//           dd($report_data);
+
+        }
+//        $period = CarbonPeriod::create($from, $to);
+
+        $startDate = new Carbon($from);
+        $endDate = new Carbon($to);
+        $all_dates = array();
+        while ($startDate->lte($endDate)){
+            $all_dates[] = $startDate->toDateString();
+
+            $startDate->addDay();
+        }
+//        dd($all_dates);
+        foreach($report_dat as $datta) {
+            if ($datta->issue_date != NULL){
+                foreach ($all_dates as $data) {
+                    if ($datta->issue_date == $data) {
+                        $report_data[] = $datta;
+                    }
+                }
+            }
+        }
+//        dd($report_data);
+//        foreach ($period as $date) {
+//        dd($repo);
+        $status_check_component=DB::table('production_component_detail')->where('gate_type','outward')->where('status',5)->pluck('production_component_id');
+//                    dd($status_check_component);
+        foreach ($status_check_component as $status_component){
+            $componente[]=DB::table('production_component')->where('id',$status_component)->first();
+
+        }
+        foreach($componente as $datta)
+        {
+            if ($datta->issue_date != NULL){
+            foreach($all_dates as $data)
+            {
+                if($datta->issue_date==$data)
+                {
+                    $component[]=$datta;
+                }
+            }
+            }
+        }
+        $delivery_report=DB::table('sale_order')->where('status',3)->whereBetween('delivery_date', [$from,$to])->get();
+//                    dd($delivery_report);
+
+
+
+        return view('gate::report/outward_report',compact('report_data','component','delivery_report'));
+    }
 
                 public function outward_report (){
                     $component=[];
