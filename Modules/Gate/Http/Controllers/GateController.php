@@ -527,13 +527,20 @@ class GateController extends Controller
 
                 public function addOutwardGatePass(Request $request){
 //                 dd($request->all());
-                 if ($request->product_type=="component"){
-                    $component=DB::table('production_component_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                 if ($request->out_t=="customer"){
+                     DB::table('sale_order')->where('so_number',$request->order_num)->update(array('status' => '3'));
                      return redirect()->back()->with('message', 'Submitted Successfuly.');
                  }
-                 else
-                     $material=DB::table('production_material_detail')->where('id',$request->out_type)->update(array('status' => '5'));
-                    return redirect()->back()->with('message', 'Submitted Successfuly.');
+                 else{
+
+                     if ($request->product_type=="component"){
+                         $component=DB::table('production_component_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                         return redirect()->back()->with('message', 'Submitted Successfuly.');
+                     }
+                     else
+                         $material=DB::table('production_material_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                     return redirect()->back()->with('message', 'Submitted Successfuly.');
+                 }
                 }
 
                 public function outward_report (){
@@ -542,9 +549,10 @@ class GateController extends Controller
 //                    dd($report_data);
 
 //                    $report_data=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->get();
+                    $component=DB::table('production_component')->where('gate_type','outward')->get();
 
 
-                   return view('gate::report/outward_report',compact('report_data'));
+                   return view('gate::report/outward_report',compact('report_data','component'));
                 }
 
                 public  function out_report($id){
@@ -555,5 +563,12 @@ class GateController extends Controller
 //                    dd($data);
 
                       return view('gate::report/outward_report_details',compact('report_data','data'));
+                }
+                public function component_out_report($id){
+
+                    $report_data=DB::table('production_component_detail')->where('production_component_id',$id)->where('status',5)->get();
+                    $data=DB::table('production_component')->where('id',$id)->first();
+                    return view('gate::report/out_component_report',compact('report_data','data'));
+
                 }
 }
