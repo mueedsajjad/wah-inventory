@@ -33,7 +33,7 @@ class SaleController extends Controller
 
     public function saleStore(Request $request)
     {
-        if ($request->delivery_date > Carbon::today()){
+        if ($request->delivery_date >= Carbon::today()){
             $sale_order=DB::table('sale_order')->insert([
                 'so_number' => $request->so_number,
                 'date' => Carbon::today(),
