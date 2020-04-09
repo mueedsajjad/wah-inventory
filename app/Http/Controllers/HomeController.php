@@ -107,6 +107,12 @@ class HomeController extends Controller
         return view('sale');
 
     }
+    public function saletwo(){
+
+
+        return view('saleTwo');
+
+    }
 
     public function production(){
 
