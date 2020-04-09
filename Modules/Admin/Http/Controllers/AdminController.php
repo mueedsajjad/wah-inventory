@@ -252,15 +252,15 @@ class AdminController extends Controller
     {
         
 
-        $user=DB::table('employees')
-            ->join('users', 'users.id', '=', 'employees.user_id')
-            ->join('departments', 'departments.id', '=', 'employees.department_id')
-            ->join('state', 'state.id', '=', 'employees.state_id')
-            ->join('city', 'city.id', '=', 'employees.city_id')
-            ->join('roles', 'roles.id','=','employees.designation_id')
-            ->where('users.id',$id)
-            ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
-            ->get();
+        // $user=DB::table('employees')
+        //     ->join('users', 'users.id', '=', 'employees.user_id')
+        //     ->join('departments', 'departments.id', '=', 'employees.department_id')
+        //     ->join('state', 'state.id', '=', 'employees.state_id')
+        //     ->join('city', 'city.id', '=', 'employees.city_id')
+        //     ->join('roles', 'roles.id','=','employees.designation_id')
+        //     ->where('users.id',$id)
+        //     ->select('employees.*','users.email','roles.id as role_id','state.name as state','roles.name as role','city.name as city', 'departments.name as department_name', 'users.name as username')
+        //     ->get();
 
 
 
@@ -283,12 +283,18 @@ class AdminController extends Controller
 
             foreach($user as $users)
             {
+        //         $this->birthdate->diff(Carbon::now())
+        //  ->format('%y years, %m months and %d days');
+
                 $todayDate = Carbon::now('Asia/Karachi');
                 $todayDate= $todayDate->toDateString();
                 $todayDate=Carbon::parse($todayDate);
                 $joinDate=Carbon::parse($users->joinDate);
-                $length = $todayDate->diffInDays($joinDate);
-                //dd($lenth);
+                // $length = $todayDate->diff($joinDate);
+                $length = $todayDate->diff($joinDate)
+                ->format('%y years, %m months and %d days');
+
+                //dd($length);
             }
             
 

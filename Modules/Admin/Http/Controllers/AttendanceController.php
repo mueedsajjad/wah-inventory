@@ -385,6 +385,25 @@ class AttendanceController extends Controller
             ->get();   
         }
        
+        $dutySchedule=DB::table('duty_schedule')->first();
+        $duty=DB::table('duty_schedule')->first();
+                if($duty)
+                {
+                    $inDuty = Carbon::parse($duty->in_time);
+                    $outDuty = Carbon::parse($duty->out_time);
+                    $interval = $inDuty->diff($outDuty);
+
+                    $hourDuty = $interval->format('%h');
+                    $minDuty =$interval->format('%i');
+                   //$sec = $interval->format('%s second');
+
+                    $dutyTime=date('H:i', mktime($hourDuty,$minDuty));
+                }
+                else
+                {
+                    $duty= DB::table('duty_Schedule')->get();
+                    return view('setting::setting/DutySchedule',compact('duty'));
+                }
         // ------ Sum of OverTime,Total Leaves, Total Lates Of Employee  ---------- //
          $leave=0;
          $absent=0;
@@ -392,6 +411,8 @@ class AttendanceController extends Controller
          $name="";
         $tempTime=date('H:i', mktime(0,0));
         $tempTime=Carbon::parse($tempTime);
+        $remainingTime=date('H:i', mktime(0,0));
+        $remainingTime=Carbon::parse($remainingTime);
         $addTime=date('H:i', mktime(0,0));
         $addTime=Carbon::parse($addTime);
         foreach($attendances as $attendance)
@@ -409,23 +430,91 @@ class AttendanceController extends Controller
            {
                $leave++;
            }
-           
-        $inWorking=Carbon::parse($attendance->overTime);
+          
 
-       if($attendance->overTime!=null)
+        //$inWorking=Carbon::parse($attendance->overTime);
+        //$inWorking=$inWorking->format('H:i');
+        //dd($inWorking);
+        $dutyTime=Carbon::parse($dutyTime);
+        //$workingTime=Carbon::parse($attendance->workingTime);
+        //dd($workingTime);
+        if($attendance->workingTime!=null)
+        {
+            if($dutyTime>$attendance->workingTime)
        {
-                $interval = $tempTime->diff($inWorking);
-                $hourWorking = $interval->format('%H');
-                $minWorking =$interval->format('%i');
-                $hourWorkingInt=(int) $hourWorking;
-                $minWorkingInt =(int) $minWorking;
-        
-                $addTime=$addTime->addHours($hourWorkingInt);
-                $addTime=$addTime->addMinutes($minWorkingInt);
+        $dutyTime=Carbon::parse($dutyTime);
+           //dd($attendance->workingTime);
+        $interval = $dutyTime->diff($attendance->workingTime);
+        $hourWorking = $interval->format('%H');
+        $minWorking =$interval->format('%i');
+        $hourWorkingInt=(int) $hourWorking;
+        $minWorkingInt =(int) $minWorking;
+       // dd($hourWorkingInt);
+        $remainingTime=$remainingTime->addHours($hourWorkingInt);
+        $remainingTime=$remainingTime->addMinutes($minWorkingInt);
+           
+        //dd($remainingTime);
+
+        } elseif($dutyTime<$attendance->workingTime)
+        {
+            //dd("duty is less");
+            $interval = $dutyTime->diff($attendance->workingTime);
+            $hourWorking = $interval->format('%H');
+            $minWorking =$interval->format('%i');
+            $hourWorkingInt=(int) $hourWorking;
+            $minWorkingInt =(int) $minWorking;
+         //   dd($minWorkingInt);
+           
+            $addTime=$addTime->addHours($hourWorkingInt);
+            $addTime=$addTime->addMinutes($minWorkingInt);
+            //dd($addTime);
+           
         }
+        }
+       
 
         }
-        $overTimes=$addTime->format('H:i');
+        $addTime=Carbon::parse($addTime);
+        $remainingTime=Carbon::parse($remainingTime);
+
+        //dd($addTime);
+        //dd($remainingTime);
+        //$remainingTime=$remainingTime->format('H:i');
+       // $addTime=$addTime->format('H:i');
+
+        if($addTime>$remainingTime)
+        {
+            //dd("overtime is big");
+            $interval = $tempTime->diff($remainingTime);
+            $hourWorking = $interval->format('%H');
+            $minWorking =$interval->format('%i');
+            $hourWorkingInt=(int) $hourWorking;
+            $minWorkingInt =(int) $minWorking;
+         //   dd($minWorkingInt);
+            $addTime=$addTime->subHours($hourWorkingInt);
+            $addTime=$addTime->subMinutes($minWorkingInt);
+
+            $overTimes=$addTime->format('H:i');
+        }else{//dd("overtime is less");
+            //dd($remainingTime);
+            $interval = $tempTime->diff($addTime);
+            $hourWorking = $interval->format('%H');
+            //dd($hourWorking);
+            $minWorking =$interval->format('%i');
+            $hourWorkingInt=(int) $hourWorking;
+            $minWorkingInt =(int) $minWorking;
+            //dd($hourWorkingInt);
+            $remainingTime=$remainingTime->subHours($hourWorkingInt);
+            //dd();
+            $remainingTime=$remainingTime->subMinutes($minWorkingInt);
+            //dd($remainingTime);
+            $overTimes=$remainingTime->format('- H:i');
+        }
+        //dd($overTimes);
+
+       // $overTimes=$addTime->format('H:i');
+
+       // dd($overTimes);
 
        $user=DB::table('users')->get();
        return view('admin::report/attendenceReport' ,compact('attendances',

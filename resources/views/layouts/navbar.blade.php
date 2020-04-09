@@ -949,15 +949,14 @@
                                             </a>
                                         </li>
                                     @endif
-
-                                    @if(auth()->user()->can('Apply for Attendance'))
+                                    
                                         <li class="nav-item">
                                             <a href="{{url('admin/leaveOfficer')}}" class="nav-link @if(request()->segment(2)=="leaveOfficer") active @endif">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Apply for Leaves</p>
                                             </a>
                                         </li>
-                                    @endif
+                                   
                                     @if(auth()->user()->can('HR'))
                                     <li class="nav-item">
                                         <a href="{{url('admin/salary')}}" class="nav-link @if(request()->segment(2)=="salary") active @endif">
