@@ -15,6 +15,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/hr', 'AdminController@index');
 
     Route::get('employee', 'AdminController@employee');
+    Route::get('employeeDepartmentWise/{id}', 'AdminController@employeeDepartmentWise');
     Route::post('employeeStore', 'AdminController@employeeStore');
     Route::post('employeeUnderManagerStore', 'AdminController@employeeUnderManagerStore');
     Route::get('employeeDetail/{id}', 'AdminController@employeeDetail');
@@ -22,14 +23,29 @@ Route::prefix('admin')->group(function() {
     Route::post('employeeEdit', 'AdminController@employeeEdit');
 
     Route::post('departmentStore', 'AdminController@departmentStore');
+     
+
+//----------------------- Advance ------------------------//
+Route::get('advance', 'AdminController@advance');
+Route::get('advanceEmployee', 'AdminController@advanceEmployee');
+
+
+//----------------------- salary ------------------------//    
+    Route::get('salary', 'AdminController@salary');
+    Route::get('salaryEmployee', 'AdminController@salaryEmployee');
+    Route::post('employeeSalaryDetails', 'AdminController@employeeSalaryDetails');
+    Route::post('salaryStore', 'AdminController@salaryStore');
+    Route::post('salaryDelete', 'AdminController@salaryDelete');
+
 
     // ----------------------- Reports --------------------------------- //
     Route::get('employeeReport', 'AdminController@employeeReport');
 
 
-    Route::get('salary', 'AdminController@salary');
+    
 
-    Route::get('advance', 'AdminController@advance');
+
+   
 
     Route::get('report', 'AdminController@report');
     Route::get('attedanceReport', 'AttendanceController@attedanceReport');

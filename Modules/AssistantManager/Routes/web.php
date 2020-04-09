@@ -14,6 +14,7 @@
 Route::prefix('assistantmanager')->group(function() {
 
     Route::get('/dashboard', 'AssistantManagerController@index');
+    Route::get('/', 'AssistantManagerController@requDash');
     Route::get('/requisition-request', 'AssistantManagerController@requisitionRequest');
     Route::get('/get-details/{id}', 'AssistantManagerController@getDetails');
     Route::post('/requisition-request', 'AssistantManagerController@requisitionRequestSubmit');
@@ -23,7 +24,7 @@ Route::prefix('assistantmanager')->group(function() {
 
 Route::prefix('requisition')->group(function() {
 
-    Route::get('/dashboard', 'AssistantManagerController@requDash');
+//    Route::get('/dashboard', 'AssistantManagerController@requDash');
     Route::get('/material-dashboard', 'AssistantManagerController@requMaterialDash');
     Route::get('/component-dashboard', 'AssistantManagerController@requComponentDash');
 

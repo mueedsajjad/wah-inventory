@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,13 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         if (auth()->user()->hasRole('Quality Employee')){
             return  redirect(url('/qa/dashboard'));
         }elseif (auth()->user()->hasRole('QC')){
             return  redirect(url('/qc/dashboard'));
+        }elseif (auth()->user()->hasRole('Store Employee')){
+            return  redirect(url('/store/dashboard'));
         }elseif (auth()->user()->hasRole('Assistant Manager')){
-            return  redirect(url('/assistantmanager/dashboard'));
+            return  redirect(url('/assistantmanager/'));
         }elseif (auth()->user()->hasRole('Purchase Employee')){
             return  redirect(url('/purchase'));
         }elseif (auth()->user()->hasRole('HR')){
@@ -43,6 +45,68 @@ class HomeController extends Controller
 //        return  redirect(url('/dashboard'));
 
 
-        return view('dashboard');
+
+
+
+        $user = DB::table('users')->count();
+        $store = DB::table('store')->count();
+
+
+        return view('dashboard', compact('user', 'store'));
     }
+
+    public function store(){
+
+        $store_info = DB::table('store')->get();
+//        dd($store_info);
+
+        return view('store.store', compact('store_info'));
+    }
+
+    public function gate(){
+        $store_info = DB::table('store')->get();
+        $inward_gate_pass = DB::table('inward_gate_pass')->count();
+        return view('gate.gate', compact('store_info', 'inward_gate_pass'));
+    }
+
+    public function singleData($id){
+        $store_info = DB::table('store')->get();
+
+        $store = DB::table('store')->find($id);
+
+        $details = DB::table('store_stock')->where('store_location', $store->name)->get();
+
+        return view('store.storeDetails', compact('store', 'details', 'store_info'));
+    }
+
+    public function requisition(){
+
+        $material_requisition = DB::table('production_material')->count();
+        $component_requisition = DB::table('production_component')->count();
+
+        return view('requisition.requisition', compact('material_requisition', 'component_requisition'));
+    }
+
+    public function employeeDepartment(){
+         
+        $query="Select count(*) AS total, d.name, d.id from departments d, employees e where e.department_id=d.id group by d.name,d.id";
+        $employees =DB::select($query);
+        
+        return view('hr.employeeDepartment', compact('employees'));
+    }
+
+    public function sale(){
+
+
+        return view('sale');
+
+    }
+
+    public function production(){
+
+
+        return view('production');
+
+    }
+
 }

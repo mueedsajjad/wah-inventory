@@ -50,7 +50,7 @@
                                         <td>{{$component->total_cost}}</td>
                                         <td>{{$component->type}}</td>
                                         <td>
-                                            @if($component->status==4)
+                                            @if($component->status==5)
                                                 <form action="{{url('store/submitFactoryInMadeComponentsToStore')}}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="component_id" value="{{$component->id}}">

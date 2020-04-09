@@ -50,17 +50,22 @@ class AssistantManagerController extends Controller
     public function requMaterialDetail($data){
 
         $details = DB::table('production_material_detail')->where('production_material_id', $data)->get();
-        return view('assistantmanager::getMaterialDetails', compact('details'));
+        $record = DB::table('production_material')->find($data);
+
+        return view('assistantmanager::getMaterialDetails', compact('details', 'record'));
 
     }
 
     public function requComponentDetail($data){
 
         $details = DB::table('production_component_detail')->where('production_component_id', $data)->get();
-        return view('assistantmanager::getComponentDetails', compact('details'));
+        $record = DB::table('production_component')->find($data);
+
+        return view('assistantmanager::getComponentDetails', compact('details', 'record'));
 
     }
     public function requMaterialAction($condition, $id){
+//        dd($id);
         if ($condition == 'accept'){
             DB::table('production_material_detail')->where('id', $id)->update(['status' => 1]);
         }else{
@@ -70,6 +75,8 @@ class AssistantManagerController extends Controller
     }
 
     public function requComponentAction($condition, $id){
+
+//        dd($id);
         if ($condition == 'accept'){
             DB::table('production_component_detail')->where('id', $id)->update(['status' => 1]);
         }else{
@@ -103,8 +110,6 @@ class AssistantManagerController extends Controller
 
 
 
-
-
         $size = sizeof($request->materialName);
 
         for ($i = 0; $i < $size; $i++) {
@@ -125,8 +130,13 @@ class AssistantManagerController extends Controller
 
 
         public function getDetails($id){
+
             $details = DB::table('purchase_requisitions_detail')->where('req_id', $id)->get();
-            return view('assistantmanager::getDetails',compact('details'));
+
+            $record = DB::table('purchase_requisitions')->find($id);
+
+//            dd($record);
+            return view('assistantmanager::getDetails',compact('details', 'record'));
         }
 
 

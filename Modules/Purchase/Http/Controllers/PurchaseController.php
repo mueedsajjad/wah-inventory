@@ -197,7 +197,11 @@ class PurchaseController extends Controller
 
     public function getDetail($id){
         $details = DB::table('purchase_order_approval_detail')->where('po_id', $id)->get();
-        return view('purchase::getDetails',compact('details'));
+
+        $record = DB::table('purchase_order_approval')->find($id);
+
+//        dd($record);
+        return view('purchase::getDetails',compact('details', 'record'));
     }
 
 
@@ -211,13 +215,24 @@ class PurchaseController extends Controller
 
     public function orderApprove($id)
     {
-        DB::table('purchase_order_approval')->where('id',$id)->update(['status'=>1]);
+     DB::table('purchase_order_approval')->where('id',$id)->update(['status'=>1]);
+
+        $data = DB::table('purchase_order_approval')->find($id);
+
+        DB::table('purchase_requisitions')->where('requisition_id', $data->requisition_id)->update(['status'=>2]);
+
         return redirect()->back()->with('save','Order is Accepted');
     }
 
     public function orderReject($id)
     {
         DB::table('purchase_order_approval')->where('id',$id)->update(['status'=>2]);
+
+
+        $data = DB::table('purchase_order_approval')->find($id);
+
+        DB::table('purchase_requisitions')->where('requisition_id', $data->requisition_id)->update(['status'=>3]);
+
         return redirect()->back()->with('save','Order is Rejected');
     }
 

@@ -17,9 +17,9 @@ class CreateSaleOrderProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('so_number')->nullable();
             $table->string('product_code')->nullable();
-            $table->integer('uom')->nullable();
+            $table->string('uom')->nullable();
             $table->integer('qty')->nullable();
-            $table->integer('description')->nullable();
+            $table->string('description')->nullable();
         });
     }
 

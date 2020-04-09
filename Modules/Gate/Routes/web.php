@@ -12,6 +12,7 @@
 */
 
 Route::prefix('gate')->group(function() {
+
     Route::get('inwardGatePass','GateController@inwardGatePass');
     Route::get('outwardGatePass','GateController@outwardGatePass');
     Route::get('vendor_data/{id}','GateController@vendor_data');
@@ -27,7 +28,8 @@ Route::prefix('gate')->group(function() {
     Route::get('outward_factory_material/{id}','GateController@outward_factory_material');
     Route::get('outward_factory_component/{id}','GateController@outward_factory_component');
     Route::post('addOutwardGatePass','GateController@addOutwardGatePass');
-
+    Route::get('delivery_order/{id}','GateController@delivery_order');
+    Route::get('delivery_order_table/{id}','GateController@delivery_order_table');
 
 
 
@@ -56,7 +58,15 @@ Route::prefix('gate')->group(function() {
 
     // ------------ Reports --------------------//
     Route::get('report','GateController@report');
+         //---Inward Report---//
     Route::get('inward','GateController@inward');
+    Route::get('inward_report/{id}','GateController@inward_report');
+
+        //----Outward Report------///
+    Route::get('outward_report','GateController@outward_report');
+    Route::get('out_report/{id}','GateController@out_report');
+
+
 
 });
 

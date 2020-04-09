@@ -120,8 +120,31 @@ class StoreController extends Controller
     }
 
     public function newBuiltyArrival(){
-        $inward_gate_pass=DB::table('inward_gate_pass')->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
         return view('store::newBuiltyArrival', compact('inward_gate_pass'));
+    }
+
+    public function newBuiltyArrival_outward(){
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
+//        dd($inward_gate_pass);
+        return view('store::newBuiltyArrival_outward', compact('inward_gate_pass'));
+    }
+
+
+    public function viewBuiltyDetails_out($gatePassId)
+    {
+//        dd($gatePassId);
+        if ($gatePassId!=0 || $gatePassId!=null || $gatePassId!=''){
+            $inward_gate_pass=DB::table('inward_gate_pass')->where('id', $gatePassId)->first();
+            $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $inward_gate_pass->gatePassId)->get();
+
+//            dd($inward_gate_pass);
+//            dd('moms');
+            return view('store::table_append_out', compact('inward_raw_material','inward_gate_pass'));
+        }
+        else {
+            return json_encode(['error'=> 'error']);
+        }
     }
 
 
@@ -141,16 +164,22 @@ class StoreController extends Controller
         }
     }
 
-    public function changeUnloadStatus(Request $request)
+
+
+    public function changeUnloadStatus_out(Request $request)
     {
         $gatepassid=$request->gatepassid;
         if ($gatepassid!=0 || $gatepassid!=null || $gatepassid!=''){
             $data=[
                 'status' => 1
             ];
+            $data_one=[
+                'status' => 2
+            ];
+//            dd($gatepassid);
             $update=DB::table('inward_gate_pass')->where('gatePassId', $gatepassid)->update($data);
 
-            $updateinward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)->update($data);
+            $updateinward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)->update($data_one);
 
             if ($update && $updateinward_raw_material){
                 return redirect()->back()->with('message', 'Updated Status Successfuly.');
@@ -165,18 +194,47 @@ class StoreController extends Controller
     }
 
 
-      public function productionProduct()
-      {
-          $stores=DB::table('store')->get();
-          $products=DB::table('production_order')
-              ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
-              ->where('status',4)
-              ->get();
 
-          return view('store::dashboard/product', compact('products','stores'));
-      }
+    public function changeUnloadStatus(Request $request)
+    {
+        $gatepassid=$request->gatepassid;
+        if ($gatepassid!=0 || $gatepassid!=null || $gatepassid!=''){
+            $data=[
+                'status' => 1
+            ];
+            $data_one=[
+                'status' => 2
+            ];
+//            dd($gatepassid);
+            $update=DB::table('inward_gate_pass')->where('gatePassId', $gatepassid)->update($data);
 
-      public function approveForInspectionNote(){
+            $updateinward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)->update($data_one);
+
+            if ($update && $updateinward_raw_material){
+                return redirect()->back()->with('message', 'Updated Status Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+    }
+
+
+    public function productionProduct()
+    {
+        $stores=DB::table('store')->get();
+        $products=DB::table('production_order')
+            ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
+            ->where('status',4)
+            ->get();
+
+        return view('store::dashboard/product', compact('products','stores'));
+    }
+
+    public function approveForInspectionNote(){
         $stores=DB::table('store')->get();
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 1)
             ->orWhere('status', 2)->orWhere('status', 3)
@@ -232,18 +290,18 @@ class StoreController extends Controller
             $checkStore=$checkStore->storeLocation;
 
 //            if ($checkStore){
-                $data=[
-                    'status' => 2
-                ];
-                $update=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)
-                    ->where('materialName', $request->materialname)->update($data);
+            $data=[
+                'status' => 2
+            ];
+            $update=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)
+                ->where('materialName', $request->materialname)->update($data);
 
-                if ($update){
-                    return redirect()->back()->with('message', 'Sent for Inspection Successfuly.');
-                }
-                else {
-                    return back()->withErrors( 'Something went wrong.');
-                }
+            if ($update){
+                return redirect()->back()->with('message', 'Sent for Inspection Successfuly.');
+            }
+            else {
+                return back()->withErrors( 'Something went wrong.');
+            }
 //            }
 //            else {
 //                return back()->withErrors( 'Kindly, First assign a store.');
@@ -267,82 +325,222 @@ class StoreController extends Controller
 //        dd($inward_raw_material);
         return view('store::inwardInspectionNote', compact( 'inward_raw_material'));
     }
+
+    public function sale_storing(Request $request)
+    {
+        $so=DB::table('sale_order')->where('id',$request->so_id)->first();
+//        dd($so->so_number);
+        $sop=DB::table('sale_order_products')->where('so_number',$so->so_number)->first();
+        $order_quantity=$sop->qty;
+
+
+        $store=DB::table('store_stock')->where('name','Kartoos')->where('store_location','Finished Goods 1')->first();
+//        dd($store->id);
+        $store_quantity=$store->quantity;
+        if($store_quantity > $order_quantity)
+        {
+            $store_quantity=$store_quantity-$order_quantity;
+            $data=[
+                'quantity' => $store_quantity
+            ];
+            $update=DB::table('store_stock')->where('id', $store->id)->update($data);
+        }
+        else
+        {
+            return back()->withErrors( 'You have less quantity in the store.');
+        }
+
+
+
+        $data=[
+            'driver_id' => $request->driver_cnic,
+            'driver_name' => $request->driver_name,
+            'vehicle_number' => $request->vehicle_number,
+            'status' => 2
+        ];
+        $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
+
+        return redirect()->back();
+    }
+
+    public function sales_list()
+    {
+        $sales_list=DB::table('sale_order')->where('status',1)->orwhere('status',2)->orwhere('status',3)->get();
+        return view('store::sale/sale_list',compact('sales_list'));
+    }
+    public function saling($id)
+    {
+//        dd($id);
+        $sale=DB::table('sale_order')->where('id',$id)->first();
+//        dd($sale);
+        return view('store::sale/sale',compact('sale'));
+    }
+    public function add_i_note_qc($id)
+    {
+//        dd($id);
+        $view=[];
+        $gate=DB::table('inward_gate_pass')->where('id',$id)->first();
+//        dd($gate);
+        $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId',$gate->gatePassId)->get();
+//        dd($material);
+        foreach ($inward_raw_material as $in)
+        {
+            $view=$in;
+        }
+//        dd($view);
+        return view('store::add_i_note_qc',compact('inward_raw_material','gate','view'));
+    }
+
+    public function inwardInspectionNote_out()
+    {
+        $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%FI-%')->where('status', 2)
+            ->orWhere('status', 3)->orWhere('status', 4)
+            ->orWhere('status', 5)->orWhere('status', 6)->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
+//        dd($inward_gate_pass);
+//        $inward_raw_material=[];
+//        foreach($inward_gate_pass as $gate)
+//        {
+//            $inward_raw_material[]=$inward_raw_material=DB::table('inward_raw_material')->where('status', 2)->where('gatePassId',$gate->gatePassId)->get();
+//        }
+//        dd($inward_raw_material);
+
+        return view('store::inwardInspectionNote_out', compact( 'inward_raw_material','inward_gate_pass'));
+    }
+
+
     public function inwardInspectionNote()
     {
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 2)
             ->orWhere('status', 3)->orWhere('status', 4)
             ->orWhere('status', 5)->orWhere('status', 6)->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->get();
+//        dd($inward_gate_pass);
+//        $inward_raw_material=[];
+//        foreach($inward_gate_pass as $gate)
+//        {
+//            $inward_raw_material[]=$inward_raw_material=DB::table('inward_raw_material')->where('status', 2)->where('gatePassId',$gate->gatePassId)->get();
+//        }
+//        dd($inward_raw_material);
 
-        return view('store::inwardInspectionNote', compact( 'inward_raw_material'));
+        return view('store::inwardInspectionNote', compact( 'inward_raw_material','inward_gate_pass'));
     }
 
+
+
+
     public function submitInwardInspectionNote(Request $request){
-        $submitId=$request->submitId;
-        if ($submitId!=0 || $submitId!=null || $submitId!='') {
+
+//        dd($request->detail_id);
+        $size = sizeof($request->inspectionStatus);
+
+        for ($i = 0; $i < $size; $i++) {
             $data=[
                 'inspectionDate' => date('Y-m-d'),
-                'inspectionStatus' => $request->inspectionStatus,
-                'rejectionReason' => $request->rejectionReason,
-                'rejectedQty' => $request->rejectedQty
+                'inspectionStatus' => $request->inspectionStatus[$i],
+                'rejectionReason' => $request->rejectionReason[$i],
+                'rejectedQty' => $request->rejectedQty[$i],
             ];
-
-            $update=DB::table('inward_raw_material')->where('id', $submitId)->update($data);
-
-            if ($update){
-                return redirect()->back()->with('message', 'Updated Successfuly.');
-            }
-            else {
-                return back()->withErrors( 'Something went wrong.');
-            }
+            $update=DB::table('inward_raw_material')->where('id', $request->detail_id[$i])->update($data);
         }
-        else {
-            return back()->withErrors( 'Something went wrong.');
-        }
+        return redirect()->back()->with('message', 'Updated Successfuly.');
+
+
+//        $submitId=$request->submitId;
+//        if ($submitId!=0 || $submitId!=null || $submitId!='') {
+//            $data=[
+//                'inspectionDate' => date('Y-m-d'),
+//                'inspectionStatus' => $request->inspectionStatus,
+//                'rejectionReason' => $request->rejectionReason,
+//                'rejectedQty' => $request->rejectedQty
+//            ];
+
+//            $update=DB::table('inward_raw_material')->where('gatePassId', $request->submitId)->update($data);
+//
+//            if ($update){
+//                return redirect()->back()->with('message', 'Updated Successfuly.');
+//            }
+//            else {
+//                return back()->withErrors( 'Something went wrong.');
+//            }
     }
 
     public function sendForInwardReceipt(Request $request){
+//        dd($request->detail_id);
+        $raw_id=[];
         $sendId=$request->sendId;
-        if ($sendId!=0 || $sendId!=null || $sendId!=''){
-
-            $checkStore=DB::table('inward_raw_material')->where('id', $sendId)->first();
-            $checkInspection=$checkStore->inspectionDate;
-
-            if ($checkInspection){
-                $data=[
-                    'status' => 3
-                ];
-                $update=DB::table('inward_raw_material')->where('id', $sendId)->update($data);
-
-                if ($update){
-                    return redirect()->back()->with('message', 'Sent for Recepit Successfuly.');
-                }
-                else {
-                    return back()->withErrors( 'Something went wrong.');
-                }
-            }
-            else {
-                return back()->withErrors( 'Kindly, First Add a Note.');
-            }
+        $gate=DB::table('inward_gate_pass')->where('id',$sendId)->first();
+        $raw=DB::table('inward_raw_material')->where('gatePassId',$gate->gatePassId)->get();
+        foreach ($raw as $r)
+        {
+            $raw_id[]=$r->id;
         }
-        else {
-            return back()->withErrors( 'Something went wrong.');
+//        dd($raw_id);
+        $size = sizeof($raw);
+//        dd($size);
+        for ($i = 0; $i < $size; $i++)
+        {
+            $data=[
+                'status' => 3
+            ];
+            $update=DB::table('inward_raw_material')->where('id', $raw_id[$i])->update($data);
         }
+        return redirect()->back()->with('message', 'Sent for Recepit Successfuly.');
+//        if ($sendId!=0 || $sendId!=null || $sendId!=''){
+//
+//            $checkStore=DB::table('inward_raw_material')->where('id', $sendId)->first();
+//            $checkInspection=$checkStore->inspectionDate;
+//
+//            if ($checkInspection){
+//                $data=[
+//                    'status' => 3
+//                ];
+//                $update=DB::table('inward_raw_material')->where('id', $sendId)->update($data);
+//
+//                if ($update){
+//                    return redirect()->back()->with('message', 'Sent for Recepit Successfuly.');
+//                }
+//                else {
+//                    return back()->withErrors( 'Something went wrong.');
+//                }
+//            }
+//            else {
+//                return back()->withErrors( 'Kindly, First Add a Note.');
+//            }
+//        }
+//        else {
+//            return back()->withErrors( 'Something went wrong.');
+//        }
+    }
+
+    public function inwardGoodsReceipt_out()
+    {
+        $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%FI-%')->where('status', 3)
+            ->orWhere('status', 4)->orWhere('status', 5)
+            ->orWhere('status', 6)->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
+        return view('store::inwardGoodsReceipt_out', compact('inward_raw_material','inward_gate_pass'));
     }
 
     public function inwardGoodsReceipt()
     {
-        $inward_raw_material=DB::table('inward_raw_material')->where('status', 3)
+        $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%PR-%')->where('status', 3)
             ->orWhere('status', 4)->orWhere('status', 5)
             ->orWhere('status', 6)->get();
-        return view('store::inwardGoodsReceipt', compact('inward_raw_material'));
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
+        return view('store::inwardGoodsReceipt', compact('inward_raw_material','inward_gate_pass'));
     }
 
-    public function writeInwardGoodsReceipt($id, $gatePassId)
+
+    public function writeInwardGoodsReceipt_out($id, $gatePassId)
     {
 //        dd($request->all());
+//        dd($id);
+        $cost=[];
         if ($id!=null || $id!=0 || $id!=''){
 
             $countInwardGoodsReceipt=DB::table('inward_goods_receipt')->select('grn')->orderByDesc('id')->first();
+//            dd($countInwardGoodsReceipt);
             if(empty($countInwardGoodsReceipt)){
                 $countInwardGoodsReceipt=1;
             }
@@ -351,43 +549,90 @@ class StoreController extends Controller
                 ++$countInwardGoodsReceipt;
             }
             $stores=DB::table('store')->get();
-
-            $inward_raw_material=DB::table('inward_raw_material')->where('id', $id)->first();
-            $pop=DB::table('purchase_order_approval')->where('purchase_order_id',$inward_raw_material->purchase_order_id)->first();
+            $gate=DB::table('inward_gate_pass')->where('gatePassId', $gatePassId)->first();
+            $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gate->gatePassId)->get();
+            $mat_raw=DB::table('inward_raw_material')->where('gatePassId', $gate->gatePassId)->first();
+            $pop=DB::table('purchase_order_approval')->where('requisition_id',$mat_raw->requisition_id)->first();
             $inward_gate_pass=DB::table('inward_gate_pass')->where('gatePassId', $gatePassId)->first();
-            $cost=DB::table('purchase_order_approval_detail')->where('purchase_order_id',$inward_raw_material->purchase_order_id)->where('material_name',$inward_raw_material->materialName)->first();
-//            dd($cost);
-            return view('store::writeInwardGoodsReceipt', compact('cost','pop','inward_raw_material', 'inward_gate_pass', 'stores','countInwardGoodsReceipt','id'));
+            foreach ($inward_raw_material as $r_m)
+            {
+                $cost[]=DB::table('purchase_order_approval_detail')->where('purchase_order_id',$r_m->purchase_order_id)->where('material_name',$r_m->materialName)->first();
+
+            }
+//                        dd($id);
+            return view('store::writeInwardGoodsReceipt_out', compact('mat_raw','pop','inward_raw_material', 'inward_gate_pass', 'stores','countInwardGoodsReceipt','id'));
         }
         else {
             return back()->withErrors( 'Something went wrong.');
         }
     }
 
-    public function submitInwardGoodsReceipt(Request $request){
-        $purchase_from_a=DB::table('purchase_order_approval')->where('purchase_order_id',$request->purchaseOrderNo)->first();
+
+    public function writeInwardGoodsReceipt($id, $gatePassId)
+    {
 //        dd($request->all());
-//        dd($purchase_from_a->purchase_type);
-        $id=$request->ids;
+//        dd($id);
+        $cost=[];
+        if ($id!=null || $id!=0 || $id!=''){
 
-        if ($id!=0 || $id!=null || $id!=''){
-            $itemType=$request->itemType;
-            $storeLocation=$request->storeLocation;
-            $data=[
-                'storeLocation' => $storeLocation
-            ];
-
-            if ($itemType=="Material" && ($storeLocation=="Magazine 1" || $storeLocation=="Magazine 2")){
-                $update=DB::table('inward_raw_material')->where('id', $id)
-                    ->where('materialName', $request->materialName)->update($data);
-            }
-            elseif ($itemType=="Component" && ($storeLocation=="Components")){
-                $update=DB::table('inward_raw_material')->where('id', $id)
-                    ->where('materialName', $request->materialName)->update($data);
+            $countInwardGoodsReceipt=DB::table('inward_goods_receipt')->select('grn')->orderByDesc('id')->first();
+//            dd($countInwardGoodsReceipt);
+            if(empty($countInwardGoodsReceipt)){
+                $countInwardGoodsReceipt=1;
             }
             else{
-                return back()->withErrors( 'Please Select the Item Relevant Store.');
+                $countInwardGoodsReceipt=substr($countInwardGoodsReceipt->grn,5);
+                ++$countInwardGoodsReceipt;
             }
+            $stores=DB::table('store')->get();
+            $gate=DB::table('inward_gate_pass')->where('gatePassId', $gatePassId)->first();
+            $inward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gate->gatePassId)->get();
+            $mat_raw=DB::table('inward_raw_material')->where('gatePassId', $gate->gatePassId)->first();
+            $pop=DB::table('purchase_order_approval')->where('requisition_id',$mat_raw->requisition_id)->first();
+            $inward_gate_pass=DB::table('inward_gate_pass')->where('gatePassId', $gatePassId)->first();
+            foreach ($inward_raw_material as $r_m)
+            {
+                $cost[]=DB::table('purchase_order_approval_detail')->where('purchase_order_id',$r_m->purchase_order_id)->where('material_name',$r_m->materialName)->first();
+
+            }
+//                        dd($id);
+            return view('store::writeInwardGoodsReceipt', compact('mat_raw','pop','inward_raw_material', 'inward_gate_pass', 'stores','countInwardGoodsReceipt','id'));
+        }
+        else {
+            return back()->withErrors( 'Something went wrong.');
+        }
+    }
+
+
+
+
+
+
+    public function submitInwardGoodsReceipt_out(Request $request){
+//        dd($request->all());
+        $purchase_from_a=DB::table('purchase_order_approval')->where('purchase_order_id',$request->purchaseOrderNo)->first();
+        $sizing=sizeof($request->materialName);
+//        dd($request->all());
+//        dd($purchase_from_a->purchase_type);
+        for ($i = 0; $i < $sizing; $i++) {
+            $id = $request->inward_raw_material_id[$i];
+
+            if ($request->inward_raw_material_id[$i] != 0 || $request->inward_raw_material_id[$i] != null || $request->inward_raw_material_id[$i] != '') {
+                $itemType = $request->itemType[$i];
+                $storeLocation = $request->storeLocation[$i];
+                $data = [
+                    'storeLocation' => $storeLocation
+                ];
+
+                if ($request->itemType[$i] == "Material" && ($request->storeLocation[$i] == "Magazine 1" || $request->storeLocation[$i] == "Magazine 2")) {
+                    $update = DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id[$i])
+                        ->where('materialName', $request->materialName[$i])->update($data);
+                } elseif ($request->itemType[$i] == "Component" && ($request->storeLocation[$i] == "Components")) {
+                    $update = DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id[$i])
+                        ->where('materialName', $request->materialName[$i])->update($data);
+                } else {
+                    return back()->withErrors('Please Select the Item Relevant Store.');
+                }
 
 //            if ($update){
 //                return redirect()->back()->with('message', 'Updated Store Successfully.');
@@ -395,106 +640,174 @@ class StoreController extends Controller
 //            else {
 //                return back()->withErrors( 'Something went wrong in store assign.');
 //            }
-        }
-        else {
-            return back()->withErrors( 'Something went wrong in store assign.');
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        if($request->hasFile('document')) {
-            $validator=request()->validate([
-                'document' => 'file|mimes:pdf',
-            ]);
-
-            if (!$validator){
-                return back()->withErrors();
+            } else {
+                return back()->withErrors('Something went wrong in store assign.');
             }
 
-            $file = $request->file('document');
-            $name=$file->getClientOriginalName();
-            $path=public_path('upload');
-            $file->move($path, $name);
-            $document = $name;
-        }
-        else{
-            $document=null;
-        }
 
-        $data=[
-            'grn' => $request->grn,
-            'grnDate' => date('Y-m-d'),
-            'document' => $document,
-            'purchasedFrom' => $purchase_from_a->purchase_type,
-            'gatePassId' => $request->gatePassId,
-            'totalCost' => $request->totalCost,
-            'name' => $request->name,
-            'purchaseOrderNo' => $request->purchaseOrderNo,
-            'materialName' => $request->materialName,
-            'uom' => $request->uom,
-            'description' => $request->description,
-            'totalQuantity' => $request->totalQuantity,
-        ];
-        $insert=DB::table('inward_goods_receipt')->insert($data);
+            if ($request->hasFile('document')) {
 
-        $data=[
-            'status' => 4
-        ];
-        $update=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($data);
+                $validator = request()->validate([
+                    'document' => 'file|mimes:pdf',
+                ]);
+                if (!$validator) {
+                    return back()->withErrors();
+                }
 
-        if ($insert && $update){
-            return redirect('store/inwardGoodsReceipt')->with('message', 'Submitted Successfuly.');
+                $file = $request->file('document')[$i];
+                $name = $file->getClientOriginalName();
+                $path = public_path('upload');
+                $file->move($path, $name);
+                $document = $name;
+            } else {
+                $document = null;
+            }
+
+            $data = [
+                'grn' => $request->grn,
+                'grnDate' => date('Y-m-d'),
+                'document' => $document,
+                'gatePassId' => $request->gatePassId,
+                'materialName' => $request->materialName[$i],
+                'uom' => $request->uom[$i],
+                'description' => $request->description[$i],
+                'totalQuantity' => $request->totalQuantity[$i],
+            ];
+            $insert = DB::table('inward_goods_receipt')->insert($data);
+
+            $data = [
+                'status' => 4
+            ];
+            $update = DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id[$i])->update($data);
+
+
         }
-        else {
-            return back()->withErrors( 'Something went wrong.');
+        return redirect('store/inwardGoodsReceipt')->with('message', 'Submitted Successfuly.');
+    }
+
+
+
+
+
+
+
+
+    public function submitInwardGoodsReceipt(Request $request){
+        $purchase_from_a=DB::table('purchase_order_approval')->where('purchase_order_id',$request->purchaseOrderNo)->first();
+        $sizing=sizeof($request->materialName);
+//        dd($request->all());
+//        dd($purchase_from_a->purchase_type);
+        for ($i = 0; $i < $sizing; $i++) {
+            $id = $request->inward_raw_material_id[$i];
+
+            if ($request->inward_raw_material_id[$i] != 0 || $request->inward_raw_material_id[$i] != null || $request->inward_raw_material_id[$i] != '') {
+                $itemType = $request->itemType[$i];
+                $storeLocation = $request->storeLocation[$i];
+                $data = [
+                    'storeLocation' => $storeLocation
+                ];
+
+                if ($request->itemType[$i] == "Material" && ($request->storeLocation[$i] == "Magazine 1" || $request->storeLocation[$i] == "Magazine 2")) {
+                    $update = DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id[$i])
+                        ->where('materialName', $request->materialName[$i])->update($data);
+                } elseif ($request->itemType[$i] == "Component" && ($request->storeLocation[$i] == "Components")) {
+                    $update = DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id[$i])
+                        ->where('materialName', $request->materialName[$i])->update($data);
+                } else {
+                    return back()->withErrors('Please Select the Item Relevant Store.');
+                }
+
+//            if ($update){
+//                return redirect()->back()->with('message', 'Updated Store Successfully.');
+//            }
+//            else {
+//                return back()->withErrors( 'Something went wrong in store assign.');
+//            }
+            } else {
+                return back()->withErrors('Something went wrong in store assign.');
+            }
+
+
+            if ($request->hasFile('document')) {
+
+                $validator = request()->validate([
+                    'document' => 'file|mimes:pdf',
+                ]);
+                if (!$validator) {
+                    return back()->withErrors();
+                }
+
+                $file = $request->file('document')[$i];
+                $name = $file->getClientOriginalName();
+                $path = public_path('upload');
+                $file->move($path, $name);
+                $document = $name;
+            } else {
+                $document = null;
+            }
+
+            $data = [
+                'grn' => $request->grn,
+                'grnDate' => date('Y-m-d'),
+                'document' => $document,
+                'purchasedFrom' => $purchase_from_a->purchase_type,
+                'gatePassId' => $request->gatePassId,
+                'totalCost' => $request->totalCost[$i],
+                'name' => $request->name,
+                'purchaseOrderNo' => $request->purchaseOrderNo,
+                'materialName' => $request->materialName[$i],
+                'uom' => $request->uom[$i],
+                'description' => $request->description[$i],
+                'totalQuantity' => $request->totalQuantity[$i],
+            ];
+            $insert = DB::table('inward_goods_receipt')->insert($data);
+
+            $data = [
+                'status' => 4
+            ];
+            $update = DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id[$i])->update($data);
+
+
         }
+        return redirect('store/inwardGoodsReceipt')->with('message', 'Submitted Successfuly.');
     }
 
     public function changeInwardReceiptApprovalStatus(Request $request){
         $id=$request->sendId;
-        if ($id!=0 || $id!=null || $id!=''){
-            $checkMakeReceiptStatus=DB::table('inward_raw_material')->where('id', $id)->first();
-            $checkMakeReceiptStatus=$checkMakeReceiptStatus->status;
+        $i=DB::table('inward_raw_material')->where('id',$id)->first();
+        $idss=DB::table('inward_raw_material')->where('gatePassId',$i->gatePassId)->get();
+        foreach ($idss as $ii)
+        {
+            $r[]=$ii->id;
+        }
+        $siz=sizeof($r);
+//        dd($siz);
+        for ($i = 0; $i < $siz; $i++) {
+            if ($r[$i] != 0 || $r[$i] != null || $r[$i] != '') {
+                $checkMakeReceiptStatus = DB::table('inward_raw_material')->where('id', $r[$i])->first();
+                $checkMakeReceiptStatus = $checkMakeReceiptStatus->status;
 
-            if ($checkMakeReceiptStatus==4){
-                $data=[
-                    'status' => 5
-                ];
-                $update=DB::table('inward_raw_material')->where('id', $id)->update($data);
-
-                if ($update){
-                    return redirect()->back()->with('message', 'Submitted Successfuly.');
+                if ($checkMakeReceiptStatus == 4) {
+                    $data = [
+                        'status' => 5
+                    ];
+                    $update = DB::table('inward_raw_material')->where('id', $r[$i])->update($data);
+                } else {
+                    return back()->withErrors('Kindly first make the Receipt.');
                 }
-                else {
-                    return back()->withErrors( 'Something went wrong.');
-                }
-            }
-            else {
-                return back()->withErrors( 'Kindly first make the Receipt.');
+            } else {
+                return back()->withErrors('Something went wrong.');
             }
         }
-        else {
-            return back()->withErrors( 'Something went wrong.');
-        }
+        return redirect()->back()->with('message', 'Submitted Successfuly.');
     }
 
     //    ------------------------------ Products Came Form Production ----------------------------- //
     public function assignStoreToFactoryInMadeProducts()
     {
         $stores=DB::table('store')->get();
-        $products=DB::table('production_order')->where('status',4)
-            ->orWhere('status',5)
+        $products=DB::table('production_order')->where('status',5)
+            ->orWhere('status',6)
             ->get();
         return view('store::dashboard/assignStoreToFactoryInMadeProducts', compact('products','stores'));
     }
@@ -510,7 +823,7 @@ class StoreController extends Controller
             'status' => 0
         ];
         $dataStatus=[
-            'status' => 5
+            'status' => 6
         ];
 
         if ($request->store_location=="Finished Goods 1"){
@@ -600,8 +913,8 @@ class StoreController extends Controller
 
     public function assignStoreToFactoryInMadeComponents(){
         $stores=DB::table('store')->get();
-        $components=DB::table('component_order')->where('status',4)
-            ->orWhere('status',5)
+        $components=DB::table('component_order')->where('status',5)
+            ->orWhere('status',6)
             ->get();
         return view('store::dashboard/assignStoreToFactoryInMadeComponents', compact('components','stores'));
 
@@ -617,7 +930,7 @@ class StoreController extends Controller
             'status' => 0
         ];
         $dataStatus=[
-            'status' => 5
+            'status' => 6
         ];
 
         if ($request->store_location=="Components"){
@@ -681,11 +994,11 @@ class StoreController extends Controller
 
     public function assignStoreToFactoryInwardComponents(){
         $inward_raw_material=DB::table('inward_raw_material')->where('itemType' , 'Component')
-                    ->where(function($result) {
-                        $result->where("status" , 5)
-                            ->orWhere('status' , 6);
-                    })
-                    ->get();
+            ->where(function($result) {
+                $result->where("status" , 5)
+                    ->orWhere('status' , 6);
+            })
+            ->get();
         return view('store::dashboard/assignStoreToFactoryInwardComponents', compact('inward_raw_material'));
     }
 
@@ -841,7 +1154,7 @@ class StoreController extends Controller
             }
         }
         else {
-                return back()->withErrors( 'Select the Component Relevant Store.');
+            return back()->withErrors( 'Select the Component Relevant Store.');
         }
     }
 

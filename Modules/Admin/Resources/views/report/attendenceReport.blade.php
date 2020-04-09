@@ -10,6 +10,15 @@
                     <strong>Success</strong> {{session()->get('save')}}
                 </div>
             @endif
+
+            @if($errors->any())
+            <div class="alert alert-danger text-center">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
             
             <!-- <div class="container-fluid">
             <div class="row">
