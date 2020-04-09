@@ -18,7 +18,7 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="builtyTable" class="table table-bordered table-striped">
 
                             <thead>
 
@@ -70,7 +70,7 @@
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="builtyTable1" class="table table-bordered table-striped">
 
                                     <thead>
 
@@ -112,7 +112,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="builtyTable2" class="table table-bordered table-striped">
 
                                     <thead>
 
@@ -152,5 +152,11 @@
             <!-- /.card-body -->
         </div>
     </div>
-
+    <script>
+        $( document ).ready(function() {
+            $('#builtyTable').DataTable();
+            $('#builtyTable1').DataTable();
+            $('#builtyTable2').DataTable();
+        });
+    </script>
 @endsection

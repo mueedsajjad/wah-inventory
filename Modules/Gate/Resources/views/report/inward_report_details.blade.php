@@ -30,31 +30,31 @@
                                 @if($data->purchase_order_id==null)
 
                                 @elseif($data->purchase_order_id)
-                                    <tr>
-                                        <th>Inward Type</th>
-                                        <td>Purchase Inward</td>
-                                    </tr>
+{{--                                    <tr>--}}
+{{--                                        <th>Inward Type</th>--}}
+{{--                                        <td>Purchase Inward</td>--}}
+{{--                                    </tr>--}}
                                 <tr>
                                     <th>	Purchase Order</th>
                                     <td>{{$data->purchase_order_id}}</td>
                                 </tr>
                                 @endif
-                                @if($data->purchase_order_id==null && $data->requisition_id)
-                                    <tr>
-                                        <th>Inward Type</th>
-                                        <td>Requisition Inward</td>
-                                    </tr>
-                                    @endif
+{{--                                @if($data->purchase_order_id==null && $data->requisition_id)--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Inward Type</th>--}}
+{{--                                        <td>Requisition Inward</td>--}}
+{{--                                    </tr>--}}
+{{--                                    @endif--}}
                                 @if($data->requisition_id)
                                 <tr>
                                     <th>Requisition</th>
                                     <td>{{$data->requisition_id}}</td>
                                 </tr>
-                                @elseif($data->requisition_id==null && $data->purchase_order_id==null )
-                                    <tr>
-                                        <th>Inward type</th>
-                                        <td>Factory Inward</td>
-                                    </tr>
+{{--                                @elseif($data->requisition_id==null && $data->purchase_order_id==null )--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Inward type</th>--}}
+{{--                                        <td>Factory Inward</td>--}}
+{{--                                    </tr>--}}
 
                                     @endif
                                 <tr>

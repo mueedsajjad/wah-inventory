@@ -11,7 +11,7 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="builtyTable" class="table table-bordered table-striped">
 
                             <thead>
 
@@ -165,6 +165,11 @@
             window.print();
             document.body.innerHTML=restorepage;
         }
+
+        $( document ).ready(function() {
+            $('#builtyTable').DataTable();
+        });
+
     </script>
 
 @endsection
