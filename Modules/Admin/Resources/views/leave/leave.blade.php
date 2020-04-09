@@ -134,7 +134,7 @@
 
 
                                                 <div class="form-group row">
-                                                    <label class="col-sm-4 col-form-label">Leave Date</label>
+                                                    <label class="col-sm-4 col-form-label">Apply Date</label>
                                                     <div class="col-sm-8">
                                                         <input name="leave_date" type="date" class="form-control" required placeholder="20-02-2020">
                                                     </div>
@@ -143,7 +143,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">Leave Days</label>
                                                     <div class="col-sm-8">
-                                                        <input name="days" type="number" class="form-control" required>
+                                                        <input name="days" type="number" class="form-control" value="1" required>
                                                     </div>
                                                 </div>
 
@@ -156,6 +156,20 @@
                                                             <option value="{{$leave->id}}">{{$leave->leave_name}}</option>
                                                             @endforeach
                                                         </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">From</label>
+                                                    <div class="col-sm-8">
+                                                        <input name="fromDate" type="Date" class="form-control"  required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label">To</label>
+                                                    <div class="col-sm-8">
+                                                        <input name="toDate" type="Date" class="form-control"  required>
                                                     </div>
                                                 </div>
 

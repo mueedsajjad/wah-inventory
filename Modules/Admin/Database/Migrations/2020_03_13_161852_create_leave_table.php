@@ -23,6 +23,8 @@ class CreateLeaveTable extends Migration
             $table->string('reason')->nullable();
             $table->integer('status')->nullable();
             $table->integer('days')->nullable();
+            $table->date('toDate')->nullable();
+            $table->date('fromDate')->nullable();
 
             $table->timestamps();
         });

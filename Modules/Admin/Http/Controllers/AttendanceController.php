@@ -18,7 +18,7 @@ class AttendanceController extends Controller
     }
 
     public function attendance()
-    {
+    { 
         $attendances=DB::table('attendance')
             ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
             ->join('users','attendance.userId','=','users.id')
@@ -63,6 +63,7 @@ class AttendanceController extends Controller
 
     public function checkInAttendanceStore(Request $request)
     {
+        $leaveCheck=0;
         $nowInTime = Carbon::now('Asia/Karachi');
         $nowInTime=$nowInTime->format('H:i');
        
@@ -71,11 +72,7 @@ class AttendanceController extends Controller
             if($userId!=null || $userId!=0 || $userId!='' ){
                 $status=$request->entranceEmployeeStatus;
                 if ($status==1){
-                    // $entranceEmployeeTime=$request->entranceEmployeeTime;
-                    // if ($entranceEmployeeTime=='' || $entranceEmployeeTime==null){
-                    //     return redirect()->back()->withErrors('Entrance Time of Employee is Required.');
-                    // }
-                    // else{
+                    
                         $nowInTime = Carbon::now('Asia/Karachi');
                         $nowInTime=$nowInTime->format('H:i');
     
@@ -96,11 +93,46 @@ class AttendanceController extends Controller
                         else{
                             $checkIn="Timely";
                         }
-                    //}
+                   
                 }
-                else{
+                else if($status==0)
+                {
                     $nowInTime=null;
                     $checkIn="N/A";
+                }
+                else if($status==2)
+                {
+                    $nowInTime=null;
+                    $checkIn="Leave";
+
+                   // whereBetween('reservation_from', [$from, $to])->get();
+                   $leave=DB::table('leave')
+                   ->where('user_id',$userId)
+                   ->where('status',1)
+                   ->orderBy('id', 'desc')
+                   ->first();
+
+                    if(!empty ($leave))
+                    {
+                
+                    $fromDate = Carbon::parse($leave->fromDate);
+                    $toDate= Carbon::parse($leave->toDate);
+                    $today=Carbon::parse(today()->toDateString());
+
+                    if($today>=$fromDate && $today<=$toDate)
+                    {
+                        $leaveCheck=1;
+                    }
+                    else{
+                        return redirect()->back()->with('leave','Leave has not Approved date comparizon');
+                    }
+
+                    }
+                    else{
+                        return redirect()->back()->with('leave','Leave has not Approved');
+                    }
+                   
+                  
                 }
 
                 //date_default_timezone_set("Asia/Karachi");
@@ -114,7 +146,8 @@ class AttendanceController extends Controller
                 }
                 else
                 {
-                   
+                   if($leaveCheck==0) 
+                   {
                     DB::table('attendance')->insert([
                         'userId'=> $userId,
                         'date'=> Carbon::today()->toDateString(),
@@ -122,6 +155,18 @@ class AttendanceController extends Controller
                         'status'=> $status,
                         'checkIn' => $checkIn
                     ]);
+                   } else if($leaveCheck==1) 
+                   {
+                    DB::table('attendance')->insert([
+                        'userId'=> $userId,
+                        'date'=> Carbon::today()->toDateString(),
+                        'inTime'=> $nowInTime,
+                        'status'=> $status,
+                        'checkIn' => $checkIn,
+                        'leaveId' => $leave->id
+                    ]);
+                   }
+                    
                     return redirect()->back()->with('save','Saved Successfully');
                 }
             }
@@ -157,13 +202,7 @@ class AttendanceController extends Controller
     {
         $userId=$request->departureEmployeeId;
         if($userId!=null || $userId!=0 || $userId!='' ){
-            //dd($request);
-            // $data= $request->validate([
-            //     'departureEmployeeTime' => 'required'
-            // ]);
-             
-           
-
+            
             $attendance=DB::table('attendance')->where('userId',$userId)
                 ->where('date',Carbon::today()->toDateString())
                 ->where('status',1)
@@ -313,6 +352,7 @@ class AttendanceController extends Controller
                     ->where('users.id','=', $request->id)
                     ->get();
                 }
+
                 if($count==2)
                 {
                     
@@ -337,18 +377,17 @@ class AttendanceController extends Controller
             
         if($fromDate)
         {
-            
             $attendances=DB::table('attendance')
             ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
             ->join('users','attendance.userId','=','users.id')
             ->whereBetween('attendance.date', [$fromDate,$toDate])
             ->where('users.id','=', $request->id)
             ->get();   
-
         }
        
         // ------ Sum of OverTime,Total Leaves, Total Lates Of Employee  ---------- //
          $leave=0;
+         $absent=0;
          $late=0;
          $name="";
         $tempTime=date('H:i', mktime(0,0));
@@ -360,11 +399,15 @@ class AttendanceController extends Controller
             $name=$attendance->name;
            if($attendance->checkIn=="N/A")
            {
-             $leave++;
+             $absent++;
            }
-           if($attendance->checkIn!="Timely"&&$attendance->checkIn!="N/A")
+           else if($attendance->checkIn=="Late")
            {
              $late++;
+           }
+           elseif($attendance->checkIn=="Leave")
+           {
+               $leave++;
            }
            
         $inWorking=Carbon::parse($attendance->overTime);
@@ -372,7 +415,6 @@ class AttendanceController extends Controller
        if($attendance->overTime!=null)
        {
                 $interval = $tempTime->diff($inWorking);
-     
                 $hourWorking = $interval->format('%H');
                 $minWorking =$interval->format('%i');
                 $hourWorkingInt=(int) $hourWorking;
@@ -385,9 +427,41 @@ class AttendanceController extends Controller
         }
         $overTimes=$addTime->format('H:i');
 
-    $user=DB::table('users')->get();
-    return view('admin::report/attendenceReport' ,compact('attendances',
-     'user','overTimes','leave','late','name'));
+       $user=DB::table('users')->get();
+       return view('admin::report/attendenceReport' ,compact('attendances',
+        'user','overTimes','leave','late','name','absent'));
+    }
+    
+    public function presentAndLeave()
+    {
+        
+        $present=DB::table('attendance')
+        ->where('date',Carbon::today()->toDateString())
+        ->where('status',1)
+        ->count();
+        $absent=DB::table('attendance')
+        ->where('date',Carbon::today()->toDateString())
+        ->where('status',0)
+        ->count();
+        $leave=DB::table('attendance')
+        ->where('date',Carbon::today()->toDateString())
+        ->where('status',2)
+        ->count();
+
+        return view('admin::attendance.presentAndLeave',compact('present','leave','absent'));
+    }
+
+    public function attendancePresentAndLeave($id)
+    { 
+        $attendances=DB::table('attendance')
+            ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+            ->join('users','attendance.userId','=','users.id')
+            ->where('attendance.date', Carbon::today())
+            ->where('status',$id)
+            ->get();
+
+        $user=DB::table('users')->get();
+        return view('admin::attendance/attandance' ,compact('attendances', 'user'));
     }
 
     

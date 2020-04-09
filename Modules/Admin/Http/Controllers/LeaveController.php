@@ -7,14 +7,19 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class LeaveController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-    }    public function leave()
+    }    
+    
+    public function leave()
     {
+        
+       
         $employees=DB::table('users')
             ->join('employees', 'users.id', '=', 'employees.user_id')
             ->get();
@@ -30,6 +35,30 @@ class LeaveController extends Controller
             ->get();
 
             //dd($allLeaves);
+        return view('admin::leave/leave',compact('employees','departments','leaves','allLeaves'));
+    }
+
+    public function leaveToday()
+    {
+        $allLeaves= DB::table('leave')
+
+        
+        ->join('users','users.id','leave.user_id')
+        ->join('departments','departments.id','leave.department_id')
+        ->join('leave_type','leave_type.id','leave.leave_type_id')
+        ->where('attendance.date',Carbon::today()->toDateString())
+        ->join('attendance','attendance.leaveId','leave.id')
+        ->select('users.name as userName','attendance.status as abc','departments.*','leave_type.*','leave.*','leave.id as leaveId')
+        ->get();
+        //dd($allLeaves);
+        $employees=DB::table('users')
+            ->join('employees', 'users.id', '=', 'employees.user_id')
+            ->get();
+
+        $departments=DB::table('departments')->get();
+        $leaves=DB::table('leave_type')->get();
+
+        
         return view('admin::leave/leave',compact('employees','departments','leaves','allLeaves'));
     }
 
@@ -65,7 +94,9 @@ class LeaveController extends Controller
             'leave_date' => 'required|date',
             'leave_type_id' => 'required|integer',
             'reason' => 'required|string',
-            'days' => 'required|integer'
+            'days' => 'required|integer',
+            'toDate' => 'required|date',
+            'fromDate' => 'required|date',
         ]);
 
 
@@ -84,6 +115,9 @@ class LeaveController extends Controller
                 'leave_type_id'=> $data['leave_type_id'],
                 'reason'=> $data['reason'],
                 'days'=> $data['days'],
+                'fromDate'=> $data['fromDate'],
+                'toDate'=> $data['toDate'],
+
                     'status'=> 0
                 ]
             );

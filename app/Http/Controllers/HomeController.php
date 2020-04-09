@@ -88,6 +88,7 @@ class HomeController extends Controller
     }
 
     public function employeeDepartment(){
+        //dd("123");
          
         $query="Select count(*) AS total, d.name, d.id from departments d, employees e where e.department_id=d.id group by d.name,d.id";
         $employees =DB::select($query);

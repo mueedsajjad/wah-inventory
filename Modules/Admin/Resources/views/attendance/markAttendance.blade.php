@@ -15,6 +15,12 @@
             </div>
         @endif
         
+        @if(session()->has('leave'))
+            <div class="alert alert-danger text-center" role="alert">
+                <strong>Warning</strong> {{session()->get('leave')}}
+            </div>
+        @endif
+        
         @if($errors->any())
             <div class="alert alert-danger text-center">
                 @foreach ($errors->all() as $error)
@@ -73,6 +79,7 @@
                                         <option value="none" selected> Select </option>
                                         <option value="1"> Present</option>
                                         <option value="0"> Absent</option>
+                                        <option value="2"> Leave</option>
                                     </select>
                                 </div>
                                 <!-- <div class="form-group" id="entranceEmployeeTimeDiv" style="display: none;">

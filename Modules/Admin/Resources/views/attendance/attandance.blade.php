@@ -55,12 +55,18 @@
                                             @if($attendance->status==0)
                                                 Absent
                                             @endif
+                                            @if($attendance->status==2)
+                                                Leave
+                                            @endif
+                                           
                                         </td>
                                         <td>
                                             @if($attendance->checkIn=="N/A")
                                                 <button class="btn btn-danger btn-sm">N/A</button>
                                             @elseif($attendance->checkIn=="Timely")
                                                 <button class="btn btn-success btn-sm">Timely</button>
+                                            @elseif($attendance->checkIn=="Leave")
+                                                <button class="btn btn-default btn-sm">Leave</button>
                                             @else
                                                 <button class="btn btn-secondary btn-sm">Late</button>
                                             @endif

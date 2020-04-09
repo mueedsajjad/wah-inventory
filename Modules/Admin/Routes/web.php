@@ -41,12 +41,6 @@ Route::get('advanceEmployee', 'AdminController@advanceEmployee');
     // ----------------------- Reports --------------------------------- //
     Route::get('employeeReport', 'AdminController@employeeReport');
 
-
-    
-
-
-   
-
     Route::get('report', 'AdminController@report');
     Route::get('attedanceReport', 'AttendanceController@attedanceReport');
     Route::post('attendanceMWD', 'AttendanceController@attendanceMWD');
@@ -64,6 +58,9 @@ Route::get('advanceEmployee', 'AdminController@advanceEmployee');
     Route::post('deleteAttendance', 'AttendanceController@deleteAttendance');
     Route::post('editAttendance', 'AttendanceController@editAttendance');
 
+    Route::get('/presentAndLeave/dash', 'AttendanceController@presentAndLeave');
+    Route::get('attendancePresentAndLeave/{id}', 'AttendanceController@attendancePresentAndLeave');
+
     // ----------------------- Leave Controller ----------------------- //
     Route::get('leave', 'LeaveController@leave');
 
@@ -73,6 +70,7 @@ Route::get('advanceEmployee', 'AdminController@advanceEmployee');
     Route::get('acceptLeaveRequest/{id}', 'LeaveController@acceptLeaveRequest');
     Route::get('rejectLeaveRequest/{id}', 'LeaveController@rejectLeaveRequest');
 
+    Route::get('leaveToday', 'LeaveController@leaveToday');
 
 
 
