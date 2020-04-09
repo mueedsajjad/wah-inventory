@@ -1,7 +1,8 @@
 @extends('layouts.master')
 @section('content')
+    <h1 class="display-4">Dashboard</h1>
     <div class="row">
-        <h1 class="display-4">Dashboard</h1>
+
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
