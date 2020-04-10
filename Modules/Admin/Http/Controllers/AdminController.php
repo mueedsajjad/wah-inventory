@@ -475,11 +475,21 @@ class AdminController extends Controller
                     $startDate = $salaryMonth;
                     $startDate=Carbon::parse($salaryMonth);
                     $firstDay = $startDate->firstOfMonth();
+                   // dd($firstDay);
                     $sm = $firstDay->toDateString();
+                    $firstOne=$sm;
                    
                     $endDay = $startDate->endOfMonth();
                     $em = $endDay->toDateString();
+                    $secondOne=$em;
                     
+                    // Month Total Days //
+                    $firstOne=Carbon::parse($firstOne);
+                    //dd($secondOne);
+                    $secondOne=Carbon::parse($secondOne);
+                    $totalMonthDays = $firstOne->diffInDays($secondOne);
+                    $totalMonthDays=$totalMonthDays+1;
+                   // dd($totalMonthDays);
                    
                     $attendances=DB::table('attendance')
                     ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
@@ -504,6 +514,7 @@ class AdminController extends Controller
 
                     $hourDuty = $interval->format('%h');
                     $minDuty =$interval->format('%i');
+                    
                    //$sec = $interval->format('%s second');
 
                     $dutyTime=date('H:i', mktime($hourDuty,$minDuty));
@@ -585,7 +596,9 @@ class AdminController extends Controller
             $addTime=Carbon::parse($addTime);
                 // total working days in Month and divide salary by per hour //
                 $workingDaysInWeek=7-$workingDaysInWeek;
-                $workingDaysInMonth=$workingDaysInWeek*4;
+               $workingDaysInMonth=$workingDaysInWeek*4;
+                $workingDaysInMonth=$totalMonthDays-$workingDaysInMonth;
+               // dd($workingDaysInMonth);
 
                 $salaryEmployee = DB::table('users')->select('users.*','employees.*')
                 ->join('employees', 'users.id', '=', 'employees.user_id')
@@ -659,6 +672,35 @@ class AdminController extends Controller
         //dd($request->id);
         DB::table('salary')->where('id',$request->id)->delete();
         return redirect()->back()->with('save','Deleted Successfully');
+    }
+    public function paidAndUnpaidEmployee()
+    {
+       // $startDate = $salaryMonth;
+                    $startDate=Carbon::parse(Carbon::today());
+                    $firstDay = $startDate->firstOfMonth();
+                    $sm = $firstDay->toDateString();
+                   
+                    $endDay = $startDate->endOfMonth();
+                    $em = $endDay->toDateString();
+                    
+                   
+                    // $attendances=DB::table('attendance')
+                    // ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+                    // ->join('users','attendance.userId','=','users.id')
+                    // ->whereBetween('attendance.date', [$sm,$em])
+                    // ->where('users.id','=', $id)
+                    // ->get(); 
+
+                    $paid= DB::table('users')
+                    ->join('employees', 'users.id', '=', 'employees.user_id')
+                    ->join('salary','salary.userId','=','users.id')
+                    ->whereBetween('salary.salaryDate', [$sm,$em])
+                    ->count();
+
+
+
+        //$unpaid=DB::table('salary')
+        
     }
     
     public function advance()

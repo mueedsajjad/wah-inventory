@@ -37,6 +37,20 @@
         </div>
 
         <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+                <div class="inner">
+                    <h3>Salary</h3>
+                    <p>Employees</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-stalker"></i>
+                </div>
+                <a href="{{url('/admin/salary')}}" style="cursor: pointer"  class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
                 <!-- small box -->
             <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                     <div class="inner">
@@ -93,6 +107,22 @@
         $.ajax({
             type: "GET",
             url: "/"+app+"/admin/presentAndLeave/dash",
+            success:function(data)
+            {
+                $("#detail").html(data);
+            }
+        });
+    }
+
+    function salary() {
+        
+        console.log();
+        var path = location.pathname.split('/');
+        var app=path[1];
+        console.log(app);
+        $.ajax({
+            type: "GET",
+            url: "/"+app+"/admin/salary/dash",
             success:function(data)
             {
                 $("#detail").html(data);
