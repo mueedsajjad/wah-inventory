@@ -8,6 +8,34 @@
             <div class="card-header">
                 <h3 class="card-title">Vehicle Report</h3>
             </div>
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6 mt-2">
+                    <form id="dateHearing" action="{{ route('vehicle_gate_date') }}" method="POST" >
+                        @csrf
+                        <div class="d-flex">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">From:</label>
+                                <div class="col-sm-9">
+                                    <input type="date" name="fromDate" id="fromDate" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">&nbsp;To:</label>
+                                <div class="col-sm-10">
+                                    <input type="date" onchange="myFunction()" name="toDate" id="toDate" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <a class="btn btn-success" href="{{url('/gate/vehicle_Date_current_month')}}">Current Month</a>
+                </div>
+            </div>
+
             <!-- /.card-header -->
             <div class="card-body">
 
@@ -104,7 +132,8 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <th>Out Time</th>
-                                                                            <td>{{$data->out_time}}</td>
+{{--                                                                            <td>{{$data->out_time}}</td>--}}
+                                                                            <td>{{date('h:i:s a m/d/Y', strtotime($data->out_time))}}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>Inward Meter Reading</th>
@@ -113,7 +142,8 @@
 
                                                                         <tr>
                                                                             <th>In Time</th>
-                                                                            <td>{{$data->in_time}}</td>
+                                                                            <td>{{date('h:i:s a m/d/Y', strtotime($data->in_time))}}</td>
+{{--                                                                            <td>{{$data->in_time}}</td>--}}
                                                                         </tr>
 
                                                                         <tr>
@@ -170,6 +200,14 @@
             $('#builtyTable').DataTable();
         });
 
+
+        function myFunction(){
+
+            if(document.getElementById("fromDate").value != ''){
+
+                document.getElementById("dateHearing").submit();
+            }
+        }
     </script>
 
 @endsection

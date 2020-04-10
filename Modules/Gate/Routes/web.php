@@ -58,7 +58,10 @@ Route::prefix('gate')->group(function() {
 
     // ------------ Reports --------------------//
     Route::post('Inward_Date', 'GateController@inward_date')->name('inward_gate_date');
+    Route::post('Vehicle_Date', 'GateController@vehicle_date')->name('vehicle_gate_date');
     Route::get('Inward_Date_current_month', 'GateController@inward_current_month');
+    Route::get('vehicle_Date_current_month', 'GateController@vehicle_current_month');
+    Route::get('Outward_Date_current_month', 'GateController@outward_current_month');
     Route::get('report','GateController@report')->middleware('auth');
     Route::post('Outward_Date', 'GateController@Outward_Date')->name('out_gate_date');
 
