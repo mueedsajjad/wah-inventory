@@ -31,9 +31,9 @@
 
 
 
-                        <div id="singleData" class="col-md-6">
+                        <!-- <div id="singleData" class="col-md-6">
 
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -46,20 +46,20 @@
 
 <script>
 
-function requisition() {
-        console.log();
-        var path = location.pathname.split('/');
-        var app=path[1];
-        console.log(app);
-        $.ajax({
-            type: "GET",
-            url: "/"+app+"/employeeDepartment/dash/",
-            success:function(data)
-            {
-                $("#singleData").html(data);
-            }
-        });
-    }
+// function requisition() {
+//         console.log();
+//         var path = location.pathname.split('/');
+//         var app=path[1];
+//         console.log(app);
+//         $.ajax({
+//             type: "GET",
+//             url: "/"+app+"/employeeDepartment/dash/",
+//             success:function(data)
+//             {
+//                 $("#singleData").html(data);
+//             }
+//         });
+//     }
 
     // function singleData(data) {
     //     console.log(data);

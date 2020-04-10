@@ -946,7 +946,7 @@
                             </li>
                         @endif
 
-                        @if(auth()->user()->can('HR'))
+                        
                             <li class="nav-item has-treeview @if(request()->segment(1)=="admin") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="admin") active @endif">
                                     <i class="nav-icon fas fa-edit"></i>
@@ -956,12 +956,14 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+                                @if(auth()->user()->can('HR'))
                                     <li class="nav-item">
                                         <a href="{{url('admin/hr')}}" class="nav-link @if(request()->segment(2)=="hr") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Dashboard</p>
                                         </a>
                                     </li>
+                                   
                                     <li class="nav-item">
                                         <a href="{{url('admin/employee')}}" class="nav-link @if(request()->segment(2)=="employee") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
@@ -974,6 +976,8 @@
                                             <p>Attendance</p>
                                         </a>
                                     </li>
+                                    @endif
+                                    
                                     @if(auth()->user()->can('Accept Leave Request'))
                                         <li class="nav-item">
                                             <a href="{{url('admin/leave')}}" class="nav-link @if(request()->segment(2)=="leave") active @endif">
@@ -982,15 +986,15 @@
                                             </a>
                                         </li>
                                     @endif
-
-                                    @if(auth()->user()->can('Apply for Attendance'))
+                                    
                                         <li class="nav-item">
                                             <a href="{{url('admin/leaveOfficer')}}" class="nav-link @if(request()->segment(2)=="leaveOfficer") active @endif">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Apply for Leaves</p>
                                             </a>
                                         </li>
-                                    @endif
+                                   
+                                    @if(auth()->user()->can('HR'))
                                     <li class="nav-item">
                                         <a href="{{url('admin/salary')}}" class="nav-link @if(request()->segment(2)=="salary") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
@@ -1003,15 +1007,17 @@
                                             <p>Advance</p>
                                         </a>
                                     </li>
+                                    
                                     <li class="nav-item">
                                         <a href="{{url('admin/report')}}" class="nav-link @if(request()->segment(2)=="report") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Reports</p>
                                         </a>
                                     </li>
+                                    @endif
                                 </ul>
                             </li>
-                        @endif
+                       
 
                         @if(auth()->user()->hasRole('GM'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="role" || request()->segment(1)=="permission" || request()->segment(1)=="assign-permission" || request()->segment(1)=="assign-role") menu-open @endif">

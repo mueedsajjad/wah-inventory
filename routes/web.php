@@ -33,6 +33,7 @@ Route::get('/production/dash', 'HomeController@production');
 
 
 Route::get('/requisition/dash', 'HomeController@requisition');
+
 Route::get('/employeeDepartment/dash', 'HomeController@employeeDepartment');
 
 

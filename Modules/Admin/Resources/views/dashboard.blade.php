@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+
     <h1 class="display-4">Dashboard</h1>
 
 <div class="row">
@@ -20,6 +21,21 @@
             </div>
         </div>
 
+        
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+                <div class="inner">
+                    <h3>Attendance</h3>
+                    <p>Employees</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-stalker"></i>
+                </div>
+                <a onclick="attendance()" style="cursor: pointer"  class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
         <div class="col-lg-3 col-6">
                 <!-- small box -->
             <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
@@ -28,7 +44,7 @@
                         <p> All Reports<p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-ios-cart"></i>
+                    <i class="ion ion-person-stalker"></i>
                     </div>
                     <a href="{{url('/admin/report')}}" style="cursor: pointer"  class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -61,6 +77,22 @@
         $.ajax({
             type: "GET",
             url: "/"+app+"/employeeDepartment/dash/",
+            success:function(data)
+            {
+                $("#detail").html(data);
+            }
+        });
+    }
+
+    function attendance() {
+        
+        console.log();
+        var path = location.pathname.split('/');
+        var app=path[1];
+        console.log(app);
+        $.ajax({
+            type: "GET",
+            url: "/"+app+"/admin/presentAndLeave/dash",
             success:function(data)
             {
                 $("#detail").html(data);
