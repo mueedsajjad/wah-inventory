@@ -22,13 +22,41 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <div class="row justify-content-around">
+                                <div class="col-md-12">
+                                <form class="row" action="{{url('sale/saleOrder/searchSaleOrderByDate')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="col-md-5">
+                                        <div class="form-group row">
+                                            <label for="sga_13" class="col-sm-4 col-form-label">From Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" required name="from_date" id="from_date" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group row">
+                                            <label for="sga_13" class="col-sm-4 col-form-label">To Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" required name="to_date" id="to_date" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-success btn-sm">Search</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                            <hr>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="pageTable">
                                     <thead>
                                     <tr class="bg-dark">
                                         <th>Sr #</th>
                                         <th>SO Number</th>
-                                        <th>Customer</th>
+                                        <th>Customer ID</th>
+                                        <th>Customer Name</th>
                                         <th>Date</th>
                                         <th>Delivery Date</th>
                                         <th>Approval Status</th>
@@ -43,7 +71,8 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td>{{$order->so_number}}</td>
-                                            <td>{{$order->customer_name}}</td>
+                                            <td>{{$order->customer_id}}</td>
+                                            <td>{{$order->name}}</td>
                                             <td>{{date('d-m-Y', strtotime($order->date))}}</td>
                                             <td>{{date('d-m-Y', strtotime($order->delivery_date))}}</td>
                                             <td>
@@ -57,8 +86,8 @@
                                             </td>
                                             <td>
                                                 <a type="button"  class="btn btn-primary btn-sm orderDetailBtn" data-toggle="modal" data-target="#orderDetailsModal"
-                                                    data-so_number="{{$order->so_number}}" data-customer_name="{{$order->customer_name}}" data-date="{{date('d-m-Y', strtotime($order->date))}}"
-                                                   data-delivery_date="{{date('d-m-Y', strtotime($order->delivery_date))}}">
+                                                    data-so_number="{{$order->so_number}}" data-customer_id="{{$order->customer_id}}" data-date="{{date('d-m-Y', strtotime($order->date))}}"
+                                                   data-delivery_date="{{date('d-m-Y', strtotime($order->delivery_date))}}" data-name="{{$order->name}}">
                                                     Order Details
                                                 </a>
                                             </td>
@@ -91,7 +120,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row justify-content-around">
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <div class="form-group row">
                                     <label for="sga_13" class="col-sm-4 col-form-label">SO Number</label>
                                     <div class="col-sm-8">
@@ -99,7 +128,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <div class="form-group row">
                                     <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
                                     <div class="col-sm-8">
@@ -107,7 +136,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                        </div>
+                        <div class="row justify-content-around">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="sga_13" class="col-sm-4 col-form-label">Customer Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" name="name" id="name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label for="sga_13" class="col-sm-4 col-form-label">Customer ID</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" name="customer_id" id="customer_id">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-around">
+                            <div class="col-md-5">
                                 <div class="form-group row">
                                     <label for="sga_13" class="col-sm-4 col-form-label">Delivery Date</label>
                                     <div class="col-sm-8">
@@ -115,13 +164,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group row">
-                                    <label for="sga_13" class="col-sm-4 col-form-label">Customer</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control" name="delivery_date" id="customer_name">
-                                    </div>
-                                </div>
+                            <div class="col-md-5">
                             </div>
                         </div>
 
@@ -192,8 +235,10 @@
 
             var so_number=$(this).data('so_number');
             $('#so_number').val(so_number);
-            var customer_name=$(this).data('customer_name');
-            $('#customer_name').val(customer_name);
+            var customer_id=$(this).data('customer_id');
+            $('#customer_id').val(customer_id);
+            var name=$(this).data('name');
+            $('#name').val(name);
             var date=$(this).data('date');
             $('#date').val(date);
             var delivery_date=$(this).data('delivery_date');
