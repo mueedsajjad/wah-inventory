@@ -13,7 +13,7 @@
                             <div class="col-md-6">
                                 <a href="{{url('/requisition/material-dashboard')}}">
                             <div class="info-box" style="cursor: pointer">
-                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
+                                <span class="info-box-icon bg-danger elevation-1 shade box"><i class="fas fa-paper-plane"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text text-black">Material Requests</span>
@@ -30,7 +30,7 @@
                         <div class="col-md-6">
                             <a href="{{url('/requisition/component-dashboard')}}">
                             <div class="info-box" style="cursor: pointer">
-                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
+                                <span class="info-box-icon bg-danger elevation-1 shade box"><i class="fas fa-paper-plane"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Component Request</span>

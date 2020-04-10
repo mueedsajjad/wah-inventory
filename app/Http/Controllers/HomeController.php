@@ -55,6 +55,12 @@ class HomeController extends Controller
         return view('dashboard', compact('user', 'store'));
     }
 
+    public function orderDetails(){
+//        dd('ssa');
+
+        return view('order');
+    }
+
     public function store(){
 
         $store_info = DB::table('store')->get();
@@ -92,7 +98,7 @@ class HomeController extends Controller
          
         $query="Select count(*) AS total, d.name, d.id from departments d, employees e where e.department_id=d.id group by d.name,d.id";
         $employees =DB::select($query);
-        
+
         return view('hr.employeeDepartment', compact('employees'));
     }
 
@@ -100,6 +106,12 @@ class HomeController extends Controller
 
 
         return view('sale');
+
+    }
+    public function saletwo(){
+
+
+        return view('saleTwo');
 
     }
 

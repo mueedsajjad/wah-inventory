@@ -444,58 +444,214 @@ class AdminController extends Controller
         $salary= DB::table('users')
         ->join('employees', 'users.id', '=', 'employees.user_id')
         ->join('salary','salary.userId','=','users.id')
+        ->orderBy('salary.id','desc')
         ->get();
 
         //dd($salary);
-        return view('admin::salary/salary',compact('salary'));
+        return view('admin::salary/salary',compact('salary'))->with('save','saved');
     }
     
     public function salaryEmployee()
     {
+        $salaryEmployee="";
+        $netSalary=0;
         $user=DB::table('users')->get();
-        return view('admin::salary/salaryToEmployee',compact('user'));
+        return view('admin::salary/salaryToEmployee',compact('user','salaryEmployee','netSalary'));
     }
 
     
     public function employeeSalaryDetails(Request $request){
-       
-        $id=$request->id;
-        if ($id!=0 || $id!='' || $id!=null) {
-            $entranceEmployee = DB::table('users')->select('users.*','employees.*')
-            ->join('employees', 'users.id', '=', 'employees.user_id')
-            ->where('users.id', $id)->first();
-           // dd($entranceEmployee);
+      
+        $id=$request->Employee;
+        //dd($id);
+        $salaryMonth=$request->salaryMonth;
 
-            if ($entranceEmployee){
-                return json_encode($entranceEmployee);
-            }
-            else{
-                return json_encode('error');
-            }
+        $workingDaysInWeek=0;
+        $attendances=[];
+       // $date=$request->validate(['id'=>'required']);
+        
+            $count=$request->type;
+                
+                    $startDate = $salaryMonth;
+                    $startDate=Carbon::parse($salaryMonth);
+                    $firstDay = $startDate->firstOfMonth();
+                    $sm = $firstDay->toDateString();
+                   
+                    $endDay = $startDate->endOfMonth();
+                    $em = $endDay->toDateString();
+                    
+                   
+                    $attendances=DB::table('attendance')
+                    ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
+                    ->join('users','attendance.userId','=','users.id')
+                    ->whereBetween('attendance.date', [$sm,$em])
+                    ->where('users.id','=', $id)
+                    ->get();  
+                    //dd( $attendances);
+                    
+                //}
+        
+            // $toDate=$request->toDate;
+            // $fromDate=$request->fromDate;
+            
+        $dutySchedule=DB::table('duty_schedule')->first();
+        $duty=DB::table('duty_schedule')->first();
+                if($duty)
+                {
+                    $inDuty = Carbon::parse($duty->in_time);
+                    $outDuty = Carbon::parse($duty->out_time);
+                    $interval = $inDuty->diff($outDuty);
+
+                    $hourDuty = $interval->format('%h');
+                    $minDuty =$interval->format('%i');
+                   //$sec = $interval->format('%s second');
+
+                    $dutyTime=date('H:i', mktime($hourDuty,$minDuty));
+
+                    $workingDaysInWeek=$duty->day;
+                }
+                else
+                {
+                    $duty= DB::table('duty_Schedule')->get();
+                    return view('setting::setting/DutySchedule',compact('duty'));
+                }
+        // ------ Sum of OverTime,Total Leaves, Total Lates Of Employee  ---------- //
+         $leave=0;
+         $absent=0;
+         $late=0;
+         $present=0;
+         $name="";
+        $tempTime=date('H:i', mktime(0,0));
+        $tempTime=Carbon::parse($tempTime);
+        $totalTime=date('H:i', mktime(0,0));
+        $totalTime=Carbon::parse($totalTime);
+        $addTime=date('H:i', mktime(0,0));
+        $addTime=Carbon::parse($addTime);
+
+        foreach($attendances as $attendance)
+        {
+            $name=$attendance->name;
+           if($attendance->checkIn=="N/A")
+           {
+             $absent++;
+           }
+           else if($attendance->checkIn=="Late")
+           {
+             $late++;
+             $present++;
+           }
+           elseif($attendance->checkIn=="Leave")
+           {
+               $leave++;
+           }
+
+           if($attendance->checkIn=="Timely")
+           {
+               $present++;
+           }
+          
+        $dutyTime=Carbon::parse($dutyTime);
+        
+
+         if($attendance->workingTime!=null)
+         {
+            //  Total Working Hours calculation  //   
+            $interval = $tempTime->diff($attendance->workingTime);
+            $hourWorking = $interval->format('%H');
+            $minWorking =$interval->format('%i');
+            $hourWorkingInt=(int) $hourWorking;
+            $minWorkingInt =(int) $minWorking;
+        
+            $addTime=$addTime->addHours($hourWorkingInt);
+            $addTime=$addTime->addMinutes($minWorkingInt);
+         }
+
         }
-        else{
-            return json_encode('error');
-        }
+          
+            $addTime=Carbon::parse($addTime);
+        //  Total Working Hours According to Working Days and Total Working Hours calculation //
+            $interval = $tempTime->diff($dutyTime);
+            $hourWorking = $interval->format('%H');
+            $minWorking =$interval->format('%i');
+            $hourWorkingInt=(int) $hourWorking;
+            $minWorkingInt =(int) $minWorking;
+            $hourWorkingInt= $hourWorkingInt*$leave;
+            $minWorkingInt= $minWorkingInt*$leave;
+        
+            $addTime=$addTime->addHours($hourWorkingInt);
+            $addTime=$addTime->addMinutes($minWorkingInt);
+
+            // Difference Between Total Working Hours According to Working Days and  and Total Working Hours calculation//
+            $addTime=Carbon::parse($addTime);
+                // total working days in Month and divide salary by per hour //
+                $workingDaysInWeek=7-$workingDaysInWeek;
+                $workingDaysInMonth=$workingDaysInWeek*4;
+
+                $salaryEmployee = DB::table('users')->select('users.*','employees.*')
+                ->join('employees', 'users.id', '=', 'employees.user_id')
+                ->where('users.id', $id)->first();
+                //dd($entranceEmployee);
+                if($salaryEmployee)
+                {
+                    if($salaryEmployee->salary==null)
+                    {
+                        return redirect()->back()->with('exists','Employee Salary not defined monthly. Please Edit Employee Profile');
+                    }
+                    $salary=$salaryEmployee->salary;
+                
+                    $perDaySalary=$salary/ $workingDaysInMonth;
+                    // getting Daily DutyHour //
+                    $interval = $tempTime->diff($dutyTime);
+                    $hourWorking = $interval->format('%H');
+                    $hourWorkingInt=(int) $hourWorking;
+                    $perHourSalary=$perDaySalary/$hourWorkingInt;
+    
+                    // Total Working Hours //
+                    $interval = $tempTime->diff($addTime);
+                    $hourWorking = $interval->format('%H');
+                    $hourWorkingInt=(int) $hourWorking;
+                    
+                    // Salary Calculated according to Hours //
+                    $netSalary=$hourWorkingInt*$perHourSalary;
+                    $netSalary=round($netSalary, 0);
+                   
+                } else{
+                    return redirect()->back()->with('exists','Employee Salary not defined monthly. Please Edit Employee Profile');
+                }
+                
+               
+        $user=DB::table('users')->get();
+        return view('admin::salary/salaryPay',compact('user','salaryEmployee','netSalary'));
+
     }
     
     public function salaryStore(Request $request)
     {
-       
             $data= $request->validate(
                 [
                     'userId' => 'required',
-                    'salary' => 'required',
-                    'salaryDate' => 'required',
+                    'salary' => 'required',         
                 ]);
-           
-                DB::table('salary')->insert(
-                    [ 
-                        'userId'=> $data['userId'],
-                        'salary'=> $data['salary'],
-                        'salaryDate'=> $data['salaryDate']
-                    ]);
-                return redirect()->back()->with('save','Saved Successfully');
-           
+        //    if($data['salary']<1)
+        //    {
+        //       return redirect()->back()->with('exists','Salary cannot be paid coz less than 1');
+        //    }
+        //    else{
+            DB::table('salary')->insert(
+                [ 
+                    'userId'=> $data['userId'],
+                    'salary'=> $data['salary'],
+                    'salaryDate'=>Carbon::today()->toDateString()
+                ]);
+          // }
+          $salary= DB::table('users')
+          ->join('employees', 'users.id', '=', 'employees.user_id')
+          ->join('salary','salary.userId','=','users.id')
+          ->orderBy('salary.id','desc')
+          ->get();
+  
+          //dd($salary);
+          return view('admin::salary/salary',compact('salary'))->with('save','saved');
     }
 
     public function salaryDelete(Request $request)

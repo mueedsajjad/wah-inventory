@@ -28,9 +28,13 @@ Route::get('/store/single-data/{id}', 'HomeController@singleData');
 
 Route::get('/gate/dash', 'HomeController@gate');
 Route::get('/sale/dash', 'HomeController@sale');
+Route::get('/sale/dash/two', 'HomeController@saletwo');
 Route::get('/production/dash', 'HomeController@production');
 
 
 Route::get('/requisition/dash', 'HomeController@requisition');
 
 Route::get('/employeeDepartment/dash', 'HomeController@employeeDepartment');
+
+
+Route::get('/order/details', 'HomeController@orderDetails');

@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="builtyTable" class="table table-bordered table-striped">
+                <table id="storeTable" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>Sr#</th>
@@ -40,6 +40,8 @@
                                 <td>Rejected</td>
                             @elseif($data->status == 3)
                                 <td>PO Generated</td>
+                            @elseif($data->status == 4)
+                                <td>PO generate/Create Tender</td>
                             @endif
                             <td><button type="button" onclick="getDetails({{$data->id}})" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
                                     Details
@@ -76,6 +78,8 @@
                                 <td></td>
                             @elseif($data->status == 3)
                                 <td></td>
+                                @elseif($data->status == 4)
+                                <td></td>
                             @endif
                         </tr>
                     @endforeach
@@ -86,6 +90,11 @@
     </div>
         </div>
     </section>
+    <script>
+        $( document ).ready(function() {
+            $('#storeTable').dataTable();
+        });
+    </script>
 @endsection
 <script>
     function getDetails(data) {

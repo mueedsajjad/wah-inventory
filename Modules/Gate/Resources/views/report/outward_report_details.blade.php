@@ -31,46 +31,6 @@
                                         <th>	Issue Date</th>
                                         <td>{{$data->issue_date}}</td>
                                     </tr>
-
-
-{{--                                <tr>--}}
-{{--                                    <th>Driver CNIC</th>--}}
-{{--                                    <td>{{$data->driverCNIC}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>Driver Name</th>--}}
-{{--                                    <td>{{$data->driverName}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>Driver Phone</th>--}}
-{{--                                    <td>{{$data->driverPh}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th>Vehical No</th>--}}
-{{--                                    <td>{{$data->vehicalNo}}</td>--}}
-{{--                                </tr>--}}
-
-{{--                                @if($data->vendorId==null)--}}
-
-{{--                                @elseif($data->vendorId)--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Vendor ID</th>--}}
-{{--                                        <td>{{$data->gatePassId}}</td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Vendor Name</th>--}}
-{{--                                        <td>{{$data->vendorName}}</td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Vendor Address</th>--}}
-{{--                                        <td>{{$data->vendorAddress}}</td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Vendor Phone</th>--}}
-{{--                                        <td>{{$data->vendorPh}}</td>--}}
-{{--                                    </tr>--}}
-{{--                                @endif--}}
-{{--                                </thead>--}}
                                 <tbody>
                                 </tbody>
                             </table>

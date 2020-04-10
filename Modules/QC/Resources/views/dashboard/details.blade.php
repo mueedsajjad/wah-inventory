@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Request Details</h3>
+                <h3 class="card-title">Quality Control</h3>
             </div>
             <!-- /.card-header -->
 
@@ -13,10 +13,10 @@
                         <div class="col-md-3">
                             <a href="{{url('qc/inward_qc')}}">
                                 <div class="info-box" style="cursor: pointer">
-                                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
+                                    <span class="info-box-icon bg-danger elevation-1 box shade"><i class="fas fa-check-circle"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-text text-black">Inward</span>
+                                        <span class="info-box-text text-black">Material I-Note</span>
                                         <span class="info-box-number">
                                                       {{34}}
                                             {{--                                            <small>%</small>--}}
@@ -30,10 +30,10 @@
                             {{--                        <div class="col-md-6">--}}
                             <a href="{{url('qc/production-product')}}">
                                 <div class="info-box" style="cursor: pointer">
-                                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
+                                    <span class="info-box-icon bg-danger elevation-1 box shade"><i class="fas fa-check-circle"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Products</span>
+                                        <span class="info-box-text">Finish Goods I-Note</span>
                                         <span class="info-box-number">
                                                                                                  {{54}}
 
@@ -47,10 +47,10 @@
 
                             <a href="{{url('qc/production-component')}}">
                                 <div class="info-box" style="cursor: pointer">
-                                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-home"></i></span>
+                                    <span class="info-box-icon bg-danger elevation-1 box shade"><i class="fas fa-check-circle"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Components</span>
+                                        <span class="info-box-text">Components I-Note</span>
                                         <span class="info-box-number">
                                                                                                  {{12}}
                                             {{--                                    <small>%</small>--}}

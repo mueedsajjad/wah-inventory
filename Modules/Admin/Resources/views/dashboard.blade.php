@@ -2,12 +2,13 @@
 
 @section('content')
 
-<div class="row">
+    <h1 class="display-4">Dashboard</h1>
 
+<div class="row">
         <!-- ./col -->
-        <div class="col-lg-6 col-6">
+        <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+            <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>{{$users}}</h3>
 
@@ -21,9 +22,9 @@
         </div>
 
         
-        <div class="col-lg-6 col-6">
+        <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+            <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                 <div class="inner">
                     <h3>Attendance</h3>
                     <p>Employees</p>
@@ -35,9 +36,9 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-6">
+        <div class="col-lg-3 col-6">
                 <!-- small box -->
-            <div class="small-box text-white" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+            <div class="small-box text-white box shade" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
                     <div class="inner">
                         <h3>Report</h3>
                         <p> All Reports<p>

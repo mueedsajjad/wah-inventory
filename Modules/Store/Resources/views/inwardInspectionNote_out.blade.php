@@ -6,7 +6,7 @@
             <div class="col-md-4">
             </div>
             <div class="col-md-4 mt-2">
-                <form id="dateHearing" action="{{ route('inward_insp_note_date') }}" method="POST" >
+                <form id="dateHearing" action="{{ route('inward_insp_note_date_out') }}" method="POST" >
                     @csrf
                     <div class="d-flex">
                         <div class="form-group row">
@@ -63,7 +63,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(!$inward_gate_pass->isempty())
+{{--                                @if(!$inward_gate_pass->isempty())--}}
                                     @php $count=0; @endphp
                                     @foreach($inward_gate_pass as $item)
                                         <?php
@@ -102,7 +102,7 @@
                                                 @endif
                                             </tr>
                                             @endforeach
-                                        @endif
+{{--                                        @endif--}}
                                 </tbody>
                             </table>
 

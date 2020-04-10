@@ -17,6 +17,7 @@
                                 <th>Product/Material ID</th>
                                 <th>Reason of Rejection</th>
                                 <th>Rejected Qty</th>
+                                <th>Action Date</th>
                             </tr>
                             </thead>
                                 <tbody>
@@ -25,24 +26,31 @@
                                     <td>CO-PD-122</td>
                                     <td>Bad Quality</td>
                                     <td>54</td>
+                                    <td>12-01-2020</td>
                                 </tr>
                                 <tr>
                                     <td>1</td>
                                     <td>CO-PD-122</td>
                                     <td>Bad Quality</td>
                                     <td>12</td>
+                                    <td>19-02-2020</td>
+
                                 </tr>
                                 <tr>
                                     <td>1</td>
                                     <td>CO-PD-122</td>
                                     <td>Bad Quality</td>
                                     <td>34</td>
+                                    <td>01-02-2020</td>
+
                                 </tr>
                                 <tr>
                                     <td>1</td>
                                     <td>CO-PD-145</td>
                                     <td>Bad Quality</td>
                                     <td>79</td>
+                                    <td>23-03-2020</td>
+
                                 </tr>
                                 </tbody>
                         </table>

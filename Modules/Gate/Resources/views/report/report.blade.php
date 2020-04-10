@@ -24,7 +24,7 @@
 {{--                            <a class="btn btn-app bg-danger" href="#">--}}
 {{--                                <i class="fas fa-edit"></i> Security Report--}}
 {{--                            </a>--}}
-                            <a class="btn btn-app bg-danger" href="#">
+                            <a class="btn btn-app bg-danger" href="{{url('gate/vehicle_report')}}">
                                 <i class="fas fa-edit"></i> Vehicle Report
                             </a>
                         </div>

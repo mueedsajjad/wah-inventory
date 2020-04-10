@@ -7,11 +7,20 @@
     <section class="content pt-3">
         <div class="container-fluid">
 
+
+            <div class="alert alert-primary" role="alert">
+                <strong>Note:</strong> If Vendor is not created against this Purchase Order then First Create Vendor and add Commercial and Technical Offer
+            </div>
             @if(session()->has('save'))
                 <div class="alert alert-success" role="alert">
                     <strong>Success</strong> {{session()->get('save')}}
                 </div>
             @endif
+                @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
 
             <div class="row">
@@ -20,26 +29,28 @@
                 <div class="col-md-12">
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">New Purchase Order</h3>
+                            <h3 class="card-title">New Tender Order</h3>
                         </div>
 
 
                         <div class="card-body">
-                            <form action="{{url('purchase/purchase-order-approval')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('tender/tender-order')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row justify-content-around">
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="sga_13" class="col-sm-4 col-form-label">Purchase Requisition</label>
+                                            <label for="sga_13" class="col-sm-4 col-form-label">Purchase Order</label>
 
+                                            <input type="hidden" class="form-control" value="{{$record->id}}" name="po_id">
                                             <div class="col-sm-8">
                                                 <div class="">
-                                                    <select class="form-control select2 " name="requisition_id" onchange="getRequData(this.value)">
-                                                        <option selected="selected" disabled>Select Requisition</option>
-                                                        @foreach($purchase_requ as $credits)
-                                                            <option value="{{$credits->id}}">{{$credits->requisition_id}}</option>
-                                                        @endforeach
-                                                    </select>
+{{--                                                    <select class="form-control select2 " name="po_id" onchange="getRequData(this.value)">--}}
+{{--                                                        <option selected="selected" disabled>Select Requisition</option>--}}
+{{--                                                        @foreach($purchase_order as $credits)--}}
+{{--                                                            <option value="{{$credits->id}}">{{$credits->purchase_order_id}}</option>--}}
+{{--                                                        @endforeach--}}
+{{--                                                    </select>--}}
+                                                    <input type="text" readonly value="{{$record->purchase_order_id}}" name="" class="form-control">
                                                 </div>
                                             </div>
 
@@ -82,19 +93,24 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Purchase By</label>
+                                            <label class="col-sm-4 col-form-label">Select Vendor</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" name="purchase_type" required>
-                                                    <option disabled>Select Purchase Type</option>
-                                                    <option value="ppra">PPRA</option>
-                                                    <option value="direct-purchase">Direct Purchase</option>
+                                                <select name="vendor" onchange="getVendor(this.value)" id="" class="form-control select2">
+                                                    <option value="" >Select Vendor</option>
+                                                    @foreach($vendor as $data)
+                                                        <option value="{{$data->id}}">{{$data->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
 
+                                <div id="vend">
+
+                                </div>
 
 {{--                                <div class="row justify-content-around">--}}
 {{--                                    <div class="col-md-4">--}}
@@ -150,9 +166,86 @@
                                     </div>
                                 </div>
 
+                                <div class="row justify-content-around">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_16" class="col-sm-4 col-form-label">Commercial Offer</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" name="c_offer" id="sga_16"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="sga_16" class="col-sm-4 col-form-label">Technical Offer</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" name="t_offer" id="sga_16"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div id="data">
+                                    <div class="row justify-content-around">
+                                        <div class="col-md-12">
+                                            <div class="card card-dark">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Products</h3>
+                                                </div>
+                                                <!-- /.card-header -->
 
+                                                <div class="card-body">
+                                                    <div id="append_condition">
+                                                        <input type="hidden" id="countConditions"  name="countConditions" value="0">
+                                                        <div class="row">
+
+                                                            <table>
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>PO Id</th>
+                                                                    <th>Material Code</th>
+                                                                    <th>UOM</th>
+                                                                    <th>Quantity</th>
+                                                                    <th>Description</th>
+                                                                    <th>Unit Price</th>
+                                                                    <th>Total Price</th>
+                                                                    <th>Select</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                @foreach($details as $data)
+                                                                    <tr>
+                                                                        <div class="mome">
+                                                                            <td><input type="text" class="form-control"  name="" value="{{$data->purchase_order_id}}" readonly></td>
+                                                                            <td><input type="text" class="form-control"  name="material_name[]" value="{{$data->material_name}}" readonly></td>
+                                                                            <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
+                                                                            <td><input type="text" class="form-control"  name="qty[]" value="{{$data->quantity}}" readonly></td>
+                                                                            <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
+                                                                            <td><input type="text" class="form-control"  name="unit_price[]" value="{{$data->unit_price}}" readonly required></td>
+                                                                            <td><input type="text" class="form-control"  name="total_price[]" value="{{$data->total_price}}" readonly required></td>
+                                                                            <td><input type="checkbox" value="{{$data->id}}" name="check[]" class="form-control"></td>
+                                                                        </div>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+
+                                                            </table>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-10 mb-5">
+                                            <a href="#" class="btn btn-danger ml-3 float-right">Cancel</a>
+                                            <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a>
+                                            <input type="submit" value="Save" class="btn btn-success float-right">
+                                        </div>
+
+                                    </div>
                                 </div>
 
 
@@ -223,6 +316,22 @@
                 }
             });
         }
+
+        function getVendor(data) {
+            console.log(data);
+            var path = location.pathname.split('/');
+            var app=path[1];
+            console.log(app);
+            $.ajax({
+                type: "GET",
+                url: "/"+app+"/purchase/get-vendor/"+data,
+                success:function(data)
+                {
+                    $("#vend").html(data);
+                }
+            });
+        }
     </script>
+
 
 @endsection

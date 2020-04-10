@@ -446,7 +446,7 @@
                         @if(auth()->user()->can('Production'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="production") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="production") active @endif">
-                                    <i class="nav-icon fas fa-spray-can"></i>
+                                    <i class="nav-icon fas fa-industry"></i>
                                     <p>
                                         Production
                                         <i class="right fas fa-angle-left"></i>
@@ -571,7 +571,7 @@
                         @if(auth()->user()->can('Supplier'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="supplier") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="supplier") active @endif">
-                                    <i class="nav-icon fas fa-truck"></i>
+                                    <i class="nav-icon fas fa-user-secret"></i>
                                     <p>
                                         Vendor
                                         <i class="right fas fa-angle-left"></i>
@@ -594,6 +594,32 @@
                             </li>
                         @endif
 
+
+                        @if(auth()->user()->can('Tender'))
+                            <li class="nav-item has-treeview @if(request()->segment(1)=="tender") menu-open @endif">
+                                <a href="#" class="nav-link  @if(request()->segment(1)=="tender") active @endif">
+                                    <i class="nav-icon fas fa-truck"></i>
+                                    <p>
+                                        Tender
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{url('tender/create')}}" class="nav-link @if(request()->segment(2)=="create") active @endif">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Dashboard</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+                                    <li class="nav-item">
+                                        <a href="{{url('tender/view-tender')}}" class="nav-link @if(request()->segment(2)=="view-tender") active @endif">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Dashboard</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
 
                         @if(auth()->user()->can('Approve Requisition'))
                             <li class="nav-item">
@@ -631,13 +657,19 @@
                         @if(auth()->user()->can('Sale'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="sale") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="sale") active @endif">
-                                    <i class="nav-icon fas fa-dollar-sign"></i>
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
                                     <p>
                                         Sale
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{url('sale/dashboard')}}" class="nav-link @if(request()->segment(2)=="dashboard") active @endif">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Dashboard</p>
+                                        </a>
+                                    </li>
                                     <li class="nav-item">
                                         <a href="{{url('sale/sale')}}" class="nav-link @if(request()->segment(2)=="sale") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
@@ -650,12 +682,12 @@
                                             <p>Sales Order</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="{{url('sale/customer')}}" class="nav-link @if(request()->segment(2)=="customer") active @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Customer</p>
-                                        </a>
-                                    </li>
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{url('sale/customer')}}" class="nav-link @if(request()->segment(2)=="customer") active @endif">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Customer</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
                                 </ul>
                             </li>
                         @endif
@@ -690,8 +722,7 @@
                         @if(auth()->user()->can('Approve Order'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="order") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="order") active @endif">
-                                    <i class="nav-icon fas fa-dollar-sign"></i>
-                                    <p>
+                                    <i class="nav-icon fas fa-check"></i>                                    <p>
                                         Order Approve
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
@@ -710,6 +741,12 @@
 
 
                         @if(auth()->user()->can('Purchase'))
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{url('purchase/dashboard')}}" class="nav-link @if(request()->segment(2)=="PurchaseDashboard") active @endif">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Purchase Dashboard</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
                             <li class="nav-item has-treeview @if(request()->segment(1)=="purchase") menu-open @endif">
                                 <a href="#" class="nav-link @if(request()->segment(1)=="purchase") active @endif">
                                     <i class="nav-icon fas fa-boxes"></i>
@@ -732,18 +769,18 @@
                                             <p>Purchase Order List</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="{{url('purchase/purchase')}}" class="nav-link @if(request()->segment(2)=="purchase") active @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Purchase</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{url('purchase/create-vendor')}}" class="nav-link @if(request()->segment(2)=="create-vendor") active @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Create Vendor</p>
-                                        </a>
-                                    </li>
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{url('purchase/purchase')}}" class="nav-link @if(request()->segment(2)=="purchase") active @endif">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Purchase</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{url('purchase/create-vendor')}}" class="nav-link @if(request()->segment(2)=="create-vendor") active @endif">--}}
+{{--                                            <i class="far fa-circle nav-icon"></i>--}}
+{{--                                            <p>Create Vendor</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
                                 </ul>
                             </li>
                         @endif

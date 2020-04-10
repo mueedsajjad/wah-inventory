@@ -11,9 +11,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Advance</h3>
-                            <!-- <a href="{{url('admin/advance')}}"  class="btn btn-primary float-right" >
+                            <a href="{{url('admin/advance')}}"  class="btn btn-primary float-right" >
                                 Advance
-                            </a> -->
+                            </a>
                         </div>
 
                         <!-- /.card-header -->

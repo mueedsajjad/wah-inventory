@@ -10,10 +10,10 @@
                    
                     <div class="row">
                     @php $id=1; @endphp
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <a href="{{url('admin/attendancePresentAndLeave/'.$id)}}">
                             <div class="info-box" style="cursor: pointer">
-                                <span class="info-box-icon bg-danger elevation-1"> <i class="ion ion-person-stalker"></i></span>
+                            <span class="info-box-icon elevation-1 box shadow" style="background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041) !important;"> <i class="fas fa-user text-white"></i></span>
                               
                                 <div class="info-box-content">
                                     <span class="info-box-text text-black">Present</span>
@@ -28,10 +28,10 @@
                             <!-- /.info-box -->
                         </div>
                         @php $idd=0; @endphp
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                                 <a href="{{url('admin/attendancePresentAndLeave/'.$idd)}}">
                             <div class="info-box" style="cursor: pointer">
-                                <span class="info-box-icon bg-danger elevation-1"> <i class="ion ion-person-stalker"></i></span>
+                            <span class="info-box-icon elevation-1 box shadow" style="background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041) !important;"> <i class="fas fa-user text-white"></i></span>
                               
                                 <div class="info-box-content">
                                     <span class="info-box-text text-black">Absent</span>
@@ -47,10 +47,10 @@
                         </div>
 
                         @php $idd=0; @endphp
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                                 <a href="{{url('admin/leaveToday')}}">
                             <div class="info-box" style="cursor: pointer">
-                                <span class="info-box-icon bg-danger elevation-1"> <i class="ion ion-person-stalker"></i></span>
+                            <span class="info-box-icon elevation-1 box shadow" style="background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041) !important;"> <i class="fas fa-user text-white"></i></span>
                               
                                 <div class="info-box-content">
                                     <span class="info-box-text text-black">On Leave</span>
@@ -65,7 +65,7 @@
                             <!-- /.info-box -->
                         </div>
 
-
+                       
                         <!-- <div id="singleData" class="col-md-6">
 
                         </div> -->

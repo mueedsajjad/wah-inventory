@@ -355,15 +355,44 @@ class GateController extends Controller
         return view('gate::report/report');
     }
 
+
+    public function inward_current_month(Request $request)
+    {
+        $report_data=DB::table('inward_gate_pass')->whereMonth('date',date('m'))->whereYear('date',date('Y'))->get();
+        $report_dat_one=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->whereMonth('date',date('m'))->whereYear('date',date('Y'))->get();
+//        dd($report_data);
+
+        $report_modal_data=DB::table('inward_raw_material')->whereMonth('date',date('m'))->whereYear('date',date('Y'))->get();
+//        dd($report_modal_data);
+
+        return view('gate::report/inward',compact('report_data','report_modal_data','report_dat_one'));
+    }
+
+    public function inward_date(Request $request)
+    {
+        $from = $request->fromDate;
+        $to = $request->toDate;
+        $report_data=DB::table('inward_gate_pass')->whereBetween('date', [$from,$to])->get();
+        $report_dat_one=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->whereBetween('date', [$from,$to])->get();
+//        dd($report_data);
+
+        $report_modal_data=DB::table('inward_raw_material')->whereBetween('date', [$from,$to])->get();
+//        dd($report_modal_data);
+
+        return view('gate::report/inward',compact('report_data','report_modal_data','report_dat_one'));
+    }
+
     public function inward()
     {
+
         $report_data=DB::table('inward_gate_pass')->get();
+        $report_dat_one=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
 //        dd($report_data);
 
         $report_modal_data=DB::table('inward_raw_material')->get();
 //        dd($report_modal_data);
 
-        return view('gate::report/inward',compact('report_data','report_modal_data'));
+        return view('gate::report/inward',compact('report_data','report_modal_data','report_dat_one'));
     }
     public function inward_report($id){
 
@@ -527,24 +556,42 @@ class GateController extends Controller
 
                 public function addOutwardGatePass(Request $request){
 //                 dd($request->all());
-                 if ($request->product_type=="component"){
-                    $component=DB::table('production_component_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                 if ($request->out_t=="customer"){
+                     DB::table('sale_order')->where('so_number',$request->order_num)->update(array('status' => '3'));
                      return redirect()->back()->with('message', 'Submitted Successfuly.');
                  }
-                 else
-                     $material=DB::table('production_material_detail')->where('id',$request->out_type)->update(array('status' => '5'));
-                    return redirect()->back()->with('message', 'Submitted Successfuly.');
+                 else{
+
+                     if ($request->product_type=="component"){
+                         $component=DB::table('production_component_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                         return redirect()->back()->with('message', 'Submitted Successfuly.');
+                     }
+                     else
+                         $material=DB::table('production_material_detail')->where('id',$request->out_type)->update(array('status' => '5'));
+                     return redirect()->back()->with('message', 'Submitted Successfuly.');
+                 }
                 }
 
                 public function outward_report (){
+                    $component=[];
+                    $report_data=[];
 
-                    $report_data=DB::table('production_material')->where('gate_type','outward')->get();
-//                    dd($report_data);
+                    $status_check=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->pluck('production_material_id');
+                    foreach ($status_check as $status){
+                        $report_data[]=DB::table('production_material')->where('id',$status)->first();
+                    }
+                    $status_check_component=DB::table('production_component_detail')->where('gate_type','outward')->where('status',5)->pluck('production_component_id');
+//                    dd($status_check_component);
+                    foreach ($status_check_component as $status_component){
+                        $component[]=DB::table('production_component')->where('id',$status_component)->first();
 
-//                    $report_data=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->get();
+                    }
+                   $delivery_report=DB::table('sale_order')->where('status',3)->get();
+//                    dd($delivery_report);
 
 
-                   return view('gate::report/outward_report',compact('report_data'));
+
+                   return view('gate::report/outward_report',compact('report_data','component','delivery_report'));
                 }
 
                 public  function out_report($id){
@@ -555,5 +602,29 @@ class GateController extends Controller
 //                    dd($data);
 
                       return view('gate::report/outward_report_details',compact('report_data','data'));
+                }
+                public function component_out_report($id){
+
+                    $report_data=DB::table('production_component_detail')->where('production_component_id',$id)->where('status',5)->get();
+//                    dd($report_data);
+                    $data=DB::table('production_component')->where('id',$id)->first();
+                    return view('gate::report/out_component_report',compact('report_data','data'));
+
+                }
+                public function out_delivery_report($id){
+//                  dd($id);
+                  $delivery_details=DB::table('sale_order')->where('so_number',$id)->first();
+//                  dd($delivery_details);
+                  $delivery_table=DB::table('sale_order_products')->where('so_number',$id)->get();
+//                  dd($delivery_table);
+                  return view('gate::report/out_delivery_report',compact('delivery_details','delivery_table'));
+                }
+
+                public function vehicle_report(){
+                  $vehicle_data=DB::table('vehicle_management')->where('status',1)->get();
+//                  dd($vehicle_data);
+
+
+                  return view('gate::report/vehicle_report',compact('vehicle_data'));
                 }
 }

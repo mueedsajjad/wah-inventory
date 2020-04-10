@@ -5,7 +5,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box shadow box">
                 <div class="inner">
                     <h3>{{$count_all}}</h3>
                     <p>QC</p>
