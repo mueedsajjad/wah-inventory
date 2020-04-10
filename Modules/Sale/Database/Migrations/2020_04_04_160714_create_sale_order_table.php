@@ -18,7 +18,7 @@ class CreateSaleOrderTable extends Migration
             $table->string('so_number')->nullable();
             $table->date('date')->nullable();
             $table->date('delivery_date')->nullable();
-            $table->string('customer_name')->nullable();
+            $table->string('customer_id')->nullable();
             $table->bigInteger('driver_id')->nullable();
             $table->string('driver_name')->nullable();
             $table->string('vehicle_number')->nullable();

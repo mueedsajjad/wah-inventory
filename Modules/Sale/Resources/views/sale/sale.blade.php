@@ -25,7 +25,7 @@
                         <div class="card-body">
 
                             <div class="row justify-content-around">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="sga_13" class="col-sm-4 col-form-label">SO Number</label>
                                         <div class="col-sm-8">
@@ -33,7 +33,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="sga_13" class="col-sm-4 col-form-label">Date</label>
                                         <div class="col-sm-8">
@@ -44,7 +44,33 @@
                             </div>
 
                             <div class="row justify-content-around">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Customer Name</label>
+                                        <div class="col-sm-8">
+                                            <select name="customer_id" required class="form-control select2" id="customer_id">
+                                                @if(!$customers->isempty())
+                                                    <option selected disabled>---Select---</option>
+                                                    @foreach($customers as $customer)
+                                                        <option value="{{$customer->customer_id}}">{{$customer->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group row">
+                                        <label for="sga_13" class="col-sm-4 col-form-label">Customer ID</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly class="form-control" name="" id="customer_id_show">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-around">
+                                <div class="col-md-5">
                                     <div class="form-group row">
                                         <label for="sga_13" class="col-sm-4 col-form-label">Delivery Date</label>
                                         <div class="col-sm-8">
@@ -52,13 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label for="sga_13" class="col-sm-4 col-form-label">Customer</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" required class="form-control" name="customer_name" placeholder="kaleem">
-                                        </div>
-                                    </div>
+                                <div class="col-md-5">
                                 </div>
                             </div>
 
@@ -87,9 +107,11 @@
                                         <td>1</td>
                                         <td>
                                             <select name="productCode[]" class="form-control productCode">
-                                                @foreach($products as $product)
-                                                    <option value="{{$product->product_code}}">{{$product->product_code}}</option>
-                                                @endforeach
+                                                @if(!$products->isempty())
+                                                    @foreach($products as $product)
+                                                        <option value="{{$product->product_code}}">{{$product->product_code}}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </td>
 
@@ -185,6 +207,11 @@
                 --count;
                 $('#countProduct').val(count);
             }
+        });
+
+        $('#customer_id').on("change", function(e) {
+           var  customer_id=$(this).val();
+           $('#customer_id_show').val(customer_id);
         });
 
     </script>

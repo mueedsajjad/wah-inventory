@@ -18,13 +18,18 @@ Route::prefix('sale')->group(function() {
     Route::get('saleOrder', 'SaleController@saleOrder');
     Route::post('getSaleOrderProducts', 'SaleController@getSaleOrderProducts');
     Route::post('changeApprovalStatus', 'SaleController@changeApprovalStatus');
+    Route::post('saleOrder/searchSaleOrderByDate', 'SaleController@searchSaleOrderByDate');
 
     Route::get('dashboard', 'SaleController@dashboard');
     Route::get('dashboard/newOrders', 'SaleController@newOrders');
     Route::get('dashboard/deliveryOrders', 'SaleController@deliveryOrders');
     Route::get('dashboard/ordersDelivered', 'SaleController@ordersDelivered');
 
+    Route::get('customer', 'SaleController@customer');
+    Route::post('addCustomer', 'SaleController@addCustomer');
+
+
+
 
     Route::get('/', 'SaleController@index');
-    Route::get('customer', 'SaleController@customer');
 });
