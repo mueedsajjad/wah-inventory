@@ -36,6 +36,8 @@ Route::get('advanceEmployee', 'AdminController@advanceEmployee');
     Route::post('employeeSalaryDetails', 'AdminController@employeeSalaryDetails');
     Route::post('salaryStore', 'AdminController@salaryStore');
     Route::post('salaryDelete', 'AdminController@salaryDelete');
+    Route::get('paidAndUnpaidEmployee', 'AdminController@paidAndUnpaidEmployee');
+    Route::get('paidAndUnpaid/{id}', 'AdminController@paidAndUnpaid');
 
 
     // ----------------------- Reports --------------------------------- //

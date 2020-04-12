@@ -682,12 +682,12 @@
                                             <p>Sales Order</p>
                                         </a>
                                     </li>
-{{--                                    <li class="nav-item">--}}
-{{--                                        <a href="{{url('sale/customer')}}" class="nav-link @if(request()->segment(2)=="customer") active @endif">--}}
-{{--                                            <i class="far fa-circle nav-icon"></i>--}}
-{{--                                            <p>Customer</p>--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
+                                    <li class="nav-item">
+                                        <a href="{{url('sale/customer')}}" class="nav-link @if(request()->segment(2)=="customer") active @endif">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Add Customer</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif

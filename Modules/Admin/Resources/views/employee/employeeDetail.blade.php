@@ -56,7 +56,7 @@
                                             <b>Role</b> <a href="#" class="float-right">{{$users->role}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Salary</b> <a href="#" class="float-right">{{$users->salary}}</a>
+                                            <b>Per Hour Salary</b> <a href="#" class="float-right">{{$users->salary}}</a>
                                         </li>
                                         <li class="list-group-item">
                                             <b>Created Date</b> <a href="#" class="float-right">{{$users->createdDate}}</a>
@@ -70,7 +70,6 @@
                                             <b>Period</b> <a href="#" class="float-right"> {{$length}} </a>
                                         </li>
                                        
-                                        
 
                                         <li class="list-group-item">
                                             <b>Mobile</b> <a href="#" class="float-right">{{$users->mobile}}</a>
@@ -263,7 +262,7 @@
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label class="col-sm-4 col-form-label">Salary</label>
+                                                        <label class="col-sm-4 col-form-label">Per Hour Salary</label>
                                                         <div class="col-sm-8">
                                                             <div class="form-group">
                                                                 @foreach($user as $users)

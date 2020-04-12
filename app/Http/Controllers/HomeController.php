@@ -70,9 +70,35 @@ class HomeController extends Controller
     }
 
     public function gate(){
+        $component=[];
+        $report_data=[];
+
+        $status_check=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->pluck('production_material_id');
+        foreach ($status_check as $status){
+            $report_data[]=DB::table('production_material')->where('id',$status)->first();
+        }
+        $status_check_component=DB::table('production_component_detail')->where('gate_type','outward')->where('status',5)->pluck('production_component_id');
+//                    dd($status_check_component);
+        foreach ($status_check_component as $status_component){
+            $component[]=DB::table('production_component')->where('id',$status_component)->first();
+
+        }
+        $delivery_report=DB::table('sale_order')->where('status',3)->get();
+//                    dd($delivery_report);
+
+
+
+//        return view('gate::report/outward_report',compact('report_data','component','delivery_report'));
+
+
+        $count=sizeof($report_data)+sizeof($component)+sizeof($delivery_report);
+
+
         $store_info = DB::table('store')->get();
         $inward_gate_pass = DB::table('inward_gate_pass')->count();
-        return view('gate.gate', compact('store_info', 'inward_gate_pass'));
+//        $outward=DB::table('sale_order')->where('status',3)->count();
+//        dd($outward);
+        return view('gate.gate', compact('store_info', 'inward_gate_pass','count'));
     }
 
     public function singleData($id){

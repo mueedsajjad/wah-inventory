@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
+
 
 class AdminController extends Controller
 {
@@ -452,7 +454,7 @@ class AdminController extends Controller
     }
     
     public function salaryEmployee()
-    {
+    {   
         $salaryEmployee="";
         $netSalary=0;
         $user=DB::table('users')->get();
@@ -638,7 +640,8 @@ class AdminController extends Controller
                    // dd($hourWorkingInt);
                     
                     // Salary Calculated according to Hours //
-                    $netSalary=$hourWorkingInt*$perHourSalary;
+           // according to working previous work   //$netSalary=$hourWorkingInt*$perHourSalary;
+                    $netSalary=$hourWorkingInt*$salaryEmployee->salary;
                     $netSalary=round($netSalary, 0);
                    
                 } else{
@@ -688,32 +691,136 @@ class AdminController extends Controller
     }
     public function paidAndUnpaidEmployee()
     {
-       // $startDate = $salaryMonth;
-                    $startDate=Carbon::parse(Carbon::today());
-                    $firstDay = $startDate->firstOfMonth();
-                    $sm = $firstDay->toDateString();
-                   
-                    $endDay = $startDate->endOfMonth();
-                    $em = $endDay->toDateString();
-                    
-                   
-                    // $attendances=DB::table('attendance')
-                    // ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
-                    // ->join('users','attendance.userId','=','users.id')
-                    // ->whereBetween('attendance.date', [$sm,$em])
-                    // ->where('users.id','=', $id)
-                    // ->get(); 
 
-                    $paid= DB::table('users')
-                    ->join('employees', 'users.id', '=', 'employees.user_id')
-                    ->join('salary','salary.userId','=','users.id')
-                    ->whereBetween('salary.salaryDate', [$sm,$em])
-                    ->count();
-
-
-
-        //$unpaid=DB::table('salary')
+        $startDate=Carbon::parse(Carbon::today());
+        $firstDay = $startDate->firstOfMonth();
+        $sm = $firstDay->toDateString();
+        $endDay = $startDate->endOfMonth();
+        $em = $endDay->toDateString();
+     
+ 
+    
+ 
+ 
+        $allUsers=DB::table('employees')
+             ->join('users', 'users.id', '=', 'employees.user_id')
+             ->join('departments', 'departments.id', '=', 'employees.department_id')
+             ->join('state', 'state.id', '=', 'employees.state_id')
+             ->join('city', 'city.id', '=', 'employees.city_id')
+             ->select('employees.*', 'departments.name as department_name', 'users.name as username')
+             ->get();
+ 
+             
+            //dd($allUsers);
+ 
+ 
+        $paidEmployees=DB::table('users')
+        ->join('employees', 'users.id', '=', 'employees.user_id')
+        ->join('salary','salary.userId','=','users.id')
+        ->whereBetween('salary.salaryDate', [$sm,$em])
         
+        ->get();
+
+       $paidEmployees=$paidEmployees->unique('user_id');
+       
+       $totalUnpaid=0;
+       $totalPaid= 0;
+
+       
+       $i=0;
+       $paidEmployees=$paidEmployees->unique('user_id');
+       $employees = array();
+       $temp=[];
+       foreach($paidEmployees as $new)
+       {
+           $temp[]=$new->user_id;
+       }
+
+       foreach($allUsers as $alluser)
+       {
+           if (!in_array($alluser->user_id,$temp))
+            {
+                $totalUnpaid++;
+               $employees[$i]['user_id']=$alluser->user_id;
+               $employees[$i]['username']=$alluser->username;
+               $employees[$i]['designation']=$alluser->designation;
+            }
+            else
+            {
+                $totalPaid++;
+            }
+         
+          $i++;
+      }
+       
+       
+      
+     return view('admin::salary.paidAndUnpaidSalary',compact('totalPaid','totalUnpaid'));
+        
+    }
+
+    public function paidAndUnpaid($id)
+    { 
+       $startDate=Carbon::parse(Carbon::today());
+       $firstDay = $startDate->firstOfMonth();
+       $sm = $firstDay->toDateString();
+       $endDay = $startDate->endOfMonth();
+       $em = $endDay->toDateString();
+    
+
+   
+
+
+       $allUsers=DB::table('employees')
+            ->join('users', 'users.id', '=', 'employees.user_id')
+            ->join('departments', 'departments.id', '=', 'employees.department_id')
+            ->join('state', 'state.id', '=', 'employees.state_id')
+            ->join('city', 'city.id', '=', 'employees.city_id')
+            ->select('employees.*', 'departments.name as department_name', 'users.name as username')
+            ->get();
+
+            
+           //dd($allUsers);
+
+
+       $paidEmployees=DB::table('users')
+       ->join('employees', 'users.id', '=', 'employees.user_id')
+       ->join('salary','salary.userId','=','users.id')
+       ->whereBetween('salary.salaryDate', [$sm,$em])
+       
+       ->get();
+
+       // dd($paidEmployees);
+       $salary=$paidEmployees;
+       if($id==1)
+       {        
+         return view('admin::salary/salary',compact('salary'));
+       }
+       $i=0;
+       $paidEmployees=$paidEmployees->unique('user_id');
+       $employees = array();
+       $temp=[];
+       foreach($paidEmployees as $new)
+       {
+           $temp[]=$new->user_id;
+       }
+
+       foreach($allUsers as $alluser)
+       {
+           if (!in_array($alluser->user_id,$temp))
+            {
+               $employees[$i]['user_id']=$alluser->user_id;
+               $employees[$i]['username']=$alluser->username;
+               $employees[$i]['designation']=$alluser->designation;
+            }
+         
+          $i++;
+      }
+     
+     $allUsers=$employees;
+     
+     return view('admin::salary/unpaidEmployee',compact('salary','employees'));
+    
     }
     
     public function advance()

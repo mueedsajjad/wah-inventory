@@ -212,7 +212,7 @@
                                                     </div>
 
                                                     <div class="form-group row">
-                                                            <label class="col-sm-4 col-form-label">Salary</label>
+                                                            <label class="col-sm-4 col-form-label">Per Hour Salary</label>
                                                             <div class="col-sm-8">
                                                                 <div class="form-group">
                                                                     <input type="number" required name="salary" class="form-control" >
@@ -426,7 +426,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label class="col-sm-4 col-form-label">Salary</label>
+                                                            <label class="col-sm-4 col-form-label">Per Hour Salary</label>
                                                             <div class="col-sm-8">
                                                                 <div class="form-group">
                                                                     <input type="number" required name="salary" class="form-control" >

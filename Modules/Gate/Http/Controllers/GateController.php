@@ -3,6 +3,7 @@
 namespace Modules\Gate\Http\Controllers;
 
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -571,6 +572,65 @@ class GateController extends Controller
                      return redirect()->back()->with('message', 'Submitted Successfuly.');
                  }
                 }
+    public function outward_Date (Request $request){
+//        dd($request->all());
+        $from = $request->fromDate;
+        $to = $request->toDate;
+
+        $componente=[];
+        $component=[];
+        $report_data=[];
+        $report_dat=[];
+
+        $status_check=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->pluck('production_material_id');
+
+        foreach ($status_check as $status){
+            $report_dat[]=DB::table('production_material')->where('id',$status)->first();
+        }
+
+
+        $startDate = new Carbon($from);
+        $endDate = new Carbon($to);
+        $all_dates = array();
+
+        while ($startDate->lte($endDate))
+        {
+            $all_dates[] = $startDate->toDateString();
+
+            $startDate->addDay();
+        }
+
+        foreach($report_dat as $datta) {
+            if ($datta->issue_date != NULL){
+                foreach ($all_dates as $data) {
+                    if ($datta->issue_date == $data) {
+                        $report_data[] = $datta;
+                    }
+                }
+            }
+        }
+
+        $status_check_component=DB::table('production_component_detail')->where('gate_type','outward')->where('status',5)->pluck('production_component_id');
+        foreach ($status_check_component as $status_component){
+            $componente[]=DB::table('production_component')->where('id',$status_component)->first();
+
+        }
+        foreach($componente as $datta)
+        {
+            if ($datta->issue_date != NULL){
+            foreach($all_dates as $data)
+                {
+                    if($datta->issue_date==$data)
+                    {
+                        $component[]=$datta;
+                    }
+                }
+            }
+        }
+        $delivery_report=DB::table('sale_order')->where('status',3)->whereBetween('delivery_date', [$from,$to])->get();
+
+        return view('gate::report/outward_report',compact('report_data','component','delivery_report'));
+    }
 
                 public function outward_report (){
                     $component=[];
@@ -593,6 +653,61 @@ class GateController extends Controller
 
                    return view('gate::report/outward_report',compact('report_data','component','delivery_report'));
                 }
+    public function outward_current_month (Request $request){
+        $component=[];
+        $report_data=[];
+        $report_dat=[];
+
+        $status_check=DB::table('production_material_detail')->where('gate_type','outward')->where('status',5)->pluck('production_material_id');
+        foreach ($status_check as $status){
+            $report_dat[]=DB::table('production_material')->where('id',$status)->first();
+//            dd($report_data);
+        }
+        $today = today();
+        $dates = [];
+
+        for($i=1; $i < $today->daysInMonth + 1; ++$i) {
+            $dates[] = \Carbon\Carbon::createFromDate($today->year, $today->month, $i)->format('Y-m-d');
+        }
+//        dd($dates);
+        foreach ($report_dat as $datta)
+        {
+            foreach ($dates as $date)
+            {
+                if($datta->issue_date==$date)
+                {
+
+                    $report_data[]=$datta;
+                }
+            }
+        }
+        $componente=[];
+        $status_check_component=DB::table('production_component_detail')->where('gate_type','outward')->where('status',5)->pluck('production_component_id');
+//                    dd($status_check_component);
+        foreach ($status_check_component as $status_component){
+            $componente[]=DB::table('production_component')->where('id',$status_component)->first();
+
+        }
+        foreach ($componente as $datta)
+        {
+            foreach ($dates as $date)
+            {
+                if($datta->issue_date==$date)
+                {
+                    $component[]=$datta;
+                }
+            }
+        }
+//        dd($component);
+        $delivery_report=DB::table('sale_order')->where('status',3)->whereMonth('delivery_date',date('m'))->whereYear('delivery_date',date('Y'))->get();
+//                    dd($delivery_report);
+
+
+
+
+
+        return view('gate::report/outward_report',compact('report_data','component','delivery_report'));
+    }
 
                 public  function out_report($id){
 
@@ -626,5 +741,22 @@ class GateController extends Controller
 
 
                   return view('gate::report/vehicle_report',compact('vehicle_data'));
+                }
+                public function vehicle_date(Request $request){
+                    $from = $request->fromDate;
+                    $to = $request->toDate;
+            //        dd($to);
+                    $vehicle_data=DB::table('vehicle_management')->where('status',1)->whereBetween('out_time', [$from,$to])->get();
+            //                  dd($vehicle_data);
+
+
+                    return view('gate::report/vehicle_report',compact('vehicle_data'));
+                }
+                public function vehicle_current_month(Request $request){
+                    $vehicle_data=DB::table('vehicle_management')->where('status',1)->whereMonth('out_time',date('m'))->whereYear('out_time',date('Y'))->get();
+            //                  dd($vehicle_data);
+
+
+                    return view('gate::report/vehicle_report',compact('vehicle_data'));
                 }
 }
