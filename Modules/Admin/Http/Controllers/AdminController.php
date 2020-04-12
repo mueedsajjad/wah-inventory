@@ -470,12 +470,12 @@ class AdminController extends Controller
         $attendances=[];
        // $date=$request->validate(['id'=>'required']);
         
-            $count=$request->type;
+                    $count=$request->type;
                 
-                    $startDate = $salaryMonth;
+                   // $startDate = $salaryMonth;
                     $startDate=Carbon::parse($salaryMonth);
                     $firstDay = $startDate->firstOfMonth();
-                   // dd($firstDay);
+                    //dd($firstDay);
                     $sm = $firstDay->toDateString();
                     $firstOne=$sm;
                    
@@ -572,6 +572,7 @@ class AdminController extends Controller
             $minWorking =$interval->format('%i');
             $hourWorkingInt=(int) $hourWorking;
             $minWorkingInt =(int) $minWorking;
+            //dd($hourWorkingInt);
         
             $addTime=$addTime->addHours($hourWorkingInt);
             $addTime=$addTime->addMinutes($minWorkingInt);
@@ -590,14 +591,25 @@ class AdminController extends Controller
             $minWorkingInt= $minWorkingInt*$leave;
         
             $addTime=$addTime->addHours($hourWorkingInt);
+           // dd($hourWorkingInt);
             $addTime=$addTime->addMinutes($minWorkingInt);
 
             // Difference Between Total Working Hours According to Working Days and  and Total Working Hours calculation//
             $addTime=Carbon::parse($addTime);
                 // total working days in Month and divide salary by per hour //
-                $workingDaysInWeek=7-$workingDaysInWeek;
+                //$startDay=Carbon::parse($sm);
+                //$startDay=$startDay->startOfWeek();
+            //     $now=Carbon::now();
+            //     $dateOfWeek=$startDay->weekday();
+            //    if($dateOfWeek==0)
+            //     {
+                     
+            //     }
+            //     dd($dateOfWeek);
+
+               $workingDaysInWeek=7-$workingDaysInWeek;
                $workingDaysInMonth=$workingDaysInWeek*4;
-                $workingDaysInMonth=$totalMonthDays-$workingDaysInMonth;
+               $workingDaysInMonth=$totalMonthDays-$workingDaysInMonth;
                // dd($workingDaysInMonth);
 
                 $salaryEmployee = DB::table('users')->select('users.*','employees.*')
@@ -623,6 +635,7 @@ class AdminController extends Controller
                     $interval = $tempTime->diff($addTime);
                     $hourWorking = $interval->format('%H');
                     $hourWorkingInt=(int) $hourWorking;
+                   // dd($hourWorkingInt);
                     
                     // Salary Calculated according to Hours //
                     $netSalary=$hourWorkingInt*$perHourSalary;
