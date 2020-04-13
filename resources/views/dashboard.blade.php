@@ -54,6 +54,24 @@
             </div>
         </div>
 
+
+
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box text-white box" style=" background-image: linear-gradient(to right, #68b2f0, #1565c0,  #f02041);">
+                <div class="inner">
+                    <h3>{{'24'}}</h3>
+                    <p>Finance</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-coins"></i>
+                </div>
+                <a style="cursor: pointer"  class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+
+
         <!-- ./col -->
 
         <div class="col-lg-3 col-6">
