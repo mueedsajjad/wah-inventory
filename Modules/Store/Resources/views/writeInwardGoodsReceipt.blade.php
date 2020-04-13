@@ -25,7 +25,8 @@
                             <?php
                                 $gate=\Illuminate\Support\Facades\DB::table('inward_gate_pass')->where('id',$id)->first();
                                 $raww=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$gate->gatePassId)->first();
-                            ?>
+//                                dd($id);
+                                ?>
                             @if($raww->status==3)
                                 <form action="{{url('store/submitInwardGoodsReceipt')}}" method="post" enctype="multipart/form-data">
                                     @csrf

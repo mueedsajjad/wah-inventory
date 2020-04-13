@@ -40,7 +40,7 @@
                                         @php $count=0; @endphp
                                         @foreach($inward_gate_pass as $item)
                                             <?php
-                                            $material=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$item->gatePassId)->first();
+                                            $material=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$item->gatePassId)->where('status',3)->orwhere('gatePassId',$item->gatePassId)->where('status',4)->orwhere('gatePassId',$item->gatePassId)->where('status',5)->orwhere('gatePassId',$item->gatePassId)->where('status',6)->first();
                                             //                                            $view=$material->status;
                                             //                                            $date=$material->inspectionDate;
 

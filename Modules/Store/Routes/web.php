@@ -13,6 +13,7 @@
 
 Route::prefix('store')->group(function() {
     Route::post('dateHearing', 'StoreController@date_filter')->name('dateHearing');
+    Route::post('dateHearing_out', 'StoreController@date_filter_out')->name('dateHearing_out');
     Route::post('inspectionInward_Note_Date', 'StoreController@inwardInspectionNote_date')->name('inward_insp_note_date');
     Route::post('inspectionInward_Note_Date_out', 'StoreController@inwardInspectionNote_date_out')->name('inward_insp_note_date_out');
     Route::get('/', 'StoreController@index')->middleware('auth');
