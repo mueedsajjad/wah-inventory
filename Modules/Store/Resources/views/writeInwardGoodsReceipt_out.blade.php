@@ -164,18 +164,6 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Purchase Order No</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" readonly required name="purchaseOrderNo" value="{{$mat_raw->purchase_order_id}}" class="form-control" placeholder="PON001">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row justify-content-around">
-                                        <div class="col-md-4">
-                                            <div class="form-group row">
                                                 <label class="col-sm-4 col-form-label">Gate Pass ID</label>
                                                 <div class="col-sm-8">
                                                     <input type="text" name="gatePassId" readonly value="{{$mat_raw->gatePassId}}" class="form-control">
@@ -186,19 +174,11 @@
 
 
                                     <div class="row justify-content-around">
-                                        <div class="col-md-4">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Vendor Name</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" readonly name="name" value="{{$inward_gate_pass->vendorName}}" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-4">
 
                                         </div>
                                     </div>
-
 
 
 
@@ -213,13 +193,6 @@
                                         <div class="col-md-4">
                                         </div>
                                     </div>
-
-
-
-
-
-
-
 
                                     <div class="table-responsive">
                                         <table id="materialTable" class="table table-bordered table-striped">

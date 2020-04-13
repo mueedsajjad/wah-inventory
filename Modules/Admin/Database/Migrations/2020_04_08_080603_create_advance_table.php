@@ -15,12 +15,14 @@ class CreateAdvanceTable extends Migration
     {
         Schema::create('advance', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('recieptNo')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('installment')->nullable();
             $table->integer('advanceAmount')->nullable();
             $table->integer('recieveAmount')->nullable();
             $table->integer('remainingAmount')->nullable();
             $table->date('date')->nullable();
+            $table->date('advanceDate')->nullable();
             $table->integer('status')->nullable();
 
             $table->timestamps();

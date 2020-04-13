@@ -2,7 +2,31 @@
 
 @section('content')
     <section class="">
-        <div class="row">
+{{--        <div class="row">--}}
+{{--            <div class="col-md-4">--}}
+{{--            </div>--}}
+{{--            <div class="col-md-4 mt-2">--}}
+{{--                <form id="dateHearing" action="{{ route('dateHearing') }}" method="POST" >--}}
+{{--                    @csrf--}}
+{{--                    <div class="d-flex">--}}
+{{--                        <div class="form-group row p-0 m-0">--}}
+{{--                            <label class="col-sm-3 col-form-label">From</label>--}}
+{{--                            <div class="col-sm-9">--}}
+{{--                                <input type="date" name="fromDate" id="fromDate" class="form-control">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="form-group row p-0 m-0">--}}
+{{--                            <label class="col-sm-2 col-form-label">To</label>--}}
+{{--                            <div class="col-sm-10">--}}
+{{--                                <input type="date" onchange="myFunction()" name="toDate" id="toDate" class="form-control">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+        <div class="row mt-2">
             <div class="col-12">
                 <!-- /.card -->
                 @if(!empty($errors->first()))
@@ -42,10 +66,10 @@
                                         @php $count=0; @endphp
                                         @foreach($inward_gate_pass as $item)
                                             <?php
-                                            $material=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$item->gatePassId)->first();
+                                            $material=\Illuminate\Support\Facades\DB::table('inward_raw_material')->where('gatePassId',$item->gatePassId)->where('status',3)->orwhere('gatePassId',$item->gatePassId)->where('status',4)->orwhere('gatePassId',$item->gatePassId)->where('status',5)->orwhere('gatePassId',$item->gatePassId)->where('status',6)->first();
 //                                            $view=$material->status;
 //                                            $date=$material->inspectionDate;
-
+//                                              dd($material);
                                             ?>
                                                 @php ++$count; @endphp
                                                 <tr>
@@ -61,7 +85,7 @@
                                                             @if($material->status==3)
                                                                 <a class="btn btn-secondary btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}"
                                                                 >Make Receipt</a>
-                                                            @elseif($material->status>=4)
+                                                            @elseif($material->status==4 || $material->status>4)
                                                                 <a class="btn btn-success btn-sm" href="{{url('store/inwardGoodsReceipt/writeInwardGoodsReceipt/'.$item->id.'/'.$item->gatePassId)}}">View Receipt</a>
                                                             @endif
                                                         @else

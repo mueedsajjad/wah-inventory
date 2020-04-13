@@ -1000,14 +1000,25 @@
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Salaries</p>
                                         </a>
-                                    </li>
+                                    </li> 
+                                    @endif
+                                    @if(auth()->user()->can('Apply For Loan'))
                                     <li class="nav-item">
-                                        <a href="{{url('admin/advance')}}" class="nav-link @if(request()->segment(2)=="advance") active @endif">
+                                        <a href="{{url('admin/advanceEmployee')}}" class="nav-link @if(request()->segment(2)=="Apply For Advance") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Advance</p>
+                                            <p>Apply For Advance</p>
                                         </a>
                                     </li>
-                                    
+                                    @endif
+                                    @if(auth()->user()->can('Accept Loan Request'))
+                                    <li class="nav-item">
+                                        <a href="{{url('admin/advanceEmployeeAccept')}}" class="nav-link @if(request()->segment(2)=="Accept Loan Request") active @endif">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Accept Loan Request</p>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @if(auth()->user()->can('HR'))
                                     <li class="nav-item">
                                         <a href="{{url('admin/report')}}" class="nav-link @if(request()->segment(2)=="report") active @endif">
                                             <i class="far fa-circle nav-icon"></i>

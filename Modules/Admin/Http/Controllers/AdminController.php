@@ -465,15 +465,12 @@ class AdminController extends Controller
     public function employeeSalaryDetails(Request $request){
       
         $id=$request->Employee;
-        //dd($id);
         $salaryMonth=$request->salaryMonth;
 
         $workingDaysInWeek=0;
         $attendances=[];
-       // $date=$request->validate(['id'=>'required']);
-        
+       
                     $count=$request->type;
-                
                    // $startDate = $salaryMonth;
                     $startDate=Carbon::parse($salaryMonth);
                     $firstDay = $startDate->firstOfMonth();
@@ -666,26 +663,91 @@ class AdminController extends Controller
         //       return redirect()->back()->with('exists','Salary cannot be paid coz less than 1');
         //    }
         //    else{
-            DB::table('salary')->insert(
+
+            $alreadyAdvance=DB::table('advance')
+                ->where('user_id',$data['userId'])
+                ->whereNotIn('status',[4,0,1,2])
+                ->first();
+
+
+            if($alreadyAdvance)
+            {
+                //dd('abc');
+                $deduction=$alreadyAdvance->advanceAmount/$alreadyAdvance->installment;
+                
+                if($data['salary']>$deduction)
+                {
+                    // salary greatern than salary then deduction //
+                  $netSalary=$data['salary']-$deduction;
+             
+                  DB::table('salary')->insert(
+                    [ 
+                        'userId'=> $data['userId'],
+                        'salary'=> $netSalary,
+                        'salaryDate'=>Carbon::today()->toDateString(),
+                        'installmentAmount'=>$deduction,
+                        'installmentId'=>$alreadyAdvance->id
+                    ]);
+                    
+                    if($alreadyAdvance->recieveAmount>0)
+                    {
+                        $recieve=$alreadyAdvance->recieveAmount+$deduction;
+                        if($recieve>=$alreadyAdvance->advanceAmount)
+                        {
+                            DB::table('advance')->where('id',$alreadyAdvance->id)->update(['recieveAmount'=>$recieve,'status'=>4]);
+                   
+                        }
+                        else{
+                            DB::table('advance')->where('id',$alreadyAdvance->id)->update(['recieveAmount'=>$recieve]);
+
+                        }
+                   
+                    }
+                    else{
+                        $recieve=$deduction;
+                        if($recieve>=$alreadyAdvance->advanceAmount)
+                        {
+                            DB::table('advance')->where('id',$alreadyAdvance->id)->update(['recieveAmount'=>$recieve,'status'=>4]);
+                        }
+                        else{
+                            DB::table('advance')->where('id',$alreadyAdvance->id)->update(['recieveAmount'=>$recieve]);
+                        }
+                    }
+                    // update([ 'status'=>2])
+                   
+
+                    $salary= DB::table('users')
+                    ->join('employees', 'users.id', '=', 'employees.user_id')
+                    ->join('salary','salary.userId','=','users.id')
+                    ->orderBy('salary.id','desc')
+                    ->get();        
+                   
+                    return view('admin::salary/salary',compact('salary'))->with('save','saved');
+              
+                }
+            
+            }
+               
+           
+              DB::table('salary')->insert(
                 [ 
-                    'userId'=> $data['userId'],
-                    'salary'=> $data['salary'],
-                    'salaryDate'=>Carbon::today()->toDateString()
+                        'userId'=> $data['userId'],
+                        'salary'=> $data['salary'],
+                        'salaryDate'=>Carbon::today()->toDateString()
                 ]);
-          // }
+           
           $salary= DB::table('users')
           ->join('employees', 'users.id', '=', 'employees.user_id')
           ->join('salary','salary.userId','=','users.id')
           ->orderBy('salary.id','desc')
-          ->get();
-  
-          //dd($salary);
+          ->get();  
+         
           return view('admin::salary/salary',compact('salary'))->with('save','saved');
+    
     }
 
     public function salaryDelete(Request $request)
     {
-        //dd($request->id);
         DB::table('salary')->where('id',$request->id)->delete();
         return redirect()->back()->with('save','Deleted Successfully');
     }
@@ -697,10 +759,6 @@ class AdminController extends Controller
         $sm = $firstDay->toDateString();
         $endDay = $startDate->endOfMonth();
         $em = $endDay->toDateString();
-     
- 
-    
- 
  
         $allUsers=DB::table('employees')
              ->join('users', 'users.id', '=', 'employees.user_id')
@@ -768,9 +826,6 @@ class AdminController extends Controller
        $em = $endDay->toDateString();
     
 
-   
-
-
        $allUsers=DB::table('employees')
             ->join('users', 'users.id', '=', 'employees.user_id')
             ->join('departments', 'departments.id', '=', 'employees.department_id')
@@ -825,13 +880,116 @@ class AdminController extends Controller
     
     public function advance()
     {
-        return view('admin::advance/advance');
+       
+        $newAdvance=DB::table('advance')->orderBy('id', 'desc')->first();
+
+        if($newAdvance)
+        {
+            $id=$newAdvance->id;
+            $id++;
+        }
+        else
+        {
+            $id=1;
+        }
+        Auth::user();
+        $users=DB::table('users')->get();
+        return view('admin::advance/advance',compact('users','id'));
+    }
+
+    public function advanceStore(Request $request)
+    {
+        //dd('abc');
+       $data=$request->validate(
+           [
+            'user_id'=>'required|integer',
+            'recieptNo'=>'required',
+            'date'=>'required|date',
+            'advanceDate'=>'required|date',
+            'installment'=>'required|integer',
+            'advanceAmount'=>'required|integer'
+           ]
+        );
+        //$query="select * from advance";
+        $id=Auth::user()->id;
+       // $advance=DB::select("select * from advance where user_id=$id and status !=2");
+        //dd($advance);
+        $alreadyAdvance=DB::table('advance')
+        ->where('user_id',Auth::user()->id)
+        ->whereNotIn('status',[4])
+        ->first();
+        
+    
+       if($alreadyAdvance)
+       {
+        if($alreadyAdvance->status==0)
+        {
+            return redirect()->back()->with('exists', "Already Applied For Advance");
+        }
+        if($alreadyAdvance->status==1)
+        {
+            return redirect()->back()->with('exists', "Advanced is Approved Already");
+        }
+        if($alreadyAdvance->status==3)
+        {
+            return redirect()->back()->with('exists', "Previous Advanced is not paid Already");
+        }
+
+       }
+        
+        DB::table('advance')->insert([
+             'user_id'=>$data['user_id'],
+             'recieptNo'=>$data['recieptNo'],
+             'advanceDate'=>$data['advanceDate'],
+             'date'=>$data['date'],
+             'installment'=>$data['installment'],
+             'advanceAmount'=>$data['advanceAmount'],
+             'recieveAmount'=>0,
+             'status'=>0
+        ]);
+        return redirect()->back()->with('save', "Applied For Advance Successfully");
     }
     public function advanceEmployee()
     {
-        return view('admin::advance/advanceEmployee');
+         $advances=DB::table('users')
+         ->join('advance','advance.user_id','=','users.id')
+         ->where('advance.user_id',Auth::user()->id)
+         ->get();
+        //dd($advances);
+        return view('admin::advance/advanceEmployee',compact('advances'));
     }
 
+    public function advanceEmployeeAccept()
+    {
+         $advances=DB::table('users')
+         ->join('advance','advance.user_id','=','users.id')
+         ->get();
+       // dd($advances);
+        return view('admin::advance/advanceEmployeeAccept',compact('advances'));
+    }
+    
+    public function loanReject($id)
+    {
+        DB::table('advance')->where('id',$id)->update([ 'status'=>2]);
+        return redirect()->back()->with('save', "Rejected Successfully");
+    }
+    public function loanAccept($id)
+    {
+        DB::table('advance')->where('id',$id)->update([ 'status'=>1]);
+        return redirect()->back()->with('save', "Approved Successfully");
+    }
+
+    public function loanIssue($id)
+    {
+        DB::table('advance')->where('id',$id)->update([ 'status'=>3]);
+        return redirect()->back()->with('save', "Approved Successfully");
+    }
+    
+    public function advanceDelete(Request $request)
+    {
+        DB::table('advance')->where('id',$request->id)->delete();
+        return redirect()->back()->with('save','Deleted Successfully');
+    }
 
     public function report()
     {

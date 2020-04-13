@@ -8,30 +8,30 @@
 
 @section('content')
     <section class="">
-{{--        <div class="row">--}}
-{{--            <div class="col-md-4">--}}
-{{--            </div>--}}
-{{--            <div class="col-md-4 mt-2">--}}
-{{--                <form id="dateHearing" action="{{ route('dateHearing') }}" method="POST" >--}}
-{{--                    @csrf--}}
-{{--                    <div class="d-flex">--}}
-{{--                        <div class="form-group row p-0 m-0">--}}
-{{--                            <label class="col-sm-3 col-form-label">From</label>--}}
-{{--                            <div class="col-sm-9">--}}
-{{--                                <input type="date" name="fromDate" id="fromDate" class="form-control">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group row p-0 m-0">--}}
-{{--                            <label class="col-sm-2 col-form-label">To</label>--}}
-{{--                            <div class="col-sm-10">--}}
-{{--                                <input type="date" onchange="myFunction()" name="toDate" id="toDate" class="form-control">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4 mt-2">
+                <form id="dateHearing" action="{{ route('dateHearing_out') }}" method="POST" >
+                    @csrf
+                    <div class="d-flex">
+                        <div class="form-group row p-0 m-0">
+                            <label class="col-sm-3 col-form-label">From</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="fromDate" id="fromDate" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row p-0 m-0">
+                            <label class="col-sm-2 col-form-label">To</label>
+                            <div class="col-sm-10">
+                                <input type="date" onchange="myFunction()" name="toDate" id="toDate" class="form-control">
+                            </div>
+                        </div>
 
-{{--                    </div>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-12">
@@ -67,7 +67,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(!$inward_gate_pass->isempty())
+{{--                                @if(!$inward_gate_pass->isempty())--}}
                                     @php $count=0; @endphp
                                     @foreach($inward_gate_pass as $item)
                                         @php ++$count; @endphp
@@ -112,7 +112,7 @@
                                                 </div></td>
                                         </tr>
                                     @endforeach
-                                @endif
+{{--                                @endif--}}
                                 </tbody>
                             </table>
                         </div>

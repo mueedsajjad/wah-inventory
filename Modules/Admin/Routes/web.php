@@ -28,7 +28,12 @@ Route::prefix('admin')->group(function() {
 //----------------------- Advance ------------------------//
 Route::get('advance', 'AdminController@advance');
 Route::get('advanceEmployee', 'AdminController@advanceEmployee');
-
+Route::get('advanceEmployeeAccept', 'AdminController@advanceEmployeeAccept');
+Route::post('advanceStore', 'AdminController@advanceStore');
+Route::get('loanAccept/{id}', 'AdminController@loanAccept');
+Route::get('loanReject/{id}', 'AdminController@loanReject');
+Route::get('loanIssue/{id}', 'AdminController@loanIssue');
+Route::post('advanceDelete', 'AdminController@advanceDelete');
 
 //----------------------- salary ------------------------//    
     Route::get('salary', 'AdminController@salary');

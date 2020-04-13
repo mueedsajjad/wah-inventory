@@ -56,8 +56,9 @@
                             </div>
                             <div class="row form-group">
                                     <label class="col-sm-3" for="exampleInputEmail1">Salary Month<span class="text-red">*</span></label>
-                                    <input class="col-sm-6 " name="salaryMonth" type="date" required  class="form-control">
+                                    <input class="col-sm-6 form-control" name="salaryMonth" type="date" required>
                             </div>
+                            
                             <div class="text-right mt-5">
                                     <a href="{{url('admin/salaryEmployee')}}" class="btn btn-default mr-1">Cancel</a>
                                     <button class="btn btn-primary" type="submit">Calculate Salary</button>
