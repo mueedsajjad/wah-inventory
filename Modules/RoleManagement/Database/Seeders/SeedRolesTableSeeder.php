@@ -127,6 +127,12 @@ class SeedRolesTableSeeder extends Seeder
             'created_at'=>NOW(),
             'updated_at'=>NOW()
         ]);
+        DB::table('roles')->insert([
+            'name'=>'QC',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
 
         // $this->call("OthersTableSeeder");
     }

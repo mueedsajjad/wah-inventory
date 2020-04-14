@@ -14,6 +14,8 @@
 Route::prefix('purchase')->group(function() {
 
     Route::get('/', 'PurchaseController@index');
+    Route::post('/purchase_date_pur', 'PurchaseController@purchase_date_pur')->name('purchse_date_search');
+    Route::post('/purchase_date_list', 'PurchaseController@purchaseOrderlist_date')->name('purchse_date_list_search');
     Route::get('/dashboard', 'PurchaseController@dashboard');
     Route::get('/new-purchase-list', 'PurchaseController@purchaseOrderlist');
 

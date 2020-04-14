@@ -100,7 +100,7 @@
                                 <div class="row justify-content-around">
                             
                                     <div class="col-12 mb-2">
-                                        <a href="#" class="btn btn-danger ml-3 float-right mr-1">Cancel</a>
+                                        <a href="{{url('admin/advance')}}" class="btn btn-danger ml-3 float-right mr-1">Cancel</a>
                                         <!-- <a href="#" class="btn btn-success ml-3 float-right">Save & Print</a> -->
                                         <input type="submit" value="Save" class="btn btn-success float-right">
                                     </div>

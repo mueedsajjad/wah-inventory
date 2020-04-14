@@ -465,11 +465,15 @@ class AdminController extends Controller
     public function employeeSalaryDetails(Request $request){
       
         $id=$request->Employee;
+        // dd($request);
         $salaryMonth=$request->salaryMonth;
-
+ 
         $workingDaysInWeek=0;
-        $attendances=[];
-       
+        $attendances=[]; 
+
+        $id=$request->id;
+        if ($id!=0 || $id!='' || $id!=null || $salaryMonth!=null || $salaryMonth!="") {
+            //dd($id);
                     $count=$request->type;
                    // $startDate = $salaryMonth;
                     $startDate=Carbon::parse($salaryMonth);
@@ -614,7 +618,7 @@ class AdminController extends Controller
                 $salaryEmployee = DB::table('users')->select('users.*','employees.*')
                 ->join('employees', 'users.id', '=', 'employees.user_id')
                 ->where('users.id', $id)->first();
-                //dd($entranceEmployee);
+               // dd($salaryEmployee);
                 if($salaryEmployee)
                 {
                     if($salaryEmployee->salary==null)
@@ -640,14 +644,27 @@ class AdminController extends Controller
            // according to working previous work   //$netSalary=$hourWorkingInt*$perHourSalary;
                     $netSalary=$hourWorkingInt*$salaryEmployee->salary;
                     $netSalary=round($netSalary, 0);
+                    $salaryEmployee->salary=$netSalary;
+                    //dd($salaryEmployee);
                    
                 } else{
                     return redirect()->back()->with('exists','Employee Salary not defined monthly. Please Edit Employee Profile');
                 }
-                
-               
-        $user=DB::table('users')->get();
-        return view('admin::salary/salaryPay',compact('user','salaryEmployee','netSalary'));
+                // dd($netSalary);
+                if ($salaryEmployee){
+                  //  dd($salaryEmployee);
+                    return json_encode($salaryEmployee);
+                }  else{
+                   return json_encode('error');
+                }
+
+               //dd($netSalary);
+        //    $user=DB::table('users')->get();
+        //    return view('admin::salary/salaryPay',compact('user','salaryEmployee','netSalary'));
+        }  else{
+            return json_encode('error');
+        }
+
 
     }
     
@@ -658,6 +675,7 @@ class AdminController extends Controller
                     'userId' => 'required',
                     'salary' => 'required',         
                 ]);
+                
         //    if($data['salary']<1)
         //    {
         //       return redirect()->back()->with('exists','Salary cannot be paid coz less than 1');
@@ -668,11 +686,11 @@ class AdminController extends Controller
                 ->where('user_id',$data['userId'])
                 ->whereNotIn('status',[4,0,1,2])
                 ->first();
-
-
+                //dd('abc');
             if($alreadyAdvance)
             {
-                //dd('abc');
+
+               
                 $deduction=$alreadyAdvance->advanceAmount/$alreadyAdvance->installment;
                 
                 if($data['salary']>$deduction)
@@ -714,35 +732,39 @@ class AdminController extends Controller
                         }
                     }
                     // update([ 'status'=>2])
+                    //dd($data);
+
+                    return redirect()->back()->with('save','Salary Paid Successfully');
                    
 
-                    $salary= DB::table('users')
-                    ->join('employees', 'users.id', '=', 'employees.user_id')
-                    ->join('salary','salary.userId','=','users.id')
-                    ->orderBy('salary.id','desc')
-                    ->get();        
+                    // $salary= DB::table('users')
+                    // ->join('employees', 'users.id', '=', 'employees.user_id')
+                    // ->join('salary','salary.userId','=','users.id')
+                    // ->orderBy('salary.id','desc')
+                    // ->get();        
                    
-                    return view('admin::salary/salary',compact('salary'))->with('save','saved');
+                    // return view('admin::salary/salary',compact('salary'))->with('save','saved');
               
                 }
             
             }
-               
-           
+           // dd('abcsss');
               DB::table('salary')->insert(
                 [ 
                         'userId'=> $data['userId'],
                         'salary'=> $data['salary'],
                         'salaryDate'=>Carbon::today()->toDateString()
                 ]);
+
+                return redirect()->back()->with('save','Salary Paid Successfully');
            
-          $salary= DB::table('users')
-          ->join('employees', 'users.id', '=', 'employees.user_id')
-          ->join('salary','salary.userId','=','users.id')
-          ->orderBy('salary.id','desc')
-          ->get();  
+        //   $salary= DB::table('users')
+        //   ->join('employees', 'users.id', '=', 'employees.user_id')
+        //   ->join('salary','salary.userId','=','users.id')
+        //   ->orderBy('salary.id','desc')
+        //   ->get();  
          
-          return view('admin::salary/salary',compact('salary'))->with('save','saved');
+        //   return view('admin::salary/salary',compact('salary'))->with('save','saved');
     
     }
 
@@ -982,7 +1004,7 @@ class AdminController extends Controller
     public function loanIssue($id)
     {
         DB::table('advance')->where('id',$id)->update([ 'status'=>3]);
-        return redirect()->back()->with('save', "Approved Successfully");
+        return redirect()->back()->with('save', "Loan Issued Successfully");
     }
     
     public function advanceDelete(Request $request)
