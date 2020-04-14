@@ -305,6 +305,19 @@ class PurchaseController extends Controller
         return view('purchase::getDetailsforTender',compact('detailsOne', 'detailsZero','record'));
     }
 
+    public function purchaseOrderlist_date(Request $request){
+//        dd($request->all());
+
+        $from = $request->fromDate;
+        $to = $request->toDate;
+//        $records = DB::table('purchase_requisitions')->get();
+
+        $orders = DB::table('purchase_order_approval')->whereBetween('issue_date', [$from,$to])->get();
+
+        return view('purchase::orderTableForPurchase',compact('orders'));
+
+    }
+
 
     public function purchaseOrderlist(){
 
@@ -507,6 +520,19 @@ class PurchaseController extends Controller
     public function index()
     {
         $records = DB::table('purchase_requisitions')->get();
+
+
+
+
+        return view('purchase::index', compact('records'));
+    }
+
+    public function purchase_date_pur(Request $request)
+    {
+//        dd($request->all());
+        $from = $request->fromDate;
+        $to = $request->toDate;
+        $records = DB::table('purchase_requisitions')->whereBetween('issue_date', [$from,$to])->get();
 
 
 
