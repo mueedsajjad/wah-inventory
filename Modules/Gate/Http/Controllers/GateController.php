@@ -417,7 +417,7 @@ class GateController extends Controller
 
 
 
-   
+
     public function vendor_data($id){
 //      dd($id);
         $vendors=DB::table('purchase_order_approval')->find($id);

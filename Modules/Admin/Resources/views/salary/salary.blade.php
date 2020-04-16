@@ -8,10 +8,10 @@
 
                 <div class="col-md-12">
                 @if(session()->has('save'))
-            <div class="alert alert-success text-center" role="alert">
-                <strong>Success</strong> {{session()->get('save')}}
-            </div>
-        @endif
+                    <div class="alert alert-success text-center" role="alert">
+                        <strong>Success</strong> {{session()->get('save')}}
+                    </div>
+                @endif
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Salary</h3>
@@ -31,7 +31,7 @@
                                     <th>Designation</th>
                                     <th>Salary</th>
                                     <th>Date</th>
-                                    <th>Action<th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -46,7 +46,7 @@
                                     <td>{{$salaries->salary}}</td>
                                     <td>{{$salaries->salaryDate}}</td>
                                     <td>
-                                    <a href="#" class="btn btn-danger  ml-1 deleteSalary" data-id="{{$salaries->id}}" type="button"  data-toggle="modal" data-target="#modal-delete">Delete</a>
+                                    <a class="btn btn-danger  ml-1 deleteSalary" data-id="{{$salaries->id}}" type="button"  data-toggle="modal" data-target="#modal-delete">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -117,6 +117,8 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
+    </div>
+
     </section>
     <!-- $('.deleteMaterial').click(function () {
         var id=$(this).data("id");

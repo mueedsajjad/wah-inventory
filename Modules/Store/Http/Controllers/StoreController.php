@@ -5,12 +5,14 @@ namespace Modules\Store\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Foreach_;
 
 class StoreController extends Controller
 {
+    use Notifiable;
     public function date_filter_out(Request $request)
     {
 //        dd('fd');
@@ -252,6 +254,7 @@ class StoreController extends Controller
             $updateinward_raw_material=DB::table('inward_raw_material')->where('gatePassId', $gatepassid)->update($data_one);
 
             if ($update && $updateinward_raw_material){
+
                 return redirect()->back()->with('message', 'Updated Status Successfuly.');
             }
             else {
