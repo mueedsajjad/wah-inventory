@@ -54,7 +54,9 @@
                                 <select class="col-sm-6 browser-default custom-select select2" id="entranceEmployee" name="entranceEmployee" required>
                                     <option selected disabled>Select Employee</option >
                                     @foreach($user as $employee)
+                                        @if($employee->id!=1)
                                         <option value="{{$employee->id}}"> {{$employee->name}} </option >
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -76,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Status<span class="text-red">*</span></label>
                                     <select class="browser-default custom-select" id="entranceEmployeeStatus" name="entranceEmployeeStatus" required>
-                                        <option value="none" selected> Select </option>
+                                        <option disabled selected> Select </option>
                                         <option value="1"> Present</option>
                                         <option value="0"> Absent</option>
                                         <option value="2"> Leave</option>

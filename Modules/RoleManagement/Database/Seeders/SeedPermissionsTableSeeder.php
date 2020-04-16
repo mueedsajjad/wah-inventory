@@ -110,6 +110,49 @@ class SeedPermissionsTableSeeder extends Seeder
             'created_at'=>NOW(),
             'updated_at'=>NOW()
         ]);
+        DB::table('permissions')->insert([
+            'name'=>'Apply For Loan',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Accept Loan Request',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Purchase Requisition',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Approve Order',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Approve Requisition',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Tendor',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+        DB::table('permissions')->insert([
+            'name'=>'Tender',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+
         //____________________________ Previous Persmission For HRMS ----------------------- ///
 
 //        DB::table('permissions')->insert([

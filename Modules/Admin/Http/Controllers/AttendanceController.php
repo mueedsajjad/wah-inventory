@@ -31,7 +31,6 @@ class AttendanceController extends Controller
     public function attendanceMark()
     {
         $user=DB::table('users')->get();
-
         $todayUsers=DB::table('attendance')
             ->select('attendance.*', 'users.*')
             ->join('users','attendance.userId','=','users.id')

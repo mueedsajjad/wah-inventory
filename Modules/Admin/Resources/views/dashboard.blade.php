@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
     <h1 class="display-4">Dashboard</h1>
 
 <div class="row">
@@ -46,7 +45,7 @@
                 <div class="icon">
                     <i class="ion ion-person-stalker"></i>
                 </div>
-                <a href="{{url('/admin/salary')}}" style="cursor: pointer"  class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a onclick="salary()" style="cursor: pointer"  class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -63,11 +62,6 @@
                     <a href="{{url('/admin/report')}}" style="cursor: pointer"  class="small-box-footer bg-transparent">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-
-
-
-
-
 
     <!-- <div class="row">
     <div class="col-md-12"> -->
@@ -122,7 +116,7 @@
         console.log(app);
         $.ajax({
             type: "GET",
-            url: "/"+app+"/admin/salary/dash",
+            url: "/"+app+"/admin/paidAndUnpaidEmployee",
             success:function(data)
             {
                 $("#detail").html(data);

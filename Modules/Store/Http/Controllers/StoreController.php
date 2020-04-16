@@ -11,12 +11,81 @@ use PhpParser\Node\Stmt\Foreach_;
 
 class StoreController extends Controller
 {
-    public function date_filter(Request $request)
+    public function date_filter_out(Request $request)
     {
+//        dd('fd');
+        $inward_raw_material=[];
+        $inward_gate=[];
         $from = $request->fromDate;
         $to = $request->toDate;
-        $inward_gate_pass = DB::table('inward_gate_pass')->whereBetween('date', [$from,$to])->paginate(10);
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
+//        $inward_raw_material=DB::table('inward_raw_material')->where('status', 0)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->where('status', 2)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 3)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 4)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 5)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 6)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->get();
+        $inward_raw_material=DB::table('inward_raw_material')->where('status', 0)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->where('status', 2)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 3)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 4)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 5)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 6)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->get();
+
+        foreach ($inward_gate_pass as $pass)
+        {
+            foreach ($inward_raw_material as $material)
+            {
+                if ($material->gatePassId==$pass->gatePassId)
+                {
+                    $inward_gate[]=$pass;
+                }
+            }
+        }
+
+        $inward_gate_pass = array();
+        foreach ($inward_gate as $c) {
+            $inward_gate_pass[$c->id] = $c; // Get unique country by code.
+        }
+//        dd($inward_gate_pass);
+
+
+
+
+
+
+        return view('store::newBuiltyArrival_outward', compact('inward_gate_pass'));
+
+    }
+
+    public function date_filter(Request $request)
+    {
+//        $from = $request->fromDate;
+//        $to = $request->toDate;
+//        $inward_gate_pass = DB::table('inward_gate_pass')->whereBetween('date', [$from,$to])->where('status',0)->whereBetween('date', [$from,$to])->where('status',1)->paginate(10);
 //      dd($inward_gate_pass);
+
+
+
+        $inward_raw_material=[];
+        $inward_gate=[];
+        $from = $request->fromDate;
+        $to = $request->toDate;
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
+        $inward_raw_material=DB::table('inward_raw_material')->where('status', 0)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->where('status', 2)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 3)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 4)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 5)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->orWhere('status', 6)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%PR-%')->get();
+//        $inward_raw_material=DB::table('inward_raw_material')->where('status', 2)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 3)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 4)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 5)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->orWhere('status', 6)->whereBetween('date', [$from,$to])->where('requisition_id', 'LIKE', '%FI-%')->get();
+
+        foreach ($inward_gate_pass as $pass)
+        {
+            foreach ($inward_raw_material as $material)
+            {
+                if ($material->gatePassId==$pass->gatePassId)
+                {
+                    $inward_gate[]=$pass;
+                }
+            }
+        }
+
+        $inward_gate_pass = array();
+        foreach ($inward_gate as $c) {
+            $inward_gate_pass[$c->id] = $c; // Get unique country by code.
+        }
+
+
+
+
+
+
         return view('store::newBuiltyArrival', compact('inward_gate_pass'));
 
     }
@@ -561,15 +630,14 @@ class StoreController extends Controller
 
     public function inwardGoodsReceipt_out()
     {
-        $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%FI-%')->where('status', 3)
-            ->orWhere('status', 4)->orWhere('status', 5)
-            ->orWhere('status', 6)->get();
+        $inward_raw_material=
         $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
         return view('store::inwardGoodsReceipt_out', compact('inward_raw_material','inward_gate_pass'));
     }
 
     public function inwardGoodsReceipt()
     {
+        $inward_gate=[];
         $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%PR-%')->where('status', 3)
             ->orWhere('status', 4)->orWhere('status', 5)
             ->orWhere('status', 6)->get();

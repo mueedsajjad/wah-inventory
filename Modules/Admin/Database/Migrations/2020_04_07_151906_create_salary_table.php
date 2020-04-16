@@ -18,7 +18,8 @@ class CreateSalaryTable extends Migration
             $table->integer('userId');
             $table->integer('salary');
             $table->date('salaryDate');
-
+            $table->decimal('installmentAmount')->nullable();
+            $table->integer('installmentId')->nullable();
             $table->timestamps();
         });
     }

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2020 at 03:09 PM
+-- Generation Time: Apr 14, 2020 at 03:15 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.2.27
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,16 +30,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `advance` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `recieptNo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `installment` int(11) DEFAULT NULL,
   `advanceAmount` int(11) DEFAULT NULL,
   `recieveAmount` int(11) DEFAULT NULL,
   `remainingAmount` int(11) DEFAULT NULL,
   `date` date DEFAULT NULL,
+  `advanceDate` date DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `advance`
+--
+
+INSERT INTO `advance` (`id`, `recieptNo`, `user_id`, `installment`, `advanceAmount`, `recieveAmount`, `remainingAmount`, `date`, `advanceDate`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'RN001', 11, 3, 5000, 5001, NULL, '2020-04-14', '2020-04-14', 4, NULL, NULL),
+(2, 'RN002', 11, 2, 1000, 500, NULL, '2020-04-14', '2020-04-14', 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -233,15 +243,6 @@ CREATE TABLE `customers` (
   `registration_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `customers`
---
-
-INSERT INTO `customers` (`id`, `customer_id`, `name`, `m_number`, `p_number`, `credit_term`, `email_id`, `customer_status`, `gstn_number`, `state`, `city`, `tax_reference_no`, `vat_number`, `payment_terms`, `registration_date`) VALUES
-(1, 'CS001', 'Kaleem Shoukat', '03351441256', '+921231234567', '1', 'kaleem@gmail.com', 'active', '2134567', '1', '1', '2134567', '2134567', '1', '2020-04-10'),
-(2, 'CS002', 'Mueed', '03351441234', '+921231234567', '1', 'mueed@gmail.com', 'active', '2134567', '1', '1', '2134567', '2134567', '2', '2020-04-10'),
-(4, 'CS003', 'Zain ul Abidin', '03351441244', '+921231234567', '1', 'zain@gmail.com', 'active', '2134567', '1', '1', '2134567', '2134567', '2', '2020-04-10');
-
 -- --------------------------------------------------------
 
 --
@@ -324,15 +325,15 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `user_id`, `department_id`, `designation_id`, `mobile`, `gender_id`, `state_id`, `city_id`, `address`, `upload`, `salary`, `createdDate`, `joinDate`, `designation`, `created_at`, `updated_at`) VALUES
-(9, 10, 2, 12, '67885433', 1, 1, 1, 'dd', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 11, 1, 13, '6754322', 1, 1, 1, 'ttttt', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 12, 3, 14, '45533', 1, 1, 1, 'sssss', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 13, 4, 15, '244433', 1, 1, 1, 'sssssss', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 14, 5, 16, '4553333', 1, 1, 1, 'jjkks', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 15, 8, 8, '4554333', 1, 1, 1, 'ddssss', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 16, 9, 5, '24443222', 1, 1, 1, 'sssdfd', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 17, 10, 3, '35673333', 1, 1, 1, 'sssssss', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, 18, 12, 17, '971-55-9798540', 1, 1, 1, 'Islampura lahore', '1586170780.city.png', NULL, NULL, NULL, NULL, NULL, NULL);
+(9, 10, 2, 12, '67885433', 1, 1, 1, 'dd', NULL, 500, '2020-04-14', '2020-01-14', 'Manager', NULL, NULL),
+(10, 11, 1, 13, '6754322', 1, 1, 1, 'ttttt', NULL, 50000, '2020-04-14', '2020-04-14', 'Manager', NULL, NULL),
+(11, 12, 3, 14, '45533', 1, 1, 1, 'sssss', NULL, 500, '2020-04-14', '2020-04-14', 'Manager', NULL, NULL),
+(12, 13, 4, 15, '244433', 1, 1, 1, 'sssssss', NULL, 500, '2020-03-01', '2020-03-03', 'Manager', NULL, NULL),
+(13, 14, 5, 16, '4553333', 1, 1, 1, 'jjkks', NULL, 500, '2020-03-01', '2020-03-05', 'Manager', NULL, NULL),
+(14, 15, 8, 8, '4554333', 1, 1, 1, 'ddssss', NULL, 500, '2020-03-03', '2020-04-11', 'Manager', NULL, NULL),
+(15, 16, 9, 5, '24443222', 1, 1, 1, 'sssdfd', NULL, 500, '2020-03-05', '2020-03-06', 'Manager', NULL, NULL),
+(16, 17, 10, 3, '35673333', 1, 1, 1, 'sssssss', NULL, 500, '2020-05-02', '2020-03-02', 'Manager', NULL, NULL),
+(17, 18, 12, 17, '971-55-9798540', 1, 1, 1, 'Islampura lahore', '1586170780.city.png', 500, '2020-04-04', '2020-03-01', 'Manager', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -371,14 +372,12 @@ INSERT INTO `inward_gate_pass` (`id`, `purchase_order_id`, `requisition_id`, `ga
 (5, NULL, NULL, 'GP005', 'DR005', 'Waseem', NULL, 'LHR-8826', '03351441255', 'Registered Vendor', 'VND005', 'MM Logix', 'Lahore Pak', '03351441234', '2020-03-30', 1),
 (6, NULL, NULL, 'GP006', 'DR006', 'Waseem', NULL, 'LHR-8824', '03351441255', 'Non Registered Vendor', 'VND006', 'kaleem', 'lahore', '03351441255', '2020-04-01', 1),
 (7, NULL, NULL, 'GP007', 'DR007', 'mome', NULL, 'momo9898', '090078601', 'Registered Vendor', 'VND007', 'fazi', 'lhr', '04066777', '2020-04-03', 1),
-(8, 'PO-3491', 'PR-1588', 'GP008', 'DR008', 'Waseem', NULL, 'LHE-08-23233', '03075340664', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-06', 1),
-(9, 'PO-3491', 'PR-1588', 'GP008', 'DR008', 'Waseem', NULL, 'LHE-08-23233', '03075340664', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-06', 1),
-(10, 'PO-2594', 'PR-2811', 'GP009', 'DR009', 'dakspld', NULL, '19283791', '23423', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-07', 1),
 (11, 'PO-4542', 'PR-8913', 'GP0010', 'DR0010', 'Waseemmmm', '3520252278225', 'fas123', '21312', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-07', 1),
 (12, NULL, NULL, 'GP0011', 'DR0011', 'Idrees', '352019870763', 'ler-0901', '03014541249', NULL, NULL, NULL, NULL, NULL, '2020-04-08', 0),
 (14, NULL, 'FI-3148', 'GP0012', 'DR0012', 'khalil', '6237328434', 'LER-0981', '03018939439', NULL, NULL, NULL, NULL, NULL, '2020-04-08', 1),
 (15, 'PO-5644', 'PR-8908', 'GP0013', 'DR0013', 'wasim', '23923929', 'LER-9091', '029392392', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-08', 1),
-(16, 'PO-502', 'PR-8564', 'GP0014', 'DR0014', 'Hanzi', '35201789012345', 'ler-9801', '03040001111', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-09', 1);
+(16, 'PO-502', 'PR-8564', 'GP0014', 'DR0014', 'Hanzi', '35201789012345', 'ler-9801', '03040001111', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-09', 1),
+(17, 'PO-6516', 'PR-3891', 'GP0015', 'DR0015', 'waseem badami', '3520198768900', 'ler-9001', '03224945554', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-13', 1);
 
 -- --------------------------------------------------------
 
@@ -416,7 +415,8 @@ INSERT INTO `inward_goods_receipt` (`id`, `grn`, `grnDate`, `document`, `purchas
 (11, 'GRN007', '2020-04-06', NULL, 'ppra', 'GP008', 100000.00, 'Vendor One', 'PO-3491', 'C-BH-13', 'PCS', 'i need a tube for making something', '781'),
 (12, 'GRN008', '2020-04-08', NULL, 'ppra', 'GP0013', 2000.00, 'Vendor One', 'PO-5644', 'C-BH-13', 'PCS', 'ncie', '98'),
 (13, 'GRN009', '2020-04-08', NULL, NULL, 'GP0012', NULL, NULL, NULL, 'Tube', '2', '100 received', '98'),
-(14, 'GRN0010', '2020-04-09', NULL, 'ppra', 'GP0014', 400.00, 'Vendor One', 'PO-502', 'C-TE-39', 'PCS', '20 received', '20');
+(14, 'GRN0010', '2020-04-09', NULL, 'ppra', 'GP0014', 400.00, 'Vendor One', 'PO-502', 'C-TE-39', 'PCS', '20 received', '20'),
+(15, 'GRN0011', '2020-04-13', NULL, 'ppra', 'GP0015', 200.00, 'Vendor One', 'PO-6516', 'C-TE-39', 'PCS', '19 received', '15');
 
 -- --------------------------------------------------------
 
@@ -459,14 +459,12 @@ INSERT INTO `inward_raw_material` (`id`, `itemType`, `materialName`, `uom`, `qty
 (8, 'Material', 'Brass Head', 'KG', '7676', NULL, 'Description', 'GP006', 'Magazine 2', '2020-04-01', 6, '2020-04-01', 'bad', 'Bad Quality', 10, NULL, NULL),
 (9, 'Component', 'OP Wad', 'KG', '878', NULL, 'Description', 'GP006', NULL, '2020-04-01', 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (10, 'Material', 'Tube', 'KG', '5600', NULL, 'aagaee', 'GP007', 'Magazine 2', '2020-04-03', 3, '2020-04-03', 'bad', 'kharab piece', 90, NULL, NULL),
-(11, 'Material', 'C-BH-13', 'PCS', '786', 876, 'i need a tube for making something', 'GP008', NULL, '2020-04-06', 2, NULL, NULL, NULL, NULL, 'PO-3491', 'PR-1588'),
-(12, 'Material', 'C-BH-13', 'PCS', '786', 876, 'i need a tube for making something', 'GP008', 'Magazine 2', '2020-04-06', 5, '2020-04-06', 'excellent', 'good quality', 5, 'PO-3491', 'PR-1588'),
-(13, 'Material', 'C-BH-13', 'PCS', '3500', 40000, 'dkoskmaodias', 'GP009', NULL, '2020-04-07', 3, '2020-04-07', 'excellent', 'reamarkssss', 4, 'PO-2594', 'PR-2811'),
 (14, 'Material', 'C-BH-13', 'PCS', '4000', 4000, 'received', 'GP0010', NULL, '2020-04-07', 3, '2020-04-07', 'good', 'gooogooo', 0, 'PO-4542', 'PR-8913'),
 (15, 'Component', 'Brass Head', '2', '100', NULL, 'nice inward from gate', 'GP0011', NULL, '2020-04-08', 0, NULL, NULL, NULL, NULL, NULL, NULL),
 (17, 'Component', 'Tube', '2', '100', NULL, '100 received', 'GP0012', 'Components', '2020-04-08', 6, '2020-04-08', 'excellent', '2', 2, NULL, 'FI-3148'),
 (18, 'Material', 'C-BH-13', 'PCS', '100', 100, 'ncie', 'GP0013', 'Magazine 2', '2020-04-08', 6, '2020-04-08', 'excellent', '2 bad', 2, 'PO-5644', 'PR-8908'),
-(19, 'Material', 'C-TE-39', 'PCS', '20', 20, '20 received', 'GP0014', 'Magazine 2', '2020-04-09', 6, '2020-04-09', 'excellent', 'all best', 0, 'PO-502', 'PR-8564');
+(19, 'Material', 'C-TE-39', 'PCS', '20', 20, '20 received', 'GP0014', 'Magazine 2', '2020-04-09', 6, '2020-04-09', 'excellent', 'all best', 0, 'PO-502', 'PR-8564'),
+(20, 'Material', 'C-TE-39', 'PCS', '19', 20, '19 received', 'GP0015', 'Magazine 2', '2020-04-13', 5, '2020-04-13', 'good', '15', 4, 'PO-6516', 'PR-3891');
 
 -- --------------------------------------------------------
 
@@ -596,9 +594,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (54, '2020_04_04_125726_create_setting_material_table', 7),
 (56, '2020_04_04_160714_create_sale_order_table', 8),
 (57, '2020_04_07_164157_create_sale_order_products_table', 8),
-(58, '2020_04_07_151906_create_salary_table', 9),
-(59, '2020_04_08_080603_create_advance_table', 9),
-(60, '2020_04_10_061512_create_customers_table', 10);
+(60, '2020_04_10_061512_create_customers_table', 10),
+(61, '2020_04_07_151906_create_salary_table', 11),
+(62, '2020_04_08_080603_create_advance_table', 11);
 
 -- --------------------------------------------------------
 
@@ -691,8 +689,8 @@ CREATE TABLE `payment_term` (
 --
 
 INSERT INTO `payment_term` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Cash', NULL, NULL),
-(2, 'Cheque', NULL, NULL);
+(1, 'Good', NULL, NULL),
+(2, 'Bad', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -732,7 +730,9 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (17, 'Approve Order', 'web', '2020-04-04 07:56:43', '2020-04-04 07:56:43'),
 (18, 'Approve Requisition', 'web', '2020-04-06 05:00:58', '2020-04-06 05:00:58'),
 (19, 'Tendor', 'web', '2020-04-09 11:54:55', '2020-04-09 11:54:55'),
-(20, 'Tender', 'web', '2020-04-09 11:59:21', '2020-04-09 11:59:21');
+(20, 'Tender', 'web', '2020-04-09 11:59:21', '2020-04-09 11:59:21'),
+(21, 'Accept Loan Request', 'web', '2020-04-14 08:08:27', '2020-04-14 08:08:27'),
+(22, 'Apply For Loan', 'web', '2020-04-14 08:09:26', '2020-04-14 08:09:26');
 
 -- --------------------------------------------------------
 
@@ -766,7 +766,8 @@ INSERT INTO `ppra_order` (`id`, `po_id`, `requisition_id`, `purchase_order_id`, 
 (6, 23, 'PR-8908', 'PO-5644', 'commercial', 'technical', '1', 0, NULL, NULL),
 (7, 24, 'PR-8564', 'PO-502', 'commercial', 'technical', '1', 0, NULL, NULL),
 (8, 26, 'PR-7089', 'PO-1298', 'commercial', 'technical', '1', 0, NULL, NULL),
-(9, 28, 'PR-2634', 'PO-4233', 'commercial', 'technical', '1', 0, NULL, NULL);
+(9, 28, 'PR-2634', 'PO-4233', 'commercial', 'technical', '1', 0, NULL, NULL),
+(10, 30, 'PR-3891', 'PO-6516', 'commercials', 'technicals', '1', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1122,7 +1123,9 @@ INSERT INTO `purchase_order_approval` (`id`, `purchase_order_id`, `requisition_i
 (25, 'PO-2536', 'PR-7089', '2020-04-09', 'ppra', NULL, NULL, 4, NULL, NULL),
 (26, 'PO-1298', 'PR-7089', '2020-04-09', 'ppra', NULL, 1, 1, NULL, NULL),
 (27, 'PO-3492', 'PR-2634', '2020-04-09', 'ppra', NULL, NULL, 4, NULL, NULL),
-(28, 'PO-4233', 'PR-2634', '2020-04-09', 'ppra', NULL, 1, 3, NULL, NULL);
+(28, 'PO-4233', 'PR-2634', '2020-04-09', 'ppra', NULL, 1, 3, NULL, NULL),
+(29, 'PO-6073', 'PR-3891', '2020-04-13', 'ppra', NULL, NULL, 4, NULL, NULL),
+(30, 'PO-6516', 'PR-3891', '2020-04-13', 'ppra', NULL, 1, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1170,7 +1173,9 @@ INSERT INTO `purchase_order_approval_detail` (`id`, `po_id`, `purchase_order_id`
 (22, 25, 'PO-2536', 'C-TE-39', 'PCS', '10 request', '10', '2', '20', 1, NULL, NULL),
 (23, 26, 'PO-1298', 'C-TE-39', 'PCS', '10 request', '10', '2', '20', 0, NULL, NULL),
 (24, 27, 'PO-3492', 'C-BH-13', 'PCS', 'nice', '20', '20', '400', 1, NULL, NULL),
-(25, 28, 'PO-4233', 'C-BH-13', 'PCS', 'nice', '20', '20', '400', 0, NULL, NULL);
+(25, 28, 'PO-4233', 'C-BH-13', 'PCS', 'nice', '20', '20', '400', 0, NULL, NULL),
+(26, 29, 'PO-6073', 'C-TE-39', 'PCS', 'request', '20', '10', '200', 1, NULL, NULL),
+(27, 30, 'PO-6516', 'C-TE-39', 'PCS', 'request', '20', '10', '200', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1225,7 +1230,8 @@ INSERT INTO `purchase_requisitions` (`id`, `requisition_id`, `issue_date`, `stat
 (15, 'PR-8908', '2020-04-08', 2, NULL, NULL),
 (16, 'PR-8564', '2020-04-09', 2, NULL, NULL),
 (17, 'PR-7089', '2020-04-09', 2, NULL, NULL),
-(18, 'PR-2634', '2020-04-09', 2, NULL, NULL);
+(18, 'PR-2634', '2020-04-09', 2, NULL, NULL),
+(19, 'PR-3891', '2020-04-13', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1268,7 +1274,8 @@ INSERT INTO `purchase_requisitions_detail` (`id`, `req_id`, `requisition_id`, `m
 (29, 15, 'PR-8908', 'C-BH-13', 'PCS', 'give', '100', 0, NULL, NULL),
 (30, 16, 'PR-8564', 'C-TE-39', 'PCS', 'ncie', '20', 0, NULL, NULL),
 (31, 17, 'PR-7089', 'C-TE-39', 'PCS', '10 request', '10', 0, NULL, NULL),
-(32, 18, 'PR-2634', 'C-BH-13', 'PCS', 'nice', '20', 0, NULL, NULL);
+(32, 18, 'PR-2634', 'C-BH-13', 'PCS', 'nice', '20', 0, NULL, NULL),
+(33, 19, 'PR-3891', 'C-TE-39', 'PCS', 'request', '20', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1373,7 +1380,16 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (19, 13),
 (19, 15),
 (20, 1),
-(20, 15);
+(20, 15),
+(21, 1),
+(22, 3),
+(22, 8),
+(22, 12),
+(22, 13),
+(22, 14),
+(22, 15),
+(22, 16),
+(22, 17);
 
 -- --------------------------------------------------------
 
@@ -1386,9 +1402,29 @@ CREATE TABLE `salary` (
   `userId` int(11) NOT NULL,
   `salary` int(11) NOT NULL,
   `salaryDate` date NOT NULL,
+  `installmentAmount` decimal(8,2) DEFAULT NULL,
+  `installmentId` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `salary`
+--
+
+INSERT INTO `salary` (`id`, `userId`, `salary`, `salaryDate`, `installmentAmount`, `installmentId`, `created_at`, `updated_at`) VALUES
+(1, 11, 448333, '2020-04-14', '1666.67', 1, NULL, NULL),
+(2, 11, 448333, '2020-04-14', '1666.67', 1, NULL, NULL),
+(3, 11, 448333, '2020-04-14', '1666.67', 1, NULL, NULL),
+(4, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(5, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(6, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(7, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(8, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(9, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(10, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(11, 11, 450000, '2020-04-14', NULL, NULL, NULL, NULL),
+(12, 11, 449500, '2020-04-14', '500.00', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1401,7 +1437,7 @@ CREATE TABLE `sale_order` (
   `so_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date` date DEFAULT NULL,
   `delivery_date` date DEFAULT NULL,
-  `customer_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1409,9 +1445,13 @@ CREATE TABLE `sale_order` (
 -- Dumping data for table `sale_order`
 --
 
-INSERT INTO `sale_order` (`id`, `so_number`, `date`, `delivery_date`, `customer_id`, `status`) VALUES
-(1, 'SO001', '2020-04-08', '2020-04-09', 'CS001', 0),
-(2, 'SO002', '2021-04-08', '2020-04-09', 'CS002', 1);
+INSERT INTO `sale_order` (`id`, `so_number`, `date`, `delivery_date`, `customer_name`, `status`) VALUES
+(1, 'SO001', '2020-04-08', '2020-04-09', 'cece', 0),
+(2, 'SO002', '2020-04-08', '2020-04-09', 'Kaleem', 0),
+(3, 'SO002', '2020-04-08', '2020-04-09', 'Kaleem', 0),
+(4, 'SO002', '2020-04-08', '2020-04-09', 'Kaleem', 1),
+(5, 'SO002', '2020-04-08', '2020-04-09', 'Kaleem', 0),
+(6, 'SO003', '2020-04-08', '2020-04-10', 'customer', 0);
 
 -- --------------------------------------------------------
 
@@ -1425,7 +1465,7 @@ CREATE TABLE `sale_order_products` (
   `product_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `uom` int(11) DEFAULT NULL,
   `qty` int(11) DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `description` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1433,10 +1473,8 @@ CREATE TABLE `sale_order_products` (
 --
 
 INSERT INTO `sale_order_products` (`id`, `so_number`, `product_code`, `uom`, `qty`, `description`) VALUES
-(1, 'SO001', 'P0001', 2, 100, 'Product Description'),
-(2, 'SO001', 'P0001', 2, 100, 'Product Description'),
-(3, 'SO002', 'P0001', 2, 8797, 'Product Description'),
-(4, 'SO002', 'P0002', 2, 77789, 'Product Description');
+(1, 'SO002', 'P0001', 2, 100, 1),
+(2, 'SO002', 'P0001', 2, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -1777,15 +1815,15 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `manager_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Shoaib Arshad', NULL, 'shoaibarshad@gmail.com', NULL, '$2y$10$CeV5XThutGNT4M0V.mcJhOSP/Fw8AjeNcIlkmMyeAeZqDsDkqd0fa', NULL, '2020-03-24 05:30:03', '2020-03-24 05:30:03'),
-(10, 'kaleem', NULL, 'kaleem@gmail.com', NULL, '$2y$10$K0RNVmBP3kUfRaoZbmWnH.t8cZZvDy5gJUefZNynnA/DHqOMsoikq', NULL, '2020-03-25 05:20:49', '2020-03-25 05:20:49'),
-(11, 'Moueed', NULL, 'moueed@gmail.com', NULL, '$2y$10$Fic2g6qGkRKewMGI96TBGesLtSsgX0lGlrsLX0b2kI44GNFnuqFea', NULL, '2020-03-25 05:22:46', '2020-03-25 05:22:46'),
-(12, 'fezan', NULL, 'fezan@gmail.com', NULL, '$2y$10$GhGMlQYKAe33S9v114JfpuNBau1/W1GhQuLvreGoI0iRNmc5NhnIC', NULL, '2020-03-25 05:23:45', '2020-03-25 05:23:45'),
-(13, 'Tamoor', NULL, 'tamoor@gmail.com', NULL, '$2y$10$LqPVlEGAzTvdFKQshxy2leldnp6xLIWS5lo2u.IEcKbpjDWcQvLX.', NULL, '2020-03-25 05:24:47', '2020-03-25 05:24:47'),
-(14, 'muzamil', NULL, 'muzamil@gmail.com', NULL, '$2y$10$dkz3JOANGn6jCoWXJFab0egHiXCr4Ozmcdt90eAgqMqbYTR/cYRdW', NULL, '2020-03-25 05:26:09', '2020-03-25 05:26:09'),
-(15, 'Numair', NULL, 'numair@gmail.com', NULL, '$2y$10$v2XJ2WATnaY7ePHilclRneOjnllZ9uSg./N6bbbcoxSRjag7M8WSe', NULL, '2020-03-25 05:27:04', '2020-03-25 05:27:04'),
-(16, 'Feraz', NULL, 'feraz@gmail.com', NULL, '$2y$10$n1xQCtIA3Lhr/ah9RsTjmeseO7rYp2NNLAkgpYu04CZsUFnNyhyiO', NULL, '2020-03-25 05:28:05', '2020-03-25 05:28:05'),
-(17, 'nabeel', NULL, 'nabeel@gmail.com', NULL, '$2y$10$9IWkX83AgcGo/2K5JgEyk.3/KauCUNAkURxPU8qb3IGeDulr7o/fC', NULL, '2020-03-25 05:28:54', '2020-03-25 05:28:54'),
-(18, 'QC', NULL, 'qc@gmail.com', NULL, '$2y$10$9mhKJcN8C9hkR7GU.S0MqO5T.781I9DDBmGdeyBBtWk5mCmn0EBrW', NULL, '2020-04-06 05:59:40', '2020-04-06 05:59:40');
+(10, 'kaleem', NULL, 'kaleem@gmail.com', NULL, '$2y$10$Q/WzxOyQJssgPMlav8K1pesb.w93yCYZJVNUJtatVj/nOEjVNgdme', NULL, '2020-03-25 05:20:49', '2020-03-25 05:20:49'),
+(11, 'Moueed', NULL, 'moueed@gmail.com', NULL, '$2y$10$pGdPLM9pEuIi.NSCMCPSnOi7l5dCvjFTukTcrlqMT/Lq9AOwm8tFq', NULL, '2020-03-25 05:22:46', '2020-03-25 05:22:46'),
+(12, 'fezan', NULL, 'fezan@gmail.com', NULL, '$2y$10$2bsX9p2IhVQ0eUmzITtP4u9SH1TNpRxkK5HjqlFdx1cQ112XP0EAW', NULL, '2020-03-25 05:23:45', '2020-03-25 05:23:45'),
+(13, 'Tamoor', NULL, 'tamoor@gmail.com', NULL, '$2y$10$OG2jkabNRiJ5VScHO9QqNeUKm8UPJ/hfOA8KCHhkpARe/kqU.flq.', NULL, '2020-03-25 05:24:47', '2020-03-25 05:24:47'),
+(14, 'muzamil', NULL, 'muzamil@gmail.com', NULL, '$2y$10$NER8nErkMWE1.gce7ZudPepZDODMGrxIugW1m1AuWJQ2nVlIHicW.', NULL, '2020-03-25 05:26:09', '2020-03-25 05:26:09'),
+(15, 'Numair', NULL, 'numair@gmail.com', NULL, '$2y$10$NxR2H7.2G6DDqREvvrmKF.Ipo3WMb3oNk/3UqdggK73kUenhTNgxS', NULL, '2020-03-25 05:27:04', '2020-03-25 05:27:04'),
+(16, 'Feraz', NULL, 'feraz@gmail.com', NULL, '$2y$10$hmjOACeoqzuVqX9fm6QxD.ugeO16SG6VmucjeFdBiG4utroDda1qy', NULL, '2020-03-25 05:28:05', '2020-03-25 05:28:05'),
+(17, 'nabeel', NULL, 'nabeel@gmail.com', NULL, '$2y$10$PyXfxUJOJZqZVIL2YoZLvu8UlV0IRvU.CZNRMzU5spw8Loda77ltC', NULL, '2020-03-25 05:28:54', '2020-03-25 05:28:54'),
+(18, 'QC', NULL, 'qc@gmail.com', NULL, '$2y$10$qULQe7FuSKf5vZ2863MzROkTllYtF9JRwnWuCWwWAD.pasPlPpYNG', NULL, '2020-04-06 05:59:40', '2020-04-06 05:59:40');
 
 -- --------------------------------------------------------
 
@@ -2200,7 +2238,7 @@ ALTER TABLE `vehicle_management`
 -- AUTO_INCREMENT for table `advance`
 --
 ALTER TABLE `advance`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `attendance`
@@ -2248,7 +2286,7 @@ ALTER TABLE `credit_term`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -2272,19 +2310,19 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `inward_goods_receipt`
 --
 ALTER TABLE `inward_goods_receipt`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `inward_raw_material`
 --
 ALTER TABLE `inward_raw_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `leave`
@@ -2308,7 +2346,7 @@ ALTER TABLE `material`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `operation`
@@ -2326,13 +2364,13 @@ ALTER TABLE `payment_term`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `ppra_order`
 --
 ALTER TABLE `ppra_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `production_component`
@@ -2398,13 +2436,13 @@ ALTER TABLE `purchase_order`
 -- AUTO_INCREMENT for table `purchase_order_approval`
 --
 ALTER TABLE `purchase_order_approval`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_approval_detail`
 --
 ALTER TABLE `purchase_order_approval_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_item`
@@ -2416,13 +2454,13 @@ ALTER TABLE `purchase_order_item`
 -- AUTO_INCREMENT for table `purchase_requisitions`
 --
 ALTER TABLE `purchase_requisitions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `purchase_requisitions_detail`
 --
 ALTER TABLE `purchase_requisitions_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -2434,19 +2472,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `sale_order`
 --
 ALTER TABLE `sale_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sale_order_products`
 --
 ALTER TABLE `sale_order_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `setting_material`
