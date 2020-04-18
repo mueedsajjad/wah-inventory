@@ -11,7 +11,7 @@
             <div class="alert alert-success text-center" role="alert">
                 <strong>Success</strong> {{session()->get('save')}}
             </div>
-        @endif
+               @endif
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Salary</h3>
@@ -19,19 +19,21 @@
                                 Salary
                             </a>
                         </div>
-
+                        
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="pageTable" class="table table-bordered table-striped">
+                            <table  class="table table-bordered table-striped" id="pageTable">
                                 <thead>
+                                
                                 <tr>
-                                    <th>No#</th>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Designation</th>
-                                    <th>Salary</th>
-                                    <th>Date</th>
-                                    <th>Action<th>
+                                <th>No</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Salary</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                               
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,6 +118,7 @@
             </div>
             <!-- /.modal-content -->
         </div>
+       
         <!-- /.modal-dialog -->
     </section>
     <!-- $('.deleteMaterial').click(function () {

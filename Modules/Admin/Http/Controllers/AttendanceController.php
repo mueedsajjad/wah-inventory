@@ -192,7 +192,6 @@ class AttendanceController extends Controller
             }
         }
         else{
-
             return json_encode('error');
         }
     }
@@ -414,8 +413,9 @@ class AttendanceController extends Controller
         $remainingTime=Carbon::parse($remainingTime);
         $addTime=date('H:i', mktime(0,0));
         $addTime=Carbon::parse($addTime);
-        foreach($attendances as $attendance)
-        {
+
+ foreach($attendances as $attendance)
+  {
             $name=$attendance->name;
            if($attendance->checkIn=="N/A")
            {
@@ -431,13 +431,16 @@ class AttendanceController extends Controller
            }
           
         $dutyTime=Carbon::parse($dutyTime);
-        if($attendance->workingTime!=null)
+        $attendanceWorkingTime=Carbon::parse($attendance->workingTime);
+    if($attendance->workingTime!=null)
+    {
+        if($dutyTime>$attendanceWorkingTime)
         {
-            if($dutyTime>$attendance->workingTime)
-       {
+            //dd($attendance->workingTime);
         $dutyTime=Carbon::parse($dutyTime);
          
-        $interval = $dutyTime->diff($attendance->workingTime);
+        $interval = $dutyTime->diff($attendanceWorkingTime);
+        //dd($dutyTime);
         $hourWorking = $interval->format('%H');
         $minWorking =$interval->format('%i');
         $hourWorkingInt=(int) $hourWorking;
@@ -446,10 +449,10 @@ class AttendanceController extends Controller
         $remainingTime=$remainingTime->addHours($hourWorkingInt);
         $remainingTime=$remainingTime->addMinutes($minWorkingInt);
          
-        } elseif($dutyTime<$attendance->workingTime)
+        } elseif($dutyTime<$attendanceWorkingTime)
         {
            
-            $interval = $dutyTime->diff($attendance->workingTime);
+            $interval = $dutyTime->diff($attendanceWorkingTime);
             $hourWorking = $interval->format('%H');
             $minWorking =$interval->format('%i');
             $hourWorkingInt=(int) $hourWorking;
@@ -457,15 +460,16 @@ class AttendanceController extends Controller
         
             $addTime=$addTime->addHours($hourWorkingInt);
             $addTime=$addTime->addMinutes($minWorkingInt);
-           
+            //dd($addTime);
         }
-        }
+     }
        
 
-        }
+    }
+       // dd($addTime);
         $addTime=Carbon::parse($addTime);
         $remainingTime=Carbon::parse($remainingTime);
-
+        
         if($addTime>$remainingTime)
         {
             
@@ -479,7 +483,7 @@ class AttendanceController extends Controller
             $addTime=$addTime->subMinutes($minWorkingInt);
 
             $overTimes=$addTime->format('H:i');
-        }else{
+        }else if($addTime<$remainingTime){
            
             $interval = $tempTime->diff($addTime);
             $hourWorking = $interval->format('%H');
@@ -493,6 +497,19 @@ class AttendanceController extends Controller
             $remainingTime=$remainingTime->subMinutes($minWorkingInt);
             
             $overTimes=$remainingTime->format('- H:i');
+        } else{
+            $interval = $tempTime->diff($addTime);
+            $hourWorking = $interval->format('%H');
+            
+            $minWorking =$interval->format('%i');
+            $hourWorkingInt=(int) $hourWorking;
+            $minWorkingInt =(int) $minWorking;
+            
+            $remainingTime=$remainingTime->subHours($hourWorkingInt);
+            
+            $remainingTime=$remainingTime->subMinutes($minWorkingInt);
+            
+            $overTimes=$remainingTime->format('H:i');
         }
        
 
