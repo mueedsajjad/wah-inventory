@@ -15,10 +15,10 @@ class GateController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function addInwardGatePass(Request $request){
 //        dd($request->all());
         if($request->type == 'requisition'){
-
 
             $data=[
                 'gatePassId' => $request->gatePassId,
@@ -30,8 +30,8 @@ class GateController extends Controller
                 'vehicalNo' => $request->vehicalNo,
                 'date' => date('Y-m-d'),
                 'status' => 0
-
             ];
+
             $insertInwardGatePass=DB::table('inward_gate_pass')->insert($data);
             $size = sizeof($request->material_name);
 

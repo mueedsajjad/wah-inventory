@@ -20,7 +20,9 @@ class AssistantManagerController extends Controller
     public function index()
     {
 
-        $records = DB::table('purchase_requisitions')->get();
+        $records = DB::table('purchase_requisitions')
+            ->orderBy('id', 'desc')
+            ->get();
 
 
 
@@ -34,14 +36,18 @@ class AssistantManagerController extends Controller
 
     public function requMaterialDash(){
 
-        $m_requ = DB::table('production_material')->get();
+        $m_requ = DB::table('production_material')
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('assistantmanager::requMaterialDash', compact('m_requ'));
     }
 
     public function requComponentDash(){
 
-        $c_requ = DB::table('production_component')->get();
+        $c_requ = DB::table('production_component')
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('assistantmanager::requComponentDash', compact('c_requ'));
     }
@@ -90,7 +96,8 @@ class AssistantManagerController extends Controller
     public function requisitionRequest(){
         $units = DB::table('unit')->get();
         $components = DB::table('component')->get();
-        return view('assistantmanager::requisitionRequest', compact('units', 'components'));
+        $materials=DB::table('setting_material')->get();
+        return view('assistantmanager::requisitionRequest', compact('units', 'components','materials'));
 
     }
 

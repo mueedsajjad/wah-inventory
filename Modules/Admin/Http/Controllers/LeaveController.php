@@ -14,12 +14,11 @@ class LeaveController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }    
-    
+    }
+
     public function leave()
     {
-        
-       
+
         $employees=DB::table('users')
             ->join('employees', 'users.id', '=', 'employees.user_id')
             ->get();
@@ -32,6 +31,7 @@ class LeaveController extends Controller
             ->join('departments','departments.id','leave.department_id')
             ->join('leave_type','leave_type.id','leave.leave_type_id')
             ->select('users.name as userName','departments.*','leave_type.*','leave.*','leave.id as leaveId')
+            ->orderBy('leave.id','desc')
             ->get();
 
             //dd($allLeaves);
@@ -42,7 +42,7 @@ class LeaveController extends Controller
     {
         $allLeaves= DB::table('leave')
 
-        
+
         ->join('users','users.id','leave.user_id')
         ->join('departments','departments.id','leave.department_id')
         ->join('leave_type','leave_type.id','leave.leave_type_id')
@@ -58,7 +58,7 @@ class LeaveController extends Controller
         $departments=DB::table('departments')->get();
         $leaves=DB::table('leave_type')->get();
 
-        
+
         return view('admin::leave/leave',compact('employees','departments','leaves','allLeaves'));
     }
 
@@ -80,6 +80,7 @@ class LeaveController extends Controller
             ->join('leave_type','leave_type.id','leave.leave_type_id')
             ->where('leave.user_id',$userId)
             ->select('users.name as userName','departments.*','leave_type.*','leave.*','leave.id as leaveId')
+            ->orderBy('leave.id','desc')
             ->get();
 
 
@@ -152,8 +153,6 @@ class LeaveController extends Controller
             );
         return redirect()->back()->with('save','Deleted Successfully');
     }
-
-
 
 
 

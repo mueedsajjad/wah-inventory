@@ -70,12 +70,15 @@ class SaleController extends Controller
     public function saleOrder()
     {
         $orders=DB::table('sale_order')->select('sale_order.*', 'customers.*')
-            ->join('customers', 'sale_order.customer_id','=', 'customers.customer_id')
+            ->join('customers', 'sale_order.customer_name','=', 'customers.name')
             ->where('sale_order.status', 0)
-            ->orWhere('sale_order.status', 1)->get();
+            ->orWhere('sale_order.status', 1)
+            ->orderBy('sale_order.id', 'desc')
+            ->get();
        //dd($orders);
         return view('sale::sale/saleOrder',compact('orders'));
     }
+
 
     public function getSaleOrderProducts(Request $request){
         $sale_order_products=DB::table('sale_order_products')

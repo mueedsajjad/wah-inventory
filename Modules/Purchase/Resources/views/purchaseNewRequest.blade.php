@@ -5,7 +5,6 @@
 
     <div class="row">
 
-
         <div class="col-md-12">
             <div class="card card-dark">
                 <div class="card-header">
@@ -162,16 +161,18 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @php $n=0; @endphp
                                                     @foreach($details as $data)
+                                                        @php $n++; @endphp
                                                         <tr>
                                                             <div class="mome">
                                                                 <td><input type="text" class="form-control"  name="" value="{{$data->requisition_id}}" readonly></td>
                                                                 <td><input type="text" class="form-control"  name="material_name[]" value="{{$data->material_name}}" readonly></td>
                                                                 <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
-                                                                <td><input type="text" class="form-control"  name="qty[]" value="{{$data->quantity}}" readonly></td>
+                                                                <td><input id="quantity" type="text" class="form-control"  name="qty[]" value="{{$data->quantity}}" readonly></td>
                                                                 <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
-                                                                <td><input type="text" class="form-control"  name="unitprice[]" value="" required></td>
-                                                                <td><input type="text" class="form-control"  name="totalprice[]" value="" required></td>
+                                                                <td><input onchange="priceChange()" id="unitPrice" type="text" class="form-control"  name="unitprice[]" value="" required></td>
+                                                                <td><input id="totalPrice" type="text" class="form-control"  name="totalprice[]" value="" required></td>
                                                             </div>
                                                         </tr>
                                                     @endforeach
@@ -196,8 +197,6 @@
 
 
 
-
-
                     </form>
                 </div>
             </div>
@@ -208,3 +207,26 @@
 
 
 @endsection
+
+<script>
+    // $('#unitPrice').on("change", function(e) {
+    //
+    //     console.log("a");
+    //      unitPrice = $('#unitPrice').val();
+    //     quantity= $('#quantity').val();
+    //     unitPrice= unitPrice*quantity;
+    //     console.log(unitPrice);
+    //     $('#totalPrice').val=unitPrice;
+    //
+    // });
+
+    function priceChange()
+    {
+        unitPrice=$("#unitPrice").val();
+        quantity=$("#quantity").val();
+        unitPrice=unitPrice*quantity;
+        $("#totalPrice").val(unitPrice);
+        console.log(unitPrice);
+
+    }
+</script>

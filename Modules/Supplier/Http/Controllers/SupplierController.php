@@ -74,7 +74,7 @@ class SupplierController extends Controller
     }
 
     public function viewSuppliers(){
-        $supplier=DB::table('supplier')->get();
+        $supplier=DB::table('supplier') ->orderBy('id', 'desc')->get();
 
         $credit_term=DB::table('credit_term')->get();
         $state=DB::table('state')->get();

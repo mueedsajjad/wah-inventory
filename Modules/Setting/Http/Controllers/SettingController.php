@@ -12,12 +12,12 @@ class SettingController extends Controller
 
     public function setting()
     {
-        $units=DB::table('unit')->get();
-        $categories=DB::table('category')->get();
-        $stores=DB::table('store')->get();
-        $operations=DB::table('operation')->get();
-        $departments=DB::table('departments')->get();
-        $components=DB::table('component')->get();
+        $units=DB::table('unit') ->orderBy('id', 'desc')->get();
+        $categories=DB::table('category') ->orderBy('id', 'desc')->get();
+        $stores=DB::table('store') ->orderBy('id', 'desc')->get();
+        $operations=DB::table('operation') ->orderBy('id', 'desc')->get();
+        $departments=DB::table('departments') ->orderBy('id', 'desc')->get();
+        $components=DB::table('component') ->orderBy('id', 'desc')->get();
 
         return view('setting::setting/setting',compact('units','categories','stores',
             'operations','departments','components'));
@@ -368,7 +368,7 @@ class SettingController extends Controller
 
       public function leave()
       {
-          $leaves=DB::table('leave_type')->get();
+          $leaves=DB::table('leave_type') ->orderBy('id', 'desc')->get();
           return view('setting::setting/leaveType',compact('leaves'));
       }
 
@@ -398,8 +398,8 @@ class SettingController extends Controller
 
       public function productAndMateralCode()
       {
-        $materials=DB::table("setting_material")->get();
-        $products=DB::table("setting_product")->get();
+        $materials=DB::table("setting_material") ->orderBy('id', 'desc')->get();
+        $products=DB::table("setting_product") ->orderBy('id', 'desc')->get();
         return view("setting::setting/productAndMaterialCode",compact('products','materials'));
       }
 
@@ -424,7 +424,7 @@ class SettingController extends Controller
             $newProduct=DB::table('setting_product')->orderBy('id', 'desc')->first();
             if($newProduct)
             {
-               
+
                 $id=$newProduct->id;
                 $id++;
                 $product_id="P000".$id;
@@ -442,7 +442,7 @@ class SettingController extends Controller
             return redirect()->back()->with('save', 'Saved Successfully');
         }
         }
-       
+
         else if($data['type']==1)
         {
             $count=DB::table('setting_material')->where('material_name',$data['name'])->count();
@@ -456,7 +456,7 @@ class SettingController extends Controller
 
             if($newProduct)
             {
-               
+
                 $id=$newProduct->id;
                 $id++;
                 $product_id="P000".$id;
@@ -473,7 +473,7 @@ class SettingController extends Controller
             return redirect()->back()->with('save', 'Saved Successfully');
         }
         }
-        
+
       }
 
       public function deleteMaterialCode(Request $request)
@@ -484,7 +484,6 @@ class SettingController extends Controller
 
       public function deleteProductCode($id)
       {
-          
           DB::table('setting_product')->Where('id',$id)->delete();
           return redirect()->back()->with('save','Deleted Successfully');
       }

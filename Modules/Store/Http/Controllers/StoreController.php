@@ -182,7 +182,7 @@ class StoreController extends Controller
 //  -------------------- Product --------------------- //
     public function product()
     {
-        $products=DB::table('material')->where('category','Products')->get();
+        $products=DB::table('material')->where('category','Products') ->orderBy('id', 'desc')->get();
         $units=DB::table('unit')->get();
         $stores=DB::table('store')->get();
         $categories=DB::table('category')->get();
@@ -190,12 +190,12 @@ class StoreController extends Controller
     }
 
     public function newBuiltyArrival(){
-        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%') ->orderBy('id', 'desc')->get();
         return view('store::newBuiltyArrival', compact('inward_gate_pass'));
     }
 
     public function newBuiltyArrival_outward(){
-        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%') ->orderBy('id', 'desc')->get();
 //        dd($inward_gate_pass);
         return view('store::newBuiltyArrival_outward', compact('inward_gate_pass'));
     }
@@ -299,6 +299,7 @@ class StoreController extends Controller
         $products=DB::table('production_order')
             ->join('transfer_request_store','production_order.id','transfer_request_store.order_id')
             ->where('status',4)
+            ->orderBy('production_order.id', 'desc')
             ->get();
 
         return view('store::dashboard/product', compact('products','stores'));
@@ -309,7 +310,9 @@ class StoreController extends Controller
         $inward_raw_material=DB::table('inward_raw_material')->where('status', 1)
             ->orWhere('status', 2)->orWhere('status', 3)
             ->orWhere('status', 4)->orWhere('status', 5)
-            ->orWhere('status', 6)->get();
+            ->orWhere('status', 6)
+            ->orderBy('id', 'desc')
+            ->get();
         return view('store::approveForInspectionNote', compact('stores', 'inward_raw_material'));
     }
 
@@ -466,13 +469,13 @@ class StoreController extends Controller
         }
 
 
-
         $data=[
             'driver_id' => $request->driver_cnic,
             'driver_name' => $request->driver_name,
             'vehicle_number' => $request->vehicle_number,
             'status' => 2
         ];
+
         $update=DB::table('sale_order')->where('id', $request->id_st)->update($data);
 
         return redirect()->back();
@@ -480,7 +483,9 @@ class StoreController extends Controller
 
     public function sales_list()
     {
-        $sales_list=DB::table('sale_order')->where('status',1)->orwhere('status',2)->orwhere('status',3)->get();
+        $sales_list=DB::table('sale_order')->where('status',1)->orwhere('status',2)->orwhere('status',3)
+            ->orderBy('id', 'desc')
+            ->get();
         return view('store::sale/sale_list',compact('sales_list'));
     }
     public function saling($id)
@@ -510,7 +515,9 @@ class StoreController extends Controller
     {
         $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%FI-%')->where('status', 2)
             ->orWhere('status', 3)->orWhere('status', 4)
-            ->orWhere('status', 5)->orWhere('status', 6)->get();
+            ->orWhere('status', 5)->orWhere('status', 6)
+            ->orderBy('id', 'desc')
+            ->get();
         $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
 //        dd($inward_gate_pass);
 //        $inward_raw_material=[];
@@ -528,7 +535,9 @@ class StoreController extends Controller
     {
         $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%PR-%')->where('status', 2)
             ->orWhere('status', 3)->orWhere('status', 4)
-            ->orWhere('status', 5)->orWhere('status', 6)->get();
+            ->orWhere('status', 5)->orWhere('status', 6)
+            ->orderBy('id', 'desc')
+            ->get();
         $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
 //        dd($inward_gate_pass);
 //        $inward_raw_material=[];
@@ -631,7 +640,9 @@ class StoreController extends Controller
     public function inwardGoodsReceipt_out()
     {
         $inward_raw_material=
-        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')->get();
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%FI-%')
+            ->orderBy('id', 'desc')
+            ->get();
         return view('store::inwardGoodsReceipt_out', compact('inward_raw_material','inward_gate_pass'));
     }
 
@@ -640,8 +651,14 @@ class StoreController extends Controller
         $inward_gate=[];
         $inward_raw_material=DB::table('inward_raw_material')->where('requisition_id', 'LIKE', '%PR-%')->where('status', 3)
             ->orWhere('status', 4)->orWhere('status', 5)
-            ->orWhere('status', 6)->get();
-        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')->get();
+            ->orWhere('status', 6)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $inward_gate_pass=DB::table('inward_gate_pass')->where('requisition_id', 'LIKE', '%PR-%')
+            ->orderBy('id', 'desc')
+            ->get();
+
         return view('store::inwardGoodsReceipt', compact('inward_raw_material','inward_gate_pass'));
     }
 
@@ -922,6 +939,7 @@ class StoreController extends Controller
         $stores=DB::table('store')->get();
         $products=DB::table('production_order')->where('status',5)
             ->orWhere('status',6)
+            ->orderBy('id', 'desc')
             ->get();
         return view('store::dashboard/assignStoreToFactoryInMadeProducts', compact('products','stores'));
     }
@@ -1029,6 +1047,7 @@ class StoreController extends Controller
         $stores=DB::table('store')->get();
         $components=DB::table('component_order')->where('status',5)
             ->orWhere('status',6)
+            ->orderBy('id', 'desc')
             ->get();
         return view('store::dashboard/assignStoreToFactoryInMadeComponents', compact('components','stores'));
 
@@ -1102,6 +1121,7 @@ class StoreController extends Controller
                 $result->where("status" , 5)
                     ->orWhere('status' , 6);
             })
+            ->orderBy('id', 'desc')
             ->get();
         return view('store::dashboard/assignStoreToFactoryInwardMaterial', compact('inward_raw_material'));
     }
@@ -1112,12 +1132,13 @@ class StoreController extends Controller
                 $result->where("status" , 5)
                     ->orWhere('status' , 6);
             })
+            ->orderBy('id', 'desc')
             ->get();
         return view('store::dashboard/assignStoreToFactoryInwardComponents', compact('inward_raw_material'));
     }
 
     public function submitFactoryInwardMaterialToStore(Request $request){
-        //dd($request);
+      //  dd($request);
         $data=[
             'materialName' => $request->materialName,
             'quantity' => $request->quantity,
@@ -1125,12 +1146,14 @@ class StoreController extends Controller
             'stored_date' => date('Y-m-d'),
             'status' => 0
         ];
+
         $dataStatus=[
             'status' => 6
         ];
 
         if ($request->storeLocation=="Magazine 1"){
             $insert=DB::table('store_magazine_1')->insert($data);
+           // dd('abc');
             $statusChange=DB::table('inward_raw_material')->where('id', $request->inward_raw_material_id)->update($dataStatus);
             if ($insert && $statusChange){
                 $checkNameInStock=DB::table('store_stock')->where('name', $request->materialName)
@@ -1166,6 +1189,7 @@ class StoreController extends Controller
                     else {
                         return back()->withErrors( 'Something went wrong.');
                     }
+
                 }
             }
         }
@@ -1302,37 +1326,37 @@ class StoreController extends Controller
 //        else{
 //            $storeMagazine1=array();
 //        }
-        $storeStock=DB::table('store_stock')->where('store_location', "Magazine 1")->get();
-        $magazine1=DB::table('store_magazine_1')->where('status', 0)->get();
+        $storeStock=DB::table('store_stock')->where('store_location', "Magazine 1") ->orderBy('id', 'desc')->get();
+        $magazine1=DB::table('store_magazine_1')->where('status', 0) ->orderBy('id', 'desc')->get();
         return view('store::storeMagazine1' , compact('magazine1', 'storeStock'));
     }
 
     public function storeMagazine2(){
-        $storeStock=DB::table('store_stock')->where('store_location', "Magazine 2")->get();
-        $magazine2=DB::table('store_magazine_2')->where('status', 0)->get();
+        $storeStock=DB::table('store_stock')->where('store_location', "Magazine 2") ->orderBy('id', 'desc')->get();
+        $magazine2=DB::table('store_magazine_2')->where('status', 0) ->orderBy('id', 'desc')->get();
         return view('store::storeMagazine2' , compact('magazine2', 'storeStock'));
     }
 
     public function storeFinishedGoods1(){
-        $storeStock=DB::table('store_stock')->where('store_location', "Finished Goods 1")->get();
-        $finishGoods1=DB::table('store_finished_goods_1')->where('status', 0)->get();
+        $storeStock=DB::table('store_stock')->where('store_location', "Finished Goods 1") ->orderBy('id', 'desc')->get();
+        $finishGoods1=DB::table('store_finished_goods_1')->where('status', 0) ->orderBy('id', 'desc')->get();
         return view('store::storeFinishedGoods1' , compact('finishGoods1', 'storeStock'));
     }
 
     public function storeFinishedGoods2(){
-        $storeStock=DB::table('store_stock')->where('store_location', "Finished Goods 2")->get();
-        $finishGoods2=DB::table('store_finished_goods_2')->where('status', 0)->get();
+        $storeStock=DB::table('store_stock')->where('store_location', "Finished Goods 2") ->orderBy('id', 'desc')->get();
+        $finishGoods2=DB::table('store_finished_goods_2')->where('status', 0) ->orderBy('id', 'desc')->get();
         return view('store::storeFinishedGoods2' , compact('finishGoods2', 'storeStock'));
     }
 
     public function storeComponents(){
-        $storeStock=DB::table('store_stock')->where('store_location', "Components")->get();
-        $components=DB::table('store_components')->where('status', 0)->get();
+        $storeStock=DB::table('store_stock')->where('store_location', "Components") ->orderBy('id', 'desc')->get();
+        $components=DB::table('store_components')->where('status', 0) ->orderBy('id', 'desc')->get();
         return view('store::storeComponents' , compact('components', 'storeStock'));
     }
 
     public function totalStock(){
-        $storeStock=DB::table('store_stock')->get();
+        $storeStock=DB::table('store_stock') ->orderBy('id', 'desc')->get();
         return view('store::totalStock', compact('storeStock'));
     }
 
@@ -1359,12 +1383,12 @@ class StoreController extends Controller
     }
 
     public function componentRequisition(){
-        $production_component_detail=DB::table('production_component_detail')->Where('status', 1)->orWhere('status', 3)->orWhere('status', 4)->orWhere('status', 5)->get();
+        $production_component_detail=DB::table('production_component_detail')->Where('status', 1)->orWhere('status', 3)->orWhere('status', 4)->orWhere('status', 5) ->orderBy('id', 'desc')->get();
         return view('store::issueRequisition/componentRequisition', compact('production_component_detail'));
     }
 
     public function materialRequisition(){
-        $production_material_detail=DB::table('production_material_detail')->Where('status', 1)->orWhere('status', 3)->get();
+        $production_material_detail=DB::table('production_material_detail')->Where('status', 1)->orWhere('status', 3) ->orderBy('id', 'desc')->get();
         return view('store::issueRequisition/materialRequisition', compact('production_material_detail'));
     }
 

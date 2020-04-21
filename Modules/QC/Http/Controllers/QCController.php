@@ -18,12 +18,12 @@ class QCController extends Controller
     public function dash()
     {
 //        dd('faizu');
-        $pending=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate',NULL)->where('requisition_id','!=',Null)->get();
-        $done_2=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
-        $done_3=DB::table('inward_raw_material')->where('status',3)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
-        $done_4=DB::table('inward_raw_material')->where('status',4)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
-        $done_5=DB::table('inward_raw_material')->where('status',5)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
-        $done_6=DB::table('inward_raw_material')->where('status',6)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)->get();
+        $pending=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate',NULL)->where('requisition_id','!=',Null)  ->orderBy('id', 'desc')->get();
+        $done_2=DB::table('inward_raw_material')->where('status',2)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)  ->orderBy('id', 'desc')->get();
+        $done_3=DB::table('inward_raw_material')->where('status',3)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)  ->orderBy('id', 'desc')->get();
+        $done_4=DB::table('inward_raw_material')->where('status',4)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)  ->orderBy('id', 'desc')->get();
+        $done_5=DB::table('inward_raw_material')->where('status',5)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)  ->orderBy('id', 'desc')->get();
+        $done_6=DB::table('inward_raw_material')->where('status',6)->where('inspectionDate','!=',NULL)->where('requisition_id','!=',Null)  ->orderBy('id', 'desc')->get();
 //        dd($done_6);
         $count_all=sizeof($pending)+sizeof($done_2)+sizeof($done_3)+sizeof($done_4)+sizeof($done_5)+sizeof($done_6);
         $count_app=sizeof($done_2)+sizeof($done_3)+sizeof($done_4)+sizeof($done_5)+sizeof($done_6);
@@ -43,7 +43,6 @@ class QCController extends Controller
 //        dd($app_pend);
         $count_all=sizeof($app_pend);
         $all=DB::table('inward_raw_material')->get();
-
 
         return view('qc::dashboard.details',compact('count_pen','count_app'));
     }
@@ -75,7 +74,7 @@ class QCController extends Controller
 
     public function productionProduct(){
 
-        $record = DB::table('production_order')->where('status', '>=',4)->get();
+        $record = DB::table('production_order')->where('status', '>=',4)  ->orderBy('id', 'desc')->get();
 
 
 //        dd($record);
@@ -85,7 +84,7 @@ class QCController extends Controller
 
     public function productionComponent(){
 
-        $record = DB::table('component_order')->where('status', '>=',4)->get();
+        $record = DB::table('component_order')->where('status', '>=',4)  ->orderBy('id', 'desc')->get();
 
         return view('qc::productionComponent', compact('record'));
     }

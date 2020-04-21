@@ -15,7 +15,8 @@ class PurchaseController extends Controller
 {
     public function purchase()
     {
-        $credit=DB::table('credit_term')->get();
+        $credit=DB::table('credit_term')
+            ->orderBy('id', 'desc')->get();
         return view('purchase::purchase/purchase',compact('credit'));
     }
 
@@ -23,11 +24,11 @@ class PurchaseController extends Controller
         $purchase_requ = DB::table('purchase_requisitions')->get();
         $record = DB::table('purchase_order_approval')->find($id);
 
-        $details = DB::table('purchase_order_approval_detail')->where('po_id', $record->id)->where('status', 0)->get();
+        $details = DB::table('purchase_order_approval_detail')->where('po_id', $record->id)->where('status', 0) ->orderBy('id', 'desc')->get();
 
 
-        $vendor = DB::table('supplier')->get();
-        $credit=DB::table('credit_term')->get();
+        $vendor = DB::table('supplier')->orderBy('id', 'desc')->get();
+        $credit=DB::table('credit_term')->orderBy('id', 'desc')->get();
         return view('purchase::dashboard',compact('credit','details', 'purchase_requ', 'record', 'vendor'));
 
     }
@@ -38,7 +39,7 @@ class PurchaseController extends Controller
         $zeroo=[];
         $onee =[];
 
-        $record = DB::table('purchase_order_approval')->where(['status'=>4])->get();
+        $record = DB::table('purchase_order_approval')->where(['status'=>4])->orderBy('id', 'desc')->get();
 
         return view('purchase::viewTender',compact( 'record'));
     }
@@ -48,22 +49,19 @@ class PurchaseController extends Controller
     {
 
 
-        $purchase_requ = DB::table('purchase_requisitions')->get();
-        $credit=DB::table('credit_term')->get();
+        $purchase_requ = DB::table('purchase_requisitions')->orderBy('id', 'desc')->get();
+        $credit=DB::table('credit_term')->orderBy('id', 'desc')->get();
         return view('purchase::dashboard',compact('credit', 'purchase_requ'));
     }
 
 
-
     public function createVendor(){
         return view('purchase::createVendor');
-
     }
 
     public function getRequ($id){
-
         $requ_req = DB::table('purchase_order_approval')->find($id);
-        $details = DB::table('purchase_order_approval_detail')->where('po_id', $requ_req->id)->where('status', 0)->get();
+        $details = DB::table('purchase_order_approval_detail')->where('po_id', $requ_req->id)->where('status', 0)->orderBy('id', 'desc')->get();
 
         return view('purchase::getRequ', compact('details', 'requ_req'));
     }
@@ -75,7 +73,6 @@ class PurchaseController extends Controller
         if ($request->vendor == null && $request->check == null){
             return redirect()->back()->with('error', 'Something is missing in this form');
         }
-
 
         $record = DB::table('purchase_order_approval')->find($request->po_id);
 
@@ -124,8 +121,6 @@ class PurchaseController extends Controller
             ]);
 
         return redirect(url('/tender/view-tender/'))->with('message', 'Tender create successfully');
-
-
 
     }
 
@@ -262,7 +257,7 @@ class PurchaseController extends Controller
         ->join('users','users.id','=','purchase_order.user_id')
         ->join('credit_term','credit_term.id','=','purchase_order.credit_term')
         ->select('purchase_order.*','credit_term.*','users.name as UserName','purchase_order.id as order_id')
-        ->get();
+        ->orderBy('purchase_order.id', 'desc')->get();
         //dd($orderForApprove);
 
         return view('purchase::purchase/orderForApprove',compact('orderForApprove'));
@@ -280,7 +275,9 @@ class PurchaseController extends Controller
 
 
     public function orderTable(){
-        $orders = DB::table('purchase_order_approval')->get();
+        $orders = DB::table('purchase_order_approval')
+            ->orderBy('id', 'desc')
+            ->get();
         return view('purchase::orderTable',compact('orders'));
     }
 
@@ -321,7 +318,9 @@ class PurchaseController extends Controller
 
     public function purchaseOrderlist(){
 
-        $orders = DB::table('purchase_order_approval')->get();
+        $orders = DB::table('purchase_order_approval')
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('purchase::orderTableForPurchase',compact('orders'));
 
@@ -435,7 +434,9 @@ class PurchaseController extends Controller
 
     public function selectSupplier()
     {
-        $order=DB::table('purchase_order')->where('status',1)->get();
+        $order=DB::table('purchase_order')->where('status',1)
+            ->orderBy('id', 'desc')
+            ->get();
         return view('purchase::supplier/selectSupplier',compact('order'));
     }
 
@@ -519,7 +520,9 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $records = DB::table('purchase_requisitions')->get();
+        $records = DB::table('purchase_requisitions')
+            ->orderBy('id', 'desc')
+            ->get();
 
 
 
@@ -551,10 +554,10 @@ class PurchaseController extends Controller
 
         $details = DB::table('purchase_requisitions_detail')->where('req_id', $records->id)->get();
 
-
         return view('purchase::purchaseNewRequest', compact('records', 'details'));
 
     }
+
 
     public function create()
     {

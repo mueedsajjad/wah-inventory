@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2020 at 03:15 PM
+-- Generation Time: Apr 21, 2020 at 07:19 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -377,7 +377,9 @@ INSERT INTO `inward_gate_pass` (`id`, `purchase_order_id`, `requisition_id`, `ga
 (14, NULL, 'FI-3148', 'GP0012', 'DR0012', 'khalil', '6237328434', 'LER-0981', '03018939439', NULL, NULL, NULL, NULL, NULL, '2020-04-08', 1),
 (15, 'PO-5644', 'PR-8908', 'GP0013', 'DR0013', 'wasim', '23923929', 'LER-9091', '029392392', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-08', 1),
 (16, 'PO-502', 'PR-8564', 'GP0014', 'DR0014', 'Hanzi', '35201789012345', 'ler-9801', '03040001111', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-09', 1),
-(17, 'PO-6516', 'PR-3891', 'GP0015', 'DR0015', 'waseem badami', '3520198768900', 'ler-9001', '03224945554', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-13', 1);
+(17, 'PO-6516', 'PR-3891', 'GP0015', 'DR0015', 'waseem badami', '3520198768900', 'ler-9001', '03224945554', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-13', 1),
+(18, 'PO-8071', 'PR-6199', 'GP0016', 'DR0016', 'wasi', '12345678', 'ler-9091', '0301928382', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-20', 1),
+(19, 'PO-1335', 'PR-7822', 'GP0017', 'DR0017', 'wasi', '3432222', 'ler-9091', '0301928382', 'Registered Vendor', 'SP001', 'Vendor One', 'Lahore', '42342', '2020-04-20', 1);
 
 -- --------------------------------------------------------
 
@@ -416,7 +418,9 @@ INSERT INTO `inward_goods_receipt` (`id`, `grn`, `grnDate`, `document`, `purchas
 (12, 'GRN008', '2020-04-08', NULL, 'ppra', 'GP0013', 2000.00, 'Vendor One', 'PO-5644', 'C-BH-13', 'PCS', 'ncie', '98'),
 (13, 'GRN009', '2020-04-08', NULL, NULL, 'GP0012', NULL, NULL, NULL, 'Tube', '2', '100 received', '98'),
 (14, 'GRN0010', '2020-04-09', NULL, 'ppra', 'GP0014', 400.00, 'Vendor One', 'PO-502', 'C-TE-39', 'PCS', '20 received', '20'),
-(15, 'GRN0011', '2020-04-13', NULL, 'ppra', 'GP0015', 200.00, 'Vendor One', 'PO-6516', 'C-TE-39', 'PCS', '19 received', '15');
+(15, 'GRN0011', '2020-04-13', NULL, 'ppra', 'GP0015', 200.00, 'Vendor One', 'PO-6516', 'C-TE-39', 'PCS', '19 received', '15'),
+(16, 'GRN0012', '2020-04-20', NULL, 'ppra', 'GP0016', 1500.00, 'Vendor One', 'PO-8071', 'C-BH-13', 'PCS', '12 received', '10'),
+(17, 'GRN0013', '2020-04-20', NULL, 'ppra', 'GP0017', 4000.00, 'Vendor One', 'PO-1335', 'C-TE-39', 'PCS', '200 received', '200');
 
 -- --------------------------------------------------------
 
@@ -464,7 +468,9 @@ INSERT INTO `inward_raw_material` (`id`, `itemType`, `materialName`, `uom`, `qty
 (17, 'Component', 'Tube', '2', '100', NULL, '100 received', 'GP0012', 'Components', '2020-04-08', 6, '2020-04-08', 'excellent', '2', 2, NULL, 'FI-3148'),
 (18, 'Material', 'C-BH-13', 'PCS', '100', 100, 'ncie', 'GP0013', 'Magazine 2', '2020-04-08', 6, '2020-04-08', 'excellent', '2 bad', 2, 'PO-5644', 'PR-8908'),
 (19, 'Material', 'C-TE-39', 'PCS', '20', 20, '20 received', 'GP0014', 'Magazine 2', '2020-04-09', 6, '2020-04-09', 'excellent', 'all best', 0, 'PO-502', 'PR-8564'),
-(20, 'Material', 'C-TE-39', 'PCS', '19', 20, '19 received', 'GP0015', 'Magazine 2', '2020-04-13', 5, '2020-04-13', 'good', '15', 4, 'PO-6516', 'PR-3891');
+(20, 'Material', 'C-TE-39', 'PCS', '19', 20, '19 received', 'GP0015', 'Magazine 2', '2020-04-13', 6, '2020-04-13', 'good', '15', 4, 'PO-6516', 'PR-3891'),
+(21, 'Material', 'C-BH-13', 'PCS', '12', 15, '12 received', 'GP0016', 'Magazine 2', '2020-04-20', 6, '2020-04-20', 'good', '10 good', 2, 'PO-8071', 'PR-6199'),
+(22, 'Material', 'C-TE-39', 'PCS', '200', 400, '200 received', 'GP0017', 'Magazine 1', '2020-04-20', 6, '2020-04-20', 'excellent', 'good', 0, 'PO-1335', 'PR-7822');
 
 -- --------------------------------------------------------
 
@@ -767,7 +773,9 @@ INSERT INTO `ppra_order` (`id`, `po_id`, `requisition_id`, `purchase_order_id`, 
 (7, 24, 'PR-8564', 'PO-502', 'commercial', 'technical', '1', 0, NULL, NULL),
 (8, 26, 'PR-7089', 'PO-1298', 'commercial', 'technical', '1', 0, NULL, NULL),
 (9, 28, 'PR-2634', 'PO-4233', 'commercial', 'technical', '1', 0, NULL, NULL),
-(10, 30, 'PR-3891', 'PO-6516', 'commercials', 'technicals', '1', 0, NULL, NULL);
+(10, 30, 'PR-3891', 'PO-6516', 'commercials', 'technicals', '1', 0, NULL, NULL),
+(11, 33, 'PR-6199', 'PO-8071', 'commercial', 'technical', '1', 0, NULL, NULL),
+(12, 36, 'PR-7822', 'PO-1335', 'Commercial Offer', 'Technical Offer', '1', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1125,7 +1133,13 @@ INSERT INTO `purchase_order_approval` (`id`, `purchase_order_id`, `requisition_i
 (27, 'PO-3492', 'PR-2634', '2020-04-09', 'ppra', NULL, NULL, 4, NULL, NULL),
 (28, 'PO-4233', 'PR-2634', '2020-04-09', 'ppra', NULL, 1, 3, NULL, NULL),
 (29, 'PO-6073', 'PR-3891', '2020-04-13', 'ppra', NULL, NULL, 4, NULL, NULL),
-(30, 'PO-6516', 'PR-3891', '2020-04-13', 'ppra', NULL, 1, 3, NULL, NULL);
+(30, 'PO-6516', 'PR-3891', '2020-04-13', 'ppra', NULL, 1, 3, NULL, NULL),
+(31, 'PO-3326', 'PR-6129', '2020-04-20', 'ppra', NULL, NULL, 0, NULL, NULL),
+(32, 'PO-3221', 'PR-6199', '2020-04-20', 'ppra', NULL, NULL, 4, NULL, NULL),
+(33, 'PO-8071', 'PR-6199', '2020-04-20', 'ppra', NULL, 1, 3, NULL, NULL),
+(34, 'PO-3901', 'PR-7822', '2020-04-20', 'ppra', NULL, NULL, 4, NULL, NULL),
+(35, 'PO-9161', 'PR-7822', '2020-04-20', 'ppra', NULL, 1, 1, NULL, NULL),
+(36, 'PO-1335', 'PR-7822', '2020-04-20', 'ppra', NULL, 1, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1175,7 +1189,13 @@ INSERT INTO `purchase_order_approval_detail` (`id`, `po_id`, `purchase_order_id`
 (24, 27, 'PO-3492', 'C-BH-13', 'PCS', 'nice', '20', '20', '400', 1, NULL, NULL),
 (25, 28, 'PO-4233', 'C-BH-13', 'PCS', 'nice', '20', '20', '400', 0, NULL, NULL),
 (26, 29, 'PO-6073', 'C-TE-39', 'PCS', 'request', '20', '10', '200', 1, NULL, NULL),
-(27, 30, 'PO-6516', 'C-TE-39', 'PCS', 'request', '20', '10', '200', 0, NULL, NULL);
+(27, 30, 'PO-6516', 'C-TE-39', 'PCS', 'request', '20', '10', '200', 0, NULL, NULL),
+(28, 31, 'PO-3326', 'C-OW-08', 'PCS', 'i need this', '5600', '100', '560000', 0, NULL, NULL),
+(29, 31, 'PO-3326', 'C-OE-49', 'Liters', 'i also want this', '40000', '50', '2,000,000‬', 0, NULL, NULL),
+(30, 32, 'PO-3221', 'C-BH-13', 'PCS', '15', '15', '100', '1500', 1, NULL, NULL),
+(31, 33, 'PO-8071', 'C-BH-13', 'PCS', '15', '15', '100', '1500', 0, NULL, NULL),
+(32, 34, 'PO-3901', 'C-TE-39', 'PCS', 'dfdf', '400', '100', '4000', 1, NULL, NULL),
+(33, 36, 'PO-1335', 'C-TE-39', 'PCS', 'dfdf', '400', '100', '4000', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1218,7 +1238,7 @@ CREATE TABLE `purchase_requisitions` (
 
 INSERT INTO `purchase_requisitions` (`id`, `requisition_id`, `issue_date`, `status`, `created_at`, `updated_at`) VALUES
 (5, 'PR-8244', '2020-04-04', 3, NULL, NULL),
-(6, 'PR-6129', '2020-04-04', 0, NULL, NULL),
+(6, 'PR-6129', '2020-04-04', 1, NULL, NULL),
 (7, 'PR-956', '2020-04-05', 0, NULL, NULL),
 (8, 'PR-4936', '2020-04-06', 0, NULL, NULL),
 (9, 'PR-9497', '2020-04-06', 0, NULL, NULL),
@@ -1231,7 +1251,10 @@ INSERT INTO `purchase_requisitions` (`id`, `requisition_id`, `issue_date`, `stat
 (16, 'PR-8564', '2020-04-09', 2, NULL, NULL),
 (17, 'PR-7089', '2020-04-09', 2, NULL, NULL),
 (18, 'PR-2634', '2020-04-09', 2, NULL, NULL),
-(19, 'PR-3891', '2020-04-13', 2, NULL, NULL);
+(19, 'PR-3891', '2020-04-13', 2, NULL, NULL),
+(20, 'PR-6199', '2020-04-20', 2, NULL, NULL),
+(21, 'PR-9724', '2020-04-20', 0, NULL, NULL),
+(22, 'PR-7822', '2020-04-20', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1275,7 +1298,10 @@ INSERT INTO `purchase_requisitions_detail` (`id`, `req_id`, `requisition_id`, `m
 (30, 16, 'PR-8564', 'C-TE-39', 'PCS', 'ncie', '20', 0, NULL, NULL),
 (31, 17, 'PR-7089', 'C-TE-39', 'PCS', '10 request', '10', 0, NULL, NULL),
 (32, 18, 'PR-2634', 'C-BH-13', 'PCS', 'nice', '20', 0, NULL, NULL),
-(33, 19, 'PR-3891', 'C-TE-39', 'PCS', 'request', '20', 0, NULL, NULL);
+(33, 19, 'PR-3891', 'C-TE-39', 'PCS', 'request', '20', 0, NULL, NULL),
+(34, 20, 'PR-6199', 'C-BH-13', 'PCS', '15', '15', 0, NULL, NULL),
+(35, 21, 'PR-9724', 'C-BH-13', 'PCS', 'Material Description', '20', 0, NULL, NULL),
+(36, 22, 'PR-7822', 'C-TE-39', 'PCS', 'dfdf', '400', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1361,6 +1387,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (11, 8),
 (12, 5),
 (12, 8),
+(12, 14),
 (13, 1),
 (13, 5),
 (13, 13),
@@ -1489,6 +1516,13 @@ CREATE TABLE `setting_material` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `setting_material`
+--
+
+INSERT INTO `setting_material` (`id`, `material_name`, `material_code`, `created_at`, `updated_at`) VALUES
+(1, 'Plastic', 'P0001', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1677,7 +1711,10 @@ INSERT INTO `store_magazine_2` (`id`, `materialName`, `uom`, `quantity`, `stored
 (5, 'Brass Head', 'KG', 788, '2020-04-08', 0),
 (6, 'Brass Head', 'KG', 788, '2020-04-08', 0),
 (7, 'C-BH-13', 'PCS', 98, '2020-04-08', 0),
-(8, 'C-TE-39', 'PCS', 20, '2020-04-09', 0);
+(8, 'C-TE-39', 'PCS', 20, '2020-04-09', 0),
+(9, 'C-TE-39', 'PCS', 15, '2020-04-20', 0),
+(10, 'C-TE-39', 'PCS', 15, '2020-04-20', 0),
+(11, 'C-BH-13', 'PCS', 10, '2020-04-20', 0);
 
 -- --------------------------------------------------------
 
@@ -1730,7 +1767,8 @@ INSERT INTO `store_stock` (`id`, `name`, `quantity`, `store_location`, `date_upd
 (6, 'Primer', 4742, 'Magazine 2', '2020-04-08'),
 (7, 'Kartoos', 300, 'Finished Goods 1', '2020-04-08'),
 (8, 'C-BH-13', 98, 'Components', '2020-04-08'),
-(9, 'C-TE-39', 20, 'Components', '2020-04-09');
+(9, 'C-TE-39', 20, 'Components', '2020-04-09'),
+(10, 'C-BH-13', 10, 'Magazine 2', '2020-04-20');
 
 -- --------------------------------------------------------
 
@@ -2310,19 +2348,19 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `inward_gate_pass`
 --
 ALTER TABLE `inward_gate_pass`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `inward_goods_receipt`
 --
 ALTER TABLE `inward_goods_receipt`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `inward_raw_material`
 --
 ALTER TABLE `inward_raw_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `leave`
@@ -2370,7 +2408,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `ppra_order`
 --
 ALTER TABLE `ppra_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `production_component`
@@ -2436,13 +2474,13 @@ ALTER TABLE `purchase_order`
 -- AUTO_INCREMENT for table `purchase_order_approval`
 --
 ALTER TABLE `purchase_order_approval`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_approval_detail`
 --
 ALTER TABLE `purchase_order_approval_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_item`
@@ -2454,13 +2492,13 @@ ALTER TABLE `purchase_order_item`
 -- AUTO_INCREMENT for table `purchase_requisitions`
 --
 ALTER TABLE `purchase_requisitions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `purchase_requisitions_detail`
 --
 ALTER TABLE `purchase_requisitions_detail`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -2490,7 +2528,7 @@ ALTER TABLE `sale_order_products`
 -- AUTO_INCREMENT for table `setting_material`
 --
 ALTER TABLE `setting_material`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `setting_product`
@@ -2511,64 +2549,22 @@ ALTER TABLE `store_components`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `store_finished_goods_1`
---
-ALTER TABLE `store_finished_goods_1`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `store_finished_goods_2`
---
-ALTER TABLE `store_finished_goods_2`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `store_magazine_1`
 --
 ALTER TABLE `store_magazine_1`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `store_magazine_2`
 --
 ALTER TABLE `store_magazine_2`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `store_requisition_issued`
---
-ALTER TABLE `store_requisition_issued`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `store_stock`
 --
 ALTER TABLE `store_stock`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `supplier`
---
-ALTER TABLE `supplier`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `unit`
---
-ALTER TABLE `unit`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `vehicle_management`
---
-ALTER TABLE `vehicle_management`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

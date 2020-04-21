@@ -18,11 +18,13 @@ class AttendanceController extends Controller
     }
 
     public function attendance()
-    { 
+    {
         $attendances=DB::table('attendance')
             ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
             ->join('users','attendance.userId','=','users.id')
-            ->where('attendance.date', Carbon::today())->get();
+            ->where('attendance.date', Carbon::today())
+            ->orderBy('attendance.id','desc')
+            ->get();
 
         $user=DB::table('users')->get();
         return view('admin::attendance/attandance' ,compact('attendances', 'user'));
@@ -37,6 +39,7 @@ class AttendanceController extends Controller
             ->where('attendance.status',1)
             ->where('attendance.date', Carbon::today())
             ->where('attendance.outTime', null)
+            ->orderBy('attendance.id','desc')
             ->get();
         //dd($todayUsers);
         return view('admin::attendance/markAttendance',compact('user', 'todayUsers'));
@@ -65,16 +68,16 @@ class AttendanceController extends Controller
         $leaveCheck=0;
         $nowInTime = Carbon::now('Asia/Karachi');
         $nowInTime=$nowInTime->format('H:i');
-       
+
         if ($request->entranceEmployeeStatus!='none'){
             $userId=$request->entranceEmployeeId;
             if($userId!=null || $userId!=0 || $userId!='' ){
                 $status=$request->entranceEmployeeStatus;
                 if ($status==1){
-                    
+
                         $nowInTime = Carbon::now('Asia/Karachi');
                         $nowInTime=$nowInTime->format('H:i');
-    
+
                         $duty=DB::table('duty_schedule')->first();
                         if($duty) {
                             $inDuty = Carbon::parse($duty->in_time);
@@ -92,7 +95,7 @@ class AttendanceController extends Controller
                         else{
                             $checkIn="Timely";
                         }
-                   
+
                 }
                 else if($status==0)
                 {
@@ -113,7 +116,7 @@ class AttendanceController extends Controller
 
                     if(!empty ($leave))
                     {
-                
+
                     $fromDate = Carbon::parse($leave->fromDate);
                     $toDate= Carbon::parse($leave->toDate);
                     $today=Carbon::parse(today()->toDateString());
@@ -130,8 +133,8 @@ class AttendanceController extends Controller
                     else{
                         return redirect()->back()->with('leave','Leave has not Approved');
                     }
-                   
-                  
+
+
                 }
 
                 //date_default_timezone_set("Asia/Karachi");
@@ -145,7 +148,7 @@ class AttendanceController extends Controller
                 }
                 else
                 {
-                   if($leaveCheck==0) 
+                   if($leaveCheck==0)
                    {
                     DB::table('attendance')->insert([
                         'userId'=> $userId,
@@ -154,7 +157,7 @@ class AttendanceController extends Controller
                         'status'=> $status,
                         'checkIn' => $checkIn
                     ]);
-                   } else if($leaveCheck==1) 
+                   } else if($leaveCheck==1)
                    {
                     DB::table('attendance')->insert([
                         'userId'=> $userId,
@@ -165,7 +168,7 @@ class AttendanceController extends Controller
                         'leaveId' => $leave->id
                     ]);
                    }
-                    
+
                     return redirect()->back()->with('save','Saved Successfully');
                 }
             }
@@ -200,7 +203,7 @@ class AttendanceController extends Controller
     {
         $userId=$request->departureEmployeeId;
         if($userId!=null || $userId!=0 || $userId!='' ){
-            
+
             $attendance=DB::table('attendance')->where('userId',$userId)
                 ->where('date',Carbon::today()->toDateString())
                 ->where('status',1)
@@ -228,7 +231,7 @@ class AttendanceController extends Controller
                     $duty= DB::table('duty_Schedule')->get();
                     return view('setting::setting/DutySchedule',compact('duty'));
                 }
-                
+
                 $nowOutTime = Carbon::now('Asia/Karachi');
                 $nowOutTime=$nowOutTime->format('H:i');
                 //calculate Total Working Time Done by Employee
@@ -301,7 +304,9 @@ class AttendanceController extends Controller
         $attendances=DB::table('attendance')
             ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
             ->join('users','attendance.userId','=','users.id')
-            ->where('attendance.date', Carbon::today())->get();
+            ->where('attendance.date', Carbon::today())
+            ->orderBy('attendance.id','desc')
+            ->get();
 
         $user=DB::table('users')->get();
         return view('admin::report/attendenceReport' ,compact('attendances', 'user'
@@ -312,11 +317,11 @@ class AttendanceController extends Controller
     {
         $attendances=[];
         $date=$request->validate(['id'=>'required']);
-        
+
             $count=$request->type;
                 if($count=="0")
                 {
-                   
+
                     $attendances=DB::table('attendance')
                     ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
                     ->join('users','attendance.userId','=','users.id')
@@ -329,11 +334,11 @@ class AttendanceController extends Controller
                 {
                     $now=Carbon::now();
                     $dateOfWeek=$now->weekday();
-                    
+
                     $current_week=Carbon::now()->weekOfYear;
 
                    $date = $now;
-                   
+
                     $date->setISODate(2020,$now->weekOfYear);
                     $mo = $date->startOfWeek()->toDateString();
                     $tu = $date->startOfWeek()->addDay(1)->toDateString();
@@ -342,7 +347,7 @@ class AttendanceController extends Controller
                     $fr = $date->startOfWeek()->addDay(4)->toDateString();
                     $st = $date->startOfWeek()->addDay(5)->toDateString();
                     $su = $date->startOfWeek()->addDay(6)->toDateString();
-                  
+
                     $attendances=DB::table('attendance')
                     ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
                     ->join('users','attendance.userId','=','users.id')
@@ -353,26 +358,26 @@ class AttendanceController extends Controller
 
                 if($count==2)
                 {
-                    
+
                     $startDate = Carbon::now();
                     $firstDay = $startDate->firstOfMonth();
                     $sm = $firstDay->toDateString();
-                   
+
                     $endDay = $startDate->endOfMonth();
                     $em = $endDay->toDateString();
 
-                   
+
                     $attendances=DB::table('attendance')
                     ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
                     ->join('users','attendance.userId','=','users.id')
                     ->whereBetween('attendance.date', [$sm,$em])
                     ->where('users.id','=', $request->id)
-                    ->get();   
+                    ->get();
                 }
-        
+
             $toDate=$request->toDate;
             $fromDate=$request->fromDate;
-            
+
         if($fromDate)
         {
             $attendances=DB::table('attendance')
@@ -380,9 +385,9 @@ class AttendanceController extends Controller
             ->join('users','attendance.userId','=','users.id')
             ->whereBetween('attendance.date', [$fromDate,$toDate])
             ->where('users.id','=', $request->id)
-            ->get();   
+            ->get();
         }
-       
+
         $dutySchedule=DB::table('duty_schedule')->first();
         $duty=DB::table('duty_schedule')->first();
                 if($duty)
@@ -429,7 +434,7 @@ class AttendanceController extends Controller
            {
                $leave++;
            }
-          
+
         $dutyTime=Carbon::parse($dutyTime);
         $attendanceWorkingTime=Carbon::parse($attendance->workingTime);
     if($attendance->workingTime!=null)
@@ -438,89 +443,88 @@ class AttendanceController extends Controller
         {
             //dd($attendance->workingTime);
         $dutyTime=Carbon::parse($dutyTime);
-         
+
         $interval = $dutyTime->diff($attendanceWorkingTime);
         //dd($dutyTime);
         $hourWorking = $interval->format('%H');
         $minWorking =$interval->format('%i');
         $hourWorkingInt=(int) $hourWorking;
         $minWorkingInt =(int) $minWorking;
-       
+
         $remainingTime=$remainingTime->addHours($hourWorkingInt);
         $remainingTime=$remainingTime->addMinutes($minWorkingInt);
-         
+
         } elseif($dutyTime<$attendanceWorkingTime)
         {
-           
+
             $interval = $dutyTime->diff($attendanceWorkingTime);
             $hourWorking = $interval->format('%H');
             $minWorking =$interval->format('%i');
             $hourWorkingInt=(int) $hourWorking;
             $minWorkingInt =(int) $minWorking;
-        
+
             $addTime=$addTime->addHours($hourWorkingInt);
             $addTime=$addTime->addMinutes($minWorkingInt);
             //dd($addTime);
         }
      }
-       
+
 
     }
        // dd($addTime);
         $addTime=Carbon::parse($addTime);
         $remainingTime=Carbon::parse($remainingTime);
-        
+
         if($addTime>$remainingTime)
         {
-            
+
             $interval = $tempTime->diff($remainingTime);
             $hourWorking = $interval->format('%H');
             $minWorking =$interval->format('%i');
             $hourWorkingInt=(int) $hourWorking;
             $minWorkingInt =(int) $minWorking;
-        
+
             $addTime=$addTime->subHours($hourWorkingInt);
             $addTime=$addTime->subMinutes($minWorkingInt);
 
             $overTimes=$addTime->format('H:i');
         }else if($addTime<$remainingTime){
-           
+
             $interval = $tempTime->diff($addTime);
             $hourWorking = $interval->format('%H');
-            
+
             $minWorking =$interval->format('%i');
             $hourWorkingInt=(int) $hourWorking;
             $minWorkingInt =(int) $minWorking;
-            
+
             $remainingTime=$remainingTime->subHours($hourWorkingInt);
-            
+
             $remainingTime=$remainingTime->subMinutes($minWorkingInt);
-            
+
             $overTimes=$remainingTime->format('- H:i');
         } else{
             $interval = $tempTime->diff($addTime);
             $hourWorking = $interval->format('%H');
-            
+
             $minWorking =$interval->format('%i');
             $hourWorkingInt=(int) $hourWorking;
             $minWorkingInt =(int) $minWorking;
-            
+
             $remainingTime=$remainingTime->subHours($hourWorkingInt);
-            
+
             $remainingTime=$remainingTime->subMinutes($minWorkingInt);
-            
+
             $overTimes=$remainingTime->format('H:i');
         }
-       
+
 
        $user=DB::table('users')->get();
        return view('admin::report/attendenceReport' ,compact('attendances',
         'user','overTimes','leave','late','name','absent'));
     }
-    
+
     public function presentAndLeave()
     {
-        
         $present=DB::table('attendance')
         ->where('date',Carbon::today()->toDateString())
         ->where('status',1)
@@ -538,7 +542,7 @@ class AttendanceController extends Controller
     }
 
     public function attendancePresentAndLeave($id)
-    { 
+    {
         $attendances=DB::table('attendance')
             ->select('attendance.*', 'users.*', 'attendance.id as attendance_id')
             ->join('users','attendance.userId','=','users.id')
@@ -550,7 +554,7 @@ class AttendanceController extends Controller
         return view('admin::attendance/attandance' ,compact('attendances', 'user'));
     }
 
-    
+
 
 
     /**

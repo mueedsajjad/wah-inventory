@@ -17,7 +17,6 @@
             @endif
             <div class="row">
 
-
                 <div class="col-md-12">
                     <div class="card card-secondary">
                         <div class="card-header">
@@ -66,6 +65,11 @@
                                                                         <option value="{{$unit->component_id}}">{{$unit->component_id}}</option>
                                                                     @endforeach
                                                                 @endif
+                                                                @if(!$materials->isempty())
+                                                                    @foreach($materials as $material)
+                                                                        <option value="{{$material->material_code}}">{{$material->material_code}}</option>
+                                                                    @endforeach
+                                                                @endif
                                                             </select>
                                                         </td>
                                                         <td>
@@ -112,7 +116,6 @@
                 </div>
 
 
-
             </div>
         </div>
     </section>
@@ -129,6 +132,11 @@
                 '<?php if(!$components->isempty()){
                     foreach($components as $data){ ?>'+
                 '<option value="{{$data->component_id}}">{{$data->component_id}}</option>'+
+                '<?php }
+                    } ?>'+
+                '<?php if(!$materials->isempty()){
+                    foreach($materials as $material){ ?>'+
+                '<option value="{{$material->material_code}}">{{$material->material_code}}</option>'+
                 '<?php }
                     } ?>'+
                 '</select>'+

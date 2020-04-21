@@ -23,7 +23,9 @@ class ProductionController extends Controller
         $stores=DB::table('store')->get();
         $stocks=DB::table('production_component_store')->get();
 
-        $orders=DB::table('production_order')->get();
+        $orders=DB::table('production_order')
+            ->orderBy('id', 'desc')
+            ->get();
         return view('production::dashboard/dashboard',compact('orders','stores','stocks'));
     }
 
@@ -250,7 +252,9 @@ class ProductionController extends Controller
 
     public function allDoneProduct($id)
     {
-        $stocks=DB::table('production_component_store')->get();
+        $stocks=DB::table('production_component_store')
+            ->orderBy('id', 'desc')
+            ->get();
         $orders=DB::table('production_order')
             ->where('id',$id)
             ->get();
@@ -425,7 +429,6 @@ class ProductionController extends Controller
             return back()->withErrors( 'Something went wrong.');
         }
 
-
     }
 
     public function componentRequisition()
@@ -433,6 +436,7 @@ class ProductionController extends Controller
         $components=DB::table('component')->get();
         $orders=DB::table('production_order')
             ->where('status',0)
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('production::requisition/component_requisition',compact('orders'
