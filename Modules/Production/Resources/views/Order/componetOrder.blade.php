@@ -41,7 +41,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Created Date</label>
-                                            <input type="date" name="create_date" class="form-control" placeholder="27-Feb-2020" required>
+                                            <input type="date" name="create_date" value="<?php echo date('Y-m-d');?>" min="<?php echo date('Y-m-d');?>" class="form-control" readonly required>
                                         </div>
                                     </div>
 

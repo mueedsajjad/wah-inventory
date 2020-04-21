@@ -5,13 +5,16 @@
 
     <section class="content pt-5">
         <div class="container-fluid">
-            @if(!empty($errors->first()))
-                <div class="alert alert-danger"  style="text-align: center">
-                    <span>{{ $errors->first() }}</span>
+
+            @if($errors->any())
+                <div class="alert alert-danger text-center">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
                 </div>
             @endif
 
-            @if(session()->has('message'))
+        @if(session()->has('message'))
                 <div class="alert alert-success">
                     {{ session()->get('message') }}
                 </div>
@@ -103,7 +106,7 @@
                                                     </thead>
                                                     <tbody id="appendMaterial">
                                                     <tr>
-                                                        <input name="countMaterial" type="hidden" value="1" id="countMaterial">
+                                                        <input name="countMaterial" type="hidden" value="1" id="countMaterial" >
                                                         <td>1</td>
                                                         <td>
                                                             <select name="materialName[]" class="form-control" required>
@@ -115,11 +118,11 @@
                                                         </td>
 
                                                         <td>
-                                                            <input type="text" name="qty[]" class="form-control" id="" placeholder="">
+                                                            <input type="text" name="qty[]" class="form-control" id="" placeholder="" required>
                                                         </td>
 
                                                         <td>
-                                                            <textarea rows="1" type="text" name="description[]" class="form-control"></textarea>
+                                                            <textarea rows="1" type="text" name="description[]" class="form-control" ></textarea>
                                                         </td>
                                                     </tr>
                                                     </tbody>
@@ -159,7 +162,7 @@
             var html='<tr id="deleteMaterial'+count+'">'+
                 '<td>'+count+'</td>'+
                 '<td>'+
-                '<select name="materialName[]" class="form-control select2">'+
+                '<select name="materialName[]" required class="form-control select2">'+
                 '<?php if(!$components->isempty()){
                     foreach($components as $component){ ?>'+
                 '<option value="{{$component->component_name}}">{{$component->component_id}}</option>'+
@@ -179,7 +182,7 @@
                 // '</select>'+
 
                 '<td>'+
-                '<input type="text" name="qty[]" class="form-control" id="" placeholder="">'+
+                '<input type="text" name="qty[]" class="form-control" id="" placeholder="" required>'+
                 '</td>'+
                 '<td>'+
                 '<textarea rows="1" type="text" name="description[]" class="form-control"></textarea>'+

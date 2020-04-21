@@ -21,7 +21,7 @@
 
                     <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title">New Manufacturing Order</h3>
+                            <h3 class="card-title">New Product Order</h3>
                         </div>
 
                         <div class="card-body">
@@ -30,7 +30,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Manufacturing Order #</label>
+                                            <label>Product Order #</label>
                                             <input readonly type="text" name="manufacturing_order" class="form-control" value="MO-{{$id}}">
                                         </div>
                                     </div>
@@ -45,7 +45,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Created Date</label>
-                                            <input type="date" name="create_date" class="form-control" required placeholder="27-Feb-2020">
+                                            <input type="date" name="create_date" value="<?php echo date('Y-m-d');?>" min="<?php echo date('Y-m-d');?>" class="form-control" readonly required>
                                         </div>
                                     </div>
 

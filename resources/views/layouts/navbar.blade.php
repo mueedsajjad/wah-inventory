@@ -946,7 +946,7 @@
                             </li>
                         @endif
 
-                        
+
                             <li class="nav-item has-treeview @if(request()->segment(1)=="admin") menu-open @endif">
                                 <a href="#" class="nav-link  @if(request()->segment(1)=="admin") active @endif">
                                     <i class="nav-icon fas fa-edit"></i>
@@ -963,7 +963,7 @@
                                             <p>Dashboard</p>
                                         </a>
                                     </li>
-                                   
+
                                     <li class="nav-item">
                                         <a href="{{url('admin/employee')}}" class="nav-link @if(request()->segment(2)=="employee") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
@@ -977,7 +977,7 @@
                                         </a>
                                     </li>
                                     @endif
-                                    
+
                                     @if(auth()->user()->can('Accept Leave Request'))
                                         <li class="nav-item">
                                             <a href="{{url('admin/leave')}}" class="nav-link @if(request()->segment(2)=="leave") active @endif">
@@ -986,21 +986,22 @@
                                             </a>
                                         </li>
                                     @endif
-                                    
+                                    @if(auth()->user()->can('Apply for Leave'))
                                         <li class="nav-item">
                                             <a href="{{url('admin/leaveOfficer')}}" class="nav-link @if(request()->segment(2)=="leaveOfficer") active @endif">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Apply for Leaves</p>
                                             </a>
                                         </li>
-                                   
+                                    @endif
+
                                     @if(auth()->user()->can('HR'))
                                     <li class="nav-item">
                                         <a href="{{url('admin/salary')}}" class="nav-link @if(request()->segment(2)=="salary") active @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Salaries</p>
                                         </a>
-                                    </li> 
+                                    </li>
                                     @endif
                                     @if(auth()->user()->can('Apply For Loan'))
                                     <li class="nav-item">
@@ -1028,7 +1029,7 @@
                                     @endif
                                 </ul>
                             </li>
-                       
+
 
                         @if(auth()->user()->hasRole('GM'))
                             <li class="nav-item has-treeview @if(request()->segment(1)=="role" || request()->segment(1)=="permission" || request()->segment(1)=="assign-permission" || request()->segment(1)=="assign-role") menu-open @endif">

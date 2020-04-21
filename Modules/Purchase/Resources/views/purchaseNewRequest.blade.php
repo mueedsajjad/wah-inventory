@@ -161,21 +161,24 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @php $n=0; @endphp
-                                                    @foreach($details as $data)
-                                                        @php $n++; @endphp
-                                                        <tr>
-                                                            <div class="mome">
-                                                                <td><input type="text" class="form-control"  name="" value="{{$data->requisition_id}}" readonly></td>
-                                                                <td><input type="text" class="form-control"  name="material_name[]" value="{{$data->material_name}}" readonly></td>
-                                                                <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
-                                                                <td><input id="quantity" type="text" class="form-control"  name="qty[]" value="{{$data->quantity}}" readonly></td>
-                                                                <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
-                                                                <td><input onchange="priceChange()" id="unitPrice" type="text" class="form-control"  name="unitprice[]" value="" required></td>
-                                                                <td><input id="totalPrice" type="text" class="form-control"  name="totalprice[]" value="" required></td>
-                                                            </div>
-                                                        </tr>
-                                                    @endforeach
+                                                    <div class="moma">
+                                                        @php $n=0; @endphp
+                                                        @foreach($details as $data)
+                                                            @php $n++; @endphp
+                                                            <tr>
+                                                                <div class="mome">
+                                                                    <td><input type="text" class="form-control"  name="" value="{{$data->requisition_id}}" readonly></td>
+                                                                    <td><input type="text" class="form-control"  name="material_name[]" value="{{$data->material_name}}" readonly></td>
+                                                                    <td><input type="text" class="form-control"  name="uom[]" value="{{$data->uom}}" readonly></td>
+                                                                    <td><input id="quantity" type="text" class="form-control quantity"  name="qty[]" value="{{$data->quantity}}" readonly></td>
+                                                                    <td><input type="text" class="form-control"  name="description[]" value="{{$data->description}}" readonly ></td>
+                                                                    <td><input type="text" class="form-control unitPrice"  name="unitprice[]" value="" required></td>
+                                                                    <td><input type="text" class="form-control totalPrice"  name="totalprice[]" value="" required></td>
+                                                                </div>
+                                                            </tr>
+                                                        @endforeach
+                                                    </div>
+
                                                     </tbody>
 
                                                 </table>
@@ -207,7 +210,12 @@
 
 
 @endsection
+<script
+    src="https://code.jquery.com/jquery-3.5.0.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+    crossorigin="anonymous">
 
+</script>
 <script>
     // $('#unitPrice').on("change", function(e) {
     //
@@ -220,13 +228,25 @@
     //
     // });
 
-    function priceChange()
-    {
-        unitPrice=$("#unitPrice").val();
-        quantity=$("#quantity").val();
-        unitPrice=unitPrice*quantity;
-        $("#totalPrice").val(unitPrice);
-        console.log(unitPrice);
 
-    }
+    $('document').ready(function() {
+
+        $('.moma').on('onkeypress', '.unitPrice', function (e) {
+
+            alert('moms')
+
+        });
+
+    });
+
+    // function priceChange()
+    // {
+    //
+    //     unitPrice=$("#unitPrice").val();
+    //     quantity=$("#quantity").val();
+    //     unitPrice=unitPrice*quantity;
+    //     $("#totalPrice").val(unitPrice);
+    //     console.log(unitPrice);
+    //
+    // }
 </script>

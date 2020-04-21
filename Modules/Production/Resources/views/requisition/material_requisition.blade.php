@@ -4,19 +4,24 @@
 
     <section class="content pt-5">
         <div class="container-fluid">
-            @if(!empty($errors->first()))
-                <div class="alert alert-danger"  style="text-align: center">
-                    <span>{{ $errors->first() }}</span>
-                </div>
-            @endif
 
             @if(session()->has('message'))
                 <div class="alert alert-success">
                     {{ session()->get('message') }}
                 </div>
             @endif
-            <div class="row">
 
+                @if($errors->any())
+                    <div class="alert alert-danger text-center">
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
+
+
+
+            <div class="row">
 
                 <div class="col-md-12">
                     <div class="card card-secondary">
@@ -101,14 +106,14 @@
                                                     </thead>
                                                     <tbody id="appendMaterial">
                                                     <tr>
-                                                        <input name="countMaterial" type="hidden" value="1" id="countMaterial">
+                                                        <input name="countMaterial" type="hidden" value="1" id="countMaterial" required>
                                                         <td>1</td>
                                                         <td>
-                                                            <input type="text" name="materialName[]" class="form-control" placeholder="">
+                                                            <input type="text" name="materialName[]" class="form-control" placeholder="" required>
                                                         </td>
                                                         <td>
 
-                                                            <select name="uom[]" class="form-control ">
+                                                            <select name="uom[]" class="form-control " required>
                                                                 <option selected disabled>Select</option>
                                                                 @if(!$units->isempty())
                                                                     @foreach($units as $unit)
@@ -119,7 +124,7 @@
 
                                                         </td>
                                                         <td>
-                                                            <input type="text" name="qty[]" class="form-control" id="" placeholder="">
+                                                            <input type="text" name="qty[]" class="form-control" id="" placeholder="" required>
                                                         </td>
                                                         <td>
                                                             <textarea rows="1" type="text" name="description[]" class="form-control"></textarea>
@@ -162,7 +167,7 @@
             var html='<tr id="deleteMaterial'+count+'">'+
                 '<td>'+count+'</td>'+
                 '<td>'+
-                '<input type="text" name="materialName[]" class="form-control" placeholder="">'+
+                '<input type="text" name="materialName[]" class="form-control" placeholder="" required>'+
                 // '<select name="materialName[]" class="form-control select2">'+
                 //     '<option value="brassHead">Brass Head</option>'+
                 //     '<option value="primer">Primer</option>'+
@@ -184,10 +189,10 @@
                 '</select>'+
                 '</td>'+
                 '<td>'+
-                '<input type="text" name="qty[]" class="form-control" id="" placeholder="">'+
+                '<input type="text" name="qty[]" class="form-control" id="" placeholder="" required>'+
                 '</td>'+
                 '<td>'+
-                '<textarea rows="1" type="text" name="description[]" class="form-control"></textarea>'+
+                '<textarea rows="1" type="text" name="description[]" class="form-control" required></textarea>'+
                 '</td>'+
                 '</tr>';
 

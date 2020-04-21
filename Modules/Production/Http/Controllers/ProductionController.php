@@ -390,18 +390,21 @@ class ProductionController extends Controller
     {
 
         $material_requisition_id = 'MR-'.random_int(999,9999);
-//        dd($material_requisition_id);
-        $data=[
-            'gate_type' => $request->gate_type,
 
-            'material_requisition_id' => $material_requisition_id,
-            'manufacturing_no' => $request->manufacturing_no,
-            'issue_date' => $request->issue_date,
-            'create_date' => Carbon::today(),
+        $data=$request->validate([
+            'gate_type' => 'required|string',
+            'manufacturing_no' => 'required',
+            'issue_date' => 'required|date',
+        ]);
 
-        ];
 
-        $insertProductionMaterial=DB::table('production_material')->insert($data);
+        $insertProductionMaterial=DB::table('production_material')->insert([
+            'gate_type'=> $data['gate_type'],
+            'manufacturing_no'=>$data['manufacturing_no'],
+            'issue_date'=>$data['issue_date'],
+            'material_requisition_id'=>$material_requisition_id,
+            'create_date'=>Carbon::today()
+        ]);
 
         $productionMaterial= DB::table('production_material')->orderBy('id', 'desc')->first();
 
@@ -410,7 +413,6 @@ class ProductionController extends Controller
         for($i=0 ; $i<$request->countMaterial ; $i++){
             $data=[
                 'gate_type' => $request->gate_type,
-
                 'material_requisition_id' => $productionMaterial->material_requisition_id,
                 'material_name' => $request['materialName'][$i],
                 'UOM' => $request['uom'][$i],
@@ -447,39 +449,52 @@ class ProductionController extends Controller
 
     public function componentRequisitionStore(Request $request)
     {
-
         $component_requisition_id = 'CR-'.random_int(999,9999);
 
-        $data=[
-            'gate_type' => $request->gate_type,
-            'component_requisition_id' => $component_requisition_id,
-            'manufacturing_no' => $request->manufacturing_no,
-            'issue_date' => $request->issue_date,
-            'create_date' => Carbon::today(),
-        ];
+        $data=$request->validate([
+            'gate_type' => 'required',
+            'manufacturing_no' => 'required',
+            'issue_date' => 'required|date',
+            ''
+        ]);
 
-
-        $insertProductionMaterial=DB::table('production_component')->insert($data);
+        $insertProductionMaterial=DB::table('production_component')->insert([
+            'gate_type'=> $data['gate_type'],
+            'component_requisition_id'=>  $component_requisition_id,
+            'manufacturing_no'=> $data['manufacturing_no'],
+            'issue_date'=> $data['issue_date'],
+            'create_date'=> Carbon::today()
+        ]);
 
         $productionMaterial= DB::table('production_component')->orderBy('id', 'desc')->first();
 
+       // dd($productionMaterial);
 
         $productionComponent_id=$productionMaterial->id;
 
         for($i=0 ; $i<$request->countMaterial ; $i++){
 
-            $data=[
-                'gate_type' => $request->gate_type,
-                'component_requisition_id' => $component_requisition_id,
-                'component_name' => $request['materialName'][$i],
-                'quantity' => $request['qty'][$i],
-                'description' => $request['description'][$i],
-                'production_component_id' =>$productionComponent_id,
-                'status' =>0,
-            ];
+            $data=$request->validate ([
+                'gate_type' => 'required',
+                'materialName' => 'required',
+                'qty' => 'required',
+            ]);
 
+            //dd($data);
+             $description=$request['description'][$i];
+            $materialName=$request['materialName'][$i];
+            $qty=$request['qty'][$i];
 
-            $insertProductionMaterialDetail=DB::table('production_component_detail')->insert($data);
+            $insertProductionMaterialDetail=DB::table('production_component_detail')->insert([
+
+                'gate_type'=> $data['gate_type'],
+                'component_name'=> $materialName,
+                'component_requisition_id'=> $component_requisition_id,
+                'quantity'=> $qty,
+                'description'=> $description,
+                'production_component_id' => $productionComponent_id,
+                'status' =>0
+            ]);
 
         }
 

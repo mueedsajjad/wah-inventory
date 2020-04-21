@@ -153,6 +153,13 @@ class SeedPermissionsTableSeeder extends Seeder
             'updated_at'=>NOW()
         ]);
 
+        DB::table('permissions')->insert([
+            'name'=>'Apply for Leave',
+            'guard_name'=>'web',
+            'created_at'=>NOW(),
+            'updated_at'=>NOW()
+        ]);
+
         //____________________________ Previous Persmission For HRMS ----------------------- ///
 
 //        DB::table('permissions')->insert([
