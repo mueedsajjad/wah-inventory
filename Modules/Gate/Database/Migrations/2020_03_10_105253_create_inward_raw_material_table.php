@@ -21,6 +21,7 @@ class CreateInwardRawMaterialTable extends Migration
             $table->string('materialName')->nullable();
             $table->string('uom');
             $table->string('qty');
+            $table->string('total_qty_received')->nullable();
             $table->string('order_qty')->nullable();
             $table->string('description');
             $table->string('gatePassId');

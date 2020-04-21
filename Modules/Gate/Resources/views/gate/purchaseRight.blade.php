@@ -7,6 +7,8 @@
                     <option value="">select</option>
                     @foreach($PO as $key=>$PO_id)
                         {{--                    <input type="hidden" name="po_numbu" value="{{$PO_id->id}}">--}}
+
+
                         <option value="{{$PO_id->id}}">{{$PO_id->purchase_order_id}}</option>
                     @endforeach
                 </select>
