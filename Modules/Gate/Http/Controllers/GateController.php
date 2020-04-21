@@ -66,7 +66,20 @@ class GateController extends Controller
         }
         elseif ($request->type == 'purchase'){
 
-//            dd($request->all());
+// dd($request->all());
+//          for ($i=0;$i<count($request->uom);$i++){
+//                  $remaining_qty[]=  $request->qty[$i] - $request->qty_received[$i];
+//          }
+//            dd($remaining_qty);
+
+           $total_qty=DB::table('inward_raw_material')->where('purchase_order_id',$request->po_id)->orderByDesc('id')->first('gatePassId');
+//           dd($total_qty);
+           $t_qty=DB::table('inward_raw_material')->where('gatePassId',$total_qty->gatePassId)->get('total_qty_received');
+//           dd($t_qty);
+           for ($i=0;$i<count($t_qty);$i++){
+               $sum[]=$t_qty[$i]->total_qty_received+$request->qty_received[$i];
+           }
+//           dd($sum);
             $vendor = DB::table('supplier')->find($request->ven_id);
 //            dd($vendor);
 //        dd($request->po_num);
@@ -117,6 +130,7 @@ class GateController extends Controller
             $size = sizeof($request->material_name);
 
             for($i=0 ; $i<$size ; $i++){
+
                 $data=[
                     'requisition_id'=>$por->requisition_id,
                     'purchase_order_id'=>$por->purchase_order_id,
@@ -124,6 +138,7 @@ class GateController extends Controller
                     'materialName' => $request['material_name'][$i],
                     'uom' => $request['uom'][$i],
                     'qty' => $request['qty_received'][$i],
+                    'total_qty_received' => $sum[$i],
                     'order_qty' => $request['qty'][$i],
                     'description' => $request['description'][$i],
                     'gatePassId' => $request->gatePassId,
@@ -194,6 +209,40 @@ class GateController extends Controller
     public function poDetails($data){
         if ($data == 'po'){
             $PO=DB::table('purchase_order_approval')->where('status', 3)->get();
+
+           foreach ($PO as $PO_id){
+               $gatepass[] = \Illuminate\Support\Facades\DB::table('inward_raw_material')->where('purchase_order_id', $PO_id->purchase_order_id)->orderByDesc('id')->first('gatePassId');
+           }
+
+//           dd($gatepass);
+
+           foreach ($gatepass as $gate){
+               if ($gate != null) {
+                   $data = DB::table('inward_raw_material')->where('gatePassId', $gate->gatePassId)->get();
+                   foreach ($data as $data1)
+                   {
+                       $help[]=$data1;
+                   }
+//                   foreach ($help as $key=>$data){
+//
+//                       foreach ($data as $dat){
+//                           if ($dat->total_qty_received != $dat->order_qty){
+//                               $mome[] = $data;
+//                           }else{
+//
+//                           }
+//                       }
+//
+//
+//                  }
+               }
+           }
+            dd($help);
+           foreach ($help as $key=>$row){
+               dd($row->total_qty_received);
+           }
+
+
 
             return view('gate::gate.purchaseRight', compact('PO'));
         }else{
@@ -489,6 +538,7 @@ class GateController extends Controller
     public  function item_details($id){
 
         $purchase_items_details=DB::table('purchase_order_approval_detail')->where('po_id',$id)->get();
+//        dd($purchase_items_details);
 
         return view('gate::gate.item-details', compact('purchase_items_details'));
     }
